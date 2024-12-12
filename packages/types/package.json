@@ -1,0 +1,6 @@
+{
+  "name": "types",
+  "private": true,
+  "main": "index.ts",
+  "type": "module"
+}
