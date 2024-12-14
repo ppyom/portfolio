@@ -1873,13 +1873,13 @@ __metadata:
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
-    config: "workspace:^"
+    config: "npm:*"
     next: "npm:15.1.0"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
-    types: "workspace:^"
+    types: "npm:*"
     typescript: "npm:^5"
-    ui: "workspace:^"
+    ui: "npm:*"
   languageName: unknown
   linkType: soft
 
@@ -2469,7 +2469,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"config@workspace:^, config@workspace:packages/config":
+"config@npm:*, config@workspace:packages/config":
   version: 0.0.0-use.local
   resolution: "config@workspace:packages/config"
   peerDependencies:
@@ -5789,7 +5789,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"types@workspace:^, types@workspace:packages/types":
+"types@npm:*":
+  version: 0.1.1
+  resolution: "types@npm:0.1.1"
+  checksum: 10c0/200b11ea12b7ef9449a74e32f5dd1f93c426f89369f1eaa7af9c5ecf59e011ab014544d4b09cc4ef7ffab05143f3eadb42ea3ff2f5b10d8d4246b193869d8bed
+  languageName: node
+  linkType: hard
+
+"types@workspace:packages/types":
   version: 0.0.0-use.local
   resolution: "types@workspace:packages/types"
   languageName: unknown
@@ -5815,7 +5822,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ui@workspace:^, ui@workspace:packages/ui":
+"ui@npm:*, ui@workspace:packages/ui":
   version: 0.0.0-use.local
   resolution: "ui@workspace:packages/ui"
   dependencies:
@@ -5928,13 +5935,13 @@ __metadata:
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
-    config: "workspace:^"
+    config: "npm:*"
     next: "npm:15.1.0"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
-    types: "workspace:^"
+    types: "npm:*"
     typescript: "npm:^5"
-    ui: "workspace:^"
+    ui: "npm:*"
   languageName: unknown
   linkType: soft
 
