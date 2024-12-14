@@ -1,5 +1,5 @@
 {
-  "name": "types",
+  "name": "@packages/types",
   "private": true,
   "main": "index.ts",
   "type": "module"

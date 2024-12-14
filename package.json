@@ -10,7 +10,7 @@
   "scripts": {
     "user": "yarn workspace user",
     "admin": "yarn workspace admin",
-    "ui": "yarn workspace ui"
+    "ui": "yarn workspace @packages/ui"
   },
   "dependencies": {
     "react": "^19.0.0",

@@ -772,6 +772,44 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@packages/config@workspace:^, @packages/config@workspace:packages/config":
+  version: 0.0.0-use.local
+  resolution: "@packages/config@workspace:packages/config"
+  peerDependencies:
+    tailwindcss: ^3.4.16
+  languageName: unknown
+  linkType: soft
+
+"@packages/types@workspace:^, @packages/types@workspace:packages/types":
+  version: 0.0.0-use.local
+  resolution: "@packages/types@workspace:packages/types"
+  languageName: unknown
+  linkType: soft
+
+"@packages/ui@workspace:^, @packages/ui@workspace:packages/ui":
+  version: 0.0.0-use.local
+  resolution: "@packages/ui@workspace:packages/ui"
+  dependencies:
+    "@chromatic-com/storybook": "npm:3.2.2"
+    "@storybook/addon-essentials": "npm:8.4.7"
+    "@storybook/addon-interactions": "npm:8.4.7"
+    "@storybook/addon-onboarding": "npm:8.4.7"
+    "@storybook/addon-styling-webpack": "npm:^1.0.1"
+    "@storybook/addon-webpack5-compiler-swc": "npm:1.0.5"
+    "@storybook/blocks": "npm:8.4.7"
+    "@storybook/react": "npm:8.4.7"
+    "@storybook/react-webpack5": "npm:8.4.7"
+    "@storybook/test": "npm:8.4.7"
+    postcss-loader: "npm:^8.1.1"
+    storybook: "npm:8.4.7"
+    typescript: "npm:^5.0.0"
+  peerDependencies:
+    react: ^19.0.0
+    react-dom: ^19.0.0
+    tailwindcss: ^3.4.16
+  languageName: unknown
+  linkType: soft
+
 "@pkgjs/parseargs@npm:^0.11.0":
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
@@ -1870,16 +1908,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "admin@workspace:webapps/admin"
   dependencies:
+    "@packages/config": "workspace:^"
+    "@packages/types": "workspace:^"
+    "@packages/ui": "workspace:^"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
-    config: "npm:*"
     next: "npm:15.1.0"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
-    types: "npm:*"
     typescript: "npm:^5"
-    ui: "npm:*"
   languageName: unknown
   linkType: soft
 
@@ -2468,14 +2506,6 @@ __metadata:
   checksum: 10c0/c996b1cfdf95b6c90fee4dae37e332c8b6eb7d106430c17d538034c0ad9a1630cb194d2ab37293b1bdd4d779494beee7786d586a50bd9376fd6f7bcc2bd4c98f
   languageName: node
   linkType: hard
-
-"config@npm:*, config@workspace:packages/config":
-  version: 0.0.0-use.local
-  resolution: "config@workspace:packages/config"
-  peerDependencies:
-    tailwindcss: ^3.4.16
-  languageName: unknown
-  linkType: soft
 
 "constants-browserify@npm:^1.0.0":
   version: 1.0.0
@@ -5789,19 +5819,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"types@npm:*":
-  version: 0.1.1
-  resolution: "types@npm:0.1.1"
-  checksum: 10c0/200b11ea12b7ef9449a74e32f5dd1f93c426f89369f1eaa7af9c5ecf59e011ab014544d4b09cc4ef7ffab05143f3eadb42ea3ff2f5b10d8d4246b193869d8bed
-  languageName: node
-  linkType: hard
-
-"types@workspace:packages/types":
-  version: 0.0.0-use.local
-  resolution: "types@workspace:packages/types"
-  languageName: unknown
-  linkType: soft
-
 "typescript@npm:^5, typescript@npm:^5.0.0, typescript@npm:^5.7.2":
   version: 5.7.2
   resolution: "typescript@npm:5.7.2"
@@ -5821,30 +5838,6 @@ __metadata:
   checksum: 10c0/f3b8082c9d1d1629a215245c9087df56cb784f9fb6f27b5d55577a20e68afe2a889c040aacff6d27e35be165ecf9dca66e694c42eb9a50b3b2c451b36b5675cb
   languageName: node
   linkType: hard
-
-"ui@npm:*, ui@workspace:packages/ui":
-  version: 0.0.0-use.local
-  resolution: "ui@workspace:packages/ui"
-  dependencies:
-    "@chromatic-com/storybook": "npm:3.2.2"
-    "@storybook/addon-essentials": "npm:8.4.7"
-    "@storybook/addon-interactions": "npm:8.4.7"
-    "@storybook/addon-onboarding": "npm:8.4.7"
-    "@storybook/addon-styling-webpack": "npm:^1.0.1"
-    "@storybook/addon-webpack5-compiler-swc": "npm:1.0.5"
-    "@storybook/blocks": "npm:8.4.7"
-    "@storybook/react": "npm:8.4.7"
-    "@storybook/react-webpack5": "npm:8.4.7"
-    "@storybook/test": "npm:8.4.7"
-    postcss-loader: "npm:^8.1.1"
-    storybook: "npm:8.4.7"
-    typescript: "npm:^5.0.0"
-  peerDependencies:
-    react: ^19.0.0
-    react-dom: ^19.0.0
-    tailwindcss: ^3.4.16
-  languageName: unknown
-  linkType: soft
 
 "undici-types@npm:~6.19.2":
   version: 6.19.8
@@ -5932,16 +5925,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "user@workspace:webapps/user"
   dependencies:
+    "@packages/config": "workspace:^"
+    "@packages/types": "workspace:^"
+    "@packages/ui": "workspace:^"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
-    config: "npm:*"
     next: "npm:15.1.0"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
-    types: "npm:*"
     typescript: "npm:^5"
-    ui: "npm:*"
   languageName: unknown
   linkType: soft
 

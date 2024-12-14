@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import type { ChildrenProps } from 'types/components';
-import 'ui/styles.css';
+import type { ChildrenProps } from '@packages/types/components';
+import '@packages/ui/styles.css';
 
 export const metadata: Metadata = {
   title: 'PPYOM',

@@ -9,12 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "config": "*",
+    "@packages/config": "workspace:^",
+    "@packages/types": "workspace:^",
+    "@packages/ui": "workspace:^",
     "next": "15.1.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "types": "*",
-    "ui": "*"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
