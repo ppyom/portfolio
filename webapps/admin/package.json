@@ -9,9 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@packages/config": "workspace:^",
-    "@packages/types": "workspace:^",
-    "@packages/ui": "workspace:^",
+    "@packages/config": "workspace:*",
+    "@packages/types": "workspace:*",
+    "@packages/ui": "workspace:*",
     "next": "15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
