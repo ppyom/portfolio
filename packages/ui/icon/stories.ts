@@ -3,7 +3,7 @@ import { Icon } from './index';
 import { IconTypes } from './icons';
 
 const meta: Meta<typeof Icon> = {
-  title: 'components/Icon',
+  title: 'common/Icon',
   component: Icon,
   argTypes: {
     type: {
