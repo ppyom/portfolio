@@ -1,5 +1,6 @@
 import React from 'react';
-import type { ChildrenProps } from 'types/components';
+import type { ChildrenProps } from '@packages/types/components';
+import { cn } from '../../utils';
 
 export const typographyTypes = [
   'heading',
@@ -18,40 +19,19 @@ interface Props extends ChildrenProps {
   className?: string;
 }
 
-const getStyles = (type: Props['type'], className: string) => {
-  const classNames = [];
-
-  if (type === 'heading') {
-    classNames.push('text-2xl font-extrabold leading-snug');
-  } else {
-    classNames.push('leading-normal');
-
-    if (type.includes('title')) {
-      classNames.push('text-base');
-    }
-    if (type.includes('description')) {
-      classNames.push('text-sm');
-    }
-    if (type.includes('caption')) {
-      classNames.push('text-xs');
-    }
-
-    if (type.includes('bold')) {
-      classNames.push('font-bold');
-    }
-  }
-
-  if (className) {
-    classNames.push(className);
-  }
-
-  return classNames.join(' ');
-};
-
-export const Typography = ({
-  type = 'title',
-  className = '',
-  children,
-}: Props) => {
-  return <div className={getStyles(type, className)}>{children}</div>;
+export const Typography = ({ type = 'title', className, children }: Props) => {
+  return (
+    <div
+      className={cn(
+        type === 'heading' && 'text-2xl font-extrabold leading-snug',
+        type.includes('title') && 'text-base leading-normal',
+        type.includes('description') && 'text-sm leading-normal',
+        type.includes('caption') && 'text-xs leading-normal',
+        type.includes('bold') && 'font-bold',
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
 };

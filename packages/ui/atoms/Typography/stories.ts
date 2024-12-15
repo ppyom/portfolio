@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Typography, typographyTypes } from './index';
 
 const meta: Meta<typeof Typography> = {
-  title: 'components/atoms/typography',
+  title: 'components/atoms/Typography',
   component: Typography,
   argTypes: {
     type: {
@@ -16,6 +16,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    type: 'title',
     children: '텍스트를 입력해주세요.',
   },
 };
