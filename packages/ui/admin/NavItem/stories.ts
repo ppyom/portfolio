@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { NavItem } from './index';
-import { IconTypes } from '../../icon/icons';
+import { IconTypes } from '@packages/types/components';
 
 const meta: Meta<typeof NavItem> = {
   title: 'admin/NavItem',
