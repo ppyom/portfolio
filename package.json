@@ -8,12 +8,14 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "ui": "yarn workspace @packages/ui",
     "user": "yarn workspace user",
+    "sb": "yarn workspace sb",
     "admin": "yarn workspace admin"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "next": "15.1.0"
   },
   "devDependencies": {
     "@types/react": "^19.0.1",
