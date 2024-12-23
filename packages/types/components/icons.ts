@@ -1,7 +1,9 @@
 import {
   FiBell,
   FiCheckSquare,
+  FiChevronRight,
   FiLayers,
+  FiMenu,
   FiMonitor,
   FiServer,
   FiUser,
@@ -15,6 +17,8 @@ export const IconTypes = [
   'my',
   'skills',
   'projects',
+  'menu',
+  'right',
 ] as const;
 
 export type IconName = (typeof IconTypes)[number];
@@ -26,4 +30,6 @@ export const IconObject: Record<IconName, IconType> = {
   my: FiUser,
   skills: FiLayers,
   projects: FiServer,
+  menu: FiMenu,
+  right: FiChevronRight,
 };

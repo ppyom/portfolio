@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
+import { NavItem } from './index';
 import { IconTypes } from '@packages/types/components';
-import { Icon } from './index';
 
-const meta: Meta<typeof Icon> = {
-  title: 'common/Icon',
-  component: Icon,
+const meta: Meta<typeof NavItem> = {
+  title: 'admin/NavItem',
+  component: NavItem,
   argTypes: {
-    type: {
+    icon: {
       control: 'select',
       options: IconTypes,
     },
@@ -17,7 +17,10 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    type: 'test',
+    icon: 'test',
+    title: '메뉴이름',
+    pathname: '/',
+    isActive: false,
   },
 };
 

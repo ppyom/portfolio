@@ -5,7 +5,7 @@ import { cn } from '../../utils';
 type ButtonProps = Pick<React.ComponentPropsWithoutRef<'button'>, 'onClick'>;
 
 interface Props extends ChildrenProps, ButtonProps {
-  className: string;
+  className?: string;
 }
 
 export const Button = ({ children, onClick, className }: Props) => {
