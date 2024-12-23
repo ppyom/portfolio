@@ -9,9 +9,8 @@ interface Props {
 
 export const NavBar = ({ menus }: Props) => {
   const pathname = usePathname();
-  console.log(pathname);
   return (
-    <div>
+    <nav>
       {menus.map((menu) => (
         <NavItem
           key={`navbar_${menu.pathname}`}
@@ -19,6 +18,6 @@ export const NavBar = ({ menus }: Props) => {
           isActive={pathname === menu.pathname}
         />
       ))}
-    </div>
+    </nav>
   );
 };

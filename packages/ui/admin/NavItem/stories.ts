@@ -19,8 +19,8 @@ export const Default: Story = {
   args: {
     icon: 'test',
     title: '메뉴이름',
+    pathname: '/',
     isActive: false,
-    onClick: () => alert('clicked!'),
   },
 };
 

@@ -1,9 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { NavBar } from './index';
+import { RouterProvider } from '../../storybook/RouterProvider';
 
 const meta: Meta<typeof NavBar> = {
   title: 'admin/NavBar',
   component: NavBar,
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+    },
+  },
+  decorators: RouterProvider,
 };
 
 type Story = StoryObj<typeof meta>;
