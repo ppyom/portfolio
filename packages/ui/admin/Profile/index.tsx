@@ -1,4 +1,4 @@
-import { Avatar } from '..';
+import { Avatar } from '../Avatar';
 import { Typography } from '../../atoms';
 import { cn } from '../../utils';
 

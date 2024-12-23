@@ -1,7 +1,7 @@
 import type { IconName } from './icons';
 
 export interface Menu {
-  icon: IconName;
+  icon?: IconName;
   title: string;
   pathname: string;
 }
