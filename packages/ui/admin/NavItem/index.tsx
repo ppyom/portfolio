@@ -5,7 +5,7 @@ import { Typography } from '../../atoms';
 import Link from 'next/link';
 
 interface Props {
-  icon: ComponentProps<typeof Icon>['type'];
+  icon?: ComponentProps<typeof Icon>['type'];
   title: string;
   pathname: string;
   isActive?: boolean;

@@ -14,6 +14,7 @@ export const Header = ({ menus, name, image, isGuest }: Props) => {
         'flex items-center justify-between',
         'p-4',
         'bg-base-white shadow',
+        'sticky top-0 z-40',
       )}
     >
       <Breadcrumb menus={menus} />

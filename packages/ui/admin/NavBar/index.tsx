@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import type { Menu } from '@packages/types/components';
 import { NavItem } from '../NavItem';
