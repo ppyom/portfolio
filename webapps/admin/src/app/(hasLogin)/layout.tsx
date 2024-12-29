@@ -15,10 +15,10 @@ const MainLayout = ({ children }: ChildrenProps) => {
           { icon: 'projects', title: '프로젝트', pathname: '/projects' },
         ]}
       />
-      <main className={cn('flex-1')}>
+      <div className={cn('flex-1')}>
         <Header menus={[]} name={'이예진'} image={null} />
         {children}
-      </main>
+      </div>
     </div>
   );
 };
