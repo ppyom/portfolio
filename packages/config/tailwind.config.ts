@@ -10,14 +10,14 @@ const config: Omit<Config, 'content'> = {
         },
         brand: {
           primary: {
-            DEFAULT: '#ffdd61',
-            light: '#fff1be',
-            dark: '#ffc800',
+            DEFAULT: '#ebd19d',
+            light: '#f7e6c5',
+            dark: '#baa271',
           },
           secondary: {
-            DEFAULT: '#617BFF',
-            light: '#BEC9FF',
-            dark: '#002BFF',
+            DEFAULT: '#3f97af',
+            light: '#8fdbef',
+            dark: '#0D687E',
           },
         },
         service: {
