@@ -1,5 +1,7 @@
+import { PageLayout } from '@components/layout/PageLayout';
+
 const SkillsPage = () => {
-  return <>Skills</>;
+  return <PageLayout>Skills</PageLayout>;
 };
 
 export default SkillsPage;

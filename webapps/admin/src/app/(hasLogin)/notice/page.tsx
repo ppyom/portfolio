@@ -1,5 +1,7 @@
+import { PageLayout } from '@components/layout/PageLayout';
+
 const NoticePage = () => {
-  return <>Notice</>;
+  return <PageLayout>Notice</PageLayout>;
 };
 
 export default NoticePage;
