@@ -1,11 +1,12 @@
 import Link from 'next/link';
-import { Button, Input, Typography } from '@packages/ui/atoms';
+import { Typography } from '@packages/ui/commons';
 import { paths } from '@constants';
+import { LoginForm } from '@components/feature';
 
 const LoginPage = () => {
   return (
     <div className="flex flex-col gap-2">
-      <Link className="self-end" href="/login/code">
+      <LoginForm />
       <Link className="self-end" href={paths.login.code.path}>
         <Typography
           type="caption"
