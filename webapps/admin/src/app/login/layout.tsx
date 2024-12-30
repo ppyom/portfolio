@@ -15,7 +15,7 @@ const LoginLayout = ({ children }: ChildrenProps) => {
         className={cn(
           'max-w-80 w-full',
           'px-4 pt-8 pb-4 rounded-lg',
-          'flex flex-col',
+          'flex flex-col gap-4',
           'bg-neutral-50/90',
         )}
       >
