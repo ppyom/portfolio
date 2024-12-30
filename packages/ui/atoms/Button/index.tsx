@@ -6,9 +6,19 @@ type ButtonProps = Pick<React.ComponentPropsWithoutRef<'button'>, 'onClick'>;
 
 interface Props extends ChildrenProps, ButtonProps {
   className?: string;
+  bg?:
+    | 'primary'
+    | 'secondary'
+    // className으로 색상을 지정할 때 사용
+    | 'auto';
 }
 
-export const Button = ({ children, onClick, className }: Props) => {
+export const Button = ({
+  children,
+  onClick,
+  className,
+  bg = 'primary',
+}: Props) => {
   return (
     <button
       className={cn(
@@ -16,7 +26,12 @@ export const Button = ({ children, onClick, className }: Props) => {
         'py-2',
         'text-sm',
         'rounded-lg',
-        'bg-neutral-300 hover:brightness-90',
+        bg === 'primary'
+          ? 'bg-brand-primary text-base-black'
+          : bg === 'secondary'
+            ? 'bg-brand-secondary text-base-white'
+            : null,
+        'hover:brightness-90',
         'duration-200',
         'cursor-pointer',
         className,

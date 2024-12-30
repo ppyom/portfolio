@@ -12,6 +12,7 @@ export const Default: Story = {
   args: {
     children: 'Button',
     onClick: () => alert('clicked!'),
+    bg: 'primary',
   },
 };
 
