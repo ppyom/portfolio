@@ -32,7 +32,7 @@ export const Input = ({
       )}
       value={value}
       onChange={onChange}
-      placeholder={placeholder}
+      placeholder={placeholder || ' '}
       disabled={disabled}
     />
   );
