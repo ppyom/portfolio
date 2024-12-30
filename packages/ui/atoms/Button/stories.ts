@@ -4,6 +4,11 @@ import { Button } from './index';
 const meta: Meta<typeof Button> = {
   title: 'common/atom/Button',
   component: Button,
+  argTypes: {
+    disabled: {
+      control: 'boolean',
+    },
+  },
 };
 
 type Story = StoryObj<typeof meta>;

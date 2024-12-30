@@ -2,7 +2,10 @@ import React from 'react';
 import type { ChildrenProps } from '@packages/types/components';
 import { cn } from '../../utils';
 
-type ButtonProps = Pick<React.ComponentPropsWithoutRef<'button'>, 'onClick'>;
+type ButtonProps = Pick<
+  React.ComponentPropsWithoutRef<'button'>,
+  'onClick' | 'disabled'
+>;
 
 interface Props extends ChildrenProps, ButtonProps {
   className?: string;
@@ -17,6 +20,7 @@ export const Button = ({
   children,
   onClick,
   className,
+  disabled,
   bg = 'primary',
 }: Props) => {
   return (
@@ -34,9 +38,11 @@ export const Button = ({
         'hover:brightness-90',
         'duration-200',
         'cursor-pointer',
+        'disabled:pointer-events-none disabled:grayscale-[0.5] disabled:opacity-80',
         className,
       )}
       onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>
