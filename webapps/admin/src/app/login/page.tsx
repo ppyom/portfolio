@@ -1,13 +1,12 @@
 import Link from 'next/link';
 import { Button, Input, Typography } from '@packages/ui/atoms';
-import { Button, Input, Typography } from '@packages/ui/commons';
+import { paths } from '@constants';
 
 const LoginPage = () => {
   return (
     <div className="flex flex-col gap-2">
-      <Input placeholder="로그인 코드 입력" />
-      <Button bg="secondary">로그인</Button>
       <Link className="self-end" href="/login/code">
+      <Link className="self-end" href={paths.login.code.path}>
         <Typography
           type="caption"
           className="text-brand-primary-dark duration-200 hover:text-brand-secondary-dark"
