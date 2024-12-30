@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button } from './index';
 
 const meta: Meta<typeof Button> = {
-  title: 'common/atom/Button',
+  title: 'common/Button',
   component: Button,
   argTypes: {
     disabled: {

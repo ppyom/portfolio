@@ -1,7 +1,7 @@
 import React, { type ComponentProps } from 'react';
 import { cn } from '../../utils';
 import { Icon } from '../../icon';
-import { Typography } from '../../atoms';
+import { Typography } from '../../commons';
 import Link from 'next/link';
 
 interface Props {

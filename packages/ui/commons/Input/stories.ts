@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Input } from './index';
 
 const meta: Meta<typeof Input> = {
-  title: 'common/atom/Input',
+  title: 'common/Input',
   component: Input,
   argTypes: {
     value: {

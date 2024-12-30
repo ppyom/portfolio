@@ -1,4 +1,4 @@
-import { Button, Input, Typography } from '@packages/ui/atoms';
+import { Button, Input, Typography } from '@packages/ui/commons';
 import Link from 'next/link';
 
 const CodePage = () => {

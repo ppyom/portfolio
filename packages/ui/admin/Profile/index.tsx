@@ -1,5 +1,5 @@
 import { Avatar } from '../Avatar';
-import { Typography } from '../../atoms';
+import { Typography } from '../../commons';
 import { cn } from '../../utils';
 
 interface Props {

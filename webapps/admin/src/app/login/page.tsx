@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Button, Input, Typography } from '@packages/ui/atoms';
+import { Button, Input, Typography } from '@packages/ui/commons';
 
 const LoginPage = () => {
   return (
