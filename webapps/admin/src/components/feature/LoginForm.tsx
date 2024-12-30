@@ -9,6 +9,7 @@ export const LoginForm = () => {
   const {
     value: code,
     onChange: handleCodeChange,
+    isEmpty,
     error,
     setError,
   } = useInput();
@@ -38,7 +39,7 @@ export const LoginForm = () => {
       <Button
         bg="secondary"
         onClick={handleLoginButtonClick}
-        disabled={code === ''}
+        disabled={isEmpty || !!error}
       >
         로그인
       </Button>

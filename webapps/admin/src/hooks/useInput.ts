@@ -1,4 +1,4 @@
-import { type ChangeEvent, useEffect, useState } from 'react';
+import { type ChangeEvent, useEffect, useMemo, useState } from 'react';
 
 interface Props {
   defaultValue?: string;
@@ -28,6 +28,8 @@ export const useInput = ({ defaultValue, rule }: Props = {}) => {
   const [value, setValue] = useState(defaultValue || '');
   const [error, setError] = useState('');
 
+  const isEmpty = useMemo(() => !value.trim(), [value]);
+
   const handleChangeTextValue = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
   };
@@ -42,6 +44,7 @@ export const useInput = ({ defaultValue, rule }: Props = {}) => {
   return {
     value,
     onChange: handleChangeTextValue,
+    isEmpty,
     error,
     setError,
   };
