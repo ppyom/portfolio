@@ -2,16 +2,16 @@ import { type ChangeEvent, useEffect, useMemo, useState } from 'react';
 
 interface Props {
   defaultValue?: string;
-  rule?: (value: string) => string | undefined | false | null;
+  check?: (value: string) => string | undefined | false | null;
 }
 
 /**
- * Input을 위한 훅
+ * Input 사용을 위한 훅
  * @param defaultValue input의 기본 값
- * @param rule value를 체크해 유효하지 않다면 에러메시지를 반환하는 함수
+ * @param check value를 체크해 유효하지 않다면 에러메시지를 반환하는 함수
  * @example 이메일 입력을 처리하는 컴포넌트
  * const Example = () => {
- *   const { value: email, onChange, error } = useInput({ rule: handleCheckEmail });
+ *   const { value: email, onChange, error } = useInput({ check: handleCheckEmail });
  *   return (
  *      <div>
  *        <Input value={email} onChange={onChange} />
@@ -24,7 +24,7 @@ interface Props {
  *   );
  * }
  */
-export const useInput = ({ defaultValue, rule }: Props = {}) => {
+export const useInput = ({ defaultValue, check }: Props = {}) => {
   const [value, setValue] = useState(defaultValue || '');
   const [error, setError] = useState('');
 
@@ -36,8 +36,8 @@ export const useInput = ({ defaultValue, rule }: Props = {}) => {
 
   useEffect(() => {
     setError('');
-    if (rule) {
-      setError(rule(value) || '');
+    if (check) {
+      setError(check(value) || '');
     }
   }, [value]);
 
