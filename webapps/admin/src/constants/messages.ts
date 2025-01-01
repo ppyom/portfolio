@@ -7,6 +7,7 @@ export const messages = {
     login: {
       emptyCode: '코드를 입력해주세요.',
       invalidCode: '유효하지 않은 코드입니다.',
+      invalidEmail: '이메일 형식으로 입력해주세요.',
     },
   },
 } as const;

@@ -1,11 +1,11 @@
-import { Button, Input, Typography } from '@packages/ui/commons';
 import Link from 'next/link';
+import { Typography } from '@packages/ui/commons';
+import { CodeGeneratorForm } from '@components/feature';
 
 const CodePage = () => {
   return (
     <div className="flex flex-col gap-2">
-      <Input placeholder="이메일 주소 입력" />
-      <Button bg="secondary">로그인 코드 발급</Button>
+      <CodeGeneratorForm />
       <Link className="self-end" href="/login" replace>
         <Typography
           type="caption"
