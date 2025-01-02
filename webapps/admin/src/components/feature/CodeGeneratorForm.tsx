@@ -4,8 +4,11 @@ import { Button, Input, Typography } from '@packages/ui/commons';
 import { cn } from '@packages/ui/utils';
 import { useInput } from '@hooks';
 import { checkEmailPattern } from '@utils/validate';
+import { api } from '@services/api';
+import { useRouter } from 'next/navigation';
 
 export const CodeGeneratorForm = () => {
+  const { replace } = useRouter();
   const {
     value: email,
     onChange,
@@ -14,8 +17,17 @@ export const CodeGeneratorForm = () => {
   } = useInput({ check: checkEmailPattern });
 
   const handleCodeGeneration = () => {
-    // TODO 코드 발급
-    // 완료 시 로그인으로 이동
+    api
+      .post('auth/code', { email })
+      .then(() => {
+        console.log('성공!');
+        // TODO 완료 처리 필요!!!! (ex. Toast)
+        replace('/login');
+      })
+      .catch((error) => {
+        console.error(error.message);
+        // TODO 에러 처리 필요!!!! (ex. Toast)
+      });
   };
 
   return (
