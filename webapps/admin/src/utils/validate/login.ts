@@ -2,10 +2,14 @@ import { messages } from '@constants';
 
 /**
  * 로그인 버튼을 눌렀을 때 실행될 유효성 검사 함수
+ * @param email 입력된 이메일주소
  * @param code 입력된 코드
  * @returns 'OK' 또는 오류메시지
  */
-export const checkLoginCode = (code: string) => {
+export const checkLoginCode = (email: string, code: string) => {
+  if (email === '') {
+    return messages.validate.login.emptyEmail;
+  }
   if (code === '') {
     return messages.validate.login.emptyCode;
   }

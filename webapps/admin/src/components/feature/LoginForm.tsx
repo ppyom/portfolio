@@ -5,7 +5,12 @@ import { cn } from '@packages/ui/utils';
 import { useInput } from '@hooks';
 import { checkLoginCode } from '@utils/validate';
 
-export const LoginForm = () => {
+interface Props {
+  email: string;
+  isEmailEmpty: boolean;
+}
+
+export const LoginForm = ({ email, isEmailEmpty }: Props) => {
   const {
     value: code,
     onChange: handleCodeChange,
@@ -15,7 +20,7 @@ export const LoginForm = () => {
   } = useInput();
 
   const handleLoginButtonClick = () => {
-    const result = checkLoginCode(code);
+    const result = checkLoginCode(email, code);
     if (result !== 'OK') {
       setError(result);
     }
@@ -39,7 +44,7 @@ export const LoginForm = () => {
       <Button
         bg="secondary"
         onClick={handleLoginButtonClick}
-        disabled={isEmpty || !!error}
+        disabled={isEmpty || isEmailEmpty || !!error}
       >
         로그인
       </Button>

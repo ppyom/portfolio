@@ -17,6 +17,7 @@ export const messages = {
   },
   validate: {
     login: {
+      emptyEmail: '이메일 주소를 입력해주세요.',
       emptyCode: '코드를 입력해주세요.',
       invalidCode: '유효하지 않은 코드입니다.',
       invalidEmail: '이메일 형식으로 입력해주세요.',
