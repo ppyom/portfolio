@@ -10,7 +10,7 @@ export const POST = async (req: NextRequest) => {
   const { email } = await req.json();
 
   if (!email) {
-    return response({ message: '이메일주소가 존재하지 않습니다.' }, 400);
+    return response({ message: messages.mail.response.notFound }, 400);
   }
 
   const code = createCode();
@@ -23,8 +23,8 @@ export const POST = async (req: NextRequest) => {
       messages.mail.code.body(email, code),
     );
 
-    return response({ message: '성공적으로 전송을 완료했습니다.' }, 200);
+    return response({ message: messages.mail.response.ok }, 200);
   } catch (error) {
-    return response({ message: '메일을 전송하지 못했습니다.' }, 400);
+    return response({ message: messages.mail.response.fail }, 400);
   }
 };
