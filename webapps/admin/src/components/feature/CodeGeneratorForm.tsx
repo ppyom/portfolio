@@ -9,13 +9,18 @@ interface Props
   extends Pick<
     ReturnType<typeof useInput>,
     'value' | 'onChange' | 'error' | 'isEmpty'
-  > {}
+  > {
+  isGenerated: boolean;
+  ok: () => void;
+}
 
 export const CodeGeneratorForm = ({
   value: email,
   onChange,
   error,
   isEmpty,
+  isGenerated,
+  ok,
 }: Props) => {
   const handleCodeGeneration = () => {
     api
@@ -23,6 +28,7 @@ export const CodeGeneratorForm = ({
       .then(() => {
         console.log('성공!');
         // TODO 완료 처리 필요!!!! (ex. Toast)
+        ok();
       })
       .catch((error) => {
         console.error(error.message);
@@ -37,12 +43,13 @@ export const CodeGeneratorForm = ({
         placeholder="이메일 주소 입력"
         value={email}
         onChange={onChange}
+        disabled={isGenerated}
       />
       <Button
         className="ml-1"
         bg="secondary"
         onClick={handleCodeGeneration}
-        disabled={isEmpty || !!error}
+        disabled={isEmpty || !!error || isGenerated}
       >
         코드 발급
       </Button>

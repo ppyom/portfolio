@@ -1,9 +1,9 @@
-import type { ComponentPropsWithoutRef } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import { cn } from '../../utils';
 
 type InputProps = Pick<
-  ComponentPropsWithoutRef<'input'>,
-  'value' | 'onChange' | 'placeholder' | 'name' | 'id' | 'disabled'
+  ComponentPropsWithRef<'input'>,
+  'ref' | 'value' | 'onChange' | 'placeholder' | 'name' | 'id' | 'disabled'
 >;
 
 interface Props extends InputProps {
