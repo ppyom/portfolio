@@ -55,7 +55,7 @@ export const LoginForm = ({ email, isGenerated }: Props) => {
       <Button
         bg="secondary"
         onClick={handleLoginButtonClick}
-        disabled={!isGenerated || !!error}
+        disabled={isEmpty || !isGenerated || !!error}
       >
         로그인
       </Button>
