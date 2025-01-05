@@ -3,6 +3,9 @@ import { response } from '@services';
 import { messages } from '@constants';
 import { checkCode } from '@services/db';
 
+/**
+ * 로그인
+ */
 export const POST = async (req: NextRequest) => {
   const { email, code } = await req.json();
 

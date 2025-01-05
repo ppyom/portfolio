@@ -27,6 +27,11 @@ export const setLoginCode = async (email: string, code: string) => {
   return typeof result !== 'string' ? messages.ok : result;
 };
 
+/**
+ * 이메일주소와 코드, 코드의 유효 기간을 비교해 로그인 할 수 있는지 여부를 처리
+ * @param email 이메일 주소
+ * @param code 입력된 코드
+ */
 export const checkCode = async (email: string, code: string) => {
   const result = await selectByEmail(email);
 
