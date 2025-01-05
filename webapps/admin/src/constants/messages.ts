@@ -23,4 +23,8 @@ export const messages = {
       invalidEmail: '이메일 형식으로 입력해주세요.',
     },
   },
+  error: {
+    db: '데이터 처리 중 오류가 발생했습니다.',
+    unknown: '알 수 없는 오류가 발생했습니다.',
+  },
 } as const;

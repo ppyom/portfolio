@@ -12,6 +12,9 @@ const getByENV = (
 };
 
 export const config = {
+  db: {
+    url: getByENV('DATABASE_URL'),
+  },
   smtp: {
     service: getByENV('SMTP_SERVICE'),
     user: getByENV('SMTP_USER'),
