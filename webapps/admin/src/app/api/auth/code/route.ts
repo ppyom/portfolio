@@ -2,6 +2,7 @@ import { NextRequest } from 'next/server';
 import { response, sendMail } from '@services';
 import { messages } from '@constants';
 import { createCode } from '@utils';
+import { setLoginCode } from '@services/db';
 
 /**
  * 코드를 발급하는 API
@@ -14,14 +15,16 @@ export const POST = async (req: NextRequest) => {
   }
 
   const code = createCode();
-  // TODO DB에 메일주소 / 코드 저장
 
   try {
-    await sendMail(
+    sendMail(
       email,
       messages.mail.code.title,
       messages.mail.code.body(email, code),
-    );
+    ).then((value) => {
+      console.log(value);
+      return setLoginCode(email, code);
+    });
 
     return response({ message: messages.mail.response.ok }, 200);
   } catch (error) {

@@ -26,5 +26,8 @@ export const messages = {
   error: {
     db: '데이터 처리 중 오류가 발생했습니다.',
     unknown: '알 수 없는 오류가 발생했습니다.',
+    auth: {
+      invalidInformation: '로그인 정보가 올바르지 않습니다.',
+    },
   },
 } as const;
