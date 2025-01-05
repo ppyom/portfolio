@@ -15,6 +15,11 @@ export const messages = {
       notFound: '이메일주소가 존재하지 않습니다.',
     },
   },
+  login: {
+    response: {
+      required: '이메일, 로그인 코드는 필수로 입력되어야 합니다.',
+    },
+  },
   validate: {
     login: {
       emptyEmail: '이메일 주소를 입력해주세요.',

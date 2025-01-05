@@ -29,9 +29,10 @@ export const setLoginCode = async (email: string, code: string) => {
 
 export const checkCode = async (email: string, code: string) => {
   const result = await selectByEmail(email);
-  if (result?.code === code) {
+
+  if (result?.code === code && dayjs().isBefore(result?.expiredat)) {
     return messages.ok;
-  } else {
-    throw new Error(messages.error.auth.invalidInformation);
   }
+
+  return messages.error.auth.invalidInformation;
 };

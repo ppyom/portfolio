@@ -21,8 +21,8 @@ export const LoginForm = ({ email, isGenerated }: Props) => {
     setError,
   } = useInput();
 
-  const handleLoginButtonClick = () => {
-    const result = checkLoginCode(email, code);
+  const handleLoginButtonClick = async () => {
+    const result = await checkLoginCode(email, code);
     if (result !== 'OK') {
       setError(result);
     }
@@ -55,7 +55,7 @@ export const LoginForm = ({ email, isGenerated }: Props) => {
       <Button
         bg="secondary"
         onClick={handleLoginButtonClick}
-        disabled={isEmpty || isGenerated || !!error}
+        disabled={!isGenerated || !!error}
       >
         로그인
       </Button>
