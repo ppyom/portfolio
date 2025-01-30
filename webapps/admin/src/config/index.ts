@@ -20,4 +20,10 @@ export const config = {
     user: getByENV('SMTP_USER'),
     password: getByENV('SMTP_PASSWORD'),
   },
+  jwt: {
+    secret: {
+      access: getByENV('JWT_SECRET'),
+      refresh: getByENV('JWT_REFRESH_SECRET'),
+    },
+  },
 };

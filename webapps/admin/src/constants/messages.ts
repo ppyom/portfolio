@@ -34,5 +34,9 @@ export const messages = {
     auth: {
       invalidInformation: '로그인 정보가 올바르지 않습니다.',
     },
+    jwt: {
+      expired: '만료된 토큰입니다.',
+      invalid: '유효하지 않은 토큰입니다.',
+    },
   },
 } as const;
