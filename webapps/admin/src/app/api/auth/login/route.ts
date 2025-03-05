@@ -19,7 +19,7 @@ export const POST = async (req: NextRequest) => {
 
   if (result === 'OK') {
     const [accessToken, refreshToken] = [
-      await generateToken({ id: 0, email }, { expiresIn: '1h' }),
+      await generateToken({ id: 0, email }, { expiresIn: '10s' }),
       await generateToken({ id: 0, email }, { expiresIn: '30d' }, 'refresh'),
     ];
 

@@ -40,24 +40,22 @@ export const verifyToken = async (
 ) => {
   try {
     const secretKey = getSecretKey(type);
-    const { payload } = await jwtVerify(token, secretKey, {
+    const { payload } = await jwtVerify<Payload>(token, secretKey, {
       algorithms: ['HS256'],
     });
     return payload;
   } catch (error) {
     if (error instanceof JOSEError) {
       if (error.code === 'ERR_JWT_EXPIRED') {
-        return messages.error.jwt.expired;
+        throw new Error(messages.error.jwt.expired);
       }
       if (error.code === 'ERR_JWS_INVALID') {
-        return messages.error.jwt.invalid;
+        throw new Error(messages.error.jwt.invalid);
       }
       if (error.code === 'ERR_JWS_SIGNATURE_VERIFICATION_FAILED') {
-        return messages.error.jwt.expired;
+        throw new Error(messages.error.jwt.expired);
       }
     }
-
-    console.error(error);
-    return messages.error.unknown;
+    throw new Error(messages.error.unknown);
   }
 };
