@@ -1,43 +1,63 @@
-import jwt from 'jsonwebtoken';
+import { type JWTPayload, jwtVerify, SignJWT } from 'jose';
+import { JOSEError } from 'jose/errors';
 import { config } from '@config';
 import { messages } from '@constants';
 
 type TokenType = 'access' | 'refresh';
 
-interface Payload {
+interface Payload extends JWTPayload {
   id: number;
   email: string;
 }
 
-export const generateToken = (
+const getSecretKey = (type: TokenType) => {
+  return new TextEncoder().encode(config.jwt.secret[type]);
+};
+
+export const generateToken = async (
   payload: Payload,
-  options?: jwt.SignOptions,
+  options?: { expiresIn?: string },
   type: TokenType = 'access',
 ) => {
   try {
-    return jwt.sign(payload, config.jwt.secret[type], options);
+    const secretKey = getSecretKey(type);
+
+    const jwt = new SignJWT(payload)
+      .setProtectedHeader({ alg: 'HS256' }) // 알고리즘 지정
+      .setIssuedAt()
+      .setExpirationTime(options?.expiresIn || '1h'); // 기본 만료 시간 1시간
+
+    return await jwt.sign(secretKey);
   } catch (error) {
     console.error(error);
     return '';
   }
 };
 
-export const verifyToken = (token: string, type: TokenType = 'access') => {
+export const verifyToken = async (
+  token: string,
+  type: TokenType = 'access',
+) => {
   try {
-    const result = jwt.verify(token, config.jwt.secret[type]);
-    console.log(result);
-    return result;
+    const secretKey = getSecretKey(type);
+    const { payload } = await jwtVerify(token, secretKey, {
+      algorithms: ['HS256'],
+    });
+    return payload;
   } catch (error) {
-    if (error instanceof jwt.TokenExpiredError) {
-      return messages.error.jwt.expired;
+    if (error instanceof JOSEError) {
+      if (error.code === 'ERR_JWT_EXPIRED') {
+        return messages.error.jwt.expired;
+      }
+      if (error.code === 'ERR_JWS_INVALID') {
+        return messages.error.jwt.invalid;
+      }
+      if (error.code === 'ERR_JWS_SIGNATURE_VERIFICATION_FAILED') {
+        return messages.error.jwt.expired;
+      }
     }
-    if (error instanceof jwt.JsonWebTokenError) {
-      return messages.error.jwt.invalid;
-    }
-    // TODO jsonwebtoken -> jose로 변경 필요!!!! (The edge runtime does not support Node.js 'crypto' module.)
+
     console.error(error);
     return messages.error.unknown;
   }
 };
-
-export const createToken = () => {};

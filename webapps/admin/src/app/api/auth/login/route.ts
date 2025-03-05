@@ -1,9 +1,9 @@
 import type { NextRequest } from 'next/server';
+import dayjs from 'dayjs';
 import { getCookie, response, setCookie } from '@services';
 import { messages } from '@constants';
 import { checkCode } from '@services/db';
 import { generateToken } from '@services/token';
-import dayjs from 'dayjs';
 
 /**
  * 로그인
@@ -19,8 +19,8 @@ export const POST = async (req: NextRequest) => {
 
   if (result === 'OK') {
     const [accessToken, refreshToken] = [
-      generateToken({ id: 0, email }, { expiresIn: '1h' }),
-      generateToken({ id: 0, email }, { expiresIn: '30d' }, 'refresh'),
+      await generateToken({ id: 0, email }, { expiresIn: '1h' }),
+      await generateToken({ id: 0, email }, { expiresIn: '30d' }, 'refresh'),
     ];
 
     await setCookie('accessToken', accessToken, {
