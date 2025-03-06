@@ -13,17 +13,17 @@ const getByENV = (
 
 export const config = {
   db: {
-    url: getByENV('DATABASE_URL'),
+    url: getByENV('NEXT_PUBLIC_DATABASE_URL'),
   },
   smtp: {
-    service: getByENV('SMTP_SERVICE'),
-    user: getByENV('SMTP_USER'),
-    password: getByENV('SMTP_PASSWORD'),
+    service: getByENV('NEXT_PUBLIC_SMTP_SERVICE'),
+    user: getByENV('NEXT_PUBLIC_SMTP_USER'),
+    password: getByENV('NEXT_PUBLIC_SMTP_PASSWORD'),
   },
   jwt: {
     secret: {
-      access: getByENV('JWT_SECRET'),
-      refresh: getByENV('JWT_REFRESH_SECRET'),
+      access: getByENV('NEXT_PUBLIC_JWT_SECRET'),
+      refresh: getByENV('NEXT_PUBLIC_JWT_REFRESH_SECRET'),
     },
   },
 };
