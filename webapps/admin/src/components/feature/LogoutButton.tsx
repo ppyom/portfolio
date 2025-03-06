@@ -1,8 +1,8 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { cn } from '@packages/ui/utils';
 import { api } from '@services/api';
-import { useRouter } from 'next/navigation';
 
 export const LogoutButton = () => {
   const router = useRouter();
