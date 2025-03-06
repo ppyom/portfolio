@@ -1,6 +1,6 @@
 import type { NextRequest } from 'next/server';
 import dayjs from 'dayjs';
-import { getCookie, response, setCookie } from '@services';
+import { response, setCookie } from '@services';
 import { messages } from '@constants';
 import { checkCode } from '@services/db';
 import { generateToken } from '@services/token';
@@ -31,8 +31,6 @@ export const POST = async (req: NextRequest) => {
       expires: dayjs().add(30, 'days').toDate(),
       httpOnly: true,
     });
-
-    console.log((await getCookie('accessToken'))?.value);
 
     return response({ message: messages.ok }, 200);
   } else {

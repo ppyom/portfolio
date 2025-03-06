@@ -2,6 +2,7 @@ import type { ChildrenProps } from '@packages/types/components';
 import { Header, SideBar } from '@packages/ui/admin';
 import { cn } from '@packages/ui/utils';
 import { LoginGuard } from '@components/guard/LoginGuard';
+import { LogoutButton } from '@components/feature/LogoutButton';
 
 const MainLayout = ({ children }: ChildrenProps) => {
   return (
@@ -21,6 +22,7 @@ const MainLayout = ({ children }: ChildrenProps) => {
           <Header menus={[]} name={'이예진'} image={null} />
           {children}
         </div>
+        <LogoutButton />
       </div>
     </LoginGuard>
   );

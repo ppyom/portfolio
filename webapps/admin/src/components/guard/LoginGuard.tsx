@@ -8,7 +8,7 @@ interface Props extends ChildrenProps {
 
 export const LoginGuard = async ({ children, hasLogin = true }: Props) => {
   const cookieStore = await cookies();
-  const accessToken = cookieStore.get('accessToken');
+  const accessToken = cookieStore.get('accessToken')?.value;
 
   if (!accessToken === hasLogin) {
     return redirect(hasLogin ? 'login' : '/');

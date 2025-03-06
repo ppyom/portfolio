@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
+import { redirect } from 'next/navigation';
 import { Button, Input, Typography } from '@packages/ui/commons';
 import { cn } from '@packages/ui/utils';
 import { useInput } from '@hooks';
@@ -25,6 +26,8 @@ export const LoginForm = ({ email, isGenerated }: Props) => {
     const result = await checkLoginCode(email, code);
     if (result !== 'OK') {
       setError(result);
+    } else {
+      redirect('/');
     }
   };
 
