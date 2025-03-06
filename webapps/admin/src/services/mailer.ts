@@ -7,6 +7,8 @@ import { config } from '@config';
  */
 const transport: SMTPTransport.Options = {
   service: config.smtp.service,
+  port: 465,
+  secure: true,
   auth: {
     user: config.smtp.user,
     pass: config.smtp.password,
@@ -27,8 +29,8 @@ const transporter = createTransport(transport);
  * @param title 메일 제목
  * @param body 메일 내용
  */
-export const sendMail = (target: string, title: string, body: string) => {
-  return transporter.sendMail({
+export const sendMail = async (target: string, title: string, body: string) => {
+  const options = {
     // 발신자
     from: {
       name: '이예진(PPYOM)',
@@ -40,5 +42,15 @@ export const sendMail = (target: string, title: string, body: string) => {
     subject: title,
     // 내용
     text: body,
+  };
+  return await new Promise((resolve, reject) => {
+    transporter.sendMail(options, (error, info) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(info.response);
+        return { message: 'OK' };
+      }
+    });
   });
 };
