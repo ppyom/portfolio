@@ -1,6 +1,6 @@
 import React from 'react';
 import type { Menu } from '@packages/types/components';
-import { Typography } from '../../atoms';
+import { Typography } from '../../commons';
 import { Icon } from '../../icon';
 import { cn } from '../../utils';
 
