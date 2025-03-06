@@ -17,12 +17,11 @@ export const POST = async (req: NextRequest) => {
   const code = createCode();
 
   try {
-    sendMail(
+    await sendMail(
       email,
       messages.mail.code.title,
       messages.mail.code.body(email, code),
-    ).then((value) => {
-      console.log(value);
+    ).then(() => {
       return setLoginCode(email, code);
     });
 
