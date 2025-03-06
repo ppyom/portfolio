@@ -18,7 +18,7 @@ export const LogoutButton = () => {
   };
   return (
     <button className={cn('absolute bottom-4 right-4')} onClick={logout}>
-      Logout
+      로그아웃
     </button>
   );
 };
