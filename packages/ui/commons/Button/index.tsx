@@ -34,7 +34,7 @@ export const Button = ({
           ? 'bg-brand-primary text-base-black'
           : bg === 'secondary'
             ? 'bg-brand-secondary text-base-white'
-            : null,
+            : false,
         'hover:brightness-90',
         'duration-200',
         'cursor-pointer',
