@@ -1,9 +1,0 @@
-{
-  "name": "@packages/types",
-  "version": "0.1.0",
-  "main": "index.ts",
-  "type": "module",
-  "dependencies": {
-    "react-icons": "^5.4.0"
-  }
-}

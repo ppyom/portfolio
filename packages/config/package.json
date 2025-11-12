@@ -1,8 +1,0 @@
-{
-  "name": "@packages/config",
-  "version": "0.1.0",
-  "type": "module",
-  "peerDependencies": {
-    "tailwindcss": "^3.4.16"
-  }
-}

@@ -29,9 +29,6 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-webapps/user/.env
-
 # vercel
 .vercel
 
@@ -42,10 +39,6 @@ next-env.d.ts
 # IDE
 .idea/
 .vscode/
-
-# storybook
-storybook-static/
-*storybook.log
 
 # env
 .env*

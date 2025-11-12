@@ -1,8 +1,0 @@
-{
-  "compilerOptions": {
-    "jsx": "react-jsx",
-    "esModuleInterop": true
-  },
-  "include": ["./.storybook/**/*", "./**/*"],
-  "exclude": ["node_modules"]
-}
