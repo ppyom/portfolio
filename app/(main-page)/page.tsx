@@ -11,10 +11,10 @@ export default function Page() {
 
       <div className="max-w-2xl mx-auto text-center space-y-8 fade-in">
         <div className="space-y-4">
-          <p className="text-5xl md:text-6xl font-bold text-foreground/80 leading-tight font-dongle">
+          <h1 className="text-5xl md:text-6xl font-bold text-foreground/80 leading-tight font-dongle">
             안녕하세요, <span className="text-primary">이예진</span>
             입니다.
-          </p>
+          </h1>
         </div>
 
         <p className="text-lg md:text-xl text-foreground/70 max-w-xl mx-auto leading-relaxed font-ddobak">
