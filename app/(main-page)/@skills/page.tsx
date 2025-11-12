@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { skills } from '@/lib/constants/skills';
+import { skillHex, skills } from '@/lib/constants/skills';
 import { cn, dynamicTextColor } from '@/lib/utils';
 
 export default function Page() {
@@ -53,20 +53,20 @@ export default function Page() {
               <div className="flex flex-wrap gap-3">
                 {skillGroup.items.map((skill, skillIndex) => (
                   <span
-                    key={skill.name}
+                    key={skill}
                     className={cn(
                       `px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 cursor-default`,
                       isVisible ? 'stagger-item' : 'opacity-0',
                     )}
                     style={{
-                      background: skill.hex,
-                      color: dynamicTextColor(skill.hex),
+                      background: skillHex[skill],
+                      color: dynamicTextColor(skillHex[skill]),
                       animationDelay: isVisible
                         ? `${groupIndex * 0.1 + skillIndex * 0.05}s`
                         : '0s',
                     }}
                   >
-                    {skill.name}
+                    {skill}
                   </span>
                 ))}
               </div>

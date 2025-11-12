@@ -1,30 +1,31 @@
 export const skills = [
   {
     category: 'Frontend',
-    items: [
-      { name: 'React', hex: '#61DAFB' },
-      { name: 'Next.js', hex: '#000000' },
-      { name: 'TypeScript', hex: '#3178C6' },
-      { name: 'Tailwind CSS', hex: '#06B6D4' },
-    ],
+    items: ['React', 'Next.js', 'TypeScript', 'Tailwind CSS'],
   },
   {
     category: 'Backend',
-    items: [
-      { name: 'Node.js', hex: '#5FA04E' },
-      { name: 'Nest.js', hex: '#E0234E' },
-      { name: 'PostgreSQL', hex: '#4169E1' },
-    ],
+    items: ['Node.js', 'Nest.js', 'PostgreSQL'],
   },
   {
     category: 'Design Tools',
-    items: [
-      { name: 'Figma', hex: '#F24E1E' },
-      { name: 'Storybook', hex: '#FF4785' },
-    ],
+    items: ['Figma', 'Storybook'],
   },
   {
     category: 'Other',
-    items: [{ name: 'Git', hex: '#F05032' }],
+    items: ['Git'],
   },
 ];
+
+export const skillHex: Record<string, string> = {
+  React: '#61DAFB',
+  'Next.js': '#000000',
+  TypeScript: '#3178C6',
+  'Tailwind CSS': '#06B6D4',
+  'Node.js': '#5FA04E',
+  'Nest.js': '#E0234E',
+  PostgreSQL: '#4169E1',
+  Figma: '#F24E1E',
+  Storybook: '#FF4785',
+  Git: '#F05032',
+};
