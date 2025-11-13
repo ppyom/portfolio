@@ -5,15 +5,23 @@ interface Props {
   about: React.ReactNode;
   skills: React.ReactNode;
   projects: React.ReactNode;
+  other: React.ReactNode;
 }
 
-export default function Layout({ children, about, skills, projects }: Props) {
+export default function Layout({
+  children,
+  about,
+  skills,
+  projects,
+  other,
+}: Props) {
   return (
     <>
       {children}
       {about}
       {skills}
       {projects}
+      {other}
       <Navigation />
     </>
   );
