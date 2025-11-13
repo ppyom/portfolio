@@ -31,7 +31,7 @@ export default function Page() {
       <div className="max-w-4xl mx-auto space-y-12">
         <PageTitle>Skills & Tools</PageTitle>
 
-        <div className="grid md:grid-cols-2 gap-8 font-ddobak">
+        <div className="grid md:grid-cols-2 gap-8">
           {skills.map((skillGroup, groupIndex) => (
             <div
               key={skillGroup.category}

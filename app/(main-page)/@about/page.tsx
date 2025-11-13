@@ -6,7 +6,7 @@ export default function Page() {
       <div className="max-w-4xl mx-auto space-y-12 slide-up">
         <PageTitle>About Me</PageTitle>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center font-ddobak">
+        <div className="grid md:grid-cols-2 gap-12 items-center">
           <div className="space-y-6 text-foreground/80">
             <p className="text-lg leading-relaxed">
               저는 좋아하는 것을 끊임없이 탐구하며 그 열정을 서비스에 담아내는

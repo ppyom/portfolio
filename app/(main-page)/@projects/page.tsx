@@ -9,7 +9,7 @@ export default function Page() {
       <div className="max-w-4xl mx-auto space-y-12 slide-up">
         <PageTitle>Projects</PageTitle>
 
-        <div className="grid md:grid-cols-2 gap-8 font-ddobak">
+        <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project) => (
             <div
               key={project.id}

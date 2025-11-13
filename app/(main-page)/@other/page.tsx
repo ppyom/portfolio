@@ -11,7 +11,7 @@ export default function Other() {
 
         <div className="space-y-6">
           <SectionTitle>📖 Learning</SectionTitle>
-          <div className="grid md:grid-cols-2 gap-6 font-ddobak">
+          <div className="grid md:grid-cols-2 gap-6">
             {learnings.map((item, idx) => (
               <AchievementCard key={`learnings_${idx}`} {...item} />
             ))}
@@ -20,7 +20,7 @@ export default function Other() {
 
         <div className="space-y-6">
           <SectionTitle>🏅 Certifications</SectionTitle>
-          <div className="grid md:grid-cols-2 gap-6 font-ddobak">
+          <div className="grid md:grid-cols-2 gap-6">
             {certifications.map((item, idx) => (
               <AchievementCard key={`certifications_${idx}`} {...item} />
             ))}

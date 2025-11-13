@@ -17,7 +17,7 @@ export default function Page() {
           </h1>
         </div>
 
-        <p className="text-lg md:text-xl text-foreground/70 max-w-xl mx-auto leading-relaxed font-ddobak">
+        <p className="text-lg md:text-xl text-foreground/70 max-w-xl mx-auto leading-relaxed">
           사용자 중심의 사고와 깔끔한 코드로&nbsp;
           <span className="text-secondary-foreground/90 font-bold bg-primary/30 px-1">
             사용자와 개발자 모두가 만족할 수 있는 애플리케이션
