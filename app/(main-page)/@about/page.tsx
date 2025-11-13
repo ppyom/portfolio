@@ -1,13 +1,10 @@
+import { PageTitle } from '@/components/page-title';
+
 export default function Page() {
   return (
     <section id="About" className="py-20 px-6 bg-card/50">
       <div className="max-w-4xl mx-auto space-y-12 slide-up">
-        <div className="text-center space-y-4">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground/80 font-dongle">
-            About Me
-          </h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
-        </div>
+        <PageTitle>About Me</PageTitle>
 
         <div className="grid md:grid-cols-2 gap-12 items-center font-ddobak">
           <div className="space-y-6 text-foreground/80">

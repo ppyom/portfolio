@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { PageTitle } from '@/components/page-title';
 import { skillHex, skills } from '@/lib/constants/skills';
 import { cn, dynamicTextColor } from '@/lib/utils';
 
@@ -28,12 +29,7 @@ export default function Page() {
   return (
     <section ref={sectionRef} id="Skills" className="py-20 px-6">
       <div className="max-w-4xl mx-auto space-y-12">
-        <div className="text-center space-y-4 slide-up">
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground font-dongle">
-            Skills & Tools
-          </h2>
-          <div className="w-20 h-1 bg-primary mx-auto rounded-full" />
-        </div>
+        <PageTitle>Skills & Tools</PageTitle>
 
         <div className="grid md:grid-cols-2 gap-8 font-ddobak">
           {skills.map((skillGroup, groupIndex) => (
