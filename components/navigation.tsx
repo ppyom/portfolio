@@ -8,7 +8,7 @@ import { sections } from '@/lib/constants/sections';
 
 export default function Navigation() {
   return (
-    <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-foreground/30 rounded-xl p-3 flex gap-2 items-center">
+    <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-foreground/30 rounded-xl p-3 flex gap-2 items-center backdrop-blur-lg">
       {sections.map((section) => (
         <Button
           key={`nav__${section.name}`}
