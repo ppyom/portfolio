@@ -2,8 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import PageTitle from '@/components/page-title';
-import { skillHex, skills } from '@/lib/constants/skills';
-import { cn, dynamicTextColor } from '@/lib/utils';
+import SkillTag from '@/components/skill-tag';
+import { skills } from '@/lib/constants/skills';
+import { cn } from '@/lib/utils';
 
 export default function Page() {
   const [isVisible, setIsVisible] = useState(false);
@@ -47,23 +48,8 @@ export default function Page() {
                 {skillGroup.category}
               </h3>
               <div className="flex flex-wrap gap-3">
-                {skillGroup.items.map((skill, skillIndex) => (
-                  <span
-                    key={skill}
-                    className={cn(
-                      `px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 hover:scale-105 cursor-default`,
-                      isVisible ? 'stagger-item' : 'opacity-0',
-                    )}
-                    style={{
-                      background: skillHex[skill],
-                      color: dynamicTextColor(skillHex[skill]),
-                      animationDelay: isVisible
-                        ? `${groupIndex * 0.1 + skillIndex * 0.05}s`
-                        : '0s',
-                    }}
-                  >
-                    {skill}
-                  </span>
+                {skillGroup.items.map((skill) => (
+                  <SkillTag key={skill} name={skill} />
                 ))}
               </div>
             </div>

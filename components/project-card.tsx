@@ -1,6 +1,5 @@
 import Image from 'next/image';
-import { skillHex } from '@/lib/constants/skills';
-import { dynamicTextColor } from '@/lib/utils';
+import SkillTag from '@/components/skill-tag';
 import type { Project } from '@/lib/types/project';
 
 type Props = Project;
@@ -31,16 +30,7 @@ export default function ProjectCard({
         </p>
         <div className="flex flex-wrap gap-2 pt-2">
           {tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-xs px-3 py-1 rounded-full"
-              style={{
-                background: skillHex[tag] || '#aaaaaa',
-                color: dynamicTextColor(skillHex[tag] || '#aaaaaa'),
-              }}
-            >
-              {tag}
-            </span>
+            <SkillTag key={tag} name={tag} size="sm" />
           ))}
         </div>
       </div>
