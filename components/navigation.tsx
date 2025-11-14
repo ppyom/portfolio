@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { sections } from '@/lib/constants/sections';
 
-export function Navigation() {
+export default function Navigation() {
   return (
     <nav className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-foreground/30 rounded-xl p-3 flex gap-2 items-center">
       {sections.map((section) => (

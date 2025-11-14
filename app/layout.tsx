@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
-import { ThemeProvider } from '@/components/theme/theme-provider';
-import { Footer } from '@/components/footer';
+import ThemeProvider from '@/components/theme/theme-provider';
+import Navigation from '@/components/navigation';
+import Footer from '@/components/footer';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: Readonly<Props>) {
           disableTransitionOnChange
         >
           {children}
+          <Navigation />
           <Footer />
         </ThemeProvider>
       </body>

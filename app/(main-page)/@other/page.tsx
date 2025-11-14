@@ -1,7 +1,7 @@
-import { PageTitle } from '@/components/page-title';
-import { AchievementCard } from '@/components/achievement-card';
-import { certifications, learnings } from '@/lib/constants/achievements';
+import PageTitle from '@/components/page-title';
 import SectionTitle from '@/components/section-title';
+import AchievementCard from '@/components/achievement-card';
+import { certifications, learnings } from '@/lib/constants/achievements';
 
 export default function Other() {
   return (

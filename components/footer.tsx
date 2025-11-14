@@ -1,7 +1,7 @@
 import { MailIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
-export function Footer() {
+export default function Footer() {
   const currentYear = new Date().getFullYear();
 
   const socialLinks = [

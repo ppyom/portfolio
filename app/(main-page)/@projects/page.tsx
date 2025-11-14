@@ -1,4 +1,4 @@
-import { PageTitle } from '@/components/page-title';
+import PageTitle from '@/components/page-title';
 import { projects } from '@/lib/constants/projects';
 import { skillHex } from '@/lib/constants/skills';
 import { dynamicTextColor } from '@/lib/utils';

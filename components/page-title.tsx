@@ -2,7 +2,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export function PageTitle({ children }: Props) {
+export default function PageTitle({ children }: Props) {
   return (
     <div className="text-center space-y-4">
       <h2 className="text-4xl md:text-5xl font-bold text-foreground/80 font-dongle">

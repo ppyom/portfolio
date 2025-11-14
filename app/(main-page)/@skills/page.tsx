@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { PageTitle } from '@/components/page-title';
+import PageTitle from '@/components/page-title';
 import { skillHex, skills } from '@/lib/constants/skills';
 import { cn, dynamicTextColor } from '@/lib/utils';
 
