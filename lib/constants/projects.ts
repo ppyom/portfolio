@@ -1,4 +1,6 @@
-export const projects = [
+import type { Project } from '@/lib/types/project';
+
+export const projects: Project[] = [
   {
     id: 1,
     title: '퀴즈뱅크(Quizbank)',
@@ -13,6 +15,7 @@ export const projects = [
       'ReactQuery',
     ],
     image: '/quizbank.png',
+    body: '',
   },
   {
     id: 2,
@@ -28,6 +31,7 @@ export const projects = [
       'ReactQuery',
     ],
     image: '/meerket.png',
+    body: '',
   },
   {
     id: 3,
@@ -36,5 +40,6 @@ export const projects = [
       '푸드트럭 사장님이 직접 영업 정보를 실시간으로 업데이트 할 수 있는 플랫폼',
     tags: ['React', 'TypeScript', 'Tailwind CSS', 'Zustand', 'ReactQuery'],
     image: '/broken-handle-truck.png',
+    body: '',
   },
 ];
