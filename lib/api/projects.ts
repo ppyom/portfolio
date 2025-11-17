@@ -3,9 +3,15 @@ import {
   type DataSourceObjectResponse,
   type PageObjectResponse,
 } from '@notionhq/client';
+import { NotionAPI } from 'notion-client';
+import type { Project } from '@/lib/types/project';
 
 const notion = new Client({
   auth: process.env.NOTION_API_SECRET,
+});
+const notionClient = new NotionAPI({
+  authToken: process.env.NOTION_TOKEN_V2,
+  activeUser: process.env.NOTION_USER,
 });
 const sourceId = process.env.NOTION_SOURCE_ID;
 
@@ -47,6 +53,9 @@ export const getProjects = async () => {
     const response = await notion.dataSources.query({
       data_source_id: sourceId!,
     });
+
+    console.log(response.results);
+
     return response.results
       .map((result) => {
         if ('properties' in result) {
@@ -65,5 +74,45 @@ export const getProjects = async () => {
   } catch (error) {
     console.error('Notion database query failed:', error);
     throw error;
+  }
+};
+
+/**
+ * 프로젝트 상세를 가져오는 함수
+ * @param id 프로젝트 페이지의 아이디
+ */
+export const getProjectDetail = async (id: string) => {
+  try {
+    const [recordMap, pageData] = await Promise.all([
+      notionClient.getPage(id),
+      notion.pages.retrieve({
+        page_id: id,
+      }),
+    ]);
+
+    let props: Pick<Project, 'title' | 'description' | 'tags' | 'image'> = {
+      description: '',
+      image: '',
+      tags: [],
+      title: '',
+    };
+
+    if ('properties' in pageData) {
+      const _props = pageData.properties;
+      props = {
+        title: extractPropertyValue<string>(_props.title) || '',
+        description: extractPropertyValue<string>(_props.description) || '',
+        tags: extractPropertyValue<string[]>(_props.tags) || [],
+        image: extractPropertyValue<string>(_props.thumbnail) || '',
+      };
+    }
+
+    return {
+      recordMap,
+      props,
+    };
+  } catch (error) {
+    console.error('Notion database query failed:', error);
+    return null;
   }
 };
