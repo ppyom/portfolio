@@ -20,7 +20,9 @@ export default function ProjectDetail({ recordMap }: Props) {
       darkMode={
         theme === 'dark' || (theme === 'system' && systemTheme === 'dark')
       }
-      disableHeader={true}
+      components={{
+        Collection: () => <></>,
+      }}
     />
   );
 }
