@@ -54,8 +54,6 @@ export const getProjects = async () => {
       data_source_id: sourceId!,
     });
 
-    console.log(response.results);
-
     return response.results
       .map((result) => {
         if ('properties' in result) {
