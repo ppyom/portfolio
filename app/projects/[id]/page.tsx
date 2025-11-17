@@ -21,7 +21,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <main className="min-h-screen bg-background">
-      <div className="max-w-3xl mx-auto px-6 py-12 space-y-12">
+      <div className="max-w-3xl mx-auto px-6 py-12">
         <BackButton className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group mb-8">
           <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
           Back to Projects
