@@ -14,7 +14,7 @@ export default function PageTitle({ children, align = 'center' }: Props) {
         align === 'center' && 'text-center',
       )}
     >
-      <h2 className="text-4xl md:text-5xl font-bold text-foreground/80 font-dongle">
+      <h2 className="text-4xl md:text-5xl font-bold text-foreground/90 font-dongle">
         {children}
       </h2>
       <div
