@@ -11,9 +11,8 @@ export default function Page() {
 
       <div className="max-w-2xl mx-auto text-center space-y-8 fade-in">
         <div className="space-y-4">
-          <h1 className="text-5xl md:text-6xl font-bold text-foreground/80 leading-tight font-dongle">
-            안녕하세요, <span className="text-primary">이예진</span>
-            입니다.
+          <h1 className="text-5xl md:text-6xl font-bold text-foreground/80 leading-tight font-dongle break-keep">
+            안녕하세요, <span className="text-primary">이예진</span>입니다.
           </h1>
         </div>
 
