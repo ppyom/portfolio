@@ -32,17 +32,33 @@ export default function Page() {
               <h3 className="text-primary font-bold text-lg mb-2">
                 Experience
               </h3>
-              <p className="text-foreground/70">웹 솔루션 개발자 1+년</p>
+              <p className="text-foreground/70">
+                <span className="font-semibold text-foground/90">
+                  웹 솔루션 개발자
+                </span>{' '}
+                <span className="text-sm">(2021.07 - 2022.08)</span>
+              </p>
             </div>
             <div className="bg-background rounded-xl p-6 border border-border glow-hover">
-              <h3 className="text-primary font-bold text-lg mb-2">
-                Specialties
-              </h3>
-              <p className="text-foreground/70">프론트엔드 개발</p>
-            </div>
-            <div className="bg-background rounded-xl p-6 border border-border glow-hover">
-              <h3 className="text-primary font-bold text-lg mb-2">Based In</h3>
-              <p className="text-foreground/70">대한민국 서울</p>
+              <h3 className="text-primary font-bold text-lg mb-2">Education</h3>
+              <ul className="space-y-1 text-foreground/70">
+                <li>
+                  <span className="font-semibold font-foground/90">
+                    명지전문대학
+                  </span>{' '}
+                  <span className="text-sm">
+                    / 컴퓨터공학 (2017.03 - 2021.08)
+                  </span>
+                </li>
+                <li>
+                  <span className="font-semibold font-foground/90">
+                    안산디자인문화고등학교
+                  </span>{' '}
+                  <span className="text-sm">
+                    / 미디어콘텐츠 (2014.03 - 2017.02)
+                  </span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
