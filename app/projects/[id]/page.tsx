@@ -27,16 +27,28 @@ export default async function Page({ params }: Props) {
           Back to Projects
         </BackButton>
         <div className="space-y-6 animate-in fade-in slide-up duration-500">
-          <div className="flex justify-between">
+          <div className="flex flex-col gap-2 sm:flex-row justify-between">
             <PageTitle align="left">{project.props.title}</PageTitle>
-            <div>
-              <Button className="font-bold" size="lg" asChild>
-                <a href="#" target="_blank">
-                  GitHub
-                  <ArrowUpRight />
-                </a>
-              </Button>
-            </div>
+            {(project.props.github_url || project.props.application_url) && (
+              <div className="space-x-1">
+                {project.props.github_url && (
+                  <Button className="font-bold" size="lg" asChild>
+                    <a href={project.props.github_url} target="_blank">
+                      GitHub
+                      <ArrowUpRight />
+                    </a>
+                  </Button>
+                )}
+                {project.props.application_url && (
+                  <Button className="font-bold" size="lg" asChild>
+                    <a href={project.props.application_url} target="_blank">
+                      View Site
+                      <ArrowUpRight />
+                    </a>
+                  </Button>
+                )}
+              </div>
+            )}
           </div>
           <Image
             className="w-full h-full object-cover"

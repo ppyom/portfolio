@@ -5,4 +5,6 @@ export interface Project {
   description: string;
   tags: string[];
   body: string;
+  github_url?: string;
+  application_url?: string;
 }

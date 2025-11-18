@@ -27,10 +27,10 @@ const extractPropertyValue = <T extends string | string[]>(
   const type = prop.type;
 
   if (type === 'title' && Array.isArray(prop.title)) {
-    return prop.title[0].plain_text as T;
+    return prop.title?.[0]?.plain_text as T;
   }
   if (type === 'rich_text' && Array.isArray(prop.rich_text)) {
-    return prop.rich_text[0].plain_text as T;
+    return prop.rich_text?.[0]?.plain_text as T;
   }
   if (type === 'multi_select' && Array.isArray(prop.multi_select)) {
     return prop.multi_select.map((item: { name: string }) => item.name) as T;
@@ -40,7 +40,7 @@ const extractPropertyValue = <T extends string | string[]>(
     Array.isArray(prop.files) &&
     'file' in prop.files[0]
   ) {
-    return prop.files[0].file.url as T;
+    return prop.files?.[0]?.file.url as T;
   }
   throw new Error(`알 수 없는 타입 또는 처리할 수 없음 : ${type}`);
 };
@@ -88,7 +88,15 @@ export const getProjectDetail = async (id: string) => {
       }),
     ]);
 
-    let props: Pick<Project, 'title' | 'description' | 'tags' | 'image'> = {
+    let props: Pick<
+      Project,
+      | 'title'
+      | 'description'
+      | 'tags'
+      | 'image'
+      | 'github_url'
+      | 'application_url'
+    > = {
       description: '',
       image: '',
       tags: [],
@@ -102,6 +110,11 @@ export const getProjectDetail = async (id: string) => {
         description: extractPropertyValue<string>(_props.description) || '',
         tags: extractPropertyValue<string[]>(_props.tags) || [],
         image: extractPropertyValue<string>(_props.thumbnail) || '',
+        github_url:
+          _props.github_url && extractPropertyValue<string>(_props.github_url),
+        application_url:
+          _props.application_url &&
+          extractPropertyValue<string>(_props.application_url),
       };
     }
 
