@@ -42,8 +42,9 @@ export default async function Page({ params }: Props) {
             className="w-full h-full object-cover"
             src={project.props.image}
             alt={project.props.title}
-            width={500}
-            height={300}
+            width={1080}
+            height={567}
+            loading="eager"
           />
         </div>
         <ProjectDetail recordMap={project.recordMap} />
