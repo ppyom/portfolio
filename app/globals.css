@@ -53,8 +53,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-dongle: Goyang, serif;
-  --font-ddobak: NanumBarunPen, sans-serif;
+  --font-dongle: Goyang, pretendard, serif;
+  --font-ddobak: NanumBarunPen, pretendard, sans-serif;
 }
 
 :root {
