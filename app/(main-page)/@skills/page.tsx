@@ -1,48 +1,21 @@
-'use client';
-
-import { useEffect, useRef, useState } from 'react';
 import PageTitle from '@/components/page-title';
 import SkillTag from '@/components/skill-tag';
 import { skills } from '@/lib/constants/skills';
 import { cn } from '@/lib/utils';
 
 export default function Page() {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 },
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <section ref={sectionRef} id="Skills" className="py-20 px-6">
+    <section id="Skills" className="py-20 px-6">
       <div className="max-w-4xl mx-auto space-y-12">
         <PageTitle>Skills & Tools</PageTitle>
 
         <div className="grid md:grid-cols-2 gap-8">
-          {skills.map((skillGroup, groupIndex) => (
+          {skills.map((skillGroup) => (
             <div
               key={skillGroup.category}
               className={cn(
                 `bg-card rounded-xl p-6 border border-border glow-hover transition-all duration-500`,
-                isVisible ? 'stagger-item' : 'opacity-0',
               )}
-              style={{
-                animationDelay: isVisible ? `${groupIndex * 0.1}s` : '0s',
-              }}
             >
               <h3 className="text-primary font-bold text-lg mb-4">
                 {skillGroup.category}
