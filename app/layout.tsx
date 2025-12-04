@@ -31,7 +31,7 @@ interface Props {
 
 export default function RootLayout({ children }: Readonly<Props>) {
   return (
-    <html lang="ko">
+    <html lang="ko" suppressHydrationWarning>
       <body className={cn(pretendard.variable, donggle.variable)}>
         <ThemeProvider
           attribute="class"
