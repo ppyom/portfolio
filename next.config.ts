@@ -6,8 +6,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'prod-files-secure.s3.us-west-2.amazonaws.com',
-        pathname: '/0e7160a2-3f48-4f63-9e3b-9965190cd13b/**',
+        hostname: 'pub-e7837d538f9b4131927013803bc919cb.r2.dev',
       },
     ],
   },
