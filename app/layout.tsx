@@ -18,6 +18,13 @@ const pretendard = localFont({
   variable: '--font-pretendard',
 });
 
+const donggle = localFont({
+  src: '../public/fonts/Cafe24Dongdong-v2.0.woff2',
+  display: 'swap',
+  weight: '45 920',
+  variable: '--font-dongle',
+});
+
 interface Props {
   children: React.ReactNode;
 }
@@ -25,7 +32,7 @@ interface Props {
 export default function RootLayout({ children }: Readonly<Props>) {
   return (
     <html lang="ko">
-      <body className={cn(pretendard.variable)}>
+      <body className={cn(pretendard.variable, donggle.variable)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

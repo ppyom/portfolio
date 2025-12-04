@@ -1,19 +1,5 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@font-face {
-  font-family: "Goyang";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/Goyang.woff")
-    format("woff");
-  font-weight: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "NanumBarunPen";
-  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumBarunpen.woff")
-    format("woff");
-  font-weight: normal;
-  font-display: swap;
-}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -53,8 +39,8 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
-  --font-dongle: Goyang, pretendard, serif;
-  --font-ddobak: NanumBarunPen, pretendard, sans-serif;
+  --font-dongle: donggle, pretendard, serif;
+  --font-ddobak: pretendard, sans-serif;
 }
 
 :root {
