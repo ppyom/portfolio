@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import SkillTag from '@/components/skill-tag';
-import type { Project } from '@/lib/types/project';
+import type { Project } from '@/types/project';
 
 type Props = Project;
 

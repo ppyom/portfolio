@@ -4,7 +4,7 @@ import {
   type PageObjectResponse,
 } from '@notionhq/client';
 import { NotionAPI } from 'notion-client';
-import type { Project } from '@/lib/types/project';
+import type { Project } from '@/types/project';
 
 const notion = new Client({
   auth: process.env.NOTION_API_SECRET,
