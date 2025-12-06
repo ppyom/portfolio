@@ -38,7 +38,7 @@ export default function Page() {
       return;
     }
 
-    router.replace('/');
+    router.replace('/manage');
   };
 
   return (
