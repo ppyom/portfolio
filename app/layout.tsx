@@ -40,7 +40,6 @@ export default function RootLayout({ children }: Readonly<Props>) {
           disableTransitionOnChange
         >
           {children}
-          <Footer />
         </ThemeProvider>
       </body>
     </html>
