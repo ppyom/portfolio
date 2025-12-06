@@ -1,4 +1,4 @@
-import type { Achievement } from '@/lib/types/achievement';
+import type { Achievement } from '@/types/achievement';
 
 type Props = Omit<Achievement, 'type'>;
 
