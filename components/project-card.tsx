@@ -1,9 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import SkillTag from '@/components/skill-tag';
-import type { Project } from '@/types/project';
+import type { ProjectLegacy } from '@/types/project';
 
-type Props = Project;
+type Props = ProjectLegacy;
 
 export default function ProjectCard({
   id,

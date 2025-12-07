@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { projectTable, projectTechStackTable } from '@/database/schema';
 import {
   Card,
   CardAction,
@@ -10,11 +9,10 @@ import {
 } from '@/components/ui/card';
 import SkillTag from '@/components/skill-tag';
 import ProjectDropdown from '@/components/admin/list/project-dropdown';
+import type { Project } from '@/types/project';
 
 interface Props {
-  projects: (typeof projectTable.$inferSelect & {
-    techStacks: (typeof projectTechStackTable.$inferSelect)[];
-  })[];
+  projects: Project[];
 }
 
 export default function ProjectList({ projects }: Props) {

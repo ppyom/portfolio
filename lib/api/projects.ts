@@ -4,7 +4,7 @@ import {
   type PageObjectResponse,
 } from '@notionhq/client';
 import { NotionAPI } from 'notion-client';
-import type { Project } from '@/types/project';
+import type { ProjectLegacy } from '@/types/project';
 
 const notion = new Client({
   auth: process.env.NOTION_API_SECRET,
@@ -89,7 +89,7 @@ export const getProjectDetail = async (id: string) => {
     ]);
 
     let props: Pick<
-      Project,
+      ProjectLegacy,
       | 'title'
       | 'description'
       | 'tags'

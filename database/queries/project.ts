@@ -1,6 +1,7 @@
 import { desc, eq, sql } from 'drizzle-orm';
 import { db } from '@/database';
 import { projectTable, projectTechStackTable } from '@/database/schema';
+import { TechStackTable } from '@/database/types';
 
 const baseQuery = db
   .select({
@@ -20,7 +21,7 @@ const baseQuery = db
     member: projectTable.member,
     createdAt: projectTable.createdAt,
     updatedAt: projectTable.updatedAt,
-    techStacks: sql<(typeof projectTechStackTable.$inferSelect)[]>`
+    techStacks: sql<TechStackTable.Select[]>`
 		COALESCE(
 		  JSON_AGG(
 				JSON_BUILD_OBJECT(
