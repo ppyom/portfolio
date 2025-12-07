@@ -8,7 +8,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import SkillTag from '@/components/skill-tag';
-import ProjectDropdown from '@/components/admin/list/project-dropdown';
+import ProjectDropdown from '@/components/admin/projects/project-dropdown';
 import type { Project } from '@/types/project';
 
 interface Props {
