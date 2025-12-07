@@ -18,14 +18,18 @@ const baseQuery = db
     goals: projectTable.goals,
     results: projectTable.results,
     member: projectTable.member,
-    techStacks: sql`
+    createdAt: projectTable.createdAt,
+    updatedAt: projectTable.updatedAt,
+    techStacks: sql<(typeof projectTechStackTable.$inferSelect)[]>`
 		COALESCE(
 		  JSON_AGG(
 				JSON_BUILD_OBJECT(
 					'id', ${projectTechStackTable.id},
 					'projectId', ${projectTechStackTable.projectId},
 					'title', ${projectTechStackTable.title},
-					'stacks', ${projectTechStackTable.stacks}
+					'stacks', ${projectTechStackTable.stacks},
+					'createdAt', ${projectTechStackTable.createdAt},
+					'updatedAt', ${projectTechStackTable.updatedAt}
 				)
 			) FILTER (WHERE ${projectTechStackTable.id} IS NOT NULL),
 		  '[]'
