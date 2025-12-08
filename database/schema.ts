@@ -3,6 +3,17 @@ import { pgTable, boolean, text, uuid } from 'drizzle-orm/pg-core';
 import { jsonb } from 'drizzle-orm/pg-core/columns/jsonb';
 import { unique } from 'drizzle-orm/pg-core/unique-constraint';
 
+export const fileTable = pgTable('file', {
+  id: uuid('id')
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  url: text('url').notNull(),
+  createdAt: text('created_at')
+    .notNull()
+    .$default(() => sql`NOW()`),
+  updatedAt: text('updated_at').$onUpdate(() => sql`NOW()`),
+});
+
 export const userTable = pgTable('user', {
   id: uuid('id')
     .primaryKey()
@@ -20,13 +31,11 @@ export const projectTable = pgTable('project', {
   title: text('title').notNull(),
   description: text('description'),
   category: text('category'),
-  coverImageUrl: text('cover_image_url'),
   githubUrl: text('github_url'),
   applicationUrl: text('application_url'),
   tags: text('tags').array(),
   overview: text('overview'),
   features: text('features').array(),
-  images: text('images').array(),
   goals: text('goals').array(),
   results: text('results').array(),
   member: jsonb('member').$type<{
@@ -34,6 +43,14 @@ export const projectTable = pgTable('project', {
     role: string;
     responsibilities: string[];
   }>(),
+  coverImageId: uuid('cover_image_id').references(() => fileTable.id, {
+    onDelete: 'cascade',
+  }),
+  imageIds: uuid('image_ids')
+    .references(() => fileTable.id, {
+      onDelete: 'cascade',
+    })
+    .array(),
   createdAt: text('created_at')
     .notNull()
     .$default(() => sql`NOW()`),

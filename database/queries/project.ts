@@ -1,6 +1,10 @@
 import { desc, eq, sql } from 'drizzle-orm';
 import { db } from '@/database';
-import { projectTable, projectTechStackTable } from '@/database/schema';
+import {
+  fileTable,
+  projectTable,
+  projectTechStackTable,
+} from '@/database/schema';
 import { TechStackTable } from '@/database/types';
 
 const baseQuery = db
@@ -9,18 +13,26 @@ const baseQuery = db
     title: projectTable.title,
     description: projectTable.description,
     category: projectTable.category,
-    coverImageUrl: projectTable.coverImageUrl,
     githubUrl: projectTable.githubUrl,
     applicationUrl: projectTable.applicationUrl,
     tags: projectTable.tags,
     overview: projectTable.overview,
     features: projectTable.features,
-    images: projectTable.images,
     goals: projectTable.goals,
     results: projectTable.results,
     member: projectTable.member,
     createdAt: projectTable.createdAt,
     updatedAt: projectTable.updatedAt,
+    coverImage: {
+      id: projectTable.coverImageId,
+      url: fileTable.url,
+    },
+    images: sql<string[]>`
+		(
+			SELECT JSON_AGG(JSON_BUILD_OBJECT('id', f.id, 'url', f.url))
+			FROM ${fileTable} f
+			WHERE f.id = ANY(${projectTable.imageIds})
+		)`.as('images'),
     techStacks: sql<TechStackTable.Select[]>`
 		COALESCE(
 		  JSON_AGG(
@@ -32,16 +44,17 @@ const baseQuery = db
 					'createdAt', ${projectTechStackTable.createdAt},
 					'updatedAt', ${projectTechStackTable.updatedAt}
 				)
-			) FILTER (WHERE ${projectTechStackTable.id} IS NOT NULL),
+			),
 		  '[]'
 		)`.as('techStacks'),
   })
   .from(projectTable)
+  .leftJoin(fileTable, eq(projectTable.coverImageId, fileTable.id))
   .leftJoin(
     projectTechStackTable,
     eq(projectTable.id, projectTechStackTable.projectId),
   )
-  .groupBy(projectTable.id)
+  .groupBy(projectTable.id, fileTable.url)
   .orderBy(desc(projectTable.createdAt));
 
 export const getProjects = baseQuery.prepare('get_projects');
