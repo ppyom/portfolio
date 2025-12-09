@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import { projectSchema } from '@/lib/validation/project.schema';
 import { zodResolver } from '@hookform/resolvers/zod';
 import type { Project } from '@/types/project';
@@ -90,12 +91,18 @@ export default function ProjectEditForm({ defaultProject }: Props) {
           },
         )}
       >
-        <FieldGroup title="프로젝트 기본 정보">
+        <FieldGroup
+          title="프로젝트 기본 정보"
+          className="space-y-4 grid sm:grid-cols-[120px_1fr] gap-x-4"
+        >
+          <Label>프로젝트 제목</Label>
           <Input placeholder="프로젝트 제목" {...register('title')} />
+          <Label>프로젝트 간단 설명</Label>
           <Input
             placeholder="프로젝트 간단 설명"
             {...register('description')}
           />
+          <Label>카테고리</Label>
           <Input
             placeholder="카테고리 (ex. WebApplication, ...)"
             {...register('category')}
@@ -103,14 +110,18 @@ export default function ProjectEditForm({ defaultProject }: Props) {
           {/* TODO File Input 분리!! (one, many) */}
           <Input type="file" accept="image/*" {...register('coverImageFile')} />
           {/* ---- */}
+          <Label>커버 이미지</Label>
+          <Label>GitHub Repository 주소</Label>
           <Input
             placeholder="GitHub Repository 주소"
             {...register('githubUrl')}
           />
+          <Label>실제 애플리케이션 주소</Label>
           <Input
             placeholder="실제 애플리케이션 주소"
             {...register('applicationUrl')}
           />
+          <Label>기술스택 태그</Label>
           <Input
             placeholder="기술스택 태그 (,로 구분해서 작성)"
             value={watch('tags').join(',')}
@@ -139,13 +150,16 @@ export default function ProjectEditForm({ defaultProject }: Props) {
           {/* ---- */}
         </FieldGroup>
         <FieldGroup title="프로젝트 구성원">
+          <Label>전체 인원</Label>
           <Input
             type="number"
             placeholder="전체 인원"
             min={1}
             {...register('member.size', { valueAsNumber: true })}
           />
+          <Label>내가 맡은 역할</Label>
           <Input placeholder="내가 맡은 역할" {...register('member.role')} />
+          <Label>담당 업무</Label>
           <ArrayField name="member.responsibilities" placeholder="담당 업무" />
         </FieldGroup>
         <FieldGroup title="목표" description="프로젝트의 목표를 작성">

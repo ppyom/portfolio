@@ -4,6 +4,7 @@ import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon, Trash2Icon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 
 export default function TechStackField() {
   const { control, register } = useFormContext();
@@ -17,11 +18,13 @@ export default function TechStackField() {
     <>
       {fields.map((field, idx) => (
         <div key={field.fieldId} className="flex items-center gap-2">
-          <div className="flex-1">
+          <div className="flex-1 grid grid-cols-[100px_1fr]">
+            <Label>유형</Label>
             <Input
               placeholder="유형"
               {...register(`techStacks.${idx}.title`)}
             />
+            <Label>기술 스택</Label>
             <Controller
               control={control}
               name={`techStacks.${idx}.stacks`}
