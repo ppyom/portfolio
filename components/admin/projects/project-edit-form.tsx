@@ -2,6 +2,7 @@
 
 import { z } from 'zod';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
@@ -25,13 +26,14 @@ const formSchema = projectSchema.and(
 export type FormData = z.infer<typeof formSchema>;
 
 export default function ProjectEditForm({ defaultProject }: Props) {
+  const router = useRouter();
+
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: defaultProject?.title || '',
       description: defaultProject?.description || '',
       category: defaultProject?.category || '',
-      coverImageUrl: defaultProject?.coverImageUrl || '',
       githubUrl: defaultProject?.githubUrl || '',
       applicationUrl: defaultProject?.applicationUrl || '',
       tags: defaultProject?.tags || [],
@@ -39,7 +41,9 @@ export default function ProjectEditForm({ defaultProject }: Props) {
       features: defaultProject?.features ?? [],
       goals: defaultProject?.goals || [],
       results: defaultProject?.results || [],
-      member: defaultProject?.member || {},
+      member: defaultProject?.member || {
+        responsibilities: [],
+      },
       techStacks:
         defaultProject?.techStacks.map((ts) => ({
           title: ts.title ?? undefined,
@@ -59,15 +63,27 @@ export default function ProjectEditForm({ defaultProject }: Props) {
           (data: FormData) => {
             console.log(data);
 
-            // fetch(`http://localhost:3000/api/projects/${defaultProject?.id || ''}`, {
-            //   method: defaultProject?.id ? 'PATCH' : 'POST',
-            //   body: JSON.stringify({
-            //     ...data,
-            //   }),
-            // })
-            //   .then((res) => res.json())
-            //   .then(console.log)
-            //   .catch(console.error);
+            fetch(
+              `http://localhost:3000/api/projects/${defaultProject?.id || ''}`,
+              {
+                method: defaultProject?.id ? 'PATCH' : 'POST',
+                body: JSON.stringify({
+                  ...data,
+                }),
+              },
+            )
+              .then((res) => {
+                if (!res.ok) {
+                  console.error(res.statusText);
+                  throw new Error('업로드 중 오류가 발생했습니다.');
+                }
+                return res.json();
+              })
+              .then(() => {
+                router.replace('/manage/projects');
+                // 저장되었습니다
+              })
+              .catch(console.error);
           },
           (error) => {
             console.error(error);
@@ -127,7 +143,7 @@ export default function ProjectEditForm({ defaultProject }: Props) {
             type="number"
             placeholder="전체 인원"
             min={1}
-            {...register('member.size')}
+            {...register('member.size', { valueAsNumber: true })}
           />
           <Input placeholder="내가 맡은 역할" {...register('member.role')} />
           <ArrayField name="member.responsibilities" placeholder="담당 업무" />
