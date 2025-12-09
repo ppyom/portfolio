@@ -4,13 +4,11 @@ export const projectSchema = z.object({
   title: z.string().nonempty(),
   description: z.string().optional(),
   category: z.string().optional(),
-  coverImageUrl: z.string().optional(),
   githubUrl: z.string().optional(),
   applicationUrl: z.string().optional(),
   tags: z.array(z.string()),
   overview: z.string(),
   features: z.array(z.string()).optional(),
-  images: z.array(z.string()).optional(),
   goals: z.array(z.string()).optional(),
   results: z.array(z.string()).optional(),
   member: z.object({
