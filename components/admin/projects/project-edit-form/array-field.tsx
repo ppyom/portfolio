@@ -31,7 +31,12 @@ export default function ArrayField({ name, placeholder = '' }: Props) {
           </Button>
         </div>
       ))}
-      <Button className="w-full" type="button" onClick={() => append('')}>
+      <Button
+        className="w-full"
+        variant="secondary"
+        type="button"
+        onClick={() => append('')}
+      >
         <PlusIcon /> 항목 추가
       </Button>
     </>

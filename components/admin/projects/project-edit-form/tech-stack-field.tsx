@@ -75,6 +75,7 @@ export default function TechStackField() {
       ))}
       <Button
         className="w-full"
+        variant="secondary"
         type="button"
         onClick={() => append({ title: '', stacks: [] })}
       >
