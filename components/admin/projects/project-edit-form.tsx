@@ -13,6 +13,7 @@ import type { Project } from '@/types/project';
 import TechStackField from './project-edit-form/tech-stack-field';
 import ArrayField from './project-edit-form/array-field';
 import FieldGroup from './project-edit-form/field-group';
+import ImageUploader from './project-edit-form/image-uploader';
 
 interface Props {
   defaultProject?: Project;
@@ -20,8 +21,24 @@ interface Props {
 
 const formSchema = projectSchema.and(
   z.object({
-    coverImageFile: z.file().optional(),
-    imagesFile: z.file().optional(),
+    coverImageFile: z
+      .instanceof(File) // File 객체인지 확인
+      .optional()
+      .refine((file) => file == null || file.size > 0, '파일이 비어있습니다.'),
+    imagesFile: z
+      .array(z.instanceof(File))
+      .min(1, '최소 1개의 파일을 업로드해야 합니다.')
+      .optional(),
+    existedCoverImage: z.array(
+      z.object({
+        id: z.string(),
+        url: z.string(),
+        deleted: z.boolean(),
+      }),
+    ),
+    existedImages: z.array(
+      z.object({ id: z.string(), url: z.string(), deleted: z.boolean() }),
+    ),
   }),
 );
 export type FormData = z.infer<typeof formSchema>;
@@ -52,6 +69,12 @@ export default function ProjectEditForm({ defaultProject }: Props) {
         })) || [],
       imagesFile: undefined,
       coverImageFile: undefined,
+      existedCoverImage: defaultProject?.coverImage
+        ? [{ ...defaultProject.coverImage, deleted: false }]
+        : [],
+      existedImages: defaultProject?.images
+        ? defaultProject.images.map((image) => ({ ...image, deleted: false }))
+        : [],
     },
   });
   const { register, handleSubmit, watch, setValue } = form;
@@ -107,10 +130,8 @@ export default function ProjectEditForm({ defaultProject }: Props) {
             placeholder="카테고리 (ex. WebApplication, ...)"
             {...register('category')}
           />
-          {/* TODO File Input 분리!! (one, many) */}
-          <Input type="file" accept="image/*" {...register('coverImageFile')} />
-          {/* ---- */}
           <Label>커버 이미지</Label>
+          <ImageUploader name="coverImageFile" existName="existedCoverImage" />
           <Label>GitHub Repository 주소</Label>
           <Input
             placeholder="GitHub Repository 주소"
@@ -145,9 +166,7 @@ export default function ProjectEditForm({ defaultProject }: Props) {
           <TechStackField />
         </FieldGroup>
         <FieldGroup title="시연 이미지">
-          {/* TODO File Input 분리!! (one, many) */}
-          <Input type="file" accept="image/*" multiple />
-          {/* ---- */}
+          <ImageUploader name="imagesFile" existName="existedImages" multiple />
         </FieldGroup>
         <FieldGroup title="프로젝트 구성원">
           <Label>전체 인원</Label>
