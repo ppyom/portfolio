@@ -24,10 +24,12 @@ const baseQuery = db
     member: projectTable.member,
     createdAt: projectTable.createdAt,
     updatedAt: projectTable.updatedAt,
-    coverImage: {
-      id: projectTable.coverImageId,
-      url: fileTable.url,
-    },
+    coverImage: sql<ImageFile | null>`
+		CASE 
+			WHEN ${projectTable.coverImageId} IS NULL THEN NULL
+			ELSE JSON_BUILD_OBJECT('id', ${projectTable.coverImageId}, 'url', ${fileTable.url})
+		END
+		`.as('coverImage'),
     images: sql<ImageFile[]>`
 		(
 			SELECT JSON_AGG(JSON_BUILD_OBJECT('id', f.id, 'url', f.url))
@@ -55,7 +57,7 @@ const baseQuery = db
     projectTechStackTable,
     eq(projectTable.id, projectTechStackTable.projectId),
   )
-  .groupBy(projectTable.id, fileTable.url)
+  .groupBy(projectTable.id, fileTable.id, fileTable.url)
   .orderBy(desc(projectTable.createdAt));
 
 export const getProjects = baseQuery.prepare('get_projects');
