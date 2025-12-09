@@ -6,6 +6,7 @@ import {
   projectTechStackTable,
 } from '@/database/schema';
 import { TechStackTable } from '@/database/types';
+import type { ImageFile } from '@/types/project';
 
 const baseQuery = db
   .select({
@@ -27,7 +28,7 @@ const baseQuery = db
       id: projectTable.coverImageId,
       url: fileTable.url,
     },
-    images: sql<string[]>`
+    images: sql<ImageFile[]>`
 		(
 			SELECT JSON_AGG(JSON_BUILD_OBJECT('id', f.id, 'url', f.url))
 			FROM ${fileTable} f
@@ -44,7 +45,7 @@ const baseQuery = db
 					'createdAt', ${projectTechStackTable.createdAt},
 					'updatedAt', ${projectTechStackTable.updatedAt}
 				)
-			),
+			) FILTER (WHERE ${projectTechStackTable.id} IS NOT NULL),
 		  '[]'
 		)`.as('techStacks'),
   })
