@@ -23,12 +23,8 @@ const formSchema = projectSchema.and(
   z.object({
     coverImageFile: z
       .instanceof(File) // File 객체인지 확인
-      .optional()
-      .refine((file) => file == null || file.size > 0, '파일이 비어있습니다.'),
-    imagesFile: z
-      .array(z.instanceof(File))
-      .min(1, '최소 1개의 파일을 업로드해야 합니다.')
       .optional(),
+    imagesFile: z.array(z.instanceof(File)).optional(),
     existedCoverImage: z.array(
       z.object({
         id: z.string(),
@@ -41,12 +37,12 @@ const formSchema = projectSchema.and(
     ),
   }),
 );
-export type FormData = z.infer<typeof formSchema>;
+export type FormDataType = z.infer<typeof formSchema>;
 
 export default function ProjectEditForm({ defaultProject }: Props) {
   const router = useRouter();
 
-  const form = useForm<FormData>({
+  const form = useForm<FormDataType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: defaultProject?.title || '',
@@ -84,16 +80,29 @@ export default function ProjectEditForm({ defaultProject }: Props) {
       <form
         className="space-y-4"
         onSubmit={handleSubmit(
-          (data: FormData) => {
+          (data: FormDataType) => {
             console.log(data);
+            const formData = new FormData();
+
+            Object.entries(data).forEach(([key, value]) => {
+              if (Array.isArray(value) && value[0] instanceof File) {
+                if (value != null) {
+                  value.forEach((v) => formData.append(key, v));
+                }
+              } else if (value instanceof File || typeof value === 'string') {
+                formData.append(key, value);
+              } else {
+                if (value != null) {
+                  formData.append(key, JSON.stringify(value));
+                }
+              }
+            });
 
             fetch(
               `http://localhost:3000/api/projects/${defaultProject?.id || ''}`,
               {
                 method: defaultProject?.id ? 'PATCH' : 'POST',
-                body: JSON.stringify({
-                  ...data,
-                }),
+                body: formData,
               },
             )
               .then((res) => {
