@@ -1,19 +1,19 @@
 'use client';
 
 import { z } from 'zod';
-import { FormProvider, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { FormProvider, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { projectSchema } from '@/lib/validation/project.schema';
-import { zodResolver } from '@hookform/resolvers/zod';
 import type { Project } from '@/types/project';
-import TechStackField from './project-edit-form/tech-stack-field';
-import ArrayField from './project-edit-form/array-field';
-import FieldGroup from './project-edit-form/field-group';
-import ImageUploader from './project-edit-form/image-uploader';
+import TechStackField from './tech-stack-field';
+import ArrayField from './array-field';
+import FieldGroup from './field-group';
+import ImageUploader from './image-uploader';
 
 interface Props {
   defaultProject?: Project;
