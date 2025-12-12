@@ -1,7 +1,14 @@
-import { projectSchema } from '@/lib/validation/project.schema';
-import { db } from '@/database';
-import { projectTable, projectTechStackTable } from '@/database/schema';
 import { eq, sql } from 'drizzle-orm';
+import { db } from '@/database';
+import {
+  fileTable,
+  projectTable,
+  projectTechStackTable,
+} from '@/database/schema';
+import { getDeletedImages, uploadImage } from '@/lib/image';
+import type { ImageFile, Project } from '@/types/project';
+import { inArray } from 'drizzle-orm/sql/expressions/conditions';
+import { remove } from '@/lib/file-uploader';
 
 interface Payload {
   params: Promise<{ id: string }>;
@@ -38,102 +45,90 @@ export const PATCH = async (request: Request, { params }: Payload) => {
   );
   const coverImageFile = formData.getAll('coverImageFile') as File[];
   const imagesFile = formData.getAll('imagesFile') as File[];
-  const existedCoverImage = JSON.parse(
+  const existedCoverImage: (ImageFile & { deleted: boolean })[] = JSON.parse(
     formData.get('existedCoverImage') as string,
   );
-  const existedImages = JSON.parse(formData.get('existedImages') as string);
-
-  console.log(
-    'title',
-    title,
-    'description',
-    description,
-    'category',
-    category,
-    'githubUrl',
-    githubUrl,
-    'applicationUrl',
-    applicationUrl,
-    'tags',
-    tags,
-    'overview',
-    overview,
-    'features',
-    features,
-    'goals',
-    goals,
-    'results',
-    results,
-    'member',
-    member,
-    'techStacks',
-    techStacks,
-    'coverImageFile',
-    coverImageFile,
-    'imagesFile',
-    imagesFile,
-    'existedCoverImage',
-    existedCoverImage,
-    'existedImages',
-    existedImages,
+  const existedImages: (ImageFile & { deleted: boolean })[] = JSON.parse(
+    formData.get('existedImages') as string,
+  );
+  const deletedImages = getDeletedImages(
+    ...existedCoverImage,
+    ...existedImages,
   );
 
   try {
-    const result = await db.transaction(async (tx) => {
-      // 0. TODO 이미지파일 업데이트 (삭제 여부 O => 삭제)
+    const result = await db
+      .transaction(async (tx) => {
+        // 0. 이미지파일 업데이트 (삭제할 파일들 삭제)
+        await tx.delete(fileTable).where(
+          inArray(
+            fileTable.id,
+            deletedImages.map((i) => i.id),
+          ),
+        );
+        const remainingImageIds = existedImages
+          .filter((i) => !i.deleted)
+          .map((i) => i.id);
 
-      // 1. 이미지 업로드
-      const coverImage =
-        coverImageFile.length !== 0 && (await uploadImage(coverImageFile, tx));
-      const images =
-        imagesFile.length !== 0 && (await uploadImage(imagesFile, tx));
+        // 1. 이미지 업로드
+        const coverImage = await uploadImage(coverImageFile, tx);
+        const images = (await uploadImage(imagesFile, tx)) || [];
 
-      // 2. 작성
-      const inserted = await tx
-        .update(projectTable)
-        .set({
-          title,
-          description,
-          category,
-          githubUrl,
-          applicationUrl,
-          tags,
-          overview,
-          features,
-          goals,
-          results,
-          member,
-          coverImageId: coverImage ? coverImage[0].id : undefined,
-          imageIds: images ? images.map((image) => image.id) : undefined,
-        })
-        .where(eq(projectTable.id, id))
-        .returning();
-      const project = inserted[0];
+        // 2. 작성
+        const updated = await tx
+          .update(projectTable)
+          .set({
+            title,
+            description,
+            category,
+            githubUrl,
+            applicationUrl,
+            tags,
+            overview,
+            features,
+            goals,
+            results,
+            member,
+            coverImageId: !existedCoverImage?.[0].deleted
+              ? undefined
+              : coverImage?.[0].id || null,
+            imageIds: [...remainingImageIds, ...images.map((i) => i.id)],
+          })
+          .where(eq(projectTable.id, id))
+          .returning();
+        const project = updated[0];
 
-      if (!project) {
-        throw new Error('실패했습니다.');
-      }
-
-      if (techStacks.length > 0) {
-        const insertedTechStacks = await tx
-          .insert(projectTechStackTable)
-          .values(techStacks.map((t) => ({ ...t, projectId: id })))
-          .onConflictDoUpdate({
-            target: [
-              projectTechStackTable.projectId,
-              projectTechStackTable.title,
-            ],
-            set: {
-              stacks: sql`excluded.stacks`,
-            },
-          });
-        if (!insertedTechStacks) {
+        if (!project) {
           throw new Error('실패했습니다.');
         }
-      }
 
-      return project;
-    });
+        if (techStacks.length > 0) {
+          const insertedTechStacks = await tx
+            .insert(projectTechStackTable)
+            .values(techStacks.map((t) => ({ ...t, projectId: id })))
+            .onConflictDoUpdate({
+              target: [
+                projectTechStackTable.projectId,
+                projectTechStackTable.title,
+              ],
+              set: {
+                stacks: sql`excluded.stacks`,
+              },
+            });
+          if (!insertedTechStacks) {
+            throw new Error('실패했습니다.');
+          }
+        }
+
+        return project;
+      })
+      .finally(async () => {
+        if (deletedImages.length === 0) return;
+
+        await Promise.all(
+          deletedImages.map(async (image) => await remove(image.url)),
+        );
+      });
 
     return Response.json(result, { status: 200 });
   } catch (error) {
