@@ -1,4 +1,5 @@
 import { eq, sql } from 'drizzle-orm';
+import { inArray } from 'drizzle-orm/sql/expressions/conditions';
 import { db } from '@/database';
 import {
   fileTable,
@@ -7,8 +8,8 @@ import {
 } from '@/database/schema';
 import { getDeletedImages, uploadImage } from '@/lib/image';
 import type { ImageFile, Project } from '@/types/project';
-import { inArray } from 'drizzle-orm/sql/expressions/conditions';
 import { remove } from '@/lib/file-uploader';
+import { parseProjectFormData } from '@/lib/utils/parseProjectFormData';
 
 interface Payload {
   params: Promise<{ id: string }>;
@@ -22,35 +23,25 @@ export const PATCH = async (request: Request, { params }: Payload) => {
   }
 
   const formData = await request.formData();
+  const {
+    title,
+    description,
+    category,
+    githubUrl,
+    applicationUrl,
+    tags,
+    overview,
+    features,
+    goals,
+    results,
+    member,
+    techStacks,
+    coverImageFile,
+    imagesFile,
+    existedCoverImage,
+    existedImages,
+  } = parseProjectFormData(formData);
 
-  const title = formData.get('title') as string;
-  const description = formData.get('description') as string;
-  const category = formData.get('category') as string;
-  const githubUrl = formData.get('githubUrl') as string;
-  const applicationUrl = formData.get('applicationUrl') as string;
-  const tags: Project['tags'] = JSON.parse(formData.get('tags') as string);
-  const overview = formData.get('overview') as string;
-  const features: Project['features'] = JSON.parse(
-    formData.get('features') as string,
-  );
-  const goals: Project['goals'] = JSON.parse(formData.get('goals') as string);
-  const results: Project['results'] = JSON.parse(
-    formData.get('results') as string,
-  );
-  const member: Project['member'] = JSON.parse(
-    formData.get('member') as string,
-  );
-  const techStacks: Project['techStacks'] = JSON.parse(
-    formData.get('techStacks') as string,
-  );
-  const coverImageFile = formData.getAll('coverImageFile') as File[];
-  const imagesFile = formData.getAll('imagesFile') as File[];
-  const existedCoverImage: (ImageFile & { deleted: boolean })[] = JSON.parse(
-    formData.get('existedCoverImage') as string,
-  );
-  const existedImages: (ImageFile & { deleted: boolean })[] = JSON.parse(
-    formData.get('existedImages') as string,
-  );
   const deletedImages = getDeletedImages(
     ...existedCoverImage,
     ...existedImages,

@@ -3,6 +3,7 @@ import { projectTable, projectTechStackTable } from '@/database/schema';
 import { getProjects } from '@/database/queries/project';
 import { uploadImage } from '@/lib/image';
 import type { Project } from '@/types/project';
+import { parseProjectFormData } from '@/lib/utils/parseProjectFormData';
 
 export const GET = async () => {
   try {
@@ -18,29 +19,22 @@ export const GET = async () => {
 
 export const POST = async (request: Request) => {
   const formData = await request.formData();
-
-  const title = formData.get('title') as string;
-  const description = formData.get('description') as string;
-  const category = formData.get('category') as string;
-  const githubUrl = formData.get('githubUrl') as string;
-  const applicationUrl = formData.get('applicationUrl') as string;
-  const tags: Project['tags'] = JSON.parse(formData.get('tags') as string);
-  const overview = formData.get('overview') as string;
-  const features: Project['features'] = JSON.parse(
-    formData.get('features') as string,
-  );
-  const goals: Project['goals'] = JSON.parse(formData.get('goals') as string);
-  const results: Project['results'] = JSON.parse(
-    formData.get('results') as string,
-  );
-  const member: Project['member'] = JSON.parse(
-    formData.get('member') as string,
-  );
-  const techStacks: Project['techStacks'] = JSON.parse(
-    formData.get('techStacks') as string,
-  );
-  const coverImageFile = formData.getAll('coverImageFile') as File[];
-  const imagesFile = formData.getAll('imagesFile') as File[];
+  const {
+    title,
+    description,
+    category,
+    githubUrl,
+    applicationUrl,
+    tags,
+    overview,
+    features,
+    goals,
+    results,
+    member,
+    techStacks,
+    coverImageFile,
+    imagesFile,
+  } = parseProjectFormData(formData);
 
   try {
     const result = await db.transaction(async (tx) => {
