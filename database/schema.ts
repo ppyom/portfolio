@@ -44,11 +44,11 @@ export const projectTable = pgTable('project', {
     responsibilities: string[];
   }>(),
   coverImageId: uuid('cover_image_id').references(() => fileTable.id, {
-    onDelete: 'cascade',
+    onDelete: 'set null',
   }),
   imageIds: uuid('image_ids')
     .references(() => fileTable.id, {
-      onDelete: 'cascade',
+      onDelete: 'set null',
     })
     .array(),
   createdAt: text('created_at')

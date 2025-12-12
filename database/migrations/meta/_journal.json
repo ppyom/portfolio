@@ -43,6 +43,13 @@
       "when": 1765202849731,
       "tag": "0005_legal_shockwave",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1765528516691,
+      "tag": "0006_wide_clint_barton",
+      "breakpoints": true
     }
   ]
 }
