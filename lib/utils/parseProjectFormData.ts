@@ -16,7 +16,7 @@ export function parseProjectFormData(formData: FormData) {
     overview: getString('overview'),
 
     coverImageFile: getFiles('coverImageFile'),
-    imagesFile: getFiles('imagesFile'),
+    imageFiles: getFiles('imageFiles'),
 
     tags: parseJSON<Project['tags']>('tags'),
     features: parseJSON<Project['features']>('features'),

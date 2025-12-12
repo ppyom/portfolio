@@ -24,7 +24,7 @@ const formSchema = projectSchema.and(
     coverImageFile: z
       .instanceof(File) // File 객체인지 확인
       .optional(),
-    imagesFile: z.array(z.instanceof(File)).optional(),
+    imageFiles: z.array(z.instanceof(File)).optional(),
     existedCoverImage: z.array(
       z.object({
         id: z.string(),
@@ -63,7 +63,7 @@ export default function ProjectEditForm({ defaultProject }: Props) {
           title: ts.title ?? undefined,
           stacks: ts.stacks ?? undefined,
         })) || [],
-      imagesFile: undefined,
+      imageFiles: undefined,
       coverImageFile: undefined,
       existedCoverImage: defaultProject?.coverImage
         ? [{ ...defaultProject.coverImage, deleted: false }]
@@ -87,7 +87,7 @@ export default function ProjectEditForm({ defaultProject }: Props) {
             Object.entries(data).forEach(([key, value]) => {
               if (Array.isArray(value) && value[0] instanceof File) {
                 if (value != null) {
-                  value.forEach((v) => formData.append(key, v));
+                  (value as File[]).forEach((v) => formData.append(key, v));
                 }
               } else if (value instanceof File || typeof value === 'string') {
                 formData.append(key, value);
@@ -175,7 +175,7 @@ export default function ProjectEditForm({ defaultProject }: Props) {
           <TechStackField />
         </FieldGroup>
         <FieldGroup title="시연 이미지">
-          <ImageUploader name="imagesFile" existName="existedImages" multiple />
+          <ImageUploader name="imageFiles" existName="existedImages" multiple />
         </FieldGroup>
         <FieldGroup title="프로젝트 구성원">
           <Label>전체 인원</Label>
@@ -196,7 +196,13 @@ export default function ProjectEditForm({ defaultProject }: Props) {
         <FieldGroup title="결과" description="프로젝트의 결과를 작성">
           <ArrayField name="results" placeholder="결과" />
         </FieldGroup>
-        <Button type="submit">저장하기</Button>
+        <Button
+          className="w-full sticky bottom-4 font-semibold"
+          size="lg"
+          type="submit"
+        >
+          저장하기
+        </Button>
       </form>
     </FormProvider>
   );

@@ -37,7 +37,7 @@ export const PATCH = async (request: Request, { params }: Payload) => {
     member,
     techStacks,
     coverImageFile,
-    imagesFile,
+    imageFiles,
     existedCoverImage,
     existedImages,
   } = parseProjectFormData(formData);
@@ -63,7 +63,7 @@ export const PATCH = async (request: Request, { params }: Payload) => {
 
         // 1. 이미지 업로드
         const coverImage = await uploadImage(coverImageFile, tx);
-        const images = (await uploadImage(imagesFile, tx)) || [];
+        const images = (await uploadImage(imageFiles, tx)) || [];
 
         // 2. 작성
         const updated = await tx

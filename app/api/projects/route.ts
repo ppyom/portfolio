@@ -33,7 +33,7 @@ export const POST = async (request: Request) => {
     member,
     techStacks,
     coverImageFile,
-    imagesFile,
+    imageFiles,
   } = parseProjectFormData(formData);
 
   try {
@@ -41,7 +41,7 @@ export const POST = async (request: Request) => {
       const coverImage =
         coverImageFile.length !== 0 && (await uploadImage(coverImageFile, tx));
       const images =
-        imagesFile.length !== 0 && (await uploadImage(imagesFile, tx));
+        imageFiles.length !== 0 && (await uploadImage(imageFiles, tx));
 
       const inserted = await tx
         .insert(projectTable)
