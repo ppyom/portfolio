@@ -1,11 +1,6 @@
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import PageTitle from '@/components/page-title';
-import BackButton from '@/components/back-button';
-import ProjectDetail from '@/components/project-detail';
-import { getProjectDetail } from '@/lib/api/projects';
+import { getProject } from '@/database/queries/project';
+import ProjectContents from '@/components/project-detail';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -13,7 +8,7 @@ interface Props {
 
 export default async function Page({ params }: Props) {
   const { id } = await params;
-  const project = await getProjectDetail(id);
+  const [project] = await getProject.execute({ projectId: id });
 
   if (!project) {
     return notFound();
@@ -21,46 +16,7 @@ export default async function Page({ params }: Props) {
 
   return (
     <main className="min-h-screen bg-background">
-      <div className="max-w-3xl mx-auto px-6 py-12">
-        <BackButton className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group mb-8">
-          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-          Back to Projects
-        </BackButton>
-        <div className="space-y-6 animate-in fade-in slide-up duration-500">
-          <div className="flex flex-col gap-2 sm:flex-row justify-between">
-            <PageTitle align="left">{project.props.title}</PageTitle>
-            {(project.props.github_url || project.props.application_url) && (
-              <div className="space-x-1">
-                {project.props.github_url && (
-                  <Button className="font-bold" size="lg" asChild>
-                    <a href={project.props.github_url} target="_blank">
-                      GitHub
-                      <ArrowUpRight />
-                    </a>
-                  </Button>
-                )}
-                {project.props.application_url && (
-                  <Button className="font-bold" size="lg" asChild>
-                    <a href={project.props.application_url} target="_blank">
-                      View Site
-                      <ArrowUpRight />
-                    </a>
-                  </Button>
-                )}
-              </div>
-            )}
-          </div>
-          <Image
-            className="w-full h-full object-cover"
-            src={project.props.image}
-            alt={project.props.title}
-            width={1080}
-            height={567}
-            loading="eager"
-          />
-        </div>
-        <ProjectDetail recordMap={project.recordMap} />
-      </div>
+      <ProjectContents project={project} />
     </main>
   );
 }
