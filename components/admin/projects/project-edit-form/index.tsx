@@ -81,7 +81,6 @@ export default function ProjectEditForm({ defaultProject }: Props) {
         className="space-y-4"
         onSubmit={handleSubmit(
           (data: FormDataType) => {
-            console.log(data);
             const formData = new FormData();
 
             Object.entries(data).forEach(([key, value]) => {

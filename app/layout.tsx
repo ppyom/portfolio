@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import ThemeProvider from '@/components/theme/theme-provider';
-import Navigation from '@/components/navigation';
-import Footer from '@/components/footer';
 import { cn } from '@/lib/utils';
 import './globals.css';
 

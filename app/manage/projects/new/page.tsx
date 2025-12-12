@@ -1,3 +1,11 @@
+import PageTitle from '@/components/page-title';
+import ProjectEditForm from '@/components/admin/projects/project-edit-form';
+
 export default function Page() {
-  return <div>New Project</div>;
+  return (
+    <>
+      <PageTitle align="left">프로젝트 추가</PageTitle>
+      <ProjectEditForm />
+    </>
+  );
 }

@@ -7,7 +7,6 @@ import {
   projectTechStackTable,
 } from '@/database/schema';
 import { getDeletedImages, uploadImage } from '@/lib/image';
-import type { ImageFile, Project } from '@/types/project';
 import { remove } from '@/lib/file-uploader';
 import { parseProjectFormData } from '@/lib/utils/parseProjectFormData';
 

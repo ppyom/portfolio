@@ -2,7 +2,6 @@ import { db } from '@/database';
 import { projectTable, projectTechStackTable } from '@/database/schema';
 import { getProjects } from '@/database/queries/project';
 import { uploadImage } from '@/lib/image';
-import type { Project } from '@/types/project';
 import { parseProjectFormData } from '@/lib/utils/parseProjectFormData';
 
 export const GET = async () => {

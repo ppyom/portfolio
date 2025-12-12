@@ -42,8 +42,6 @@ export const upload = async (file: File) => {
 export const remove = async (url: string) => {
   const objectKey = extractObjectKey(url);
 
-  console.log(objectKey);
-
   if (!objectKey) {
     return;
   }

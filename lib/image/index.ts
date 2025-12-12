@@ -1,9 +1,8 @@
 import { ExtractTablesWithRelations } from 'drizzle-orm';
 import { PgTransaction } from 'drizzle-orm/pg-core';
 import { PostgresJsQueryResultHKT } from 'drizzle-orm/postgres-js';
-import { inArray } from 'drizzle-orm/sql/expressions/conditions';
 import { fileTable } from '@/database/schema';
-import { remove, upload } from '@/lib/file-uploader';
+import { upload } from '@/lib/file-uploader';
 import { ImageFile } from '@/types/project';
 
 /**
