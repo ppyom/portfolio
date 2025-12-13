@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Edit2Icon, MoreVerticalIcon, Trash2Icon } from 'lucide-react';
 import {
   DropdownMenu,
@@ -15,6 +16,26 @@ interface Props {
 }
 
 export default function ProjectDropdown({ projectId }: Props) {
+  const router = useRouter();
+
+  const handleDelete = () => {
+    fetch(`http://localhost:3000/api/projects/${projectId}`, {
+      method: 'DELETE',
+    })
+      .then((res) => {
+        if (!res.ok) {
+          console.error(res.statusText);
+          throw new Error('삭제 중 오류가 발생했습니다.');
+        }
+        return res.json();
+      })
+      .then(() => {
+        router.refresh();
+        // 삭제되었습니다
+      })
+      .catch(console.error);
+  };
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -29,7 +50,7 @@ export default function ProjectDropdown({ projectId }: Props) {
             <span>수정</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="group">
+        <DropdownMenuItem className="group" onClick={handleDelete}>
           <Trash2Icon className="group-hover:scale-120 group-hover:rotate-45 duration-300 transition" />
           <span>삭제</span>
         </DropdownMenuItem>

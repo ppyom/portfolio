@@ -18,7 +18,7 @@ export const PATCH = async (request: Request, { params }: Payload) => {
   const { id } = await params;
 
   if (!id) {
-    Response.json('존재하지 않는 프로젝트입니다.', { status: 404 });
+    return Response.json('존재하지 않는 프로젝트입니다.', { status: 404 });
   }
 
   const formData = await request.formData();
@@ -118,6 +118,49 @@ export const PATCH = async (request: Request, { params }: Payload) => {
         deletedImages.map(async (image) => await remove(image.url)),
       );
     }
+
+    return Response.json(result, { status: 200 });
+  } catch (error) {
+    console.error(error);
+    if (error instanceof Error) {
+      return Response.json(error.message, { status: 400 });
+    }
+  }
+};
+
+export const DELETE = async (_: Request, { params }: Payload) => {
+  const { id } = await params;
+
+  if (!id) {
+    return Response.json('존재하지 않는 프로젝트입니다.', { status: 404 });
+  }
+
+  const [project] = await db
+    .select({
+      coverImageId: projectTable.coverImageId,
+      imageIds: projectTable.imageIds,
+    })
+    .from(projectTable)
+    .where(eq(projectTable.id, id));
+
+  const deletedImages = [
+    project.coverImageId,
+    ...(project.imageIds ?? []),
+  ].filter((i): i is string => !!i);
+
+  try {
+    const result = await db.transaction(async (tx) => {
+      // 1. 프로젝트에 적용된 이미지파일 삭제
+      await tx.delete(fileTable).where(inArray(fileTable.id, deletedImages));
+
+      // 2. 프로젝트 기술스택 삭제
+      await tx
+        .delete(projectTechStackTable)
+        .where(eq(projectTechStackTable.projectId, id));
+
+      // 3. 프로젝트 삭제
+      return tx.delete(projectTable).where(eq(projectTable.id, id)).returning();
+    });
 
     return Response.json(result, { status: 200 });
   } catch (error) {
