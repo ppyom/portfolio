@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import { Edit2Icon, MoreVerticalIcon, Trash2Icon } from 'lucide-react';
 import {
   DropdownMenu,
@@ -10,27 +9,19 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
+import { deleteProject } from '@/app/manage/projects/actions';
 
 interface Props {
   projectId: string;
 }
 
 export default function ProjectDropdown({ projectId }: Props) {
-  const router = useRouter();
-
   const handleDelete = () => {
-    fetch(`http://localhost:3000/api/projects/${projectId}`, {
-      method: 'DELETE',
-    })
-      .then((res) => {
-        if (!res.ok) {
-          console.error(res.statusText);
-          throw new Error('삭제 중 오류가 발생했습니다.');
+    deleteProject(projectId)
+      .then((result) => {
+        if (!result.success) {
+          throw new Error(result.message);
         }
-        return res.json();
-      })
-      .then(() => {
-        router.refresh();
         // 삭제되었습니다
       })
       .catch(console.error);

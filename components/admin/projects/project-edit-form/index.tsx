@@ -14,6 +14,10 @@ import TechStackField from './tech-stack-field';
 import ArrayField from './array-field';
 import FieldGroup from './field-group';
 import ImageUploader from './image-uploader';
+import {
+  createProjectAction,
+  updateProjectAction,
+} from '@/app/manage/projects/actions';
 
 interface Props {
   defaultProject?: Project;
@@ -75,6 +79,8 @@ export default function ProjectEditForm({ defaultProject }: Props) {
   });
   const { register, handleSubmit, watch, setValue } = form;
 
+  const action = defaultProject?.id ? updateProjectAction : createProjectAction;
+
   return (
     <FormProvider {...form}>
       <form
@@ -97,21 +103,11 @@ export default function ProjectEditForm({ defaultProject }: Props) {
               }
             });
 
-            fetch(
-              `http://localhost:3000/api/projects/${defaultProject?.id || ''}`,
-              {
-                method: defaultProject?.id ? 'PATCH' : 'POST',
-                body: formData,
-              },
-            )
-              .then((res) => {
-                if (!res.ok) {
-                  console.error(res.statusText);
-                  throw new Error('업로드 중 오류가 발생했습니다.');
+            action(formData, defaultProject?.id || '')
+              .then((result) => {
+                if (!result.success) {
+                  throw new Error(result.message);
                 }
-                return res.json();
-              })
-              .then(() => {
                 router.replace('/manage/projects');
                 // 저장되었습니다
               })

@@ -1,3 +1,6 @@
+'use server';
+
+import { revalidatePath } from 'next/cache';
 import { eq, sql } from 'drizzle-orm';
 import { inArray } from 'drizzle-orm/sql/expressions/conditions';
 import { db } from '@/database';
@@ -6,22 +9,92 @@ import {
   projectTable,
   projectTechStackTable,
 } from '@/database/schema';
-import { getDeletedImages, uploadImage } from '@/lib/image';
 import { remove } from '@/lib/file-uploader';
+import { getDeletedImages, uploadImage } from '@/lib/image';
 import { parseProjectFormData } from '@/lib/utils/parseProjectFormData';
 
-interface Payload {
-  params: Promise<{ id: string }>;
+export async function createProjectAction(formData: FormData) {
+  const {
+    title,
+    description,
+    category,
+    githubUrl,
+    applicationUrl,
+    tags,
+    overview,
+    features,
+    goals,
+    results,
+    member,
+    techStacks,
+    coverImageFile,
+    imageFiles,
+  } = parseProjectFormData(formData);
+
+  try {
+    const result = await db.transaction(async (tx) => {
+      const coverImage =
+        coverImageFile.length !== 0 && (await uploadImage(coverImageFile, tx));
+      const images =
+        imageFiles.length !== 0 && (await uploadImage(imageFiles, tx));
+
+      const inserted = await tx
+        .insert(projectTable)
+        .values({
+          title,
+          description,
+          category,
+          githubUrl,
+          applicationUrl,
+          tags,
+          overview,
+          features,
+          goals,
+          results,
+          member,
+          coverImageId: coverImage ? coverImage[0].id : undefined,
+          imageIds: images ? images.map((image) => image.id) : undefined,
+        })
+        .returning();
+      const project = inserted[0];
+
+      if (!project) {
+        throw new Error('실패했습니다.');
+      }
+
+      if (techStacks.length > 0) {
+        const insertedTechStacks = await tx
+          .insert(projectTechStackTable)
+          .values(techStacks.map((t) => ({ ...t, projectId: project.id })));
+        if (!insertedTechStacks) {
+          throw new Error('실패했습니다.');
+        }
+      }
+
+      return project;
+    });
+
+    revalidatePath('/manage/projects');
+    revalidatePath('/projects');
+
+    return { success: true, projectId: result.id };
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : '알 수 없는 오류가 발생했습니다.',
+    };
+  }
 }
 
-export const PATCH = async (request: Request, { params }: Payload) => {
-  const { id } = await params;
-
+export async function updateProjectAction(formData: FormData, id: string) {
   if (!id) {
-    return Response.json('존재하지 않는 프로젝트입니다.', { status: 404 });
+    return { success: false, message: '존재하지 않는 프로젝트입니다.' };
   }
 
-  const formData = await request.formData();
   const {
     title,
     description,
@@ -119,22 +192,23 @@ export const PATCH = async (request: Request, { params }: Payload) => {
       );
     }
 
-    return Response.json(result, { status: 200 });
+    revalidatePath('/manage/projects');
+    revalidatePath(`/projects/${id}`);
+
+    return { success: true, projectId: result.id };
   } catch (error) {
     console.error(error);
-    if (error instanceof Error) {
-      return Response.json(error.message, { status: 400 });
-    }
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : '알 수 없는 오류가 발생했습니다.',
+    };
   }
-};
+}
 
-export const DELETE = async (_: Request, { params }: Payload) => {
-  const { id } = await params;
-
-  if (!id) {
-    return Response.json('존재하지 않는 프로젝트입니다.', { status: 404 });
-  }
-
+export async function deleteProject(id: string) {
   const [project] = await db
     .select({
       coverImageId: projectTable.coverImageId,
@@ -149,7 +223,7 @@ export const DELETE = async (_: Request, { params }: Payload) => {
   ].filter((i): i is string => !!i);
 
   try {
-    const result = await db.transaction(async (tx) => {
+    await db.transaction(async (tx) => {
       // 1. 프로젝트에 적용된 이미지파일 삭제
       await tx.delete(fileTable).where(inArray(fileTable.id, deletedImages));
 
@@ -162,11 +236,18 @@ export const DELETE = async (_: Request, { params }: Payload) => {
       return tx.delete(projectTable).where(eq(projectTable.id, id)).returning();
     });
 
-    return Response.json(result, { status: 200 });
+    revalidatePath('/manage/projects');
+    revalidatePath('/projects');
+
+    return { success: true };
   } catch (error) {
     console.error(error);
-    if (error instanceof Error) {
-      return Response.json(error.message, { status: 400 });
-    }
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : '알 수 없는 오류가 발생했습니다.',
+    };
   }
-};
+}
