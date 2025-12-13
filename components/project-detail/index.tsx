@@ -4,6 +4,7 @@ import ProjectContentBase from './content-base';
 import ListContent from './list-content';
 import MemberContent from './member-content';
 import TechStacksContent from './tech-stacks-content';
+import ImagesContent from '@/components/project-detail/images-content';
 
 interface Props {
   project: Project;
@@ -40,13 +41,7 @@ export default function ProjectContents({ project }: Props) {
         )}
         {project.images && project.images.length !== 0 && (
           <ProjectContentBase title="시연 이미지">
-            {project.images.map((image, idx) => (
-              <img
-                key={image.id}
-                src={image.url}
-                alt={`${project.title} ${idx}`}
-              />
-            ))}
+            <ImagesContent images={project.images} />
           </ProjectContentBase>
         )}
       </div>
