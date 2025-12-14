@@ -12,13 +12,16 @@ export default function Page() {
   const router = useRouter();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
 
   const handleLogin = async () => {
     if (!username || !password) {
+      setError('아이디와 비밀번호를 입력해주세요.');
       return;
     }
 
     if (!isValidEmail(username)) {
+      setError('아이디 또는 비밀번호를 확인해주세요.');
       return;
     }
 
@@ -29,12 +32,12 @@ export default function Page() {
     });
 
     if (!response) {
-      // 로그인 중 오류가 발생했습니다.
+      setError('로그인 중 오류가 발생했습니다.');
       return;
     }
 
     if (response.error) {
-      // 아이디 또는 비밀번호를 확인해주세요.
+      setError('아이디 또는 비밀번호를 확인해주세요.');
       return;
     }
 
@@ -57,6 +60,7 @@ export default function Page() {
           value={password}
           onChange={({ target }) => setPassword(target.value)}
         />
+        {error && <p className="text-destructive text-sm px-1">{error}</p>}
         <Button
           className="w-full cursor-pointer font-semibold"
           onClick={handleLogin}
