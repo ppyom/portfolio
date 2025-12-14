@@ -3,6 +3,7 @@
 import { z } from 'zod';
 import { useRouter } from 'next/navigation';
 import { FormProvider, useForm } from 'react-hook-form';
+import { toast } from 'sonner';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -18,6 +19,7 @@ import {
   createProjectAction,
   updateProjectAction,
 } from '@/app/manage/projects/actions';
+import { extractErrorMessage } from '@/lib/utils/extract-error-message';
 
 interface Props {
   defaultProject?: Project;
@@ -77,7 +79,13 @@ export default function ProjectEditForm({ defaultProject }: Props) {
         : [],
     },
   });
-  const { register, handleSubmit, watch, setValue } = form;
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = form;
 
   const action = defaultProject?.id ? updateProjectAction : createProjectAction;
 
@@ -109,12 +117,18 @@ export default function ProjectEditForm({ defaultProject }: Props) {
                   throw new Error(result.message);
                 }
                 router.replace('/manage/projects');
-                // 저장되었습니다
+                toast.success('저장되었습니다.');
               })
-              .catch(console.error);
+              .catch((error) => {
+                toast.error(
+                  error instanceof Error
+                    ? error.message
+                    : '알 수 없는 오류가 발생했습니다.',
+                );
+              });
           },
           (error) => {
-            console.error(error);
+            toast.error(extractErrorMessage(error));
           },
         )}
       >
@@ -123,7 +137,11 @@ export default function ProjectEditForm({ defaultProject }: Props) {
           className="space-y-4 grid sm:grid-cols-[120px_1fr] gap-x-4"
         >
           <Label>프로젝트 제목</Label>
-          <Input placeholder="프로젝트 제목" {...register('title')} />
+          <Input
+            placeholder="프로젝트 제목"
+            aria-invalid={!!errors.title}
+            {...register('title')}
+          />
           <Label>프로젝트 간단 설명</Label>
           <Input
             placeholder="프로젝트 간단 설명"
@@ -178,6 +196,7 @@ export default function ProjectEditForm({ defaultProject }: Props) {
             type="number"
             placeholder="전체 인원"
             min={1}
+            aria-invalid={!!errors.member?.size}
             {...register('member.size', { valueAsNumber: true })}
           />
           <Label>내가 맡은 역할</Label>

@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 export const projectSchema = z.object({
-  title: z.string().nonempty(),
+  title: z.string().nonempty('프로젝트 제목은 반드시 입력되어야합니다.'),
   description: z.string().optional(),
   category: z.string().optional(),
   githubUrl: z.string().optional(),
@@ -12,7 +12,7 @@ export const projectSchema = z.object({
   goals: z.array(z.string()).optional(),
   results: z.array(z.string()).optional(),
   member: z.object({
-    size: z.number(),
+    size: z.number('전체 인원은 반드시 입력되어야합니다.'),
     role: z.string(),
     responsibilities: z.array(z.string()),
   }),

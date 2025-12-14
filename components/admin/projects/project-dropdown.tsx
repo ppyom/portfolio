@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Edit2Icon, MoreVerticalIcon, Trash2Icon } from 'lucide-react';
+import { toast } from 'sonner';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,9 +23,15 @@ export default function ProjectDropdown({ projectId }: Props) {
         if (!result.success) {
           throw new Error(result.message);
         }
-        // 삭제되었습니다
+        toast.success('삭제되었습니다.');
       })
-      .catch(console.error);
+      .catch((error) => {
+        toast.error(
+          error instanceof Error
+            ? error.message
+            : '알 수 없는 오류가 발생했습니다.',
+        );
+      });
   };
 
   return (
