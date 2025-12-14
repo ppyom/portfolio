@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import ThemeProvider from '@/components/theme/theme-provider';
+import { Toaster } from '@/components/ui/sonner';
 import { cn } from '@/lib/utils';
 import './globals.css';
 
@@ -38,6 +39,12 @@ export default function RootLayout({ children }: Readonly<Props>) {
           disableTransitionOnChange
         >
           {children}
+          <Toaster
+            position="top-right"
+            richColors={true}
+            closeButton={true}
+            duration={Infinity}
+          />
         </ThemeProvider>
       </body>
     </html>
