@@ -21,7 +21,7 @@ export default function MemberContent({ member }: Props) {
         </span>
         <ListContent
           className="col-span-2 sm:col-span-1"
-          key="member"
+          name="member"
           items={member.responsibilities}
           color="secondary"
         />

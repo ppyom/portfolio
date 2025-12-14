@@ -1,14 +1,14 @@
 import { cn } from '@/lib/utils';
 
 interface Props {
-  key: string;
+  name: string;
   items: string[];
   color?: 'primary' | 'secondary' | 'neutral';
   className?: string;
 }
 
 export default function ListContent({
-  key,
+  name,
   items,
   color = 'primary',
   className,
@@ -17,7 +17,7 @@ export default function ListContent({
     <ul className={className}>
       {items.map((item, idx) => (
         <li
-          key={`${key}_${idx}`}
+          key={`${name}_${idx}`}
           className={cn(
             'flex items-center gap-2',
             'before:size-1.5 before:inline-block',

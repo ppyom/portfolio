@@ -22,7 +22,7 @@ export default function ProjectContents({ project }: Props) {
         )}
         {project.features && project.features.length !== 0 && (
           <ProjectContentBase title="주요 기능">
-            <ListContent key="features" items={project.features} />
+            <ListContent name="features" items={project.features} />
           </ProjectContentBase>
         )}
         {project.member && <MemberContent member={project.member} />}
@@ -31,12 +31,12 @@ export default function ProjectContents({ project }: Props) {
         )}
         {project.goals && project.goals.length !== 0 && (
           <ProjectContentBase title="목표">
-            <ListContent key="goals" items={project.goals} />
+            <ListContent name="goals" items={project.goals} />
           </ProjectContentBase>
         )}
         {project.results && project.results.length !== 0 && (
           <ProjectContentBase title="성과">
-            <ListContent key="results" items={project.results} />
+            <ListContent name="results" items={project.results} />
           </ProjectContentBase>
         )}
         {project.images && project.images.length !== 0 && (
