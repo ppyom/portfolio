@@ -11,7 +11,7 @@ import {
 } from '@/database/schema';
 import { remove } from '@/lib/file-uploader';
 import { getDeletedImages, uploadImage } from '@/lib/image';
-import { parseProjectFormData } from '@/lib/utils/parseProjectFormData';
+import { parseProjectFormData } from '@/lib/utils/parse-project-form-data';
 
 export async function createProjectAction(formData: FormData) {
   const {
