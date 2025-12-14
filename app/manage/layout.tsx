@@ -19,7 +19,9 @@ export default async function Layout({ children }: Props) {
       <Sidebar />
       <SidebarInset>
         <AdminHeader />
-        {children}
+        <main className="container mx-auto px-4 py-8 space-y-8">
+          {children}
+        </main>
       </SidebarInset>
     </SidebarProvider>
   );

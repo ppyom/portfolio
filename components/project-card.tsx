@@ -7,7 +7,7 @@ type Props = Project;
 
 export default function ProjectCard({
   id,
-  image,
+  coverImage: image,
   title,
   description,
   tags,
@@ -17,7 +17,7 @@ export default function ProjectCard({
       <div className="group bg-background rounded-xl overflow-hidden border border-border glow-hover">
         <div className="overflow-hidden h-48 bg-muted">
           <Image
-            src={image || '/placeholder.svg'}
+            src={image?.url || '/placeholder.svg'}
             alt={title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             width={500}
@@ -32,9 +32,9 @@ export default function ProjectCard({
             {description}
           </p>
           <div className="flex flex-wrap gap-2 pt-2">
-            {tags.map((tag) => (
-              <SkillTag key={tag} name={tag} size="sm" />
-            ))}
+            {tags &&
+              tags.length !== 0 &&
+              tags.map((tag) => <SkillTag key={tag} name={tag} size="sm" />)}
           </div>
         </div>
       </div>

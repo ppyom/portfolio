@@ -48,7 +48,6 @@ export const POST = async (request: Request) => {
 
     return Response.json(result, { status: 201 });
   } catch (error) {
-    console.error(error);
     if (error instanceof Error) {
       return Response.json(error.message, { status: 400 });
     }

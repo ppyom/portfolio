@@ -1,6 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
+import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
@@ -8,8 +9,11 @@ import { sidebarItems } from '@/lib/constants/admin-sidebar-items';
 
 export default function AdminHeader() {
   const pathname = usePathname();
-  const pageName = useMemo(
-    () => sidebarItems.find((item) => item.href === pathname)?.label || '',
+  const currentPage = useMemo(
+    () =>
+      [...sidebarItems]
+        .reverse()
+        .find((item) => pathname.startsWith(item.href)),
     [pathname],
   );
 
@@ -21,7 +25,11 @@ export default function AdminHeader() {
           orientation="vertical"
           className="mx-2 data-[orientation=vertical]:h-4"
         />
-        <h1 className="text-base font-medium">{pageName}</h1>
+        <Link href={currentPage?.href || '/manage'}>
+          <h1 className="text-base font-medium hover:underline">
+            {currentPage?.label}
+          </h1>
+        </Link>
       </div>
     </header>
   );

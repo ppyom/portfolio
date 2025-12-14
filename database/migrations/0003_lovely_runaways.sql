@@ -1,0 +1,1 @@
+ALTER TABLE "project_tech_stack" ADD CONSTRAINT "project_tech_stack_project_id_title_unique" UNIQUE("project_id","title");

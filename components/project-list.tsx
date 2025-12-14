@@ -1,8 +1,9 @@
 import ProjectCard from '@/components/project-card';
-import { getProjects } from '@/lib/api/projects';
+import { getProjects } from '@/database/queries/project';
 
 export default async function ProjectList() {
-  const projects = await getProjects();
+  const projects = await getProjects.execute();
+
   return (
     <>
       {projects.map((project) => (

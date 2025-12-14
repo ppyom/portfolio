@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
+import PageTitle from '@/components/page-title';
+import ProjectEditForm from '@/components/admin/projects/project-edit-form';
 import { getProject } from '@/database/queries/project';
-import ProjectContents from '@/components/project-detail';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -8,6 +9,7 @@ interface Props {
 
 export default async function Page({ params }: Props) {
   const { id } = await params;
+
   const [project] = await getProject.execute({ projectId: id });
 
   if (!project) {
@@ -15,8 +17,9 @@ export default async function Page({ params }: Props) {
   }
 
   return (
-    <main className="min-h-screen bg-background">
-      <ProjectContents project={project} />
-    </main>
+    <>
+      <PageTitle align="left">프로젝트 수정</PageTitle>
+      <ProjectEditForm defaultProject={project} />
+    </>
   );
 }
