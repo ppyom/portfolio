@@ -79,7 +79,6 @@ export async function createProjectAction(formData: FormData) {
 
     return { success: true, projectId: result.id };
   } catch (error) {
-    console.error(error);
     return {
       success: false,
       message:
@@ -197,7 +196,6 @@ export async function updateProjectAction(formData: FormData, id: string) {
 
     return { success: true, projectId: result.id };
   } catch (error) {
-    console.error(error);
     return {
       success: false,
       message:
@@ -241,7 +239,6 @@ export async function deleteProject(id: string) {
 
     return { success: true };
   } catch (error) {
-    console.error(error);
     return {
       success: false,
       message:
