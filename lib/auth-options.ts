@@ -5,6 +5,7 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 import { eq } from 'drizzle-orm';
 import { db } from '@/database';
 import { userTable } from '@/database/schema';
+import { config } from '@/lib/config';
 
 const authOptions: NextAuthOptions = {
   providers: [
@@ -46,7 +47,7 @@ const authOptions: NextAuthOptions = {
       },
     }),
   ],
-  secret: process.env.NEXTAUTH_SECRET,
+  secret: config.nextauth.secret,
   session: {
     strategy: 'jwt',
     maxAge: 7 * 24 * 60 * 60, // 7일
