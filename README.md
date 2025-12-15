@@ -35,16 +35,16 @@ npm install
 
 ```
 # 🔐 인증 관련
-BCRYPT_ROUND=<your-bcrypt-round>
+BCRYPT_ROUND=<your-bcrypt-round> (default: 10)
 NEXTAUTH_SECRET=<your-nextauth-secret>
 
 # ⚡ Supabase
 DATABASE_URL=<your-supabase-url>
 
 # ☁️ Cloudflare R2
+CLOUDFLARE_REGION=<your-cloudflare-region> (default: auto)
 CLOUDFLARE_ACCESS_KEY=<your-cloudflare-access-key>
 CLOUDFLARE_SECRET_KEY=<your-cloudflare-secret-key>
-CLOUDFLARE_REGION=<your-cloudflare-region>
 CLOUDFLARE_ENDPOINT=<your-cloudflare-endpoint>
 CLOUDFLARE_BUCKET=<your-cloudflare-bucket>
 CLOUDFLARE_PUBLIC_URL=<your-cloudflare-public-url>
