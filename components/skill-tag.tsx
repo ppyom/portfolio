@@ -1,26 +1,20 @@
 import { skillHex } from '@/lib/constants/skills';
-import { cn, dynamicTextColor } from '@/lib/utils';
+import { dynamicTextColor } from '@/lib/utils';
+import Tag from '@/components/tag';
 
 interface Props {
   name: string;
   size?: 'sm' | 'md' | 'lg';
 }
 
-export default function SkillTag({ name, size = 'md' }: Props) {
+export default function SkillTag(props: Props) {
   return (
-    <span
-      className={cn(
-        'rounded-full font-medium',
-        size === 'sm' && 'px-3 py-1 text-xs',
-        size === 'md' && 'px-4 py-2 text-sm',
-        size === 'md' && 'px-4 py-2 text-base',
-      )}
+    <Tag
+      {...props}
       style={{
-        background: skillHex[name] || '#aaaaaa',
-        color: dynamicTextColor(skillHex[name] || '#aaaaaa'),
+        background: skillHex[props.name] || '#aaaaaa',
+        color: dynamicTextColor(skillHex[props.name] || '#aaaaaa'),
       }}
-    >
-      {name}
-    </span>
+    />
   );
 }
