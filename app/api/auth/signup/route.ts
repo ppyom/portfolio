@@ -2,6 +2,7 @@ import * as bcrypt from 'bcrypt';
 import { eq } from 'drizzle-orm';
 import { db } from '@/database';
 import { userTable } from '@/database/schema';
+import { config } from '@/lib/config';
 
 export const POST = async (request: Request) => {
   const { username, password, name } = await request.json();
@@ -23,7 +24,7 @@ export const POST = async (request: Request) => {
 
       const hashedPassword = await bcrypt.hash(
         password,
-        Number(process.env.BCRYPT_ROUND || 10),
+        Number(config.bcrypt.round || 10),
       );
 
       const newUser = await tx
