@@ -1,8 +1,4 @@
-import {
-  fileTable,
-  projectTable,
-  projectTechStackTable,
-} from '@/database/schema';
+import { fileTable, projectTable, techStackTable } from '@/database/schema';
 
 export namespace FileTable {
   type Select = typeof fileTable.$inferSelect;
@@ -15,6 +11,6 @@ export namespace ProjectTable {
 }
 
 export namespace TechStackTable {
-  type Select = typeof projectTechStackTable.$inferSelect;
-  type Insert = typeof projectTechStackTable.$inferInsert;
+  type Select = typeof techStackTable.$inferSelect;
+  type Insert = typeof techStackTable.$inferInsert;
 }

@@ -3,7 +3,7 @@ import { sql } from 'drizzle-orm';
 import { unique } from 'drizzle-orm/pg-core/unique-constraint';
 import { projectTable } from './project.schema';
 
-export const projectTechStackTable = pgTable(
+export const techStackTable = pgTable(
   'project_tech_stack',
   {
     id: uuid('id')
