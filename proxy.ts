@@ -5,7 +5,7 @@ export const config = {
   matcher: ['/login', '/manage/:path*'],
 };
 
-export default async function middleware(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
   const token = await getToken({ req: request });
   const isAuthenticated = !!token;
 
