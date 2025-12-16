@@ -9,12 +9,12 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import ArrayField from '@/components/form/array-field';
+import FieldGroup from '@/components/form/field-group';
+import ImageUploader from '@/components/form/image-uploader';
 import { projectSchema } from '@/lib/validation/project.schema';
 import type { Project } from '@/types/project';
 import TechStackField from './tech-stack-field';
-import ArrayField from './array-field';
-import FieldGroup from './field-group';
-import ImageUploader from './image-uploader';
 import {
   createProjectAction,
   updateProjectAction,
