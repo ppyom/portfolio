@@ -64,6 +64,13 @@
       "when": 1765888025678,
       "tag": "0008_serious_ken_ellis",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1765898216841,
+      "tag": "0009_stormy_rawhide_kid",
+      "breakpoints": true
     }
   ]
 }
