@@ -3,11 +3,12 @@ import { db } from '@/database';
 import { profileTable } from '@/database/schemas/profile.schema';
 import { experienceTable } from '@/database/schemas/experience.schema';
 import { educationTable } from '@/database/schemas/education.schema';
+import { EducationTable, ExperienceTable } from '@/database/types';
 
 const experienceSubQuery = db
   .select({
     profileId: experienceTable.profileId,
-    experience: sql`
+    experience: sql<ExperienceTable.Select[]>`
       COALESCE(
         JSON_AGG(
           JSON_BUILD_OBJECT(
@@ -29,7 +30,7 @@ const experienceSubQuery = db
 const educationSubQuery = db
   .select({
     profileId: educationTable.profileId,
-    education: sql`
+    education: sql<EducationTable.Select[]>`
       COALESCE(
         JSON_AGG(
           JSON_BUILD_OBJECT(
@@ -50,7 +51,11 @@ const educationSubQuery = db
 
 const baseQuery = db
   .select({
+    id: profileTable.id,
     introduce: profileTable.introduce,
+    createdAt: profileTable.createdAt,
+    updatedAt: profileTable.updatedAt,
+    language: profileTable.language,
     experience: experienceSubQuery.experience,
     education: educationSubQuery.education,
   })
