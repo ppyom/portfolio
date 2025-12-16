@@ -20,6 +20,7 @@ import {
   updateProjectAction,
 } from '@/app/manage/projects/actions';
 import { extractErrorMessage } from '@/lib/utils/extract-error-message';
+import { nullToUndefined } from '@/lib/utils/null-to-undefined';
 
 interface Props {
   defaultProject?: Project;
@@ -65,10 +66,7 @@ export default function ProjectEditForm({ defaultProject }: Props) {
         responsibilities: [],
       },
       techStacks:
-        defaultProject?.techStacks.map((ts) => ({
-          title: ts.title ?? undefined,
-          stacks: ts.stacks ?? undefined,
-        })) || [],
+        defaultProject?.techStacks.map((item) => nullToUndefined(item)) || [],
       imageFiles: undefined,
       coverImageFile: undefined,
       existedCoverImage: defaultProject?.coverImage
