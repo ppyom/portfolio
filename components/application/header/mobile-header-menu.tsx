@@ -1,5 +1,6 @@
 'use client';
 
+import type { Session } from 'next-auth';
 import { MenuIcon, XIcon } from 'lucide-react';
 import {
   Sheet,
@@ -14,7 +15,6 @@ import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 import HeaderNavigation from './header-navigation';
 import UserMenu from './user-menu';
-import type { Session } from 'next-auth';
 
 interface Props {
   session: Session | null;

@@ -5,7 +5,7 @@ import Logo from '@/components/base/logo';
 import HeaderWrapper from './wrapper';
 import UserMenu from './user-menu';
 import HeaderNavigation from './header-navigation';
-import MobileHeaderMenu from '@/components/base/header/mobile-header-menu';
+import MobileHeaderMenu from './mobile-header-menu';
 
 export default async function Header() {
   const session = await getServerSession(authOptions);
