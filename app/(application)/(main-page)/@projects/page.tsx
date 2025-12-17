@@ -5,7 +5,7 @@ import ProjectCardSkeleton from '@/components/project-card.skeleton';
 
 export default async function Page() {
   return (
-    <section id="Projects" className="py-20 px-6 bg-card/50">
+    <section id="projects" className="py-20 px-6 bg-card/50">
       <div className="max-w-4xl mx-auto space-y-12">
         <PageTitle>Projects</PageTitle>
         <div className="grid md:grid-cols-2 gap-8">

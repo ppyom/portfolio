@@ -15,7 +15,9 @@ export default async function proxy(request: NextRequest) {
     }
   } else if (request.nextUrl.pathname.startsWith('/manage')) {
     if (!isAuthenticated) {
-      return NextResponse.redirect(new URL('/login', request.url));
+      const loginUrl = new URL('/login', request.url);
+      loginUrl.searchParams.set('callbackUrl', request.nextUrl.pathname);
+      return NextResponse.redirect(loginUrl);
     } else if (!token.user.admin) {
       return NextResponse.redirect(new URL('/', request.url));
     }

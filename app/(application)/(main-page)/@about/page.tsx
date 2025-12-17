@@ -10,7 +10,7 @@ export default async function Page() {
   }
 
   return (
-    <section id="About" className="py-20 px-6 bg-card/50">
+    <section id="about" className="py-20 px-6 bg-card/50">
       <div className="max-w-4xl mx-auto space-y-12">
         <PageTitle>About Me</PageTitle>
 
