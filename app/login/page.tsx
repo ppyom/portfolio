@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { isValidEmail } from '@/lib/utils';
 import { Input } from '@/components/ui/input';
@@ -10,6 +10,9 @@ import PageTitle from '@/components/page-title';
 
 export default function Page() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get('callbackUrl') ?? '/';
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -41,7 +44,7 @@ export default function Page() {
       return;
     }
 
-    router.replace('/manage');
+    router.replace(callbackUrl);
   };
 
   return (
