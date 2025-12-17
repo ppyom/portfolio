@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import type { Session } from 'next-auth';
-import { LayoutDashboardIcon, MoreVerticalIcon } from 'lucide-react';
+import { LayoutDashboardIcon } from 'lucide-react';
 import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import UserAvatar from '@/components/base/user-avatar';
@@ -22,24 +22,24 @@ export default function UserMenu({ session }: Props) {
   }
 
   return (
-    <div className="flex gap-2">
-      <UserAvatar session={session} hideUsername />
-      <UserDropdown
-        trigger={
-          <Button variant="ghost" size="icon-sm">
-            <MoreVerticalIcon />
-          </Button>
-        }
-      >
-        {session.user.admin && (
-          <DropdownMenuItem asChild>
-            <Link href="/manage">
-              <LayoutDashboardIcon />
-              포트폴리오 관리자
-            </Link>
-          </DropdownMenuItem>
-        )}
-      </UserDropdown>
-    </div>
+    <UserDropdown
+      trigger={
+        <button
+          className="flex gap-2 outline-none cursor-pointer"
+          title="사용자 메뉴 열기"
+        >
+          <UserAvatar session={session} hideUsername />
+        </button>
+      }
+    >
+      {session.user.admin && (
+        <DropdownMenuItem asChild>
+          <Link href="/manage">
+            <LayoutDashboardIcon />
+            포트폴리오 관리자
+          </Link>
+        </DropdownMenuItem>
+      )}
+    </UserDropdown>
   );
 }
