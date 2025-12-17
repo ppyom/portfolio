@@ -1,8 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useScrollVisibility } from '@/hooks/use-scroll-visibility';
 
 interface Props {
   children: React.ReactNode;
@@ -11,22 +11,7 @@ interface Props {
 export default function HeaderWrapper({ children }: Props) {
   const pathname = usePathname();
   const isIndexPage = pathname === '/';
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (!isIndexPage) {
-      return;
-    }
-
-    const onScroll = () => {
-      setVisible(window.scrollY > 40);
-    };
-
-    window.addEventListener('scroll', onScroll);
-    onScroll();
-
-    return () => window.removeEventListener('scroll', onScroll);
-  }, [isIndexPage]);
+  const { visible } = useScrollVisibility({ enable: isIndexPage });
 
   return (
     <header
