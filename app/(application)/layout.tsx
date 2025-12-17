@@ -1,5 +1,6 @@
 import Navigation from '@/components/navigation';
 import Footer from '@/components/footer';
+import Header from '@/components/base/header';
 
 interface Props {
   children: React.ReactNode;
@@ -8,6 +9,7 @@ interface Props {
 export default function Layout({ children }: Props) {
   return (
     <>
+      <Header />
       {children}
       <Navigation />
       <Footer />
