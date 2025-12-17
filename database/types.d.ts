@@ -1,7 +1,10 @@
 import {
+  educationTable,
+  experienceTable,
   fileTable,
+  profileTable,
   projectTable,
-  projectTechStackTable,
+  techStackTable,
 } from '@/database/schema';
 
 export namespace FileTable {
@@ -15,6 +18,21 @@ export namespace ProjectTable {
 }
 
 export namespace TechStackTable {
-  type Select = typeof projectTechStackTable.$inferSelect;
-  type Insert = typeof projectTechStackTable.$inferInsert;
+  type Select = typeof techStackTable.$inferSelect;
+  type Insert = typeof techStackTable.$inferInsert;
+}
+
+export namespace ProfileTable {
+  type Select = typeof profileTable.$inferSelect;
+  type Insert = typeof profileTable.$inferInsert;
+}
+
+export namespace ExperienceTable {
+  type Select = typeof experienceTable.$inferSelect;
+  type Insert = typeof experienceTable.$inferInsert;
+}
+
+export namespace EducationTable {
+  type Select = typeof educationTable.$inferSelect;
+  type Insert = typeof educationTable.$inferInsert;
 }

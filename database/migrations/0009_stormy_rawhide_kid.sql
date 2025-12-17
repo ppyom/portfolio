@@ -1,0 +1,1 @@
+ALTER TABLE "profile" ADD CONSTRAINT "profile_language_unique" UNIQUE("language");

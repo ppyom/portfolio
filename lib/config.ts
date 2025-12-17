@@ -17,6 +17,7 @@ export const config = {
   },
   db: {
     url: getEnv('DATABASE_URL'),
+    sessionUrl: getEnv('DATABASE_SESSION_URL'),
   },
   cloudflare: {
     region: getEnv('CLOUDFLARE_REGION', 'auto'),

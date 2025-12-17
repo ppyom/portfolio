@@ -4,11 +4,7 @@ import { revalidatePath } from 'next/cache';
 import { eq, sql } from 'drizzle-orm';
 import { inArray } from 'drizzle-orm/sql/expressions/conditions';
 import { db } from '@/database';
-import {
-  fileTable,
-  projectTable,
-  projectTechStackTable,
-} from '@/database/schema';
+import { fileTable, projectTable, techStackTable } from '@/database/schema';
 import { remove } from '@/lib/file-uploader';
 import { getDeletedImages, uploadImage } from '@/lib/image';
 import { parseProjectFormData } from '@/lib/utils/parse-project-form-data';
@@ -64,7 +60,7 @@ export async function createProjectAction(formData: FormData) {
 
       if (techStacks.length > 0) {
         const insertedTechStacks = await tx
-          .insert(projectTechStackTable)
+          .insert(techStackTable)
           .values(techStacks.map((t) => ({ ...t, projectId: project.id })));
         if (!insertedTechStacks) {
           throw new Error('실패했습니다.');
@@ -166,13 +162,10 @@ export async function updateProjectAction(formData: FormData, id: string) {
 
       if (techStacks.length > 0) {
         const insertedTechStacks = await tx
-          .insert(projectTechStackTable)
+          .insert(techStackTable)
           .values(techStacks.map((t) => ({ ...t, projectId: id })))
           .onConflictDoUpdate({
-            target: [
-              projectTechStackTable.projectId,
-              projectTechStackTable.title,
-            ],
+            target: [techStackTable.projectId, techStackTable.title],
             set: {
               stacks: sql`excluded.stacks`,
             },
@@ -226,9 +219,7 @@ export async function deleteProject(id: string) {
       await tx.delete(fileTable).where(inArray(fileTable.id, deletedImages));
 
       // 2. 프로젝트 기술스택 삭제
-      await tx
-        .delete(projectTechStackTable)
-        .where(eq(projectTechStackTable.projectId, id));
+      await tx.delete(techStackTable).where(eq(techStackTable.projectId, id));
 
       // 3. 프로젝트 삭제
       return tx.delete(projectTable).where(eq(projectTable.id, id)).returning();
