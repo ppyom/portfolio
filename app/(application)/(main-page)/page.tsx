@@ -1,7 +1,7 @@
 export default function Page() {
   return (
     <section
-      id="Intro"
+      id="intro"
       className="min-h-screen flex items-center justify-center pt-20 px-6 relative overflow-hidden"
     >
       <div className="absolute inset-0 -z-10">

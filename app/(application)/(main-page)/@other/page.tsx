@@ -5,7 +5,7 @@ import { certifications, learnings } from '@/lib/constants/achievements';
 
 export default function Other() {
   return (
-    <section id="Other" className="py-20 px-6">
+    <section id="other" className="py-20 px-6">
       <div className="max-w-4xl mx-auto space-y-12">
         <PageTitle>Learning & Growth</PageTitle>
 

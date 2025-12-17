@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 
 export default function Page() {
   return (
-    <section id="Skills" className="py-20 px-6">
+    <section id="skills" className="py-20 px-6">
       <div className="max-w-4xl mx-auto space-y-12">
         <PageTitle>Skills & Tools</PageTitle>
 

@@ -7,9 +7,9 @@ import {
 } from 'lucide-react';
 
 export const sections = [
-  { name: 'Intro', link: '/#Intro', icon: HomeIcon },
-  { name: 'About', link: '/#About', icon: UserIcon },
-  { name: 'Skills', link: '/#Skills', icon: StarIcon },
-  { name: 'Projects', link: '/#Projects', icon: BookIcon },
-  { name: 'Other', link: '/#Other', icon: MoreHorizontalIcon },
+  { name: 'Intro', link: '/#intro', icon: HomeIcon },
+  { name: 'About', link: '/#about', icon: UserIcon },
+  { name: 'Skills', link: '/#skills', icon: StarIcon },
+  { name: 'Projects', link: '/#projects', icon: BookIcon },
+  { name: 'Other', link: '/#other', icon: MoreHorizontalIcon },
 ];
