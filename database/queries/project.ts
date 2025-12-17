@@ -1,10 +1,6 @@
 import { desc, eq, sql } from 'drizzle-orm';
 import { db } from '@/database';
-import {
-  fileTable,
-  projectTable,
-  projectTechStackTable,
-} from '@/database/schema';
+import { fileTable, projectTable, techStackTable } from '@/database/schema';
 import { TechStackTable } from '@/database/types';
 import type { ImageFile } from '@/types/project';
 
@@ -40,23 +36,20 @@ const baseQuery = db
 		COALESCE(
 		  JSON_AGG(
 				JSON_BUILD_OBJECT(
-					'id', ${projectTechStackTable.id},
-					'projectId', ${projectTechStackTable.projectId},
-					'title', ${projectTechStackTable.title},
-					'stacks', ${projectTechStackTable.stacks},
-					'createdAt', ${projectTechStackTable.createdAt},
-					'updatedAt', ${projectTechStackTable.updatedAt}
+					'id', ${techStackTable.id},
+					'projectId', ${techStackTable.projectId},
+					'title', ${techStackTable.title},
+					'stacks', ${techStackTable.stacks},
+					'createdAt', ${techStackTable.createdAt},
+					'updatedAt', ${techStackTable.updatedAt}
 				)
-			) FILTER (WHERE ${projectTechStackTable.id} IS NOT NULL),
+			) FILTER (WHERE ${techStackTable.id} IS NOT NULL),
 		  '[]'
 		)`.as('techStacks'),
   })
   .from(projectTable)
   .leftJoin(fileTable, eq(projectTable.coverImageId, fileTable.id))
-  .leftJoin(
-    projectTechStackTable,
-    eq(projectTable.id, projectTechStackTable.projectId),
-  )
+  .leftJoin(techStackTable, eq(projectTable.id, techStackTable.projectId))
   .groupBy(projectTable.id, fileTable.id, fileTable.url)
   .orderBy(desc(projectTable.createdAt));
 

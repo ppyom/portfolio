@@ -1,0 +1,116 @@
+'use client';
+
+import { z } from 'zod';
+import { toast } from 'sonner';
+import { FormProvider, useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button } from '@/components/ui/button';
+import FieldGroup from '@/components/form/field-group';
+import ArrayField from '@/components/form/array-field';
+import ObjectArrayField from '@/components/form/object-array-field';
+import { profileSchema } from '@/lib/validation/profile.schema';
+import { nullToUndefined } from '@/lib/utils/null-to-undefined';
+import { extractErrorMessage } from '@/lib/utils/extract-error-message';
+import type { Profile } from '@/types/profile';
+import { updateProfileAction } from '@/app/manage/profile/actions';
+
+interface Props {
+  defaultProfile?: Profile;
+}
+
+export type FormDataType = z.infer<typeof profileSchema>;
+
+export default function ProfileEditForm({ defaultProfile }: Props) {
+  const form = useForm<FormDataType>({
+    resolver: zodResolver(profileSchema),
+    defaultValues: {
+      introduce: defaultProfile?.introduce ?? [],
+      experience:
+        defaultProfile?.experience.map((item) => nullToUndefined(item)) ?? [],
+      education:
+        defaultProfile?.education.map((item) => nullToUndefined(item)) ?? [],
+    },
+  });
+  const { handleSubmit } = form;
+
+  return (
+    <FormProvider {...form}>
+      <form
+        className="space-y-4"
+        onSubmit={handleSubmit(
+          (data: FormDataType) => {
+            const formData = new FormData();
+
+            Object.entries(data).forEach(([key, value]) => {
+              if (value != null) {
+                formData.append(key, JSON.stringify(value));
+              }
+            });
+
+            updateProfileAction(data)
+              .then((result) => {
+                if (!result.success) {
+                  throw new Error(result.message);
+                }
+                toast.success('저장되었습니다.');
+              })
+              .catch((error) => {
+                toast.error(
+                  error instanceof Error
+                    ? error.message
+                    : '알 수 없는 오류가 발생했습니다.',
+                );
+              });
+          },
+          (error) => {
+            toast.error(extractErrorMessage(error));
+          },
+        )}
+      >
+        <FieldGroup title="자기 소개">
+          <ArrayField name="introduce" placeholder="자기 소개" textarea />
+        </FieldGroup>
+        <FieldGroup title="경력">
+          <ObjectArrayField
+            name="experience"
+            title="경력"
+            fieldList={[
+              {
+                name: 'name',
+                label: '회사 이름',
+                placeholder: '회사 이름',
+              },
+              { name: 'position', label: '직무', placeholder: '직무' },
+              { name: 'startDate', label: '입사일', placeholder: '입사일' },
+              { name: 'endDate', label: '퇴사일', placeholder: '퇴사일' },
+              {
+                name: 'description',
+                label: '주요 성과',
+                placeholder: '해당 회사에서 이룬 성과를 간단하게 작성',
+              },
+            ]}
+          />
+        </FieldGroup>
+        <FieldGroup title="학력">
+          <ObjectArrayField
+            name="education"
+            title="학력"
+            fieldList={[
+              { name: 'name', label: '학교 이름', placeholder: '학교 이름' },
+              { name: 'major', label: '전공', placeholder: '전공' },
+              { name: 'startDate', label: '입학일', placeholder: '입학일' },
+              { name: 'endDate', label: '졸업일', placeholder: '졸업일' },
+            ]}
+          />
+        </FieldGroup>
+        <Button
+          className="w-full sticky bottom-4 font-semibold"
+          size="lg"
+          type="submit"
+        >
+          저장하기
+        </Button>
+      </form>
+    </FormProvider>
+  );
+}

@@ -1,0 +1,1 @@
+ALTER TABLE "profile" ADD COLUMN "language" text DEFAULT 'ko' NOT NULL;

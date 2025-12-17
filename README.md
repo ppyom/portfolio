@@ -40,6 +40,7 @@ NEXTAUTH_SECRET=<your-nextauth-secret>
 
 # ⚡ Supabase
 DATABASE_URL=<your-supabase-url>
+DATABASE_SESSION_URL=<your-supabase-direct-url>
 
 # ☁️ Cloudflare R2
 CLOUDFLARE_REGION=<your-cloudflare-region> (default: auto)
