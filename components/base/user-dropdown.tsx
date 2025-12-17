@@ -5,16 +5,22 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import type { PopperContentProps } from '@radix-ui/react-popper';
 
 interface Props {
   trigger: React.ReactNode;
+  children?: React.ReactNode;
   side?: PopperContentProps['side'];
 }
 
-export default function UserDropdown({ trigger, side = 'bottom' }: Props) {
+export default function UserDropdown({
+  trigger,
+  children,
+  side = 'bottom',
+}: Props) {
   const handleLogout = () => {
     signOut({ callbackUrl: '/login' });
   };
@@ -28,6 +34,12 @@ export default function UserDropdown({ trigger, side = 'bottom' }: Props) {
         align="end"
         sideOffset={4}
       >
+        {children && (
+          <>
+            {children}
+            <DropdownMenuSeparator />
+          </>
+        )}
         <DropdownMenuItem onClick={handleLogout}>
           <LogOutIcon />
           로그아웃
