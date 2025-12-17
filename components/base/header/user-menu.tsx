@@ -23,6 +23,7 @@ export default function UserMenu({ session }: Props) {
 
   return (
     <UserDropdown
+      align="start"
       trigger={
         <button
           className="flex gap-2 outline-none cursor-pointer"

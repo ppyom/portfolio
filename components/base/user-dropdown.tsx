@@ -14,12 +14,14 @@ interface Props {
   trigger: React.ReactNode;
   children?: React.ReactNode;
   side?: PopperContentProps['side'];
+  align?: PopperContentProps['align'];
 }
 
 export default function UserDropdown({
   trigger,
   children,
   side = 'bottom',
+  align = 'end',
 }: Props) {
   const handleLogout = () => {
     signOut();
@@ -31,7 +33,7 @@ export default function UserDropdown({
       <DropdownMenuContent
         className="w-(--radix-dropdown-menu-trigger-width) min-w-56 rounded-lg"
         side={side}
-        align="end"
+        align={align}
         sideOffset={4}
       >
         {children && (

@@ -3,7 +3,7 @@ import { headerNavItems } from '@/lib/constants/header-nav-items';
 
 export default function HeaderNavigation() {
   return (
-    <nav className="flex-1 flex items-center justify-center gap-6 text-sm font-medium">
+    <nav className="flex-1 flex flex-col items-center sm:flex-row sm:justify-center gap-6 text-sm font-medium">
       {headerNavItems.map((item) => (
         <Link
           key={item.href}
