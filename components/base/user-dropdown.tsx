@@ -22,7 +22,7 @@ export default function UserDropdown({
   side = 'bottom',
 }: Props) {
   const handleLogout = () => {
-    signOut({ callbackUrl: '/login' });
+    signOut();
   };
 
   return (
