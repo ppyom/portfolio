@@ -14,7 +14,7 @@ import {
   SidebarGroupContent,
 } from '@/components/ui/sidebar';
 import { Separator } from '@/components/ui/separator';
-import LoginUser from '@/components/admin/sidebar/login-user';
+import UserMenu from '@/components/admin/sidebar/user-menu';
 
 export default async function Sidebar() {
   const session = await getServerSession(authOptions);
@@ -59,7 +59,11 @@ export default async function Sidebar() {
       <Separator />
 
       <SidebarFooter>
-        <LoginUser session={session} />
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <UserMenu session={session} />
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarFooter>
     </SidebarRoot>
   );
