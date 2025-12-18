@@ -1,6 +1,7 @@
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { SidebarInset } from '@/components/ui/sidebar';
 import Sidebar from '@/components/admin/sidebar';
 import AdminHeader from '@/components/admin/admin-header';
+import SidebarProvider from '@/components/admin/sidebar/provider';
 
 interface Props {
   children: React.ReactNode;
@@ -8,14 +9,7 @@ interface Props {
 
 export default async function Layout({ children }: Props) {
   return (
-    <SidebarProvider
-      style={
-        {
-          '--sidebar-width': 'calc(var(--spacing) * 72)',
-          '--header-height': 'calc(var(--spacing) * 12)',
-        } as React.CSSProperties
-      }
-    >
+    <SidebarProvider>
       <Sidebar />
       <SidebarInset>
         <AdminHeader />

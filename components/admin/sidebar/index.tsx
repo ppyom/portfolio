@@ -3,8 +3,8 @@ import { getServerSession } from 'next-auth';
 import authOptions from '@/lib/auth-options';
 import { sidebarItems } from '@/lib/constants/admin-sidebar-items';
 import {
-  SidebarHeader,
   Sidebar as SidebarRoot,
+  SidebarHeader,
   SidebarFooter,
   SidebarContent,
   SidebarMenuItem,
