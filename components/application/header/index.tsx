@@ -6,6 +6,7 @@ import HeaderWrapper from './wrapper';
 import UserMenu from './user-menu';
 import HeaderNavigation from './header-navigation';
 import MobileHeaderMenu from './mobile-header-menu';
+import MobileHeaderProvider from './mobile-header-provider';
 
 export default async function Header() {
   const session = await getServerSession(authOptions);
@@ -20,7 +21,9 @@ export default async function Header() {
           <UserMenu session={session} />
         </div>
         <div className="block sm:hidden">
-          <MobileHeaderMenu session={session} />
+          <MobileHeaderProvider>
+            <MobileHeaderMenu session={session} />
+          </MobileHeaderProvider>
         </div>
       </div>
     </HeaderWrapper>
