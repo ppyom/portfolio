@@ -1,11 +1,13 @@
 'use client';
 
+import { Fragment } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
+import { GripVerticalIcon, PlusIcon, Trash2Icon } from 'lucide-react';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { ArrowDownIcon, ArrowUpIcon, PlusIcon, Trash2Icon } from 'lucide-react';
-import { Fragment } from 'react';
+import SortableList from '@/components/form/sortable/list';
+import SortableItem from '@/components/form/sortable/item';
 
 interface Props {
   title: string;
@@ -20,52 +22,49 @@ export default function ObjectArrayField({ title, name, fieldList }: Props) {
     name: name,
     keyName: 'fieldId',
   });
+
+  const ids = fields.map((field) => field.fieldId);
+
   return (
-    <>
+    <SortableList onMove={move} items={ids}>
       {fields.map((field, idx) => (
-        <div key={field.fieldId} className="flex items-center gap-2">
-          <div className="flex-1 grid grid-cols-[100px_1fr]">
-            {fieldList.map((f) => (
-              <Fragment key={`${field.fieldId}_${f.name}`}>
-                <Label>{f.label}</Label>
-                <Input
-                  placeholder={f.placeholder}
-                  {...register(`${name}.${idx}.${f.name}`)}
-                />
-              </Fragment>
-            ))}
-          </div>
-          <div className="flex items-center gap-1">
-            <div className="flex flex-col">
+        <SortableItem key={field.fieldId} id={field.fieldId}>
+          {({ listeners, attributes }) => (
+            <div className="flex items-center gap-4">
+              <div className="flex flex-col">
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="ghost"
+                  className="cursor-grab"
+                  {...listeners}
+                  {...attributes}
+                >
+                  <GripVerticalIcon />
+                </Button>
+              </div>
+              <div className="flex-1 grid grid-cols-[100px_1fr]">
+                {fieldList.map((f) => (
+                  <Fragment key={`${field.fieldId}_${f.name}`}>
+                    <Label>{f.label}</Label>
+                    <Input
+                      placeholder={f.placeholder}
+                      {...register(`${name}.${idx}.${f.name}`)}
+                    />
+                  </Fragment>
+                ))}
+              </div>
               <Button
                 type="button"
                 size="icon"
-                variant="secondary"
-                onClick={() => move(idx, idx - 1)}
-                disabled={idx === 0}
+                variant="destructive"
+                onClick={() => remove(idx)}
               >
-                <ArrowUpIcon />
-              </Button>
-              <Button
-                type="button"
-                size="icon"
-                variant="secondary"
-                onClick={() => move(idx, idx + 1)}
-                disabled={idx === fields.length - 1}
-              >
-                <ArrowDownIcon />
+                <Trash2Icon />
               </Button>
             </div>
-            <Button
-              type="button"
-              size="icon"
-              variant="destructive"
-              onClick={() => remove(idx)}
-            >
-              <Trash2Icon />
-            </Button>
-          </div>
-        </div>
+          )}
+        </SortableItem>
       ))}
       <Button
         className="w-full"
@@ -75,6 +74,6 @@ export default function ObjectArrayField({ title, name, fieldList }: Props) {
       >
         <PlusIcon /> {title} 추가
       </Button>
-    </>
+    </SortableList>
   );
 }

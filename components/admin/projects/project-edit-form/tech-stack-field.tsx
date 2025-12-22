@@ -1,10 +1,12 @@
 'use client';
 
 import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
-import { ArrowDownIcon, ArrowUpIcon, PlusIcon, Trash2Icon } from 'lucide-react';
+import { GripVerticalIcon, PlusIcon, Trash2Icon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import SortableList from '@/components/form/sortable/list';
+import SortableItem from '@/components/form/sortable/item';
 
 export default function TechStackField() {
   const { control, register } = useFormContext();
@@ -14,67 +16,63 @@ export default function TechStackField() {
     keyName: 'fieldId',
   });
 
+  const ids = fields.map((field) => field.fieldId);
+
   return (
-    <>
+    <SortableList items={ids} onMove={move}>
       {fields.map((field, idx) => (
-        <div key={field.fieldId} className="flex items-center gap-2">
-          <div className="flex-1 grid grid-cols-[100px_1fr]">
-            <Label>유형</Label>
-            <Input
-              placeholder="유형"
-              {...register(`techStacks.${idx}.title`)}
-            />
-            <Label>기술 스택</Label>
-            <Controller
-              control={control}
-              name={`techStacks.${idx}.stacks`}
-              render={({ field: stacksField }) => (
+        <SortableItem key={field.fieldId} id={field.fieldId}>
+          {({ listeners, attributes }) => (
+            <div key={field.fieldId} className="flex items-center gap-2">
+              <Button
+                type="button"
+                size="icon"
+                variant="ghost"
+                className="cursor-grab"
+                {...listeners}
+                {...attributes}
+              >
+                <GripVerticalIcon />
+              </Button>
+              <div className="flex-1 grid grid-cols-[100px_1fr]">
+                <Label>유형</Label>
                 <Input
-                  value={stacksField.value?.join(',') ?? ''}
-                  onChange={({ target }) =>
-                    stacksField.onChange(
-                      target.value
-                        .split(',')
-                        .map((s) => s.trim())
-                        .filter(Boolean),
-                    )
-                  }
-                  placeholder="기술 스택 (,로 구분)"
+                  placeholder="유형"
+                  {...register(`techStacks.${idx}.title`)}
                 />
-              )}
-            />
-          </div>
-          <div className="flex items-center gap-1">
-            <div className="flex flex-col">
-              <Button
-                type="button"
-                size="icon"
-                variant="secondary"
-                onClick={() => move(idx, idx - 1)}
-                disabled={idx === 0}
-              >
-                <ArrowUpIcon />
-              </Button>
-              <Button
-                type="button"
-                size="icon"
-                variant="secondary"
-                onClick={() => move(idx, idx + 1)}
-                disabled={idx === fields.length - 1}
-              >
-                <ArrowDownIcon />
-              </Button>
+                <Label>기술 스택</Label>
+                <Controller
+                  control={control}
+                  name={`techStacks.${idx}.stacks`}
+                  render={({ field: stacksField }) => (
+                    <Input
+                      value={stacksField.value?.join(',') ?? ''}
+                      onChange={({ target }) =>
+                        stacksField.onChange(
+                          target.value
+                            .split(',')
+                            .map((s) => s.trim())
+                            .filter(Boolean),
+                        )
+                      }
+                      placeholder="기술 스택 (,로 구분)"
+                    />
+                  )}
+                />
+              </div>
+              <div className="flex items-center gap-1">
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="destructive"
+                  onClick={() => remove(idx)}
+                >
+                  <Trash2Icon />
+                </Button>
+              </div>
             </div>
-            <Button
-              type="button"
-              size="icon"
-              variant="destructive"
-              onClick={() => remove(idx)}
-            >
-              <Trash2Icon />
-            </Button>
-          </div>
-        </div>
+          )}
+        </SortableItem>
       ))}
       <Button
         className="w-full"
@@ -84,6 +82,6 @@ export default function TechStackField() {
       >
         <PlusIcon /> 기술스택 추가
       </Button>
-    </>
+    </SortableList>
   );
 }

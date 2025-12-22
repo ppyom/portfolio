@@ -1,10 +1,12 @@
 'use client';
 
+import { GripVerticalIcon, PlusIcon, Trash2Icon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { PlusIcon, Trash2Icon } from 'lucide-react';
-import { useStringArray } from '@/hooks/use-string-array';
 import { Textarea } from '@/components/ui/textarea';
+import { useStringArray } from '@/hooks/use-string-array';
+import SortableList from '@/components/form/sortable/list';
+import SortableItem from '@/components/form/sortable/item';
 
 interface Props {
   name: string;
@@ -17,28 +19,44 @@ export default function ArrayField({
   textarea,
   placeholder = '',
 }: Props) {
-  const { fields, update, append, remove } = useStringArray(name);
+  const { fields, update, append, remove, move } = useStringArray(name);
   const InputComponent = textarea ? Textarea : Input;
 
+  const ids = fields.map((_, idx) => `${name}_${idx}`);
+
   return (
-    <>
+    <SortableList items={ids} onMove={move}>
       {fields.map((field, idx) => (
-        <div key={`${name}_${idx}`} className="flex items-center gap-2">
-          <InputComponent
-            className="resize-none"
-            placeholder={placeholder}
-            value={field}
-            onChange={({ target }) => update(idx, target.value)}
-          />
-          <Button
-            type="button"
-            size="icon"
-            variant="destructive"
-            onClick={() => remove(idx)}
-          >
-            <Trash2Icon />
-          </Button>
-        </div>
+        <SortableItem key={`${name}_${idx}`} id={ids[idx]}>
+          {({ listeners, attributes }) => (
+            <div className="flex items-center gap-2">
+              <Button
+                type="button"
+                size="icon-sm"
+                variant="ghost"
+                className="cursor-grab"
+                {...listeners}
+                {...attributes}
+              >
+                <GripVerticalIcon />
+              </Button>
+              <InputComponent
+                className="resize-none"
+                placeholder={placeholder}
+                value={field}
+                onChange={({ target }) => update(idx, target.value)}
+              />
+              <Button
+                type="button"
+                size="icon"
+                variant="destructive"
+                onClick={() => remove(idx)}
+              >
+                <Trash2Icon />
+              </Button>
+            </div>
+          )}
+        </SortableItem>
       ))}
       <Button
         className="w-full"
@@ -48,6 +66,6 @@ export default function ArrayField({
       >
         <PlusIcon /> 항목 추가
       </Button>
-    </>
+    </SortableList>
   );
 }
