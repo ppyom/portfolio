@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useStringArray } from '@/hooks/use-string-array';
 import { cn } from '@/lib/utils';
 import SortableItem from '@/components/form/sortable/item';
+import ConfirmDeleteButton from '@/components/base/confirm-delete-button';
 
 const SortableList = dynamic(() => import('@/components/form/sortable/list'), {
   ssr: false,
@@ -56,15 +57,7 @@ export default function ArrayField({
                 value={field}
                 onChange={({ target }) => update(idx, target.value)}
               />
-              <Button
-                type="button"
-                size="icon"
-                variant="ghost"
-                className="hover:bg-destructive/10 hover:text-destructive"
-                onClick={() => remove(idx)}
-              >
-                <Trash2Icon />
-              </Button>
+              <ConfirmDeleteButton onConfirm={() => remove(idx)} />
             </div>
           )}
         </SortableItem>

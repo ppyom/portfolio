@@ -2,12 +2,13 @@
 
 import dynamic from 'next/dynamic';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { GripVerticalIcon, PlusIcon, Trash2Icon } from 'lucide-react';
+import { GripVerticalIcon, PlusIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import SortableItem from '@/components/form/sortable/item';
 import Field from '@/components/form/field';
+import ConfirmDeleteButton from '@/components/base/confirm-delete-button';
 
 const SortableList = dynamic(() => import('@/components/form/sortable/list'), {
   ssr: false,
@@ -68,15 +69,7 @@ export default function TechStackField() {
                 </Field>
               </div>
               <div className="shrink-0 pt-2">
-                <Button
-                  type="button"
-                  size="icon"
-                  variant="ghost"
-                  className="hover:bg-destructive/10 hover:text-destructive"
-                  onClick={() => remove(idx)}
-                >
-                  <Trash2Icon />
-                </Button>
+                <ConfirmDeleteButton onConfirm={() => remove(idx)} />
               </div>
             </div>
           )}

@@ -9,6 +9,7 @@ import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import SortableItem from '@/components/form/sortable/item';
 import Field from '@/components/form/field';
+import ConfirmDeleteButton from '@/components/base/confirm-delete-button';
 
 const SortableList = dynamic(() => import('@/components/form/sortable/list'), {
   ssr: false,
@@ -74,15 +75,7 @@ export default function ObjectArrayField({ title, name, fieldList }: Props) {
                   ))}
                 </div>
                 <div className="shrink-0 pt-2">
-                  <Button
-                    type="button"
-                    size="icon"
-                    variant="ghost"
-                    className="hover:bg-destructive/10 hover:text-destructive"
-                    onClick={() => remove(idx)}
-                  >
-                    <Trash2Icon />
-                  </Button>
+                  <ConfirmDeleteButton onConfirm={() => remove(idx)} />
                 </div>
               </div>
               {idx < fields.length - 1 && (

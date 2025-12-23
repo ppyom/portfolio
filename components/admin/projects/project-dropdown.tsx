@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
 import { deleteProject } from '@/app/manage/projects/actions';
+import ConfirmDeleteButton from '@/components/base/confirm-delete-button';
 
 interface Props {
   projectId: string;
@@ -48,10 +49,20 @@ export default function ProjectDropdown({ projectId }: Props) {
             <span>수정</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem className="group" onClick={handleDelete}>
-          <Trash2Icon className="group-hover:scale-120 group-hover:rotate-45 duration-300 transition" />
-          <span>삭제</span>
-        </DropdownMenuItem>
+        <ConfirmDeleteButton
+          trigger={
+            <DropdownMenuItem
+              className="group"
+              onSelect={(event) => {
+                event.preventDefault();
+              }}
+            >
+              <Trash2Icon className="group-hover:scale-120 group-hover:rotate-45 duration-300 transition" />
+              <span>삭제</span>
+            </DropdownMenuItem>
+          }
+          onConfirm={handleDelete}
+        />
       </DropdownMenuContent>
     </DropdownMenu>
   );
