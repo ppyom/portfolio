@@ -17,7 +17,9 @@ export default function LoginForm() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = async () => {
+  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     if (!username || !password) {
       setError('아이디와 비밀번호를 입력해주세요.');
       return;
@@ -50,7 +52,7 @@ export default function LoginForm() {
   return (
     <div className="max-w-md mx-auto flex flex-col justify-center gap-8 px-4 py-40">
       <PageTitle>로그인</PageTitle>
-      <div className="space-y-4">
+      <form className="space-y-4" onSubmit={handleLogin}>
         <Input
           type="text"
           placeholder="이메일 주소"
@@ -64,13 +66,10 @@ export default function LoginForm() {
           onChange={({ target }) => setPassword(target.value)}
         />
         {error && <p className="text-destructive text-sm px-1">{error}</p>}
-        <Button
-          className="w-full cursor-pointer font-semibold"
-          onClick={handleLogin}
-        >
+        <Button type="submit" className="w-full cursor-pointer font-semibold">
           로그인
         </Button>
-      </div>
+      </form>
     </div>
   );
 }
