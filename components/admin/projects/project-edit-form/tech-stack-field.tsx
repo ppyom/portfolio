@@ -1,6 +1,6 @@
 'use client';
 
-import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
+import { useFieldArray, useFormContext } from 'react-hook-form';
 import { GripVerticalIcon, PlusIcon, Trash2Icon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
@@ -9,7 +9,7 @@ import SortableList from '@/components/form/sortable/list';
 import SortableItem from '@/components/form/sortable/item';
 
 export default function TechStackField() {
-  const { control, register } = useFormContext();
+  const { control, register, watch, setValue } = useFormContext();
   const { fields, append, remove, move } = useFieldArray({
     control,
     name: 'techStacks',
@@ -41,23 +41,15 @@ export default function TechStackField() {
                   {...register(`techStacks.${idx}.title`)}
                 />
                 <Label>기술 스택</Label>
-                <Controller
-                  control={control}
-                  name={`techStacks.${idx}.stacks`}
-                  render={({ field: stacksField }) => (
-                    <Input
-                      value={stacksField.value?.join(',') ?? ''}
-                      onChange={({ target }) =>
-                        stacksField.onChange(
-                          target.value
-                            .split(',')
-                            .map((s) => s.trim())
-                            .filter(Boolean),
-                        )
-                      }
-                      placeholder="기술 스택 (,로 구분)"
-                    />
-                  )}
+                <Input
+                  value={watch(`techStacks.${idx}.stacks`).join(',')}
+                  onChange={({ target }) =>
+                    setValue(
+                      `techStacks.${idx}.stacks`,
+                      target.value.split(','),
+                    )
+                  }
+                  placeholder="기술 스택 (,로 구분)"
                 />
               </div>
               <div className="flex items-center gap-1">
