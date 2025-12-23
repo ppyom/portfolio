@@ -1,6 +1,6 @@
 import { skillHex } from '@/lib/constants/skills';
 import { dynamicTextColor } from '@/lib/utils';
-import Tag from '@/components/tag';
+import Tag from '@/components/common/tag';
 
 interface Props {
   name: string;

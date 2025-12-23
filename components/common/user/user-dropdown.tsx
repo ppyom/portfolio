@@ -1,6 +1,7 @@
 'use client';
 import { signOut } from 'next-auth/react';
 import { LogOutIcon } from 'lucide-react';
+import type { PopperContentProps } from '@radix-ui/react-popper';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -8,7 +9,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import type { PopperContentProps } from '@radix-ui/react-popper';
 
 interface Props {
   trigger: React.ReactNode;

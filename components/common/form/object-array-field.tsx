@@ -2,18 +2,21 @@
 
 import dynamic from 'next/dynamic';
 import { useFieldArray, useFormContext } from 'react-hook-form';
-import { GripVerticalIcon, PlusIcon, Trash2Icon } from 'lucide-react';
+import { GripVerticalIcon, PlusIcon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
-import SortableItem from '@/components/form/sortable/item';
-import Field from '@/components/form/field';
-import ConfirmDeleteButton from '@/components/base/confirm-delete-button';
+import SortableItem from '@/components/common/form/sortable/item';
+import Field from '@/components/common/form/field';
+import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
 
-const SortableList = dynamic(() => import('@/components/form/sortable/list'), {
-  ssr: false,
-});
+const SortableList = dynamic(
+  () => import('@/components/common/form/sortable/list'),
+  {
+    ssr: false,
+  },
+);
 
 interface Props {
   title: string;

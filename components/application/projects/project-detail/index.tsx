@@ -4,7 +4,7 @@ import ProjectContentBase from './content-base';
 import ListContent from './list-content';
 import MemberContent from './member-content';
 import TechStacksContent from './tech-stacks-content';
-import ImagesContent from '@/components/project-detail/images-content';
+import ImagesContent from './images-content';
 
 interface Props {
   project: Project;

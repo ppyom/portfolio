@@ -10,8 +10,8 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui/button';
+import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
 import { deleteProject } from '@/app/manage/projects/actions';
-import ConfirmDeleteButton from '@/components/base/confirm-delete-button';
 
 interface Props {
   projectId: string;

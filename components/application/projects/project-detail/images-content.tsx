@@ -1,4 +1,4 @@
-import type { ImageFile } from '@/types/project';
+import Image from 'next/image';
 import {
   Carousel,
   CarouselContent,
@@ -6,7 +6,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import Image from 'next/image';
+import type { ImageFile } from '@/types/project';
 
 interface Props {
   images: ImageFile[];

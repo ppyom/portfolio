@@ -14,8 +14,8 @@ import {
   SidebarGroupContent,
 } from '@/components/ui/sidebar';
 import { Separator } from '@/components/ui/separator';
-import { ThemeToggle } from '@/components/theme/theme-toggle';
-import UserMenu from '@/components/admin/sidebar/user-menu';
+import { ThemeToggle } from '@/components/common/theme/theme-toggle';
+import UserMenu from './user-menu';
 
 export default async function Sidebar() {
   const session = await getServerSession(authOptions);

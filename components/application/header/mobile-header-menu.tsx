@@ -13,7 +13,7 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { ThemeToggle } from '@/components/theme/theme-toggle';
+import { ThemeToggle } from '@/components/common/theme/theme-toggle';
 import HeaderNavigation from './header-navigation';
 import UserMenu from './user-menu';
 import { useMobileHeader } from './mobile-header-provider';

@@ -1,5 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import Tag from '@/components/tag';
+import Tag from '@/components/common/tag';
 import type { Project } from '@/types/project';
 import ProjectContentBase from './content-base';
 

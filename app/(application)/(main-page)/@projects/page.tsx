@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
-import PageTitle from '@/components/page-title';
-import ProjectList from '@/components/project-list';
-import ProjectCardSkeleton from '@/components/project-card.skeleton';
+import PageTitle from '@/components/common/page-title';
+import ProjectList from '@/components/application/projects/project-list';
+import ProjectCardSkeleton from '@/components/application/projects/project-card.skeleton';
 
 export default async function Page() {
   return (

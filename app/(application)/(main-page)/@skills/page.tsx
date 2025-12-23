@@ -1,5 +1,5 @@
-import PageTitle from '@/components/page-title';
-import SkillTag from '@/components/skill-tag';
+import PageTitle from '@/components/common/page-title';
+import SkillTag from '@/components/common/skill-tag';
 import { skills } from '@/lib/constants/skills';
 import { cn } from '@/lib/utils';
 

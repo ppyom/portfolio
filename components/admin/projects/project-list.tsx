@@ -7,10 +7,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import SkillTag from '@/components/skill-tag';
-import ProjectDropdown from '@/components/admin/projects/project-dropdown';
+import SkillTag from '@/components/common/skill-tag';
 import type { Project } from '@/types/project';
 import { fullDateString } from '@/lib/utils/date';
+import ProjectDropdown from './project-dropdown';
 
 interface Props {
   projects: Project[];

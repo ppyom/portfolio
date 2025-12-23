@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation';
-import PageTitle from '@/components/page-title';
+import PageTitle from '@/components/common/page-title';
 import { getProfile } from '@/database/queries/profile';
 
 export default async function Page() {
