@@ -40,7 +40,7 @@ export default function TechStackField() {
                   type="button"
                   size="icon"
                   variant="ghost"
-                  className="cursor-grab"
+                  className="cursor-grab touch-none"
                   {...listeners}
                   {...attributes}
                 >

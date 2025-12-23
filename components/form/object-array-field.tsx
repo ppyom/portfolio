@@ -52,7 +52,7 @@ export default function ObjectArrayField({ title, name, fieldList }: Props) {
                     type="button"
                     size="icon"
                     variant="ghost"
-                    className="cursor-grab"
+                    className="cursor-grab touch-none"
                     {...listeners}
                     {...attributes}
                   >

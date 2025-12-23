@@ -44,7 +44,7 @@ export default function ArrayField({
                 type="button"
                 size="icon-sm"
                 variant="ghost"
-                className="cursor-grab"
+                className="cursor-grab touch-none"
                 {...listeners}
                 {...attributes}
               >
