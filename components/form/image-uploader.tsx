@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import Image from 'next/image';
 import { useController, useFormContext } from 'react-hook-form';
 import { PlusIcon, XIcon } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -92,8 +93,10 @@ export default function ImageUploader({ name, multiple, existName }: Props) {
                 key={`${existName}_${image.url}`}
                 className="relative group mt-2"
               >
-                <img
+                <Image
                   src={image.url}
+                  width={100}
+                  height={100}
                   className="w-24 h-24 object-cover rounded border"
                   alt="preview"
                 />
@@ -118,8 +121,10 @@ export default function ImageUploader({ name, multiple, existName }: Props) {
         <div className="flex gap-4 mt-2 flex-wrap">
           {previewUrls.map((src, idx) => (
             <div key={src} className="relative group mt-2">
-              <img
+              <Image
                 src={src}
+                width={100}
+                height={100}
                 className="w-24 h-24 object-cover rounded border"
                 alt="preview"
               />
