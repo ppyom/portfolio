@@ -17,7 +17,7 @@ export default function ProjectCard({
       <div className="group bg-background rounded-xl overflow-hidden border border-border glow-hover">
         <div className="overflow-hidden h-48 bg-muted">
           <Image
-            src={image?.url || '/placeholder.svg'}
+            src={image?.url || '/images/no_image.png'}
             alt={title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             width={500}

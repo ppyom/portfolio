@@ -3,8 +3,8 @@ import { getServerSession } from 'next-auth';
 import authOptions from '@/lib/auth-options';
 import { sidebarItems } from '@/lib/constants/admin-sidebar-items';
 import {
-  SidebarHeader,
   Sidebar as SidebarRoot,
+  SidebarHeader,
   SidebarFooter,
   SidebarContent,
   SidebarMenuItem,
@@ -14,6 +14,7 @@ import {
   SidebarGroupContent,
 } from '@/components/ui/sidebar';
 import { Separator } from '@/components/ui/separator';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
 import UserMenu from '@/components/admin/sidebar/user-menu';
 
 export default async function Sidebar() {
@@ -58,12 +59,13 @@ export default async function Sidebar() {
 
       <Separator />
 
-      <SidebarFooter>
+      <SidebarFooter className="flex-row items-center">
         <SidebarMenu>
           <SidebarMenuItem>
             <UserMenu session={session} />
           </SidebarMenuItem>
         </SidebarMenu>
+        <ThemeToggle />
       </SidebarFooter>
     </SidebarRoot>
   );

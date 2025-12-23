@@ -1,5 +1,6 @@
 'use client';
 
+import { usePathname } from 'next/navigation';
 import type { Session } from 'next-auth';
 import { MenuIcon, XIcon } from 'lucide-react';
 import {
@@ -15,14 +16,18 @@ import { Button } from '@/components/ui/button';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 import HeaderNavigation from './header-navigation';
 import UserMenu from './user-menu';
+import { useMobileHeader } from './mobile-header-provider';
 
 interface Props {
   session: Session | null;
 }
 
 export default function MobileHeaderMenu({ session }: Props) {
+  const pathname = usePathname();
+  const { open, setOpen } = useMobileHeader();
+
   return (
-    <Sheet>
+    <Sheet key={pathname} open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon-sm">
           <MenuIcon />

@@ -30,7 +30,7 @@ interface Props {
 
 export default function RootLayout({ children }: Readonly<Props>) {
   return (
-    <html lang="ko" suppressHydrationWarning>
+    <html lang="ko" suppressHydrationWarning data-scroll-behavior="smooth">
       <body className={cn(pretendard.variable, donggle.variable)}>
         <ThemeProvider
           attribute="class"
@@ -39,12 +39,7 @@ export default function RootLayout({ children }: Readonly<Props>) {
           disableTransitionOnChange
         >
           {children}
-          <Toaster
-            position="top-right"
-            richColors={true}
-            closeButton={true}
-            duration={Infinity}
-          />
+          <Toaster position="top-right" richColors={true} duration={5000} />
         </ThemeProvider>
       </body>
     </html>
