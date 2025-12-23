@@ -5,6 +5,7 @@ import { GripVerticalIcon, PlusIcon, Trash2Icon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
+import { cn } from '@/lib/utils';
 import SortableList from '@/components/form/sortable/list';
 import SortableItem from '@/components/form/sortable/item';
 
@@ -23,40 +24,53 @@ export default function TechStackField() {
       {fields.map((field, idx) => (
         <SortableItem key={field.fieldId} id={field.fieldId}>
           {({ listeners, attributes }) => (
-            <div key={field.fieldId} className="flex items-center gap-2">
-              <Button
-                type="button"
-                size="icon"
-                variant="ghost"
-                className="cursor-grab"
-                {...listeners}
-                {...attributes}
-              >
-                <GripVerticalIcon />
-              </Button>
-              <div className="flex-1 grid grid-cols-[100px_1fr]">
-                <Label>유형</Label>
-                <Input
-                  placeholder="유형"
-                  {...register(`techStacks.${idx}.title`)}
-                />
-                <Label>기술 스택</Label>
-                <Input
-                  value={watch(`techStacks.${idx}.stacks`).join(',')}
-                  onChange={({ target }) =>
-                    setValue(
-                      `techStacks.${idx}.stacks`,
-                      target.value.split(','),
-                    )
-                  }
-                  placeholder="기술 스택 (,로 구분)"
-                />
-              </div>
-              <div className="flex items-center gap-1">
+            <div
+              key={field.fieldId}
+              className={cn(
+                'flex items-center gap-2',
+                idx === fields.length - 1 && 'mb-6',
+              )}
+            >
+              <div className="shrink-0 pt-2">
                 <Button
                   type="button"
                   size="icon"
-                  variant="destructive"
+                  variant="ghost"
+                  className="cursor-grab"
+                  {...listeners}
+                  {...attributes}
+                >
+                  <GripVerticalIcon />
+                </Button>
+              </div>
+              <div className="flex-1 grid gap-1">
+                <div className="space-y-2">
+                  <Label>유형</Label>
+                  <Input
+                    placeholder="유형"
+                    {...register(`techStacks.${idx}.title`)}
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label>기술 스택</Label>
+                  <Input
+                    value={watch(`techStacks.${idx}.stacks`).join(',')}
+                    onChange={({ target }) =>
+                      setValue(
+                        `techStacks.${idx}.stacks`,
+                        target.value.split(','),
+                      )
+                    }
+                    placeholder="기술 스택 (,로 구분)"
+                  />
+                </div>
+              </div>
+              <div className="shrink-0 pt-2">
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="ghost"
+                  className="hover:bg-destructive/10 hover:text-destructive"
                   onClick={() => remove(idx)}
                 >
                   <Trash2Icon />

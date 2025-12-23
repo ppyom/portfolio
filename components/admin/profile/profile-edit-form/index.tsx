@@ -81,8 +81,18 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
                 placeholder: '회사 이름',
               },
               { name: 'position', label: '직무', placeholder: '직무' },
-              { name: 'startDate', label: '입사일', placeholder: '입사일' },
-              { name: 'endDate', label: '퇴사일', placeholder: '퇴사일' },
+              {
+                name: 'startDate',
+                label: '입사일',
+                placeholder: '입사일',
+                colSpan: 'half',
+              },
+              {
+                name: 'endDate',
+                label: '퇴사일',
+                placeholder: '퇴사일',
+                colSpan: 'half',
+              },
               {
                 name: 'description',
                 label: '주요 성과',
@@ -98,8 +108,18 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
             fieldList={[
               { name: 'name', label: '학교 이름', placeholder: '학교 이름' },
               { name: 'major', label: '전공', placeholder: '전공' },
-              { name: 'startDate', label: '입학일', placeholder: '입학일' },
-              { name: 'endDate', label: '졸업일', placeholder: '졸업일' },
+              {
+                name: 'startDate',
+                label: '입학일',
+                placeholder: '입학일',
+                colSpan: 'half',
+              },
+              {
+                name: 'endDate',
+                label: '졸업일',
+                placeholder: '졸업일',
+                colSpan: 'half',
+              },
             ]}
           />
         </FieldGroup>

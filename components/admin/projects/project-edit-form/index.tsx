@@ -182,6 +182,7 @@ export default function ProjectEditForm({ defaultProject }: Props) {
         <FieldGroup
           title="기술 스택"
           description="기술 스택은 콤마(,)로 구분해서 작성해주세요."
+          className="space-y-4"
         >
           <TechStackField />
         </FieldGroup>

@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { useStringArray } from '@/hooks/use-string-array';
+import { cn } from '@/lib/utils';
 import SortableList from '@/components/form/sortable/list';
 import SortableItem from '@/components/form/sortable/item';
 
@@ -29,7 +30,12 @@ export default function ArrayField({
       {fields.map((field, idx) => (
         <SortableItem key={`${name}_${idx}`} id={ids[idx]}>
           {({ listeners, attributes }) => (
-            <div className="flex items-center gap-2">
+            <div
+              className={cn(
+                'flex items-center gap-2',
+                idx === fields.length - 1 && 'mb-6',
+              )}
+            >
               <Button
                 type="button"
                 size="icon-sm"
@@ -49,7 +55,8 @@ export default function ArrayField({
               <Button
                 type="button"
                 size="icon"
-                variant="destructive"
+                variant="ghost"
+                className="hover:bg-destructive/10 hover:text-destructive"
                 onClick={() => remove(idx)}
               >
                 <Trash2Icon />
