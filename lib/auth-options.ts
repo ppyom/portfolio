@@ -4,7 +4,7 @@ import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { eq } from 'drizzle-orm';
 import { db } from '@/database';
-import { userTable } from '@/database/schema';
+import { userTable } from '@/database/schema/user.schema';
 import { config } from '@/lib/config';
 
 const authOptions: NextAuthOptions = {

@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import { eq } from 'drizzle-orm';
 import { db } from '@/database';
-import { userTable } from '@/database/schema';
+import { userTable } from '@/database/schema/user.schema';
 import { config } from '@/lib/config';
 
 export const POST = async (request: Request) => {

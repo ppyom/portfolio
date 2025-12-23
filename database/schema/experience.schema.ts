@@ -1,6 +1,6 @@
 import { sql } from 'drizzle-orm';
 import { pgTable, text, uuid } from 'drizzle-orm/pg-core';
-import { profileTable } from '../schema';
+import { profileTable } from './profile.schema';
 
 export const experienceTable = pgTable('experience', {
   id: uuid('id')
