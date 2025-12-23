@@ -1,13 +1,17 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { GripVerticalIcon, PlusIcon, Trash2Icon } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { useStringArray } from '@/hooks/use-string-array';
 import { cn } from '@/lib/utils';
-import SortableList from '@/components/form/sortable/list';
 import SortableItem from '@/components/form/sortable/item';
+
+const SortableList = dynamic(() => import('@/components/form/sortable/list'), {
+  ssr: false,
+});
 
 interface Props {
   name: string;
