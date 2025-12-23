@@ -2,13 +2,13 @@
 
 import { useFieldArray, useFormContext } from 'react-hook-form';
 import { GripVerticalIcon, PlusIcon, Trash2Icon } from 'lucide-react';
-import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import SortableList from '@/components/form/sortable/list';
 import SortableItem from '@/components/form/sortable/item';
+import Field from '@/components/form/field';
 
 interface Props {
   title: string;
@@ -57,19 +57,16 @@ export default function ObjectArrayField({ title, name, fieldList }: Props) {
                 </div>
                 <div className="flex-1 grid gap-4 sm:grid-cols-2">
                   {fieldList.map((f) => (
-                    <div
+                    <Field
                       key={`${field.fieldId}_${f.name}`}
-                      className={cn(
-                        'space-y-2',
-                        f.colSpan !== 'half' && 'sm:col-span-2',
-                      )}
+                      className={cn(f.colSpan !== 'half' && 'sm:col-span-2')}
+                      label={f.label}
                     >
-                      <Label>{f.label}</Label>
                       <Input
                         placeholder={f.placeholder}
                         {...register(`${name}.${idx}.${f.name}`)}
                       />
-                    </div>
+                    </Field>
                   ))}
                 </div>
                 <div className="shrink-0 pt-2">

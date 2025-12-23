@@ -8,6 +8,7 @@ import { Label } from '@/components/ui/label';
 import { cn } from '@/lib/utils';
 import SortableList from '@/components/form/sortable/list';
 import SortableItem from '@/components/form/sortable/item';
+import Field from '@/components/form/field';
 
 export default function TechStackField() {
   const { control, register, watch, setValue } = useFormContext();
@@ -44,15 +45,13 @@ export default function TechStackField() {
                 </Button>
               </div>
               <div className="flex-1 grid gap-1">
-                <div className="space-y-2">
-                  <Label>유형</Label>
+                <Field label="유형">
                   <Input
                     placeholder="유형"
                     {...register(`techStacks.${idx}.title`)}
                   />
-                </div>
-                <div className="space-y-2">
-                  <Label>기술 스택</Label>
+                </Field>
+                <Field label="기술 스택">
                   <Input
                     value={watch(`techStacks.${idx}.stacks`).join(',')}
                     onChange={({ target }) =>
@@ -63,7 +62,7 @@ export default function TechStackField() {
                     }
                     placeholder="기술 스택 (,로 구분)"
                   />
-                </div>
+                </Field>
               </div>
               <div className="shrink-0 pt-2">
                 <Button

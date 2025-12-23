@@ -8,10 +8,10 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
 import ArrayField from '@/components/form/array-field';
 import FieldGroup from '@/components/form/field-group';
 import ImageUploader from '@/components/form/image-uploader';
+import Field from '@/components/form/field';
 import { projectSchema } from '@/lib/validation/project.schema';
 import type { Project } from '@/types/project';
 import TechStackField from './tech-stack-field';
@@ -130,44 +130,51 @@ export default function ProjectEditForm({ defaultProject }: Props) {
           },
         )}
       >
-        <FieldGroup
-          title="프로젝트 기본 정보"
-          className="space-y-4 grid sm:grid-cols-[120px_1fr] gap-x-4"
-        >
-          <Label>프로젝트 제목</Label>
-          <Input
-            placeholder="프로젝트 제목"
-            aria-invalid={!!errors.title}
-            {...register('title')}
-          />
-          <Label>프로젝트 간단 설명</Label>
-          <Input
-            placeholder="프로젝트 간단 설명"
-            {...register('description')}
-          />
-          <Label>카테고리</Label>
-          <Input
-            placeholder="카테고리 (ex. WebApplication, ...)"
-            {...register('category')}
-          />
-          <Label>커버 이미지</Label>
-          <ImageUploader name="coverImageFile" existName="existedCoverImage" />
-          <Label>GitHub Repository 주소</Label>
-          <Input
-            placeholder="GitHub Repository 주소"
-            {...register('githubUrl')}
-          />
-          <Label>실제 애플리케이션 주소</Label>
-          <Input
-            placeholder="실제 애플리케이션 주소"
-            {...register('applicationUrl')}
-          />
-          <Label>기술스택 태그</Label>
-          <Input
-            placeholder="기술스택 태그 (,로 구분해서 작성)"
-            value={watch('tags').join(',')}
-            onChange={(e) => setValue('tags', e.target.value.split(','))}
-          />
+        <FieldGroup title="프로젝트 기본 정보" className="space-y-4">
+          <Field label="프로젝트 제목">
+            <Input
+              placeholder="프로젝트 제목"
+              aria-invalid={!!errors.title}
+              {...register('title')}
+            />
+          </Field>
+          <Field label="프로젝트 간단 설명">
+            <Input
+              placeholder="프로젝트 간단 설명"
+              {...register('description')}
+            />
+          </Field>
+          <Field label="카테고리">
+            <Input
+              placeholder="카테고리 (ex. WebApplication, ...)"
+              {...register('category')}
+            />
+          </Field>
+          <Field label="커버 이미지">
+            <ImageUploader
+              name="coverImageFile"
+              existName="existedCoverImage"
+            />
+          </Field>
+          <Field label="GitHub Repository 주소">
+            <Input
+              placeholder="GitHub Repository 주소"
+              {...register('githubUrl')}
+            />
+          </Field>
+          <Field label="실제 애플리케이션 주소">
+            <Input
+              placeholder="실제 애플리케이션 주소"
+              {...register('applicationUrl')}
+            />
+          </Field>
+          <Field label="기술스택 태그">
+            <Input
+              placeholder="기술스택 태그 (,로 구분해서 작성)"
+              value={watch('tags').join(',')}
+              onChange={(e) => setValue('tags', e.target.value.split(','))}
+            />
+          </Field>
         </FieldGroup>
         <FieldGroup title="프로젝트 개요">
           <Textarea
@@ -190,18 +197,24 @@ export default function ProjectEditForm({ defaultProject }: Props) {
           <ImageUploader name="imageFiles" existName="existedImages" multiple />
         </FieldGroup>
         <FieldGroup title="프로젝트 구성원">
-          <Label>전체 인원</Label>
-          <Input
-            type="number"
-            placeholder="전체 인원"
-            min={1}
-            aria-invalid={!!errors.member?.size}
-            {...register('member.size', { valueAsNumber: true })}
-          />
-          <Label>내가 맡은 역할</Label>
-          <Input placeholder="내가 맡은 역할" {...register('member.role')} />
-          <Label>담당 업무</Label>
-          <ArrayField name="member.responsibilities" placeholder="담당 업무" />
+          <Field label="전체 인원">
+            <Input
+              type="number"
+              placeholder="전체 인원"
+              min={1}
+              aria-invalid={!!errors.member?.size}
+              {...register('member.size', { valueAsNumber: true })}
+            />
+          </Field>
+          <Field label="내가 맡은 역할">
+            <Input placeholder="내가 맡은 역할" {...register('member.role')} />
+          </Field>
+          <Field label="담당 업무">
+            <ArrayField
+              name="member.responsibilities"
+              placeholder="담당 업무"
+            />
+          </Field>
         </FieldGroup>
         <FieldGroup title="목표" description="프로젝트의 목표를 작성">
           <ArrayField name="goals" placeholder="목표" />
