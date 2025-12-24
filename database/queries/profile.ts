@@ -4,7 +4,7 @@ import { db } from '@/database';
 import { educationTable } from '@/database/schema/education.schema';
 import { experienceTable } from '@/database/schema/experience.schema';
 import { profileTable } from '@/database/schema/profile.schema';
-import { EducationTable, ExperienceTable } from '@/database/types';
+import { EducationTable, ExperienceTable } from '@/database/types/profile';
 
 const experienceSubQuery = db
   .select({

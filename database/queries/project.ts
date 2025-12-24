@@ -4,7 +4,7 @@ import { db } from '@/database';
 import { fileTable } from '@/database/schema/file.schema';
 import { projectTable } from '@/database/schema/project.schema';
 import { techStackTable } from '@/database/schema/tech-stack.schema';
-import type { TechStackTable } from '@/database/types';
+import type { TechStackTable } from '@/database/types/project';
 import type { ImageFile } from '@/types/project';
 
 const baseQuery = db

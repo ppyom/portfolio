@@ -1,4 +1,8 @@
-import { FileTable, ProjectTable, TechStackTable } from '@/database/types';
+import {
+  FileTable,
+  ProjectTable,
+  TechStackTable,
+} from '@/database/types/project';
 
 /**
  * @deprecated
