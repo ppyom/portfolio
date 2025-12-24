@@ -1,3 +1,7 @@
+/**
+ * 에러 객체에서 에러 메시지를 추출하는 함수
+ * @param error
+ */
 export const extractErrorMessage = (error: unknown): string | undefined => {
   if (!error || typeof error !== 'object') return undefined;
 

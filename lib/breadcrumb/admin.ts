@@ -6,6 +6,11 @@ export interface BreadcrumbItem {
   isCurrent: boolean;
 }
 
+/**
+ * 동적 세그먼트에 해당하는 페이지의 label을 반환하는 함수
+ * @param segment
+ * @param parentPath
+ */
 function resolveDynamicSegment(
   segment: string,
   parentPath: string,
@@ -17,6 +22,10 @@ function resolveDynamicSegment(
   return null;
 }
 
+/**
+ * 현재 경로를 기준으로 관리자 페이지 Breadcrumb 배열을 생성하는 함수
+ * @param pathname
+ */
 export function getAdminBreadcrumbs(pathname: string): BreadcrumbItem[] {
   const segments = pathname.split('/').filter(Boolean);
   const crumbs: BreadcrumbItem[] = [];
