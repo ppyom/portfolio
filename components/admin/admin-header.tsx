@@ -13,7 +13,7 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { getAdminBreadcrumbs } from '@/lib/breadcrumb/admin-breadcrumbs';
+import { getAdminBreadcrumbs } from '@/lib/breadcrumb/admin';
 
 export default function AdminHeader() {
   const pathname = usePathname();

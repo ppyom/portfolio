@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
-import { isValidEmail } from '@/lib/utils';
+import { isValidEmail } from '@/lib/utils/email';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import PageTitle from '@/components/common/page-title';

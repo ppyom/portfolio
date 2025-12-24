@@ -2,7 +2,7 @@ import { ExtractTablesWithRelations } from 'drizzle-orm';
 import { PgTransaction } from 'drizzle-orm/pg-core';
 import { PostgresJsQueryResultHKT } from 'drizzle-orm/postgres-js';
 import { fileTable } from '@/database/schema/file.schema';
-import { upload } from '@/lib/file-uploader';
+import { upload } from '@/lib/upload/file';
 import { ImageFile } from '@/types/project';
 
 /**
