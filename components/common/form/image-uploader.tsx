@@ -5,8 +5,8 @@ import { useController, useFormContext } from 'react-hook-form';
 import Image from 'next/image';
 import { PlusIcon, XIcon } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import type { ImageFile } from '@/types/project';
 
 interface Props {

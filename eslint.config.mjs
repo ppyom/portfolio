@@ -19,10 +19,10 @@ const eslintConfig = defineConfig([
             [
               "^@/app",
               "^@/database",
-              "^@/components/ui",
-              "^@/components/common",
               "^@/lib",
               "^@/hooks",
+              "^@/components/ui",
+              "^@/components/common",
               "^@/",
             ],
             // 3. 상대경로

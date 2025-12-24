@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
+import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/sonner';
 import ThemeProvider from '@/components/common/theme/theme-provider';
-import { cn } from '@/lib/utils';
 
 import './globals.css';
 

@@ -6,13 +6,13 @@ import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { updateProfileAction } from '@/app/manage/profile/actions';
+import { extractErrorMessage } from '@/lib/utils/extract-error-message';
+import { nullToUndefined } from '@/lib/utils/null-to-undefined';
+import { profileSchema } from '@/lib/validation/profile.schema';
 import { Button } from '@/components/ui/button';
 import ArrayField from '@/components/common/form/array-field';
 import FieldGroup from '@/components/common/form/field-group';
 import ObjectArrayField from '@/components/common/form/object-array-field';
-import { extractErrorMessage } from '@/lib/utils/extract-error-message';
-import { nullToUndefined } from '@/lib/utils/null-to-undefined';
-import { profileSchema } from '@/lib/validation/profile.schema';
 import type { Profile } from '@/types/profile';
 
 interface Props {

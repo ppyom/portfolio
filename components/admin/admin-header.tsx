@@ -4,6 +4,7 @@ import { Fragment } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
+import { getAdminBreadcrumbs } from '@/lib/breadcrumb/admin';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -14,7 +15,6 @@ import {
 } from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { getAdminBreadcrumbs } from '@/lib/breadcrumb/admin';
 
 export default function AdminHeader() {
   const pathname = usePathname();
