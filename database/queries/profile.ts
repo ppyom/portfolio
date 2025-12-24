@@ -1,9 +1,10 @@
 import { eq, sql } from 'drizzle-orm';
+
 import { db } from '@/database';
-import { profileTable } from '@/database/schemas/profile.schema';
-import { experienceTable } from '@/database/schemas/experience.schema';
-import { educationTable } from '@/database/schemas/education.schema';
-import { EducationTable, ExperienceTable } from '@/database/types';
+import { educationTable } from '@/database/schema/education.schema';
+import { experienceTable } from '@/database/schema/experience.schema';
+import { profileTable } from '@/database/schema/profile.schema';
+import { EducationTable, ExperienceTable } from '@/database/types/profile';
 
 const experienceSubQuery = db
   .select({

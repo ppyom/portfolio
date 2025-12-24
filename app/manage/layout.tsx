@@ -1,6 +1,6 @@
 import { SidebarInset } from '@/components/ui/sidebar';
-import Sidebar from '@/components/admin/sidebar';
 import AdminHeader from '@/components/admin/admin-header';
+import Sidebar from '@/components/admin/sidebar';
 import SidebarProvider from '@/components/admin/sidebar/provider';
 
 interface Props {

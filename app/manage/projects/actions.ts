@@ -3,10 +3,13 @@
 import { revalidatePath } from 'next/cache';
 import { eq, sql } from 'drizzle-orm';
 import { inArray } from 'drizzle-orm/sql/expressions/conditions';
+
 import { db } from '@/database';
-import { fileTable, projectTable, techStackTable } from '@/database/schema';
-import { remove } from '@/lib/file-uploader';
-import { getDeletedImages, uploadImage } from '@/lib/image';
+import { fileTable } from '@/database/schema/file.schema';
+import { projectTable } from '@/database/schema/project.schema';
+import { techStackTable } from '@/database/schema/tech-stack.schema';
+import { remove } from '@/lib/upload/file';
+import { getDeletedImages, uploadImage } from '@/lib/upload/image';
 import { parseProjectFormData } from '@/lib/utils/parse-project-form-data';
 
 export async function createProjectAction(formData: FormData) {

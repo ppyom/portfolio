@@ -3,10 +3,11 @@
 import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
-import { isValidEmail } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
+
+import { isValidEmail } from '@/lib/utils/email';
 import { Button } from '@/components/ui/button';
-import PageTitle from '@/components/page-title';
+import { Input } from '@/components/ui/input';
+import PageTitle from '@/components/common/page-title';
 
 export default function LoginForm() {
   const router = useRouter();

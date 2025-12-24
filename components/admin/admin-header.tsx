@@ -1,10 +1,10 @@
 'use client';
 
+import { Fragment } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Fragment } from 'react';
-import { Separator } from '@/components/ui/separator';
-import { SidebarTrigger } from '@/components/ui/sidebar';
+
+import { getAdminBreadcrumbs } from '@/lib/breadcrumb/admin';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,7 +13,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
-import { getAdminBreadcrumbs } from '@/lib/breadcrumb/admin-breadcrumbs';
+import { Separator } from '@/components/ui/separator';
+import { SidebarTrigger } from '@/components/ui/sidebar';
 
 export default function AdminHeader() {
   const pathname = usePathname();

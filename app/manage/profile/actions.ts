@@ -1,12 +1,13 @@
 'use server';
 
-import type { FormDataType } from '@/components/admin/profile/profile-edit-form';
-import { db } from '@/database';
-import { profileTable } from '@/database/schemas/profile.schema';
-import { experienceTable } from '@/database/schemas/experience.schema';
-import { eq } from 'drizzle-orm';
-import { educationTable } from '@/database/schemas/education.schema';
 import { revalidatePath } from 'next/cache';
+import { eq } from 'drizzle-orm';
+
+import { db } from '@/database';
+import { educationTable } from '@/database/schema/education.schema';
+import { experienceTable } from '@/database/schema/experience.schema';
+import { profileTable } from '@/database/schema/profile.schema';
+import type { FormDataType } from '@/components/admin/profile/profile-edit-form';
 
 export const updateProfileAction = async ({
   introduce,

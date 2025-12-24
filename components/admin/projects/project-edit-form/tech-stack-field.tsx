@@ -1,18 +1,22 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { useFieldArray, useFormContext } from 'react-hook-form';
+import dynamic from 'next/dynamic';
 import { GripVerticalIcon, PlusIcon } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
-import SortableItem from '@/components/form/sortable/item';
-import Field from '@/components/form/field';
-import ConfirmDeleteButton from '@/components/base/confirm-delete-button';
 
-const SortableList = dynamic(() => import('@/components/form/sortable/list'), {
-  ssr: false,
-});
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
+import Field from '@/components/common/form/field';
+import SortableItem from '@/components/common/form/sortable/item';
+
+const SortableList = dynamic(
+  () => import('@/components/common/form/sortable/list'),
+  {
+    ssr: false,
+  },
+);
 
 export default function TechStackField() {
   const { control, register, watch, setValue } = useFormContext();
