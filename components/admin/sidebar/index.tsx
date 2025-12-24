@@ -1,20 +1,23 @@
 import Link from 'next/link';
 import { getServerSession } from 'next-auth';
+
 import authOptions from '@/lib/auth-options';
 import { sidebarItems } from '@/lib/constants/admin-sidebar-items';
+import { Separator } from '@/components/ui/separator';
 import {
-  SidebarHeader,
   Sidebar as SidebarRoot,
-  SidebarFooter,
   SidebarContent,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  SidebarMenu,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { Separator } from '@/components/ui/separator';
-import UserMenu from '@/components/admin/sidebar/user-menu';
+import { ThemeToggle } from '@/components/common/theme/theme-toggle';
+
+import UserMenu from './user-menu';
 
 export default async function Sidebar() {
   const session = await getServerSession(authOptions);
@@ -58,12 +61,13 @@ export default async function Sidebar() {
 
       <Separator />
 
-      <SidebarFooter>
+      <SidebarFooter className="flex-row items-center">
         <SidebarMenu>
           <SidebarMenuItem>
             <UserMenu session={session} />
           </SidebarMenuItem>
         </SidebarMenu>
+        <ThemeToggle />
       </SidebarFooter>
     </SidebarRoot>
   );

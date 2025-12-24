@@ -1,18 +1,19 @@
 'use client';
 
-import { z } from 'zod';
-import { toast } from 'sonner';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import FieldGroup from '@/components/form/field-group';
-import ArrayField from '@/components/form/array-field';
-import ObjectArrayField from '@/components/form/object-array-field';
-import { profileSchema } from '@/lib/validation/profile.schema';
-import { nullToUndefined } from '@/lib/utils/null-to-undefined';
-import { extractErrorMessage } from '@/lib/utils/extract-error-message';
-import type { Profile } from '@/types/profile';
+import { toast } from 'sonner';
+import { z } from 'zod';
+
 import { updateProfileAction } from '@/app/manage/profile/actions';
+import { extractErrorMessage } from '@/lib/utils/extract-error-message';
+import { nullToUndefined } from '@/lib/utils/null-to-undefined';
+import { profileSchema } from '@/lib/validation/profile.schema';
+import { Button } from '@/components/ui/button';
+import ArrayField from '@/components/common/form/array-field';
+import FieldGroup from '@/components/common/form/field-group';
+import ObjectArrayField from '@/components/common/form/object-array-field';
+import type { Profile } from '@/types/profile';
 
 interface Props {
   defaultProfile?: Profile;
@@ -81,8 +82,18 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
                 placeholder: '회사 이름',
               },
               { name: 'position', label: '직무', placeholder: '직무' },
-              { name: 'startDate', label: '입사일', placeholder: '입사일' },
-              { name: 'endDate', label: '퇴사일', placeholder: '퇴사일' },
+              {
+                name: 'startDate',
+                label: '입사일',
+                placeholder: '입사일',
+                colSpan: 'half',
+              },
+              {
+                name: 'endDate',
+                label: '퇴사일',
+                placeholder: '퇴사일',
+                colSpan: 'half',
+              },
               {
                 name: 'description',
                 label: '주요 성과',
@@ -98,8 +109,18 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
             fieldList={[
               { name: 'name', label: '학교 이름', placeholder: '학교 이름' },
               { name: 'major', label: '전공', placeholder: '전공' },
-              { name: 'startDate', label: '입학일', placeholder: '입학일' },
-              { name: 'endDate', label: '졸업일', placeholder: '졸업일' },
+              {
+                name: 'startDate',
+                label: '입학일',
+                placeholder: '입학일',
+                colSpan: 'half',
+              },
+              {
+                name: 'endDate',
+                label: '졸업일',
+                placeholder: '졸업일',
+                colSpan: 'half',
+              },
             ]}
           />
         </FieldGroup>

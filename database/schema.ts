@@ -1,7 +1,0 @@
-export { fileTable } from './schemas/file.schema';
-export { userTable } from './schemas/user.schema';
-export { projectTable } from './schemas/project.schema';
-export { techStackTable } from './schemas/tech-stack.schema';
-export { profileTable } from './schemas/profile.schema';
-export { experienceTable } from './schemas/experience.schema';
-export { educationTable } from './schemas/education.schema';

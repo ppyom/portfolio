@@ -1,4 +1,6 @@
 import Link from 'next/link';
+
+import { fullDateString } from '@/lib/utils/date';
 import {
   Card,
   CardAction,
@@ -7,9 +9,10 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import SkillTag from '@/components/skill-tag';
-import ProjectDropdown from '@/components/admin/projects/project-dropdown';
+import SkillTag from '@/components/common/skill-tag';
 import type { Project } from '@/types/project';
+
+import ProjectDropdown from './project-dropdown';
 
 interface Props {
   projects: Project[];
@@ -34,9 +37,7 @@ export default function ProjectList({ projects }: Props) {
               <div className="flex items-center justify-between">
                 <span className="text-muted-foreground">마지막 수정 일자</span>
                 <span className="font-semibold text-sm">
-                  {new Date(
-                    project.updatedAt || project.createdAt,
-                  ).toLocaleString()}
+                  {fullDateString(project.updatedAt || project.createdAt)}
                 </span>
               </div>
               <div className="flex items-center justify-between">

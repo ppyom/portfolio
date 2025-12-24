@@ -1,7 +1,7 @@
-import { useWatch, useFormContext } from 'react-hook-form';
+import { useFormContext,useWatch } from 'react-hook-form';
 
 export function useStringArray(name: string) {
-  const { setValue, getValues } = useFormContext();
+  const { setValue } = useFormContext();
   const items = useWatch({ name }) as string[];
 
   const append = (value: string) => {
@@ -25,11 +25,19 @@ export function useStringArray(name: string) {
     setValue(name, next, { shouldValidate: true });
   };
 
+  const move = (from: number, to: number) => {
+    const next = [...items];
+    const [item] = next.splice(from, 1);
+    next.splice(to, 0, item);
+    setValue(name, next, { shouldValidate: true });
+  };
+
   return {
     fields: items,
     append,
     remove,
     update,
     insert,
+    move,
   };
 }

@@ -3,10 +3,11 @@
 import Link from 'next/link';
 import type { Session } from 'next-auth';
 import { LayoutDashboardIcon } from 'lucide-react';
-import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+
 import { Button } from '@/components/ui/button';
-import UserAvatar from '@/components/base/user-avatar';
-import UserDropdown from '@/components/base/user-dropdown';
+import { DropdownMenuItem } from '@/components/ui/dropdown-menu';
+import UserAvatar from '@/components/common/user/user-avatar';
+import UserDropdown from '@/components/common/user/user-dropdown';
 
 interface Props {
   session: Session | null;

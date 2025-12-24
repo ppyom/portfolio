@@ -1,9 +1,10 @@
 import Link from 'next/link';
 import { PlusIcon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import PageTitle from '@/components/page-title';
-import ProjectList from '@/components/admin/projects/project-list';
+
 import { getProjects } from '@/database/queries/project';
+import { Button } from '@/components/ui/button';
+import PageTitle from '@/components/common/page-title';
+import ProjectList from '@/components/admin/projects/project-list';
 
 export default async function Page() {
   const projects = await getProjects.execute();

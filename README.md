@@ -20,6 +20,7 @@
 
 - 로그인 / 인증 기반 접근 제어 (NextAuth, proxy.ts)
 - 프로젝트 관리 (CRUD)
+- 프로필 관리 (CRUD)
 
 ## ⚙️ 설치 및 실행
 
@@ -51,13 +52,19 @@ CLOUDFLARE_BUCKET=<your-cloudflare-bucket>
 CLOUDFLARE_PUBLIC_URL=<your-cloudflare-public-url>
 ```
 
-### 3. 개발 서버 실행
+### 3. DB 마이그레이션
+
+```bash
+npx drizzle-kit migrate
+```
+
+### 4. 개발 서버 실행
 
 ```bash
 npm run dev
 ```
 
-### 4. 빌드
+### 5. 빌드
 
 ```bash
 npm run build

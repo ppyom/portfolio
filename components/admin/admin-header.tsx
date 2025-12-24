@@ -1,21 +1,24 @@
 'use client';
 
-import { useMemo } from 'react';
+import { Fragment } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+
+import { getAdminBreadcrumbs } from '@/lib/breadcrumb/admin';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
-import { sidebarItems } from '@/lib/constants/admin-sidebar-items';
 
 export default function AdminHeader() {
   const pathname = usePathname();
-  const currentPage = useMemo(
-    () =>
-      [...sidebarItems]
-        .reverse()
-        .find((item) => pathname.startsWith(item.href)),
-    [pathname],
-  );
+  const breadcrumbs = getAdminBreadcrumbs(pathname);
 
   return (
     <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
@@ -25,11 +28,25 @@ export default function AdminHeader() {
           orientation="vertical"
           className="mx-2 data-[orientation=vertical]:h-4"
         />
-        <Link href={currentPage?.href || '/manage'}>
-          <h1 className="text-base font-medium hover:underline">
-            {currentPage?.label}
-          </h1>
-        </Link>
+        <Breadcrumb>
+          <BreadcrumbList>
+            {breadcrumbs.map((item) => (
+              <Fragment key={item.href}>
+                <BreadcrumbItem>
+                  {item.isCurrent && (
+                    <BreadcrumbPage>{item.label}</BreadcrumbPage>
+                  )}
+                  {!item.isCurrent && (
+                    <BreadcrumbLink asChild>
+                      <Link href={item.href}>{item.label}</Link>
+                    </BreadcrumbLink>
+                  )}
+                </BreadcrumbItem>
+                {!item.isCurrent && <BreadcrumbSeparator />}
+              </Fragment>
+            ))}
+          </BreadcrumbList>
+        </Breadcrumb>
       </div>
     </header>
   );

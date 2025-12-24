@@ -1,5 +1,9 @@
 import type { ImageFile, Project } from '@/types/project';
 
+/**
+ * 프로젝트 관리 form의 FormData를 서버에서 사용 가능한 Project 구조로 변환하는 파서 함수
+ * @param formData
+ */
 export function parseProjectFormData(formData: FormData) {
   const getString = (key: string) => formData.get(key) as string;
   const getFiles = (key: string) => formData.getAll(key) as File[];

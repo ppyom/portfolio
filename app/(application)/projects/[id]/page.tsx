@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation';
+
 import { getProject } from '@/database/queries/project';
-import ProjectContents from '@/components/project-detail';
+import ProjectContents from '@/components/application/projects/project-detail';
 
 interface Props {
   params: Promise<{ id: string }>;

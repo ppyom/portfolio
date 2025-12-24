@@ -1,80 +1,83 @@
 'use client';
 
-import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
-import { ArrowDownIcon, ArrowUpIcon, PlusIcon, Trash2Icon } from 'lucide-react';
-import { Input } from '@/components/ui/input';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+import dynamic from 'next/dynamic';
+import { GripVerticalIcon, PlusIcon } from 'lucide-react';
+
+import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
-import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
+import Field from '@/components/common/form/field';
+import SortableItem from '@/components/common/form/sortable/item';
+
+const SortableList = dynamic(
+  () => import('@/components/common/form/sortable/list'),
+  {
+    ssr: false,
+  },
+);
 
 export default function TechStackField() {
-  const { control, register } = useFormContext();
+  const { control, register, watch, setValue } = useFormContext();
   const { fields, append, remove, move } = useFieldArray({
     control,
     name: 'techStacks',
     keyName: 'fieldId',
   });
 
+  const ids = fields.map((field) => field.fieldId);
+
   return (
-    <>
+    <SortableList items={ids} onMove={move}>
       {fields.map((field, idx) => (
-        <div key={field.fieldId} className="flex items-center gap-2">
-          <div className="flex-1 grid grid-cols-[100px_1fr]">
-            <Label>유형</Label>
-            <Input
-              placeholder="유형"
-              {...register(`techStacks.${idx}.title`)}
-            />
-            <Label>기술 스택</Label>
-            <Controller
-              control={control}
-              name={`techStacks.${idx}.stacks`}
-              render={({ field: stacksField }) => (
-                <Input
-                  value={stacksField.value?.join(',') ?? ''}
-                  onChange={({ target }) =>
-                    stacksField.onChange(
-                      target.value
-                        .split(',')
-                        .map((s) => s.trim())
-                        .filter(Boolean),
-                    )
-                  }
-                  placeholder="기술 스택 (,로 구분)"
-                />
+        <SortableItem key={field.fieldId} id={field.fieldId}>
+          {({ listeners, attributes }) => (
+            <div
+              key={field.fieldId}
+              className={cn(
+                'flex items-center gap-2',
+                idx === fields.length - 1 && 'mb-6',
               )}
-            />
-          </div>
-          <div className="flex items-center gap-1">
-            <div className="flex flex-col">
-              <Button
-                type="button"
-                size="icon"
-                variant="secondary"
-                onClick={() => move(idx, idx - 1)}
-                disabled={idx === 0}
-              >
-                <ArrowUpIcon />
-              </Button>
-              <Button
-                type="button"
-                size="icon"
-                variant="secondary"
-                onClick={() => move(idx, idx + 1)}
-                disabled={idx === fields.length - 1}
-              >
-                <ArrowDownIcon />
-              </Button>
-            </div>
-            <Button
-              type="button"
-              size="icon"
-              variant="destructive"
-              onClick={() => remove(idx)}
             >
-              <Trash2Icon />
-            </Button>
-          </div>
-        </div>
+              <div className="shrink-0 pt-2">
+                <Button
+                  type="button"
+                  size="icon"
+                  variant="ghost"
+                  className="cursor-grab touch-none"
+                  {...listeners}
+                  {...attributes}
+                >
+                  <GripVerticalIcon />
+                </Button>
+              </div>
+              <div className="flex-1 grid gap-1">
+                <Field label="유형">
+                  <Input
+                    placeholder="유형"
+                    {...register(`techStacks.${idx}.title`)}
+                  />
+                </Field>
+                <Field label="기술 스택">
+                  <Input
+                    value={watch(`techStacks.${idx}.stacks`).join(',')}
+                    onChange={({ target }) =>
+                      setValue(
+                        `techStacks.${idx}.stacks`,
+                        target.value.split(','),
+                      )
+                    }
+                    placeholder="기술 스택 (,로 구분)"
+                  />
+                </Field>
+              </div>
+              <div className="shrink-0 pt-2">
+                <ConfirmDeleteButton onConfirm={() => remove(idx)} />
+              </div>
+            </div>
+          )}
+        </SortableItem>
       ))}
       <Button
         className="w-full"
@@ -84,6 +87,6 @@ export default function TechStackField() {
       >
         <PlusIcon /> 기술스택 추가
       </Button>
-    </>
+    </SortableList>
   );
 }
