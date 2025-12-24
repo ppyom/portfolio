@@ -1,8 +1,9 @@
-import * as bcrypt from 'bcrypt';
 import { NextAuthOptions, Session } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import * as bcrypt from 'bcrypt';
 import { eq } from 'drizzle-orm';
+
 import { db } from '@/database';
 import { userTable } from '@/database/schema/user.schema';
 import { config } from '@/lib/config';

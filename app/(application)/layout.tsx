@@ -1,6 +1,6 @@
-import Navigation from '@/components/application/navigation';
 import Footer from '@/components/application/footer';
 import Header from '@/components/application/header';
+import Navigation from '@/components/application/navigation';
 
 interface Props {
   children: React.ReactNode;

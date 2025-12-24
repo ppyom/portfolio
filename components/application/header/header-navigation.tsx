@@ -1,7 +1,9 @@
 'use client';
 
 import Link from 'next/link';
+
 import { headerNavItems } from '@/lib/constants/header-nav-items';
+
 import { useMobileHeader } from './mobile-header-provider';
 
 export default function HeaderNavigation() {

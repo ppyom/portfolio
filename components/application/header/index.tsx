@@ -1,12 +1,14 @@
 import { getServerSession } from 'next-auth';
-import authOptions from '@/lib/auth-options';
-import { ThemeToggle } from '@/components/common/theme/theme-toggle';
+
 import Logo from '@/components/common/logo';
-import HeaderWrapper from './wrapper';
-import UserMenu from './user-menu';
+import { ThemeToggle } from '@/components/common/theme/theme-toggle';
+import authOptions from '@/lib/auth-options';
+
 import HeaderNavigation from './header-navigation';
 import MobileHeaderMenu from './mobile-header-menu';
 import MobileHeaderProvider from './mobile-header-provider';
+import UserMenu from './user-menu';
+import HeaderWrapper from './wrapper';
 
 export default async function Header() {
   const session = await getServerSession(authOptions);

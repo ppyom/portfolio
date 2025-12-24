@@ -2,9 +2,10 @@
 
 import type { Session } from 'next-auth';
 import { MoreVerticalIcon } from 'lucide-react';
+
 import { SidebarMenuButton, useSidebar } from '@/components/ui/sidebar';
-import UserDropdown from '@/components/common/user/user-dropdown';
 import UserAvatar from '@/components/common/user/user-avatar';
+import UserDropdown from '@/components/common/user/user-dropdown';
 
 interface Props {
   session: Session | null;

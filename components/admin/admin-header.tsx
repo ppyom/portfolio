@@ -1,10 +1,9 @@
 'use client';
 
+import { Fragment } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Fragment } from 'react';
-import { Separator } from '@/components/ui/separator';
-import { SidebarTrigger } from '@/components/ui/sidebar';
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,6 +12,8 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import { Separator } from '@/components/ui/separator';
+import { SidebarTrigger } from '@/components/ui/sidebar';
 import { getAdminBreadcrumbs } from '@/lib/breadcrumb/admin';
 
 export default function AdminHeader() {

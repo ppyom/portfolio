@@ -1,7 +1,8 @@
 'use client';
 import { signOut } from 'next-auth/react';
-import { LogOutIcon } from 'lucide-react';
 import type { PopperContentProps } from '@radix-ui/react-popper';
+import { LogOutIcon } from 'lucide-react';
+
 import {
   DropdownMenu,
   DropdownMenuContent,

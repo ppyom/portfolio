@@ -1,4 +1,5 @@
 import { Session } from 'next-auth';
+
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 
 interface Props {

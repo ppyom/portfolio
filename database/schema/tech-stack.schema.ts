@@ -1,6 +1,7 @@
-import { pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { sql } from 'drizzle-orm';
+import { pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { unique } from 'drizzle-orm/pg-core/unique-constraint';
+
 import { projectTable } from './project.schema';
 
 export const techStackTable = pgTable(

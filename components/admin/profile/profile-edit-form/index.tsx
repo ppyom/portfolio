@@ -1,18 +1,20 @@
 'use client';
 
-import { z } from 'zod';
-import { toast } from 'sonner';
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/button';
-import FieldGroup from '@/components/common/form/field-group';
-import ArrayField from '@/components/common/form/array-field';
-import ObjectArrayField from '@/components/common/form/object-array-field';
-import { profileSchema } from '@/lib/validation/profile.schema';
-import { nullToUndefined } from '@/lib/utils/null-to-undefined';
-import { extractErrorMessage } from '@/lib/utils/extract-error-message';
-import type { Profile } from '@/types/profile';
+import { toast } from 'sonner';
+import { z } from 'zod';
+
 import { updateProfileAction } from '@/app/manage/profile/actions';
+import { Button } from '@/components/ui/button';
+import ArrayField from '@/components/common/form/array-field';
+import FieldGroup from '@/components/common/form/field-group';
+import ObjectArrayField from '@/components/common/form/object-array-field';
+import { extractErrorMessage } from '@/lib/utils/extract-error-message';
+import { nullToUndefined } from '@/lib/utils/null-to-undefined';
+import { profileSchema } from '@/lib/validation/profile.schema';
+
+import type { Profile } from '@/types/profile';
 
 interface Props {
   defaultProfile?: Profile;

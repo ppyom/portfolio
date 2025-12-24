@@ -1,9 +1,9 @@
+import { educationTable } from '@/database/schema/education.schema';
+import { experienceTable } from '@/database/schema/experience.schema';
 import { fileTable } from '@/database/schema/file.schema';
+import { profileTable } from '@/database/schema/profile.schema';
 import { projectTable } from '@/database/schema/project.schema';
 import { techStackTable } from '@/database/schema/tech-stack.schema';
-import { profileTable } from '@/database/schema/profile.schema';
-import { experienceTable } from '@/database/schema/experience.schema';
-import { educationTable } from '@/database/schema/education.schema';
 
 export namespace FileTable {
   type Select = typeof fileTable.$inferSelect;

@@ -3,15 +3,16 @@
 import Link from 'next/link';
 import { Edit2Icon, MoreVerticalIcon, Trash2Icon } from 'lucide-react';
 import { toast } from 'sonner';
+
+import { deleteProject } from '@/app/manage/projects/actions';
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
 import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
-import { deleteProject } from '@/app/manage/projects/actions';
 
 interface Props {
   projectId: string;

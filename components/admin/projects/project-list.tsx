@@ -1,4 +1,5 @@
 import Link from 'next/link';
+
 import {
   Card,
   CardAction,
@@ -8,9 +9,11 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import SkillTag from '@/components/common/skill-tag';
-import type { Project } from '@/types/project';
 import { fullDateString } from '@/lib/utils/date';
+
 import ProjectDropdown from './project-dropdown';
+
+import type { Project } from '@/types/project';
 
 interface Props {
   projects: Project[];

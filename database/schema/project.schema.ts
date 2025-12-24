@@ -1,6 +1,7 @@
 import { sql } from 'drizzle-orm';
 import { pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { jsonb } from 'drizzle-orm/pg-core/columns/jsonb';
+
 import { fileTable } from './file.schema';
 
 export const projectTable = pgTable('project', {

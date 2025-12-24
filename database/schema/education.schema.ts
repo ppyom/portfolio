@@ -1,5 +1,6 @@
 import { sql } from 'drizzle-orm';
 import { pgTable, text, uuid } from 'drizzle-orm/pg-core';
+
 import { profileTable } from './profile.schema';
 
 export const educationTable = pgTable('education', {

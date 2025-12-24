@@ -1,9 +1,11 @@
 import { desc, eq, sql } from 'drizzle-orm';
+
 import { db } from '@/database';
 import { fileTable } from '@/database/schema/file.schema';
 import { projectTable } from '@/database/schema/project.schema';
 import { techStackTable } from '@/database/schema/tech-stack.schema';
 import { TechStackTable } from '@/database/types';
+
 import type { ImageFile } from '@/types/project';
 
 const baseQuery = db

@@ -1,10 +1,11 @@
-import type { Project } from '@/types/project';
-import ProjectHeader from './header';
 import ProjectContentBase from './content-base';
+import ProjectHeader from './header';
+import ImagesContent from './images-content';
 import ListContent from './list-content';
 import MemberContent from './member-content';
 import TechStacksContent from './tech-stacks-content';
-import ImagesContent from './images-content';
+
+import type { Project } from '@/types/project';
 
 interface Props {
   project: Project;
