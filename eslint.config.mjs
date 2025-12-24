@@ -23,6 +23,7 @@ const eslintConfig = defineConfig([
               "^@/components/common",
               "^@/lib",
               "^@/hooks",
+              "^@/",
             ],
             // 3. 상대경로
             ["^\\."],

@@ -1,7 +1,7 @@
+import type { Project } from '@/types/project';
+
 import ProjectContentBase from './content-base';
 import ListContent from './list-content';
-
-import type { Project } from '@/types/project';
 
 interface Props {
   member: NonNullable<Project['member']>;

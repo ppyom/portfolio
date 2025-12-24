@@ -7,7 +7,6 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-
 import type { ImageFile } from '@/types/project';
 
 interface Props {

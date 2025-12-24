@@ -20,10 +20,9 @@ import ImageUploader from '@/components/common/form/image-uploader';
 import { extractErrorMessage } from '@/lib/utils/extract-error-message';
 import { nullToUndefined } from '@/lib/utils/null-to-undefined';
 import { projectSchema } from '@/lib/validation/project.schema';
+import type { Project } from '@/types/project';
 
 import TechStackField from './tech-stack-field';
-
-import type { Project } from '@/types/project';
 
 interface Props {
   defaultProject?: Project;

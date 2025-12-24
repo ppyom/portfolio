@@ -10,10 +10,9 @@ import {
 } from '@/components/ui/card';
 import SkillTag from '@/components/common/skill-tag';
 import { fullDateString } from '@/lib/utils/date';
+import type { Project } from '@/types/project';
 
 import ProjectDropdown from './project-dropdown';
-
-import type { Project } from '@/types/project';
 
 interface Props {
   projects: Project[];

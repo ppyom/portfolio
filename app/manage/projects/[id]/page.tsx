@@ -2,7 +2,6 @@ import { notFound } from 'next/navigation';
 
 import { getProject } from '@/database/queries/project';
 import PageTitle from '@/components/common/page-title';
-
 import ProjectEditForm from '@/components/admin/projects/project-edit-form';
 
 interface Props {

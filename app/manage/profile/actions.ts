@@ -7,7 +7,6 @@ import { db } from '@/database';
 import { educationTable } from '@/database/schema/education.schema';
 import { experienceTable } from '@/database/schema/experience.schema';
 import { profileTable } from '@/database/schema/profile.schema';
-
 import type { FormDataType } from '@/components/admin/profile/profile-edit-form';
 
 export const updateProfileAction = async ({

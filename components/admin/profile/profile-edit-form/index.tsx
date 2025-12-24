@@ -13,7 +13,6 @@ import ObjectArrayField from '@/components/common/form/object-array-field';
 import { extractErrorMessage } from '@/lib/utils/extract-error-message';
 import { nullToUndefined } from '@/lib/utils/null-to-undefined';
 import { profileSchema } from '@/lib/validation/profile.schema';
-
 import type { Profile } from '@/types/profile';
 
 interface Props {

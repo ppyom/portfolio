@@ -1,9 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Tag from '@/components/common/tag';
+import type { Project } from '@/types/project';
 
 import ProjectContentBase from './content-base';
-
-import type { Project } from '@/types/project';
 
 interface Props {
   techStacks: NonNullable<Project['techStacks']>;

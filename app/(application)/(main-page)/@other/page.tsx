@@ -1,7 +1,6 @@
 import PageTitle from '@/components/common/page-title';
 import SectionTitle from '@/components/common/section-title';
 import { certifications, learnings } from '@/lib/constants/achievements';
-
 import AchievementCard from '@/components/application/achievement-card';
 
 export default function Other() {

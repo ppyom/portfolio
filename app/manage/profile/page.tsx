@@ -1,6 +1,5 @@
 import { getProfile } from '@/database/queries/profile';
 import PageTitle from '@/components/common/page-title';
-
 import ProfileEditForm from '@/components/admin/profile/profile-edit-form';
 
 export default async function Page() {

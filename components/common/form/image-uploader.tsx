@@ -7,7 +7,6 @@ import { PlusIcon, XIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-
 import type { ImageFile } from '@/types/project';
 
 interface Props {
