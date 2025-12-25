@@ -1,6 +1,7 @@
 import { cn } from '@/lib/utils';
 import {
   Card,
+  CardAction,
   CardContent,
   CardDescription,
   CardHeader,
@@ -12,6 +13,7 @@ interface Props {
   title: string;
   description?: string;
   className?: string;
+  headerActions?: React.ReactNode;
 }
 
 export default function FieldGroup({
@@ -19,12 +21,14 @@ export default function FieldGroup({
   title,
   description,
   className,
+  headerActions,
 }: Props) {
   return (
     <Card>
       <CardHeader>
         <CardTitle>{title}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}
+        <CardAction>{headerActions}</CardAction>
       </CardHeader>
       <CardContent className={cn('space-y-2', className)}>
         {children}
