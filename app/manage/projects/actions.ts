@@ -15,6 +15,7 @@ import { parseProjectFormData } from '@/lib/utils/parse-project-form-data';
 export async function createProjectAction(formData: FormData) {
   const {
     title,
+    isPublic,
     description,
     category,
     githubUrl,
@@ -41,6 +42,7 @@ export async function createProjectAction(formData: FormData) {
         .insert(projectTable)
         .values({
           title,
+          isPublic,
           description,
           category,
           githubUrl,
@@ -95,6 +97,7 @@ export async function updateProjectAction(formData: FormData, id: string) {
 
   const {
     title,
+    isPublic,
     description,
     category,
     githubUrl,
@@ -139,6 +142,7 @@ export async function updateProjectAction(formData: FormData, id: string) {
         .update(projectTable)
         .set({
           title,
+          isPublic,
           description,
           category,
           githubUrl,

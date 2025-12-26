@@ -6,6 +6,7 @@ import type { ImageFile, Project } from '@/types/project';
  */
 export function parseProjectFormData(formData: FormData) {
   const getString = (key: string) => formData.get(key) as string;
+  const getBoolean = (key: string) => formData.get(key) === 'true';
   const getFiles = (key: string) => formData.getAll(key) as File[];
   const parseJSON = <T>(key: string): T =>
     JSON.parse(formData.get(key) as string);
@@ -18,6 +19,8 @@ export function parseProjectFormData(formData: FormData) {
     githubUrl: getString('githubUrl'),
     applicationUrl: getString('applicationUrl'),
     overview: getString('overview'),
+
+    isPublic: getBoolean('isPublic'),
 
     coverImageFile: getFiles('coverImageFile'),
     imageFiles: getFiles('imageFiles'),
