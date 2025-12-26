@@ -11,6 +11,7 @@ const baseQuery = db
   .select({
     id: projectTable.id,
     title: projectTable.title,
+    isPublic: projectTable.isPublic,
     description: projectTable.description,
     category: projectTable.category,
     githubUrl: projectTable.githubUrl,
@@ -59,4 +60,4 @@ const baseQuery = db
 export const getProjects = baseQuery.prepare('get_projects');
 export const getProject = baseQuery
   .where(eq(projectTable.id, sql.placeholder('projectId')))
-  .prepare('get_post');
+  .prepare('get_project');
