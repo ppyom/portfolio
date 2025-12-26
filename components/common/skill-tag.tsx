@@ -1,4 +1,4 @@
-import { skillHex } from '@/lib/constants/skills';
+import { getSkillMetadata } from '@/database/queries/skill-metadata';
 import { dynamicTextColor } from '@/lib/utils/color';
 import Tag from '@/components/common/tag';
 
@@ -7,13 +7,16 @@ interface Props {
   size?: 'sm' | 'md' | 'lg';
 }
 
-export default function SkillTag(props: Props) {
+export default async function SkillTag(props: Props) {
+  const skillMeta = await getSkillMetadata();
+  const color = skillMeta[props.name]?.color || '#aaaaaa';
+
   return (
     <Tag
       {...props}
       style={{
-        background: skillHex[props.name] || '#aaaaaa',
-        color: dynamicTextColor(skillHex[props.name] || '#aaaaaa'),
+        background: color,
+        color: dynamicTextColor(color),
       }}
     />
   );

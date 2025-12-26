@@ -18,6 +18,9 @@ function resolveDynamicSegment(
   if (parentPath === '/manage/projects') {
     return '프로젝트 수정';
   }
+  if (parentPath === '/manage/skills') {
+    return '스킬 메타데이터 관리';
+  }
 
   return null;
 }
