@@ -13,6 +13,7 @@ import SkillTag from '@/components/common/skill-tag';
 import type { Project } from '@/types/project';
 
 import ProjectDropdown from './project-dropdown';
+import ProjectVisibilityToggle from './project-visibility-toggle';
 
 interface Props {
   projects: Project[];
@@ -30,6 +31,10 @@ export default function ProjectList({ projects }: Props) {
                 <CardDescription>{project.description}</CardDescription>
               </Link>
               <CardAction className="space-x-1">
+                <ProjectVisibilityToggle
+                  projectId={project.id}
+                  isPublic={!!project.isPublic}
+                />
                 <ProjectDropdown projectId={project.id} />
               </CardAction>
             </CardHeader>
