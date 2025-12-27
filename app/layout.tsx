@@ -1,8 +1,10 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
+import { getSkillMetadata } from '@/database/queries/skill-metadata';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/sonner';
+import SkillMetadataProvider from '@/components/common/skill-metadata-provider';
 import ThemeProvider from '@/components/common/theme/theme-provider';
 
 import './globals.css';
@@ -30,7 +32,8 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function RootLayout({ children }: Readonly<Props>) {
+export default async function RootLayout({ children }: Readonly<Props>) {
+  const skillMetadata = await getSkillMetadata();
   return (
     <html lang="ko" suppressHydrationWarning data-scroll-behavior="smooth">
       <body className={cn(pretendard.variable, donggle.variable)}>
@@ -40,8 +43,10 @@ export default function RootLayout({ children }: Readonly<Props>) {
           enableSystem
           disableTransitionOnChange
         >
-          {children}
-          <Toaster position="top-right" richColors={true} duration={5000} />
+          <SkillMetadataProvider metadata={skillMetadata}>
+            {children}
+            <Toaster position="top-right" richColors={true} duration={5000} />
+          </SkillMetadataProvider>
         </ThemeProvider>
       </body>
     </html>

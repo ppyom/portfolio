@@ -1,6 +1,6 @@
 'use server';
 
-import { revalidatePath, revalidateTag } from 'next/cache';
+import { revalidatePath } from 'next/cache';
 
 import { db } from '@/database';
 import { skillTable } from '@/database/schema/skill.schema';
@@ -69,7 +69,6 @@ export const updateSkillMetadata = async ({
       return true;
     });
 
-    revalidateTag('skill-metadata', 'default');
     revalidatePath('/(application)/(main-page)');
 
     return { success: true, projectId: result };
