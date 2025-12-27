@@ -1,12 +1,20 @@
 'use client';
 
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { Controller, useFieldArray, useFormContext } from 'react-hook-form';
 import dynamic from 'next/dynamic';
 import { GripVerticalIcon, PlusIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Separator } from '@/components/ui/separator';
 import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
 import Field from '@/components/common/form/field';
@@ -27,6 +35,8 @@ interface Props {
     label: string;
     placeholder?: string;
     colSpan?: 'full' | 'half';
+    type?: 'input' | 'select';
+    options?: { label: string; value: string }[];
   }[];
 }
 
@@ -71,10 +81,39 @@ export default function ObjectArrayField({ title, name, fieldList }: Props) {
                       className={cn(f.colSpan !== 'half' && 'sm:col-span-2')}
                       label={f.label}
                     >
-                      <Input
-                        placeholder={f.placeholder}
-                        {...register(`${name}.${idx}.${f.name}`)}
-                      />
+                      {f.type === 'select' ? (
+                        <Controller
+                          control={control}
+                          name={`${name}.${idx}.${f.name}`}
+                          render={({ field }) => (
+                            <Select
+                              value={field.value}
+                              onValueChange={field.onChange}
+                            >
+                              <SelectTrigger className="w-full">
+                                <SelectValue placeholder="활동 유형을 선택하세요." />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  {f.options?.map((item) => (
+                                    <SelectItem
+                                      key={item.value}
+                                      value={item.value}
+                                    >
+                                      {item.label}
+                                    </SelectItem>
+                                  ))}
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          )}
+                        />
+                      ) : (
+                        <Input
+                          placeholder={f.placeholder}
+                          {...register(`${name}.${idx}.${f.name}`)}
+                        />
+                      )}
                     </Field>
                   ))}
                 </div>
