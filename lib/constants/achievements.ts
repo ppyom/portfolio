@@ -1,3 +1,6 @@
+/**
+ * @deprecated
+ */
 export const learnings = [
   {
     title: '프로그래머스 데브코스 - 클라우드 기반 프론트엔드 엔지니어링',
@@ -7,6 +10,9 @@ export const learnings = [
   },
 ];
 
+/**
+ * @deprecated
+ */
 export const certifications = [
   {
     title: '정보처리산업기사',
