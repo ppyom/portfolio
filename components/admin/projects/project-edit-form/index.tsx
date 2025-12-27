@@ -15,6 +15,7 @@ import { nullToUndefined } from '@/lib/utils/null-to-undefined';
 import { projectSchema } from '@/lib/validation/project.schema';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import ArrayField from '@/components/common/form/array-field';
 import Field from '@/components/common/form/field';
@@ -55,6 +56,7 @@ export default function ProjectEditForm({ defaultProject }: Props) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: defaultProject?.title || '',
+      isPublic: defaultProject?.isPublic ?? true,
       description: defaultProject?.description || '',
       category: defaultProject?.category || '',
       githubUrl: defaultProject?.githubUrl || '',
@@ -104,6 +106,8 @@ export default function ProjectEditForm({ defaultProject }: Props) {
                 }
               } else if (value instanceof File || typeof value === 'string') {
                 formData.append(key, value);
+              } else if (typeof value === 'boolean') {
+                formData.append(key, value ? 'true' : 'false');
               } else {
                 if (value != null) {
                   formData.append(key, JSON.stringify(value));
@@ -132,7 +136,21 @@ export default function ProjectEditForm({ defaultProject }: Props) {
           },
         )}
       >
-        <FieldGroup title="프로젝트 기본 정보" className="space-y-4">
+        <FieldGroup
+          title="프로젝트 기본 정보"
+          className="space-y-4"
+          headerActions={
+            <Field
+              label="프로젝트 공개 여부"
+              className="flex gap-2 text-muted-foreground"
+            >
+              <Switch
+                checked={watch('isPublic')}
+                onCheckedChange={(v) => setValue('isPublic', v)}
+              />
+            </Field>
+          }
+        >
           <Field label="프로젝트 제목">
             <Input
               placeholder="프로젝트 제목"

@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import { pgTable, text, uuid } from 'drizzle-orm/pg-core';
+import { boolean, pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { jsonb } from 'drizzle-orm/pg-core/columns/jsonb';
 
 import { fileTable } from './file.schema';
@@ -31,6 +31,7 @@ export const projectTable = pgTable('project', {
       onDelete: 'set null',
     })
     .array(),
+  isPublic: boolean('is_public').$default(() => true),
   createdAt: text('created_at')
     .notNull()
     .$default(() => sql`NOW()`),

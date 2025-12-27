@@ -1,9 +1,9 @@
-import { getProjects } from '@/database/queries/project';
+import { getPublicProjects } from '@/database/queries/project';
 
 import ProjectCard from './project-card';
 
 export default async function ProjectList() {
-  const projects = await getProjects.execute();
+  const projects = await getPublicProjects.execute();
 
   return (
     <>

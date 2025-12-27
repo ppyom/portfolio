@@ -15,6 +15,7 @@ import { parseProjectFormData } from '@/lib/utils/parse-project-form-data';
 export async function createProjectAction(formData: FormData) {
   const {
     title,
+    isPublic,
     description,
     category,
     githubUrl,
@@ -41,6 +42,7 @@ export async function createProjectAction(formData: FormData) {
         .insert(projectTable)
         .values({
           title,
+          isPublic,
           description,
           category,
           githubUrl,
@@ -95,6 +97,7 @@ export async function updateProjectAction(formData: FormData, id: string) {
 
   const {
     title,
+    isPublic,
     description,
     category,
     githubUrl,
@@ -139,6 +142,7 @@ export async function updateProjectAction(formData: FormData, id: string) {
         .update(projectTable)
         .set({
           title,
+          isPublic,
           description,
           category,
           githubUrl,
@@ -191,6 +195,33 @@ export async function updateProjectAction(formData: FormData, id: string) {
     revalidatePath(`/projects/${id}`);
 
     return { success: true, projectId: result.id };
+  } catch (error) {
+    return {
+      success: false,
+      message:
+        error instanceof Error
+          ? error.message
+          : '알 수 없는 오류가 발생했습니다.',
+    };
+  }
+}
+
+export async function updateProjectVisibilityAction(
+  id: string,
+  isPublic: boolean,
+) {
+  try {
+    await db
+      .update(projectTable)
+      .set({
+        isPublic,
+      })
+      .where(eq(projectTable.id, id));
+
+    revalidatePath('/manage/projects');
+    revalidatePath(`/projects/${id}`);
+
+    return { success: true, projectId: id };
   } catch (error) {
     return {
       success: false,
