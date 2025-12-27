@@ -1,5 +1,7 @@
-import { getSkillMetadata } from '@/database/queries/skill-metadata';
+'use client';
+
 import { dynamicTextColor } from '@/lib/utils/color';
+import { useSkillMetadataContext } from '@/components/common/skill-metadata-provider';
 import Tag from '@/components/common/tag';
 
 interface Props {
@@ -7,8 +9,8 @@ interface Props {
   size?: 'sm' | 'md' | 'lg';
 }
 
-export default async function SkillTag(props: Props) {
-  const skillMeta = await getSkillMetadata();
+export default function SkillTag(props: Props) {
+  const skillMeta = useSkillMetadataContext();
   const color = skillMeta[props.name]?.color || '#aaaaaa';
 
   return (
