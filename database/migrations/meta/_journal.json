@@ -85,6 +85,13 @@
       "when": 1766750624730,
       "tag": "0011_soft_karnak",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1766818663603,
+      "tag": "0012_gigantic_kronos",
+      "breakpoints": true
     }
   ]
 }
