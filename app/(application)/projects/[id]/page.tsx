@@ -15,9 +15,5 @@ export default async function Page({ params }: Props) {
     return notFound();
   }
 
-  return (
-    <main className="min-h-screen bg-background">
-      <ProjectContents project={project} />
-    </main>
-  );
+  return <ProjectContents project={project} />;
 }
