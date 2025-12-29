@@ -1,6 +1,5 @@
 import Footer from '@/components/application/footer';
 import Header from '@/components/application/header';
-import Navigation from '@/components/application/navigation';
 
 interface Props {
   children: React.ReactNode;
@@ -11,7 +10,6 @@ export default function Layout({ children }: Props) {
     <>
       <Header />
       {children}
-      <Navigation />
       <Footer />
     </>
   );
