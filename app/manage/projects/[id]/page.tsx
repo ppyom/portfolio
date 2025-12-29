@@ -11,7 +11,7 @@ interface Props {
 export default async function Page({ params }: Props) {
   const { id } = await params;
 
-  const [project] = await getProject.execute({ projectId: id });
+  const [project] = await getProject(id);
 
   if (!project) {
     return notFound();

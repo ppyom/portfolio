@@ -57,19 +57,13 @@ const baseQuery = db
   .groupBy(projectTable.id, fileTable.id, fileTable.url)
   .orderBy(desc(projectTable.createdAt));
 
-export const getProjects = baseQuery.prepare('get_projects');
-export const getProject = baseQuery
-  .where(eq(projectTable.id, sql.placeholder('projectId')))
-  .prepare('get_project');
+export const getProjects = () => baseQuery.execute();
+export const getProject = (projectId: string) =>
+  baseQuery.where(eq(projectTable.id, projectId)).execute();
 
-export const getPublicProjects = baseQuery
-  .where(eq(projectTable.isPublic, true))
-  .prepare('get_public_projects');
-export const getPublicProject = baseQuery
-  .where(
-    and(
-      eq(projectTable.id, sql.placeholder('projectId')),
-      eq(projectTable.isPublic, true),
-    ),
-  )
-  .prepare('get_public_project');
+export const getPublicProjects = () =>
+  baseQuery.where(eq(projectTable.isPublic, true)).execute();
+export const getPublicProject = (projectId: string) =>
+  baseQuery
+    .where(and(eq(projectTable.id, projectId), eq(projectTable.isPublic, true)))
+    .execute();
