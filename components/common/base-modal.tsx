@@ -46,8 +46,8 @@ export default function BaseModal({
       {/* 모달 콘텐츠 */}
       <div
         className={cn(
-          'h-full sm:h-[calc(100vh-4rem)] overflow-y-auto',
-          'relative z-10 w-full max-w-2xl sm:rounded-lg bg-background p-6 shadow-lg',
+          'h-full md:h-[calc(100vh-4rem)] overflow-y-auto',
+          'relative z-10 w-full max-w-3xl md:rounded-lg bg-background p-6 shadow-lg',
           className,
         )}
       >
