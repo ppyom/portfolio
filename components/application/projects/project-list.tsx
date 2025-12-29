@@ -1,10 +1,12 @@
-import { getPublicProjects } from '@/database/queries/project';
+import type { Project } from '@/types/project';
 
 import ProjectCard from './project-card';
 
-export default async function ProjectList() {
-  const projects = await getPublicProjects.execute();
+interface Props {
+  projects: Project[];
+}
 
+export default async function ProjectList({ projects }: Props) {
   return (
     <>
       {projects.map((project) => (
