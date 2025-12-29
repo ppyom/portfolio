@@ -7,36 +7,37 @@ import { techStackTable } from '@/database/schema/tech-stack.schema';
 import type { TechStackTable } from '@/database/types/project';
 import type { ImageFile, ProjectFilter } from '@/types/project';
 
-const baseQuery = db
-  .select({
-    id: projectTable.id,
-    title: projectTable.title,
-    isPublic: projectTable.isPublic,
-    description: projectTable.description,
-    category: projectTable.category,
-    githubUrl: projectTable.githubUrl,
-    applicationUrl: projectTable.applicationUrl,
-    tags: projectTable.tags,
-    overview: projectTable.overview,
-    features: projectTable.features,
-    goals: projectTable.goals,
-    results: projectTable.results,
-    member: projectTable.member,
-    createdAt: projectTable.createdAt,
-    updatedAt: projectTable.updatedAt,
-    coverImage: sql<ImageFile | null>`
+const baseQuery = () =>
+  db
+    .select({
+      id: projectTable.id,
+      title: projectTable.title,
+      isPublic: projectTable.isPublic,
+      description: projectTable.description,
+      category: projectTable.category,
+      githubUrl: projectTable.githubUrl,
+      applicationUrl: projectTable.applicationUrl,
+      tags: projectTable.tags,
+      overview: projectTable.overview,
+      features: projectTable.features,
+      goals: projectTable.goals,
+      results: projectTable.results,
+      member: projectTable.member,
+      createdAt: projectTable.createdAt,
+      updatedAt: projectTable.updatedAt,
+      coverImage: sql<ImageFile | null>`
 		CASE 
 			WHEN ${projectTable.coverImageId} IS NULL THEN NULL
 			ELSE JSON_BUILD_OBJECT('id', ${projectTable.coverImageId}, 'url', ${fileTable.url})
 		END
 		`.as('coverImage'),
-    images: sql<ImageFile[]>`
+      images: sql<ImageFile[]>`
 		(
 			SELECT JSON_AGG(JSON_BUILD_OBJECT('id', f.id, 'url', f.url))
 			FROM ${fileTable} f
 			WHERE f.id = ANY(${projectTable.imageIds})
 		)`.as('images'),
-    techStacks: sql<TechStackTable.Select[]>`
+      techStacks: sql<TechStackTable.Select[]>`
 		COALESCE(
 		  JSON_AGG(
 				JSON_BUILD_OBJECT(
@@ -50,21 +51,21 @@ const baseQuery = db
 			) FILTER (WHERE ${techStackTable.id} IS NOT NULL),
 		  '[]'
 		)`.as('techStacks'),
-  })
-  .from(projectTable)
-  .leftJoin(fileTable, eq(projectTable.coverImageId, fileTable.id))
-  .leftJoin(techStackTable, eq(projectTable.id, techStackTable.projectId))
-  .groupBy(projectTable.id, fileTable.id, fileTable.url)
-  .orderBy(desc(projectTable.createdAt));
+    })
+    .from(projectTable)
+    .leftJoin(fileTable, eq(projectTable.coverImageId, fileTable.id))
+    .leftJoin(techStackTable, eq(projectTable.id, techStackTable.projectId))
+    .groupBy(projectTable.id, fileTable.id, fileTable.url)
+    .orderBy(desc(projectTable.createdAt));
 
-export const getProjects = () => baseQuery.execute();
+export const getProjects = () => baseQuery().execute();
 export const getProject = (projectId: string) =>
-  baseQuery.where(eq(projectTable.id, projectId)).execute();
+  baseQuery().where(eq(projectTable.id, projectId)).execute();
 
 export const getPublicProjects = () =>
-  baseQuery.where(eq(projectTable.isPublic, true)).execute();
+  baseQuery().where(eq(projectTable.isPublic, true)).execute();
 export const getPublicProject = (projectId: string) =>
-  baseQuery
+  baseQuery()
     .where(and(eq(projectTable.id, projectId), eq(projectTable.isPublic, true)))
     .execute();
 
@@ -75,7 +76,7 @@ export const getFilteredProjects = (q: ProjectFilter['q']) => {
 
   const keyword = `%${q}%`;
 
-  return baseQuery
+  return baseQuery()
     .where(
       and(
         eq(projectTable.isPublic, true),
