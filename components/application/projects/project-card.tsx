@@ -23,6 +23,7 @@ export default function ProjectCard({
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             width={500}
             height={500}
+            loading="eager"
           />
         </div>
         <div className="p-6 space-y-4">

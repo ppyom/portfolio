@@ -9,15 +9,11 @@ interface Props {
 
 export default async function Page({ params }: Props) {
   const { id } = await params;
-  const [project] = await getPublicProject.execute({ projectId: id });
+  const [project] = await getPublicProject(id);
 
   if (!project) {
     return notFound();
   }
 
-  return (
-    <main className="min-h-screen bg-background">
-      <ProjectContents project={project} />
-    </main>
-  );
+  return <ProjectContents project={project} />;
 }
