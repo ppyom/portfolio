@@ -91,7 +91,9 @@ export default function ObjectArrayField({ title, name, fieldList }: Props) {
                               onValueChange={field.onChange}
                             >
                               <SelectTrigger className="w-full">
-                                <SelectValue placeholder="활동 유형을 선택하세요." />
+                                <SelectValue
+                                  placeholder={f.placeholder || ''}
+                                />
                               </SelectTrigger>
                               <SelectContent>
                                 <SelectGroup>

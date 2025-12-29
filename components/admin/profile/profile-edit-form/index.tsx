@@ -129,6 +129,7 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
                 label: '유형',
                 colSpan: 'half',
                 type: 'select',
+                placeholder: '활동 유형을 선택하세요.',
                 options: [
                   { label: '활동', value: 'activity' },
                   { label: '학습', value: 'learning' },
