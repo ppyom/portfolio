@@ -18,4 +18,12 @@ export const profileSchema = z.object({
       endDate: z.string(),
     })
     .array(),
+  history: z
+    .object({
+      type: z.enum(['learning', 'certification', 'activity']),
+      name: z.string(),
+      date: z.string(),
+      description: z.string(),
+    })
+    .array(),
 });

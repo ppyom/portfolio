@@ -27,12 +27,14 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
     defaultValues: {
       introduce: defaultProfile?.introduce ?? [],
       experience:
-        defaultProfile?.experience.map((item) => nullToUndefined(item)) ?? [],
+        defaultProfile?.experience?.map((item) => nullToUndefined(item)) ?? [],
       education:
-        defaultProfile?.education.map((item) => nullToUndefined(item)) ?? [],
+        defaultProfile?.education?.map((item) => nullToUndefined(item)) ?? [],
+      history:
+        defaultProfile?.history?.map((item) => nullToUndefined(item)) ?? [],
     },
   });
-  const { handleSubmit } = form;
+  const { handleSubmit, getValues } = form;
 
   return (
     <FormProvider {...form}>
@@ -40,14 +42,6 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
         className="space-y-4"
         onSubmit={handleSubmit(
           (data: FormDataType) => {
-            const formData = new FormData();
-
-            Object.entries(data).forEach(([key, value]) => {
-              if (value != null) {
-                formData.append(key, JSON.stringify(value));
-              }
-            });
-
             updateProfileAction(data)
               .then((result) => {
                 if (!result.success) {
@@ -64,6 +58,7 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
               });
           },
           (error) => {
+            console.log(getValues('history'));
             toast.error(extractErrorMessage(error));
           },
         )}
@@ -120,6 +115,36 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
                 label: '졸업일',
                 placeholder: '졸업일',
                 colSpan: 'half',
+              },
+            ]}
+          />
+        </FieldGroup>
+        <FieldGroup title="이력">
+          <ObjectArrayField
+            name="history"
+            title="이력"
+            fieldList={[
+              {
+                name: 'type',
+                label: '유형',
+                colSpan: 'half',
+                type: 'select',
+                placeholder: '활동 유형을 선택하세요.',
+                options: [
+                  { label: '활동', value: 'activity' },
+                  { label: '학습', value: 'learning' },
+                  { label: '자격증', value: 'certification' },
+                ],
+              },
+              {
+                name: 'date',
+                label: '날짜',
+                colSpan: 'half',
+              },
+              { name: 'name', label: '제목' },
+              {
+                name: 'description',
+                label: '설명',
               },
             ]}
           />
