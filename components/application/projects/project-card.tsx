@@ -14,7 +14,7 @@ export default function ProjectCard({
   tags,
 }: Props) {
   return (
-    <Link href={`/projects/${id}`}>
+    <Link href={`/projects/${id}`} scroll={false}>
       <div className="group bg-background rounded-xl overflow-hidden border border-border glow-hover">
         <div className="overflow-hidden h-48 bg-muted">
           <Image
