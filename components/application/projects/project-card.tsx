@@ -14,7 +14,7 @@ export default function ProjectCard({
   tags,
 }: Props) {
   return (
-    <Link href={`/projects/${id}`}>
+    <Link href={`/projects/${id}`} scroll={false}>
       <div className="group bg-background rounded-xl overflow-hidden border border-border glow-hover">
         <div className="overflow-hidden h-48 bg-muted">
           <Image
@@ -23,6 +23,7 @@ export default function ProjectCard({
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             width={500}
             height={500}
+            loading="eager"
           />
         </div>
         <div className="p-6 space-y-4">

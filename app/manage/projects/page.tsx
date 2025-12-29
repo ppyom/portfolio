@@ -7,7 +7,7 @@ import PageTitle from '@/components/common/page-title';
 import ProjectList from '@/components/admin/projects/project-list';
 
 export default async function Page() {
-  const projects = await getProjects.execute();
+  const projects = await getProjects();
 
   return (
     <>

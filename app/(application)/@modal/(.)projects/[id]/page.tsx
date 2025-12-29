@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { getPublicProject } from '@/database/queries/project';
-import ProjectContents from '@/components/application/projects/project-detail';
+import ProjectDetailModal from '@/components/application/projects/project-detail-modal';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -15,5 +15,5 @@ export default async function Page({ params }: Props) {
     return notFound();
   }
 
-  return <ProjectContents project={project} />;
+  return <ProjectDetailModal project={project} />;
 }

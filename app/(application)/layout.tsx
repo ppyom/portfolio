@@ -1,17 +1,17 @@
 import Footer from '@/components/application/footer';
 import Header from '@/components/application/header';
-import Navigation from '@/components/application/navigation';
 
 interface Props {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }
 
-export default function Layout({ children }: Props) {
+export default function Layout({ children, modal }: Props) {
   return (
     <>
       <Header />
       {children}
-      <Navigation />
+      {modal}
       <Footer />
     </>
   );

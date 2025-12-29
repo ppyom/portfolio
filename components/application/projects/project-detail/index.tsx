@@ -13,7 +13,7 @@ interface Props {
 
 export default function ProjectContents({ project }: Props) {
   return (
-    <div className="max-w-3xl mx-auto px-6 py-12">
+    <>
       <ProjectHeader project={project} />
       <div className="space-y-4 py-4">
         {project.overview && (
@@ -46,6 +46,6 @@ export default function ProjectContents({ project }: Props) {
           </ProjectContentBase>
         )}
       </div>
-    </div>
+    </>
   );
 }
