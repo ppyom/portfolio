@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const projectSchema = z.object({
   title: z.string().nonempty('프로젝트 제목은 반드시 입력되어야합니다.'),
+  isPublic: z.boolean(),
   description: z.string().optional(),
   category: z.string().optional(),
   githubUrl: z.string().optional(),

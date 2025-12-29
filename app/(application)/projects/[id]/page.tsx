@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { getProject } from '@/database/queries/project';
+import { getPublicProject } from '@/database/queries/project';
 import ProjectContents from '@/components/application/projects/project-detail';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 
 export default async function Page({ params }: Props) {
   const { id } = await params;
-  const [project] = await getProject.execute({ projectId: id });
+  const [project] = await getPublicProject.execute({ projectId: id });
 
   if (!project) {
     return notFound();

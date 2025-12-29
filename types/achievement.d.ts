@@ -1,8 +1,3 @@
-type AchievementType = 'Learning' | 'Certificate';
+import { HistoryTable } from '@/database/types/profile';
 
-export interface Achievement {
-  type: AchievementType;
-  title: string;
-  description?: string;
-  date: string;
-}
+export type Achievement = HistoryTable.Select;

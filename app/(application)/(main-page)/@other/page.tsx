@@ -1,9 +1,12 @@
-import { certifications, learnings } from '@/lib/constants/achievements';
+import { getCertifications, getLearnings } from '@/database/queries/history';
 import PageTitle from '@/components/common/page-title';
 import SectionTitle from '@/components/common/section-title';
 import AchievementCard from '@/components/application/achievement-card';
 
-export default function Other() {
+export default async function Other() {
+  const learnings = await getLearnings();
+  const certifications = await getCertifications();
+
   return (
     <section id="other" className="py-20 px-6">
       <div className="max-w-4xl mx-auto space-y-12">

@@ -3,8 +3,13 @@ import { eq, sql } from 'drizzle-orm';
 import { db } from '@/database';
 import { educationTable } from '@/database/schema/education.schema';
 import { experienceTable } from '@/database/schema/experience.schema';
+import { historyTable } from '@/database/schema/history.schema';
 import { profileTable } from '@/database/schema/profile.schema';
-import { EducationTable, ExperienceTable } from '@/database/types/profile';
+import {
+  EducationTable,
+  ExperienceTable,
+  HistoryTable,
+} from '@/database/types/profile';
 
 const experienceSubQuery = db
   .select({
@@ -50,6 +55,29 @@ const educationSubQuery = db
   .groupBy(educationTable.profileId)
   .as('education');
 
+const historySubQuery = db
+  .select({
+    profileId: historyTable.profileId,
+    history: sql<HistoryTable.Select[]>`
+      COALESCE(
+        JSON_AGG(
+          JSON_BUILD_OBJECT(
+            'id', ${historyTable.id},
+            'name', ${historyTable.name},
+            'type', ${historyTable.type},
+            'date', ${historyTable.date},
+            'description', ${historyTable.description},
+            'order', ${historyTable.order}
+          )
+        ),
+        '[]' 
+      )
+      `.as('history'),
+  })
+  .from(historyTable)
+  .groupBy(historyTable.profileId)
+  .as('history');
+
 const baseQuery = db
   .select({
     id: profileTable.id,
@@ -59,16 +87,15 @@ const baseQuery = db
     language: profileTable.language,
     experience: experienceSubQuery.experience,
     education: educationSubQuery.education,
+    history: historySubQuery.history,
   })
   .from(profileTable)
   .leftJoin(
     experienceSubQuery,
     eq(profileTable.id, experienceSubQuery.profileId),
   )
-  .leftJoin(
-    educationSubQuery,
-    eq(profileTable.id, educationSubQuery.profileId),
-  );
+  .leftJoin(educationSubQuery, eq(profileTable.id, educationSubQuery.profileId))
+  .leftJoin(historySubQuery, eq(profileTable.id, historySubQuery.profileId));
 
 export const getProfile = baseQuery
   .where(eq(profileTable.language, sql.placeholder('language')))

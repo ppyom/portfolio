@@ -1,4 +1,4 @@
-import { desc, eq, sql } from 'drizzle-orm';
+import { and, desc, eq, sql } from 'drizzle-orm';
 
 import { db } from '@/database';
 import { fileTable } from '@/database/schema/file.schema';
@@ -11,6 +11,7 @@ const baseQuery = db
   .select({
     id: projectTable.id,
     title: projectTable.title,
+    isPublic: projectTable.isPublic,
     description: projectTable.description,
     category: projectTable.category,
     githubUrl: projectTable.githubUrl,
@@ -59,4 +60,16 @@ const baseQuery = db
 export const getProjects = baseQuery.prepare('get_projects');
 export const getProject = baseQuery
   .where(eq(projectTable.id, sql.placeholder('projectId')))
-  .prepare('get_post');
+  .prepare('get_project');
+
+export const getPublicProjects = baseQuery
+  .where(eq(projectTable.isPublic, true))
+  .prepare('get_public_projects');
+export const getPublicProject = baseQuery
+  .where(
+    and(
+      eq(projectTable.id, sql.placeholder('projectId')),
+      eq(projectTable.isPublic, true),
+    ),
+  )
+  .prepare('get_public_project');
