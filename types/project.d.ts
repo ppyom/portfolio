@@ -17,3 +17,7 @@ export interface Project extends Omit<
   images: ImageFile[];
   techStacks: TechStackTable.Select[];
 }
+
+export interface ProjectFilter {
+  q?: string;
+}

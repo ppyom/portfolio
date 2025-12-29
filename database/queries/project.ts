@@ -1,11 +1,11 @@
-import { and, desc, eq, sql } from 'drizzle-orm';
+import { and, desc, eq, ilike, or, sql } from 'drizzle-orm';
 
 import { db } from '@/database';
 import { fileTable } from '@/database/schema/file.schema';
 import { projectTable } from '@/database/schema/project.schema';
 import { techStackTable } from '@/database/schema/tech-stack.schema';
 import type { TechStackTable } from '@/database/types/project';
-import type { ImageFile } from '@/types/project';
+import type { ImageFile, ProjectFilter } from '@/types/project';
 
 const baseQuery = db
   .select({
@@ -67,3 +67,25 @@ export const getPublicProject = (projectId: string) =>
   baseQuery
     .where(and(eq(projectTable.id, projectId), eq(projectTable.isPublic, true)))
     .execute();
+
+export const getFilteredProjects = (q: ProjectFilter['q']) => {
+  if (!q) {
+    return getPublicProjects();
+  }
+
+  const keyword = `%${q}%`;
+
+  return baseQuery
+    .where(
+      and(
+        eq(projectTable.isPublic, true),
+        or(
+          ilike(projectTable.title, keyword),
+          ilike(projectTable.description, keyword),
+          ilike(projectTable.category, keyword),
+          ilike(sql`array_to_string(${techStackTable.stacks}, ',')`, keyword),
+        ),
+      ),
+    )
+    .execute();
+};
