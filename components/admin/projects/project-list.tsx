@@ -26,7 +26,7 @@ export default function ProjectList({ projects }: Props) {
         <li key={project.id}>
           <Card>
             <CardHeader>
-              <Link href={`/projects/${project.id}`}>
+              <Link href={`/projects/${project.id}`} target="_blank">
                 <CardTitle>{project.title}</CardTitle>
                 <CardDescription>{project.description}</CardDescription>
               </Link>
