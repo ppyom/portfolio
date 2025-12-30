@@ -1,6 +1,9 @@
 import Link from 'next/link';
+import { ArrowUpRightIcon } from 'lucide-react';
 
+import { cn } from '@/lib/utils';
 import { fullDateString } from '@/lib/utils/date';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardAction,
@@ -26,10 +29,27 @@ export default function ProjectList({ projects }: Props) {
         <li key={project.id}>
           <Card>
             <CardHeader>
-              <Link href={`/projects/${project.id}`}>
-                <CardTitle>{project.title}</CardTitle>
-                <CardDescription>{project.description}</CardDescription>
-              </Link>
+              <CardTitle className="flex gap-2 items-center">
+                {project.title}
+                {project.isPublic && (
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-xs text-muted-foreground"
+                    asChild
+                  >
+                    <Link
+                      href={`/projects/${project.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <span className="hidden sm:inline">프로젝트 보기</span>
+                      <ArrowUpRightIcon className="size-3" />
+                    </Link>
+                  </Button>
+                )}
+              </CardTitle>
+              <CardDescription>{project.description}</CardDescription>
               <CardAction className="space-x-1">
                 <ProjectVisibilityToggle
                   projectId={project.id}

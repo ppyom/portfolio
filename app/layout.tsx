@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
 import { getSkillMetadata } from '@/database/queries/skill-metadata';
+import { config } from '@/lib/config';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/sonner';
 import SkillMetadataProvider from '@/components/common/skill-metadata-provider';
@@ -10,8 +11,20 @@ import ThemeProvider from '@/components/common/theme/theme-provider';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: '이예진 | Portfolio',
+  metadataBase: new URL(config.siteUrl),
+  title: {
+    default: '이예진 | Portfolio',
+    template: '%s | 이예진 포트폴리오',
+  },
   description: '이예진의 포트폴리오입니다.',
+  openGraph: {
+    title: {
+      default: '이예진 | Portfolio',
+      template: '%s | 이예진 포트폴리오',
+    },
+    description: '이예진의 포트폴리오입니다.',
+    images: ['/images/og.png'],
+  },
 };
 
 const pretendard = localFont({
