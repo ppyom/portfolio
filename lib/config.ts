@@ -16,6 +16,7 @@ const getEnv = (key: string, defaultValue: string | undefined = undefined) => {
 };
 
 export const config = {
+  siteUrl: getEnv('NEXT_PUBLIC_SITE_URL'),
   bcrypt: {
     round: parseInt(getEnv('BCRYPT_ROUND', '10')),
   },
