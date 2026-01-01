@@ -21,6 +21,9 @@ function resolveDynamicSegment(
   if (parentPath === '/manage/skills') {
     return '스킬 메타데이터 관리';
   }
+  if (parentPath === '/manage/inbox') {
+    return '받은 메시지 상세';
+  }
 
   return null;
 }
