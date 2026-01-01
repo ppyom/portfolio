@@ -2,6 +2,7 @@ import { MailIcon } from 'lucide-react';
 
 export const socialLinks = [
   {
+    type: 'link',
     name: 'GitHub',
     href: 'https://github.com/ppyom',
     icon: (props: React.SVGProps<SVGSVGElement>) => (
@@ -18,5 +19,5 @@ export const socialLinks = [
       </svg>
     ),
   },
-  { name: 'Email', href: 'mailto:ouob77@kakao.com', icon: MailIcon },
+  { type: 'mail', name: 'Email', href: 'ouob77@kakao.com', icon: MailIcon },
 ];

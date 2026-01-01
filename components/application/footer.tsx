@@ -12,7 +12,13 @@ export default function Footer() {
           <div className="flex gap-4">
             {socialLinks.map((link) => (
               <Button key={link.name} variant="ghost" size="icon" asChild>
-                <a href={link.href} title={link.name} target="_blank">
+                <a
+                  href={
+                    link.type === 'mail' ? `mailto:${link.href}` : link.href
+                  }
+                  title={link.name}
+                  target="_blank"
+                >
                   <link.icon size={32} />
                 </a>
               </Button>
