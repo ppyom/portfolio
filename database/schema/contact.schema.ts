@@ -14,6 +14,7 @@ export const contactTable = pgTable('contact', {
   status: contactStatusEnum('status').$default(() => 'unread'),
   title: text('title').notNull(),
   content: text('content').notNull(),
+  company: text('company'),
   name: text('name').notNull(),
   email: text('email').notNull(),
   createdAt: text('created_at')
