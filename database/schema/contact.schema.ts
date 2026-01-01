@@ -21,4 +21,5 @@ export const contactTable = pgTable('contact', {
     .notNull()
     .$default(() => sql`NOW()`),
   updatedAt: text('updated_at').$onUpdate(() => sql`NOW()`),
+  deletedAt: text('deleted_at'),
 });
