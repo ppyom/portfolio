@@ -37,6 +37,7 @@ interface Props {
     colSpan?: 'full' | 'half';
     type?: 'input' | 'select';
     options?: { label: string; value: string }[];
+    required?: boolean;
   }[];
 }
 
@@ -80,6 +81,7 @@ export default function ObjectArrayField({ title, name, fieldList }: Props) {
                       key={`${field.fieldId}_${f.name}`}
                       className={cn(f.colSpan !== 'half' && 'sm:col-span-2')}
                       label={f.label}
+                      required={f.required}
                     >
                       {f.type === 'select' ? (
                         <Controller
