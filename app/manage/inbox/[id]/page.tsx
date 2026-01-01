@@ -1,13 +1,16 @@
 import { notFound } from 'next/navigation';
+import { MoreVerticalIcon } from 'lucide-react';
 
 import { updateStatusAction } from '@/app/manage/inbox/action';
 import { getInboxMessage } from '@/database/queries/contact';
 import { cn } from '@/lib/utils';
 import { fullDateString } from '@/lib/utils/date';
+import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import PageTitle from '@/components/common/page-title';
 import CompleteButton from '@/components/admin/inbox/complete-button';
 import CopyEmailButton from '@/components/admin/inbox/copy-email-button';
+import InboxDropdown from '@/components/admin/inbox/inbox-dropdown';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -40,7 +43,7 @@ export default async function Page({ params }: Props) {
           <CopyEmailButton email={message.email} />
         </div>
       </div>
-      <div className="space-y-2 px-4">
+      <div className="space-y-2 px-4 relative">
         <p className="text-lg font-bold">{message.title}</p>
         <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
           <div className="flex flex-col">
@@ -60,6 +63,19 @@ export default async function Page({ params }: Props) {
           <p className="text-xs text-muted-foreground/70">
             {fullDateString(message.createdAt)}
           </p>
+
+          <InboxDropdown
+            messageId={message.id}
+            trigger={
+              <Button
+                className="absolute top-0 right-0 text-muted-foreground"
+                variant="ghost"
+                size="sm"
+              >
+                <MoreVerticalIcon />
+              </Button>
+            }
+          />
         </div>
       </div>
       <Separator />

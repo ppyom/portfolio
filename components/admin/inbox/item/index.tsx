@@ -1,7 +1,10 @@
 import Link from 'next/link';
+import { MoreVerticalIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { relativeDateString } from '@/lib/utils/date';
+import { Button } from '@/components/ui/button';
+import InboxDropdown from '@/components/admin/inbox/inbox-dropdown';
 import type { InboxMessage } from '@/types/inbox-message';
 
 interface Props {
@@ -10,14 +13,13 @@ interface Props {
 
 export default function InboxMessageItem({ message }: Props) {
   return (
-    <Link
-      href={`/manage/inbox/${message.id}`}
+    <div
       className={cn(
         'flex flex-col rounded-lg border',
         message.status === 'completed' && 'opacity-50',
       )}
     >
-      <div className="flex gap-4 p-4 hover:bg-muted/50 cursor-pointer">
+      <div className="flex p-4 hover:bg-muted/50 cursor-pointer relative">
         <span
           className={cn(
             'shrink-0 w-2 h-2 mt-2 rounded-full',
@@ -26,7 +28,10 @@ export default function InboxMessageItem({ message }: Props) {
             message.status === 'completed' && 'bg-muted-foreground',
           )}
         />
-        <div className="flex-1 min-w-0">
+        <Link
+          href={`/manage/inbox/${message.id}`}
+          className="ml-4 flex-1 min-w-0"
+        >
           <div className="flex justify-between">
             <div className="min-w-0">
               <p className="text-sm text-foreground/80">
@@ -42,8 +47,20 @@ export default function InboxMessageItem({ message }: Props) {
           <p className="text-sm text-muted-foreground truncate">
             {message.content}
           </p>
-        </div>
+        </Link>
+        <InboxDropdown
+          messageId={message.id}
+          trigger={
+            <Button
+              className="-translate-y-2 translate-x-2 text-muted-foreground"
+              variant="ghost"
+              size="sm"
+            >
+              <MoreVerticalIcon />
+            </Button>
+          }
+        />
       </div>
-    </Link>
+    </div>
   );
 }
