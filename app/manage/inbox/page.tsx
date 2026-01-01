@@ -5,8 +5,6 @@ import InboxMessageList from '@/components/admin/inbox/list';
 export default async function Page() {
   const messages = await getInboxMessages();
 
-  console.log(messages);
-
   return (
     <>
       <PageTitle align="left">받은 메시지</PageTitle>
