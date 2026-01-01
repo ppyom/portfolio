@@ -151,7 +151,7 @@ export default function ProjectEditForm({ defaultProject }: Props) {
             </Field>
           }
         >
-          <Field label="프로젝트 제목">
+          <Field label="프로젝트 제목" required>
             <Input
               placeholder="프로젝트 제목"
               aria-invalid={!!errors.title}
@@ -217,7 +217,7 @@ export default function ProjectEditForm({ defaultProject }: Props) {
           <ImageUploader name="imageFiles" existName="existedImages" multiple />
         </FieldGroup>
         <FieldGroup title="프로젝트 구성원">
-          <Field label="전체 인원">
+          <Field label="전체 인원" required>
             <Input
               type="number"
               placeholder="전체 인원"

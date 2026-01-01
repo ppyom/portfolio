@@ -67,7 +67,7 @@ export default function MetadataEditForm({ skillMetadata }: Props) {
               <ConfirmDeleteButton onConfirm={() => remove(idx)} />
             }
           >
-            <Field label="스킬명">
+            <Field label="스킬명" required>
               <Input {...form.register(`items.${idx}.name`)} />
             </Field>
             <Field label="색상">

@@ -76,12 +76,18 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
                 label: '회사 이름',
                 placeholder: '회사 이름',
               },
-              { name: 'position', label: '직무', placeholder: '직무' },
+              {
+                name: 'position',
+                label: '직무',
+                placeholder: '직무',
+                required: true,
+              },
               {
                 name: 'startDate',
                 label: '입사일',
                 placeholder: '입사일',
                 colSpan: 'half',
+                required: true,
               },
               {
                 name: 'endDate',
@@ -102,13 +108,24 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
             name="education"
             title="학력"
             fieldList={[
-              { name: 'name', label: '학교 이름', placeholder: '학교 이름' },
-              { name: 'major', label: '전공', placeholder: '전공' },
+              {
+                name: 'name',
+                label: '학교 이름',
+                placeholder: '학교 이름',
+                required: true,
+              },
+              {
+                name: 'major',
+                label: '전공',
+                placeholder: '전공',
+                required: true,
+              },
               {
                 name: 'startDate',
                 label: '입학일',
                 placeholder: '입학일',
                 colSpan: 'half',
+                required: true,
               },
               {
                 name: 'endDate',
@@ -135,13 +152,15 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
                   { label: '학습', value: 'learning' },
                   { label: '자격증', value: 'certification' },
                 ],
+                required: true,
               },
               {
                 name: 'date',
                 label: '날짜',
                 colSpan: 'half',
+                required: true,
               },
-              { name: 'name', label: '제목' },
+              { name: 'name', label: '제목', required: true },
               {
                 name: 'description',
                 label: '설명',

@@ -53,10 +53,10 @@ export default function SkillField() {
                 )}
               >
                 <div className="flex-1 grid gap-4">
-                  <Field label="카테고리">
+                  <Field label="카테고리" required>
                     <Input {...register(`skills.${idx}.category`)} />
                   </Field>
-                  <Field label="보유 스킬">
+                  <Field label="보유 스킬" required>
                     <ArrayField name={`skills.${idx}.items`} />
                   </Field>
                 </div>

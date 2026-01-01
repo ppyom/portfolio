@@ -49,19 +49,19 @@ export default function ContactForm() {
         description="협업, 프로젝트 제안 등 궁금한 점이 있다면 언제든지 연락 주세요."
         className="grid gap-2 md:grid-cols-2"
       >
-        <Field label="이름">
+        <Field label="이름" required>
           <Input {...register('name')} />
         </Field>
-        <Field label="회사명 (optional)">
+        <Field label="회사명">
           <Input {...register('company')} />
         </Field>
-        <Field label="이메일 주소" className="md:col-span-2">
+        <Field label="이메일 주소" className="md:col-span-2" required>
           <Input {...register('email')} />
         </Field>
-        <Field label="제목" className="md:col-span-2">
+        <Field label="제목" className="md:col-span-2" required>
           <Input {...register('title')} />
         </Field>
-        <Field label="내용" className="md:col-span-2">
+        <Field label="내용" className="md:col-span-2" required>
           <Textarea className="resize-none min-h-28" {...register('content')} />
         </Field>
         <Button type="submit" className="w-full mt-4 md:col-span-2" size="lg">
