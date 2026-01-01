@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MoreVerticalIcon } from 'lucide-react';
 
@@ -15,6 +16,10 @@ import InboxDropdown from '@/components/admin/inbox/inbox-dropdown';
 interface Props {
   params: Promise<{ id: string }>;
 }
+
+export const metadata: Metadata = {
+  title: '받은 메시지 상세',
+};
 
 export default async function Page({ params }: Props) {
   const { id } = await params;
