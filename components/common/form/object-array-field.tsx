@@ -19,6 +19,7 @@ import { Separator } from '@/components/ui/separator';
 import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
 import Field from '@/components/common/form/field';
 import SortableItem from '@/components/common/form/sortable/item';
+import type { FieldItem } from '@/types/field-item';
 
 const SortableList = dynamic(
   () => import('@/components/common/form/sortable/list'),
@@ -30,15 +31,7 @@ const SortableList = dynamic(
 interface Props {
   title: string;
   name: string;
-  fieldList: {
-    name: string;
-    label: string;
-    placeholder?: string;
-    colSpan?: 'full' | 'half';
-    type?: 'input' | 'select';
-    options?: { label: string; value: string }[];
-    required?: boolean;
-  }[];
+  fieldList: FieldItem[];
 }
 
 export default function ObjectArrayField({ title, name, fieldList }: Props) {
