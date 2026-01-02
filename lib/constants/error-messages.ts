@@ -27,8 +27,21 @@ export const errorMessages = {
       items: '스킬을 하나 이상 추가해주세요.',
       metadata: '스킬 이름은 필수 입력 항목입니다.',
     },
+    project: {
+      title: '프로젝트 제목은 필수 입력 항목입니다.',
+      member: {
+        size: '전체 인원은 필수 입력 항목입니다.',
+      },
+    },
   },
   invalid: {
     email: '이메일 주소 형식이 올바르지 않습니다.',
+  },
+  length: {
+    project: {
+      member: {
+        size: '전체 인원은 최소 1명 이상 입력해야 합니다.',
+      },
+    },
   },
 } as const;
