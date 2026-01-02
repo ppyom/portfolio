@@ -33,9 +33,11 @@ export const errorMessages = {
         size: '전체 인원은 필수 입력 항목입니다.',
       },
     },
+    auth: '아이디와 비밀번호를 입력해주세요.',
   },
   invalid: {
     email: '이메일 주소 형식이 올바르지 않습니다.',
+    auth: '아이디 또는 비밀번호를 확인해주세요.',
   },
   length: {
     project: {
@@ -43,5 +45,9 @@ export const errorMessages = {
         size: '전체 인원은 최소 1명 이상 입력해야 합니다.',
       },
     },
+  },
+  unknown: {
+    default: '알 수 없는 오류가 발생했습니다.',
+    login: '로그인 처리 중 오류가 발생했습니다.',
   },
 } as const;
