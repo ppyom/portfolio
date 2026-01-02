@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 
+import { authErrorMessages } from '@/lib/constants/error-messages';
 import { isValidEmail } from '@/lib/utils/email';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -22,12 +23,12 @@ export default function LoginForm() {
     event.preventDefault();
 
     if (!username || !password) {
-      setError('아이디와 비밀번호를 입력해주세요.');
+      setError(authErrorMessages.required);
       return;
     }
 
     if (!isValidEmail(username)) {
-      setError('아이디 또는 비밀번호를 확인해주세요.');
+      setError(authErrorMessages.invalid);
       return;
     }
 
@@ -38,12 +39,12 @@ export default function LoginForm() {
     });
 
     if (!response) {
-      setError('로그인 중 오류가 발생했습니다.');
+      setError(authErrorMessages.unknown.login);
       return;
     }
 
     if (response.error) {
-      setError('아이디 또는 비밀번호를 확인해주세요.');
+      setError(authErrorMessages.invalid);
       return;
     }
 

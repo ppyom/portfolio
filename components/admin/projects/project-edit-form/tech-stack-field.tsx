@@ -54,10 +54,7 @@ export default function TechStackField() {
               </div>
               <div className="flex-1 grid gap-1">
                 <Field label="유형">
-                  <Input
-                    placeholder="유형"
-                    {...register(`techStacks.${idx}.title`)}
-                  />
+                  <Input {...register(`techStacks.${idx}.title`)} />
                 </Field>
                 <Field label="기술 스택">
                   <Input

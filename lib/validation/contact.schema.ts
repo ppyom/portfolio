@@ -1,13 +1,18 @@
 import { z } from 'zod';
 
-export const contactSchema = z.object({
-  name: z.string().nonempty('이름은 필수로 입력해야합니다.'),
+import {
+  commonErrorMessages,
+  contactErrorMessages,
+} from '@/lib/constants/error-messages';
+
+export const schema = z.object({
+  name: z.string().nonempty(contactErrorMessages.required.name),
   company: z.string(),
   email: z
-    .email('이메일 주소 형식으로 입력해야합니다.')
-    .nonempty('이메일은 필수로 입력해야합니다.'),
-  title: z.string().nonempty('제목은 필수로 입력해야합니다.'),
-  content: z.string().nonempty('내용은 필수로 입력해야합니다.'),
+    .email(commonErrorMessages.invalid.email)
+    .nonempty(contactErrorMessages.required.email),
+  title: z.string().nonempty(contactErrorMessages.required.title),
+  content: z.string().nonempty(contactErrorMessages.required.content),
 });
 
-export type FormDataType = z.infer<typeof contactSchema>;
+export type FormDataType = z.infer<typeof schema>;
