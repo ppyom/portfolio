@@ -1,5 +1,7 @@
 import { toast } from 'sonner';
 
+import { commonErrorMessages } from '@/lib/constants/error-messages';
+
 /**
  * 에러 객체에서 메시지를 추출합니다.
  * @param error unknown
@@ -26,7 +28,7 @@ const extractErrorMessage = (error: unknown): string | undefined => {
  */
 export const notifyError = (
   error: unknown,
-  fallbackMessage = '문제가 발생했습니다. 잠시 후 다시 시도해주세요.',
+  fallbackMessage = commonErrorMessages.unknown.default,
 ) => {
   const message = extractErrorMessage(error) ?? fallbackMessage;
   toast.error(message);

@@ -44,7 +44,7 @@ export default function MetadataEditForm({ skillMetadata }: Props) {
             }
             toast.success('저장되었습니다.');
           } catch (error) {
-            notifyError(error, '알 수 없는 오류가 발생했습니다.');
+            notifyError(error);
           }
         },
         (error) => notifyError(error),
