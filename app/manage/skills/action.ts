@@ -6,7 +6,7 @@ import { db } from '@/database';
 import { skillTable } from '@/database/schema/skill.schema';
 import { skillCategoryTable } from '@/database/schema/skill-category.schema';
 import { skillMetadataTable } from '@/database/schema/skill-metadata.schema';
-import type { FormDataType } from '@/components/admin/skills/skill-edit-form';
+import type { FormDataType } from '@/lib/validation/skill.schema';
 
 export const updateSkillsAction = async ({ skills }: FormDataType) => {
   try {

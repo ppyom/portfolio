@@ -26,7 +26,7 @@ export default async function Layout({ children }: Props) {
   return (
     <SidebarProvider>
       <Sidebar />
-      <SidebarInset>
+      <SidebarInset className="min-w-0">
         <AdminHeader />
         <main className="container mx-auto px-4 py-8 space-y-8">
           {children}

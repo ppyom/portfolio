@@ -3,12 +3,16 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
-import { z } from 'zod';
 
 import { updateProfileAction } from '@/app/manage/profile/actions';
-import { extractErrorMessage } from '@/lib/utils/extract-error-message';
+import {
+  educationFields,
+  experienceFields,
+  historyFields,
+} from '@/lib/form/profile.fields';
+import { notifyError } from '@/lib/utils/error';
 import { nullToUndefined } from '@/lib/utils/null-to-undefined';
-import { profileSchema } from '@/lib/validation/profile.schema';
+import { FormDataType, schema } from '@/lib/validation/profile.schema';
 import { Button } from '@/components/ui/button';
 import ArrayField from '@/components/common/form/array-field';
 import FieldGroup from '@/components/common/form/field-group';
@@ -19,11 +23,9 @@ interface Props {
   defaultProfile?: Profile;
 }
 
-export type FormDataType = z.infer<typeof profileSchema>;
-
 export default function ProfileEditForm({ defaultProfile }: Props) {
   const form = useForm<FormDataType>({
-    resolver: zodResolver(profileSchema),
+    resolver: zodResolver(schema),
     defaultValues: {
       introduce: defaultProfile?.introduce ?? [],
       experience:
@@ -34,33 +36,25 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
         defaultProfile?.history?.map((item) => nullToUndefined(item)) ?? [],
     },
   });
-  const { handleSubmit, getValues } = form;
+  const { handleSubmit } = form;
 
   return (
     <FormProvider {...form}>
       <form
         className="space-y-4"
         onSubmit={handleSubmit(
-          (data: FormDataType) => {
-            updateProfileAction(data)
-              .then((result) => {
-                if (!result.success) {
-                  throw new Error(result.message);
-                }
-                toast.success('저장되었습니다.');
-              })
-              .catch((error) => {
-                toast.error(
-                  error instanceof Error
-                    ? error.message
-                    : '알 수 없는 오류가 발생했습니다.',
-                );
-              });
+          async (data: FormDataType) => {
+            try {
+              const result = await updateProfileAction(data);
+              if (!result.success) {
+                throw new Error(result.message);
+              }
+              toast.success('저장되었습니다.');
+            } catch (error) {
+              notifyError(error);
+            }
           },
-          (error) => {
-            console.log(getValues('history'));
-            toast.error(extractErrorMessage(error));
-          },
+          (error) => notifyError(error),
         )}
       >
         <FieldGroup title="자기 소개">
@@ -70,83 +64,21 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
           <ObjectArrayField
             name="experience"
             title="경력"
-            fieldList={[
-              {
-                name: 'name',
-                label: '회사 이름',
-                placeholder: '회사 이름',
-              },
-              { name: 'position', label: '직무', placeholder: '직무' },
-              {
-                name: 'startDate',
-                label: '입사일',
-                placeholder: '입사일',
-                colSpan: 'half',
-              },
-              {
-                name: 'endDate',
-                label: '퇴사일',
-                placeholder: '퇴사일',
-                colSpan: 'half',
-              },
-              {
-                name: 'description',
-                label: '주요 성과',
-                placeholder: '해당 회사에서 이룬 성과를 간단하게 작성',
-              },
-            ]}
+            fieldList={experienceFields}
           />
         </FieldGroup>
         <FieldGroup title="학력">
           <ObjectArrayField
             name="education"
             title="학력"
-            fieldList={[
-              { name: 'name', label: '학교 이름', placeholder: '학교 이름' },
-              { name: 'major', label: '전공', placeholder: '전공' },
-              {
-                name: 'startDate',
-                label: '입학일',
-                placeholder: '입학일',
-                colSpan: 'half',
-              },
-              {
-                name: 'endDate',
-                label: '졸업일',
-                placeholder: '졸업일',
-                colSpan: 'half',
-              },
-            ]}
+            fieldList={educationFields}
           />
         </FieldGroup>
         <FieldGroup title="이력">
           <ObjectArrayField
             name="history"
             title="이력"
-            fieldList={[
-              {
-                name: 'type',
-                label: '유형',
-                colSpan: 'half',
-                type: 'select',
-                placeholder: '활동 유형을 선택하세요.',
-                options: [
-                  { label: '활동', value: 'activity' },
-                  { label: '학습', value: 'learning' },
-                  { label: '자격증', value: 'certification' },
-                ],
-              },
-              {
-                name: 'date',
-                label: '날짜',
-                colSpan: 'half',
-              },
-              { name: 'name', label: '제목' },
-              {
-                name: 'description',
-                label: '설명',
-              },
-            ]}
+            fieldList={historyFields}
           />
         </FieldGroup>
         <Button
