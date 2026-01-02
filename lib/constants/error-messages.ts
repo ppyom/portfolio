@@ -22,6 +22,10 @@ export const errorMessages = {
         date: '날짜는 필수 입력 항목입니다.',
       },
     },
+    skills: {
+      category: '카테고리는 필수 입력 항목입니다.',
+      items: '스킬을 하나 이상 추가해주세요.',
+    },
   },
   invalid: {
     email: '이메일 주소 형식이 올바르지 않습니다.',
