@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 
-import { errorMessages } from '@/lib/constants/error-messages';
+import { authErrorMessages } from '@/lib/constants/error-messages';
 import { isValidEmail } from '@/lib/utils/email';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -23,12 +23,12 @@ export default function LoginForm() {
     event.preventDefault();
 
     if (!username || !password) {
-      setError(errorMessages.required.auth);
+      setError(authErrorMessages.required);
       return;
     }
 
     if (!isValidEmail(username)) {
-      setError(errorMessages.invalid.auth);
+      setError(authErrorMessages.invalid);
       return;
     }
 
@@ -39,12 +39,12 @@ export default function LoginForm() {
     });
 
     if (!response) {
-      setError(errorMessages.unknown.login);
+      setError(authErrorMessages.unknown.login);
       return;
     }
 
     if (response.error) {
-      setError(errorMessages.invalid.auth);
+      setError(authErrorMessages.invalid);
       return;
     }
 

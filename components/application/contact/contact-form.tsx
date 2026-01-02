@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
 import { sendContactAction } from '@/app/(application)/contact/action';
-import { errorMessages } from '@/lib/constants/error-messages';
+import { commonErrorMessages } from '@/lib/constants/error-messages';
 import { notifyError } from '@/lib/utils/error';
 import { FormDataType, schema } from '@/lib/validation/contact.schema';
 import { Button } from '@/components/ui/button';
@@ -34,7 +34,7 @@ export default function ContactForm() {
           } catch (error) {
             notifyError(
               error,
-              errorMessages.retry('메시지 전송에 실패했습니다.'),
+              commonErrorMessages.retry('메시지 전송에 실패했습니다.'),
             );
           }
         },

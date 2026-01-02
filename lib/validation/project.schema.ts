@@ -1,9 +1,9 @@
 import { z } from 'zod';
 
-import { errorMessages } from '@/lib/constants/error-messages';
+import { projectErrorMessages } from '@/lib/constants/error-messages';
 
 export const schema = z.object({
-  title: z.string().nonempty(errorMessages.required.project.title),
+  title: z.string().nonempty(projectErrorMessages.required.title),
   isPublic: z.boolean(),
   description: z.string(),
   category: z.string(),
@@ -16,8 +16,8 @@ export const schema = z.object({
   results: z.array(z.string()),
   member: z.object({
     size: z
-      .number(errorMessages.required.project.member.size)
-      .min(1, errorMessages.length.project.member.size),
+      .number(projectErrorMessages.required.member.size)
+      .min(1, projectErrorMessages.length.member.size),
     role: z.string(),
     responsibilities: z.array(z.string()),
   }),

@@ -5,7 +5,7 @@ import { PlusIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { updateSkillMetadata } from '@/app/manage/skills/action';
-import { errorMessages } from '@/lib/constants/error-messages';
+import { skillErrorMessages } from '@/lib/constants/error-messages';
 import { notifyError } from '@/lib/utils/error';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -59,7 +59,7 @@ export default function MetadataEditForm({ skillMetadata }: Props) {
           <Field label="스킬명" required>
             <Input
               {...register(`items.${idx}.name`, {
-                required: errorMessages.required.skills.metadata,
+                required: skillErrorMessages.required.metadata,
               })}
             />
           </Field>
