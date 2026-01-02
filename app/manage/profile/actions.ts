@@ -8,7 +8,7 @@ import { educationTable } from '@/database/schema/education.schema';
 import { experienceTable } from '@/database/schema/experience.schema';
 import { historyTable } from '@/database/schema/history.schema';
 import { profileTable } from '@/database/schema/profile.schema';
-import type { FormDataType } from '@/components/admin/profile/profile-edit-form';
+import type { FormDataType } from '@/lib/validation/profile.schema';
 
 export const updateProfileAction = async ({
   introduce,
@@ -55,15 +55,13 @@ export const updateProfileAction = async ({
       }
 
       if (history.length > 0) {
-        await tx
-          .insert(historyTable)
-          .values(
-            history.map((h, idx) => ({
-              ...h,
-              order: idx,
-              profileId: profile.id,
-            })),
-          );
+        await tx.insert(historyTable).values(
+          history.map((h, idx) => ({
+            ...h,
+            order: idx,
+            profileId: profile.id,
+          })),
+        );
       }
 
       return profile;
