@@ -5,8 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
 import { sendContactAction } from '@/app/(application)/contact/action';
-import { extractErrorMessage } from '@/lib/utils/extract-error-message';
-import { contactSchema, FormDataType } from '@/lib/validation/contact.schema';
+import { errorMessages } from '@/lib/constants/error-messages';
+import { notifyError } from '@/lib/utils/error';
+import { FormDataType, schema } from '@/lib/validation/contact.schema';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
@@ -15,33 +16,29 @@ import FieldGroup from '@/components/common/form/field-group';
 
 export default function ContactForm() {
   const { register, handleSubmit, reset } = useForm<FormDataType>({
-    resolver: zodResolver(contactSchema),
+    resolver: zodResolver(schema),
     defaultValues: {},
   });
 
   return (
     <form
       onSubmit={handleSubmit(
-        (data: FormDataType) => {
-          sendContactAction(data)
-            .then((result) => {
-              if (!result.success) {
-                throw new Error(result.message);
-              }
-              toast.success('메시지 전달이 완료되었습니다.');
-              reset();
-            })
-            .catch((error) => {
-              toast.error(
-                error instanceof Error
-                  ? error.message
-                  : '메시지 전송에 실패했습니다. 잠시 후 다시 시도해주세요.',
-              );
-            });
+        async (data: FormDataType) => {
+          try {
+            const result = await sendContactAction(data);
+            if (!result.success) {
+              throw new Error(result.message);
+            }
+            toast.success('메시지 전달이 완료되었습니다.');
+            reset();
+          } catch (error) {
+            notifyError(
+              error,
+              errorMessages.retry('메시지 전송에 실패했습니다.'),
+            );
+          }
         },
-        (error) => {
-          toast.error(extractErrorMessage(error));
-        },
+        (error) => notifyError(error),
       )}
     >
       <FieldGroup
