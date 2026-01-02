@@ -28,7 +28,7 @@ const extractErrorMessage = (error: unknown): string | undefined => {
  */
 export const notifyError = (
   error: unknown,
-  fallbackMessage = commonErrorMessages.unknown.default,
+  fallbackMessage: string = commonErrorMessages.unknown.default,
 ) => {
   const message = extractErrorMessage(error) ?? fallbackMessage;
   toast.error(message);
