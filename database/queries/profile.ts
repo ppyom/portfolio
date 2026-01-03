@@ -100,3 +100,9 @@ const baseQuery = db
 export const getProfile = baseQuery
   .where(eq(profileTable.language, sql.placeholder('language')))
   .prepare('get_profile');
+
+export const getLastProfileUpdate = () =>
+  db
+    .select({ updatedAt: profileTable.updatedAt })
+    .from(profileTable)
+    .where(eq(profileTable.language, 'ko'));

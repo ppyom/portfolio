@@ -1,4 +1,4 @@
-import { eq, sql } from 'drizzle-orm';
+import { desc, eq, sql } from 'drizzle-orm';
 
 import { db } from '@/database';
 import { skillTable } from '@/database/schema/skill.schema';
@@ -18,3 +18,10 @@ const baseQuery = db
   .orderBy(skillCategoryTable.order);
 
 export const getSkills = baseQuery.prepare('get_skills');
+
+export const getLastSkillUpdate = () =>
+  db
+    .select({ updatedAt: skillTable.updatedAt })
+    .from(skillTable)
+    .orderBy(desc(skillTable.updatedAt))
+    .limit(1);
