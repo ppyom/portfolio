@@ -1,4 +1,4 @@
-import { and, desc, eq, ilike, or, sql } from 'drizzle-orm';
+import { and, count, desc, eq, ilike, or, sql } from 'drizzle-orm';
 
 import { db } from '@/database';
 import { fileTable } from '@/database/schema/file.schema';
@@ -90,3 +90,6 @@ export const getFilteredProjects = (q: ProjectFilter['q']) => {
     )
     .execute();
 };
+
+export const getTotalProjectCount = () =>
+  db.select({ count: count() }).from(projectTable);
