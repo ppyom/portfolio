@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PlusIcon } from 'lucide-react';
 
-import { getProjects } from '@/database/queries/project';
+import { getProjects } from '@/services/project';
 import { Button } from '@/components/ui/button';
 import PageTitle from '@/components/common/page-title';
 import ProjectList from '@/components/admin/projects/project-list';
