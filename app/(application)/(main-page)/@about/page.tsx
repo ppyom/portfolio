@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation';
 
-import { getProfile } from '@/database/queries/profile';
+import { getProfile } from '@/services/profile';
 import PageTitle from '@/components/common/page-title';
 
 export default async function Page() {
-  const [profile] = await getProfile.execute({ language: 'ko' });
+  const profile = await getProfile();
 
   if (!profile) {
     return notFound();

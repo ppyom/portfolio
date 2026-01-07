@@ -6,5 +6,6 @@ export interface Skill {
 }
 
 export interface SkillMetadata {
+  name: string;
   color: string;
 }

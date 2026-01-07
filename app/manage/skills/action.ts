@@ -2,43 +2,17 @@
 
 import { revalidatePath } from 'next/cache';
 
-import { db } from '@/database';
-import { skillTable } from '@/database/schema/skill.schema';
-import { skillCategoryTable } from '@/database/schema/skill-category.schema';
-import { skillMetadataTable } from '@/database/schema/skill-metadata.schema';
+import { updateSkillMetadata, updateSkills } from '@/services/skills';
 import type { FormDataType } from '@/lib/validation/skill.schema';
+import type { SkillMetadata } from '@/types/skill';
 
 export const updateSkillsAction = async ({ skills }: FormDataType) => {
   try {
-    const result = await db.transaction(async (tx) => {
-      await tx.delete(skillTable);
-      await tx.delete(skillCategoryTable);
-
-      for (let i = 0; i < skills.length; i++) {
-        const skill = skills[i];
-
-        const [insertedCategory] = await tx
-          .insert(skillCategoryTable)
-          .values({
-            name: skill.category,
-            order: i,
-          })
-          .returning({ id: skillCategoryTable.id });
-
-        await tx.insert(skillTable).values(
-          skill.items.map((item) => ({
-            name: item,
-            categoryId: insertedCategory.id,
-          })),
-        );
-      }
-
-      return true;
-    });
+    await updateSkills(skills);
 
     revalidatePath('/manage/skills');
 
-    return { success: true, projectId: result };
+    return { success: true };
   } catch (error) {
     return {
       success: false,
@@ -50,28 +24,19 @@ export const updateSkillsAction = async ({ skills }: FormDataType) => {
   }
 };
 
-export const updateSkillMetadata = async ({
+export const updateSkillMetadataAction = async ({
   items,
 }: {
-  items: {
-    name: string;
-    color: string;
-  }[];
+  items: SkillMetadata[];
 }) => {
   try {
-    const result = await db.transaction(async (tx) => {
-      await tx.delete(skillMetadataTable);
+    await updateSkillMetadata(
+      items.map((item) => ({ name: item.name, color: item.color })),
+    );
 
-      await tx
-        .insert(skillMetadataTable)
-        .values(items.map((item) => ({ name: item.name, color: item.color })));
+    revalidatePath('/');
 
-      return true;
-    });
-
-    revalidatePath('/(application)/(main-page)');
-
-    return { success: true, projectId: result };
+    return { success: true };
   } catch (error) {
     return {
       success: false,

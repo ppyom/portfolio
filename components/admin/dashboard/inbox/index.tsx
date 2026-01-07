@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-import { getRecentMessages } from '@/database/queries/contact';
+import { getRecentMessages } from '@/services/contact';
 import { Button } from '@/components/ui/button';
 import {
   Card,

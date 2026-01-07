@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import { MoreVerticalIcon } from 'lucide-react';
 
 import { updateStatusAction } from '@/app/manage/inbox/action';
-import { getInboxMessage } from '@/database/queries/contact';
+import { getInboxMessage } from '@/services/contact';
 import { cn } from '@/lib/utils';
 import { fullDateString } from '@/lib/utils/date';
 import { Button } from '@/components/ui/button';
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
 export default async function Page({ params }: Props) {
   const { id } = await params;
 
-  const [message] = await getInboxMessage(id);
+  const message = await getInboxMessage(id);
 
   if (!message) {
     return notFound();

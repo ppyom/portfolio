@@ -1,9 +1,9 @@
-import { getPublicProjects } from '@/database/queries/project';
+import { getProjects } from '@/services/project';
 import PageTitle from '@/components/common/page-title';
 import ProjectList from '@/components/application/projects/project-list';
 
 export default async function Page() {
-  const projects = await getPublicProjects();
+  const projects = await getProjects({ isPublic: true });
 
   return (
     <section id="projects" className="py-20 px-6 bg-card/50">

@@ -1,10 +1,8 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { eq, sql } from 'drizzle-orm';
 
-import { db } from '@/database';
-import { contactTable } from '@/database/schema/contact.schema';
+import { deleteContact, updateContactStatus } from '@/services/contact';
 import type { InboxMessage } from '@/types/inbox-message';
 
 export const updateStatusAction = async (
@@ -12,12 +10,7 @@ export const updateStatusAction = async (
   status: InboxMessage['status'],
 ) => {
   try {
-    await db
-      .update(contactTable)
-      .set({
-        status,
-      })
-      .where(eq(contactTable.id, id));
+    await updateContactStatus(id, status);
 
     revalidatePath('/manage/inbox');
 
@@ -35,12 +28,7 @@ export const updateStatusAction = async (
 
 export const deleteMessage = async (id: string) => {
   try {
-    await db
-      .update(contactTable)
-      .set({
-        deletedAt: sql`now()`,
-      })
-      .where(eq(contactTable.id, id));
+    await deleteContact(id);
 
     revalidatePath('/manage/inbox');
 
