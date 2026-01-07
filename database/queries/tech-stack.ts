@@ -5,13 +5,18 @@ import { techStackTable } from '@/database/schema/tech-stack.schema';
 import { TechStackTable } from '@/database/types/project';
 import type { DbClient } from '@/types/db';
 
-export const insertTechStack = async (
+export const insertTechStack = (
   techStacks: TechStackTable.Insert[],
   client: DbClient = db,
 ) =>
   client
     .insert(techStackTable)
-    .values(techStacks)
+    .values(
+      techStacks.map((t) => ({
+        ...t,
+        projectId: sql.placeholder('projectId'),
+      })),
+    )
     .onConflictDoUpdate({
       target: [techStackTable.projectId, techStackTable.title],
       set: {
