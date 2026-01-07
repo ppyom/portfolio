@@ -19,6 +19,7 @@ const eslintConfig = defineConfig([
             [
               "^@/app",
               "^@/database",
+              "^@/services",
               "^@/lib",
               "^@/hooks",
               "^@/components/ui",
