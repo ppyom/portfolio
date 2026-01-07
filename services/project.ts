@@ -91,7 +91,9 @@ export const createProject = async (project: ProjectFormData) => {
     }
 
     if (project.techStacks.length > 0) {
-      await insertTechStack(project.techStacks, tx);
+      await insertTechStack(project.techStacks, tx).execute({
+        projectId: insertedProject.id,
+      });
     }
 
     return insertedProject;
@@ -134,7 +136,7 @@ export const updateProject = async (id: string, project: ProjectFormData) => {
     }
 
     if (project.techStacks.length > 0) {
-      await insertTechStack(project.techStacks, tx);
+      await insertTechStack(project.techStacks, tx).execute({ projectId: id });
     }
   });
 
@@ -163,7 +165,7 @@ export const deleteProject = async (id: string) => {
 
   return db.transaction(async (tx) => {
     await deleteFiles(deletedImages, tx).execute();
-    await deleteTechStack(tx).execute({ projectId: id });
+    await deleteTechStack(tx).execute();
     await deleteProjectQuery(tx).execute({ projectId: id });
   });
 };
