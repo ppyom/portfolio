@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { getSkillMetadata } from '@/database/queries/skill-metadata';
+import { getSkillMetadata } from '@/services/skills';
 import PageTitle from '@/components/common/page-title';
 import MetadataEditForm from '@/components/admin/skills/metadata-edit-form';
 

@@ -1,13 +1,13 @@
 import { getUnreadMessageCount } from '@/database/queries/contact';
-import { getLastSkillUpdate } from '@/database/queries/skill';
 import { getLastProfileUpdate } from '@/services/profile';
 import { getTotalProjectCount } from '@/services/project';
+import { getLastSkillUpdate } from '@/services/skills';
 import { relativeDateString } from '@/lib/utils/date';
 
 import StatCard from './stat-card';
 
 export default async function DashboardOverview() {
-  const [totalProjectCount, [inbox], [skill], profileUpdatedAt] =
+  const [totalProjectCount, [inbox], skillUpdatedAt, profileUpdatedAt] =
     await Promise.all([
       getTotalProjectCount(),
       getUnreadMessageCount(),
@@ -20,7 +20,7 @@ export default async function DashboardOverview() {
       <StatCard title="전체 프로젝트">{totalProjectCount}개</StatCard>
       <StatCard title="미확인 메시지">{inbox.count}개</StatCard>
       <StatCard title="스킬 업데이트">
-        {relativeDateString(skill.updatedAt)}
+        {relativeDateString(skillUpdatedAt)}
       </StatCard>
       <StatCard title="프로필 업데이트">
         {relativeDateString(profileUpdatedAt)}

@@ -4,7 +4,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { PlusIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
-import { updateSkillMetadata } from '@/app/manage/skills/action';
+import { updateSkillMetadataAction } from '@/app/manage/skills/action';
 import { skillErrorMessages } from '@/lib/constants/error-messages';
 import { notifyError } from '@/lib/utils/error';
 import { Button } from '@/components/ui/button';
@@ -38,7 +38,7 @@ export default function MetadataEditForm({ skillMetadata }: Props) {
       onSubmit={handleSubmit(
         async (data) => {
           try {
-            const result = await updateSkillMetadata(data);
+            const result = await updateSkillMetadataAction(data);
             if (!result.success) {
               throw new Error(result.message);
             }
