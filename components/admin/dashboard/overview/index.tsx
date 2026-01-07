@@ -1,7 +1,4 @@
-import { getUnreadMessageCount } from '@/services/contact';
-import { getLastProfileUpdate } from '@/services/profile';
-import { getTotalProjectCount } from '@/services/project';
-import { getLastSkillUpdate } from '@/services/skills';
+import { getDashboardOverview } from '@/services/dashboard';
 import { relativeDateString } from '@/lib/utils/date';
 
 import StatCard from './stat-card';
@@ -12,12 +9,7 @@ export default async function DashboardOverview() {
     unreadMessageCount,
     skillUpdatedAt,
     profileUpdatedAt,
-  ] = await Promise.all([
-    getTotalProjectCount(),
-    getUnreadMessageCount(),
-    getLastSkillUpdate(),
-    getLastProfileUpdate(),
-  ]);
+  ] = await getDashboardOverview();
 
   return (
     <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
