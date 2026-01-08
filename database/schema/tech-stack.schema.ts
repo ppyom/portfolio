@@ -2,6 +2,8 @@ import { sql } from 'drizzle-orm';
 import { pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { unique } from 'drizzle-orm/pg-core/unique-constraint';
 
+import { policies } from '@/database/policies';
+
 import { projectTable } from './project.schema';
 
 export const techStackTable = pgTable(
@@ -20,10 +22,9 @@ export const techStackTable = pgTable(
       .$default(() => sql`NOW()`),
     updatedAt: text('updated_at').$onUpdate(() => sql`NOW()`),
   },
-  (table) => ({
-    project_tech_stack_projectId_title_unique: unique().on(
-      table.projectId,
-      table.title,
-    ),
-  }),
-);
+  (table) => [
+    unique().on(table.projectId, table.title),
+    policies.allUser.read,
+    ...policies.admin.all,
+  ],
+).enableRLS();
