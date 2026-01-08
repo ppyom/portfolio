@@ -2,22 +2,16 @@
 
 import { revalidatePath } from 'next/cache';
 
-import { db } from '@/database';
-import { contactTable } from '@/database/schema/contact.schema';
+import { createContact } from '@/services/contact';
 import { FormDataType } from '@/lib/validation/contact.schema';
 
 export const sendContactAction = async (data: FormDataType) => {
   try {
-    const result = await db
-      .insert(contactTable)
-      .values({
-        ...data,
-      })
-      .returning({ id: contactTable.id });
+    await createContact(data);
 
     revalidatePath('/manage/contact');
 
-    return { success: true, projectId: result };
+    return { success: true };
   } catch (error) {
     return {
       success: false,

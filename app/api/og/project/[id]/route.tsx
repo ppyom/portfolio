@@ -3,7 +3,7 @@ import type { Properties } from 'csstype';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
-import { getPublicProject } from '@/database/queries/project';
+import { getProject } from '@/services/project';
 
 const containerStyle: Properties = {
   width: '100%',
@@ -26,7 +26,7 @@ export async function GET(
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
-  const [project] = await getPublicProject(id);
+  const project = await getProject(id, { isPublic: true });
 
   const font = await readFile(
     path.join(process.cwd(), 'public/fonts/og/Pretendard-Bold.otf'),

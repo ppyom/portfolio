@@ -18,6 +18,26 @@ export interface Project extends Omit<
   techStacks: TechStackTable.Select[];
 }
 
+export interface ProjectFormData {
+  title: string;
+  description: string;
+  category: string;
+  githubUrl: string;
+  applicationUrl: string;
+  overview: string;
+  isPublic: boolean;
+  coverImageFile: File[];
+  imageFiles: File[];
+  tags: Project['tags'];
+  features: Project['features'];
+  goals: Project['goals'];
+  results: Project['results'];
+  member: Project['member'];
+  techStacks: Project['techStacks'];
+  existedCoverImage: (ImageFile & { deleted: boolean })[];
+  existedImages: (ImageFile & { deleted: boolean })[];
+}
+
 export interface ProjectFilter {
   q?: string;
 }

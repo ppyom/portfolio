@@ -1,10 +1,11 @@
-import { and, desc, eq, ilike, or, sql } from 'drizzle-orm';
+import { and, count, desc, eq, ilike, or, sql } from 'drizzle-orm';
 
 import { db } from '@/database';
 import { fileTable } from '@/database/schema/file.schema';
 import { projectTable } from '@/database/schema/project.schema';
 import { techStackTable } from '@/database/schema/tech-stack.schema';
-import type { TechStackTable } from '@/database/types/project';
+import { ProjectTable, type TechStackTable } from '@/database/types/project';
+import type { DbClient } from '@/types/db';
 import type { ImageFile, ProjectFilter } from '@/types/project';
 
 const baseQuery = () =>
@@ -58,35 +59,64 @@ const baseQuery = () =>
     .groupBy(projectTable.id, fileTable.id, fileTable.url)
     .orderBy(desc(projectTable.createdAt));
 
-export const getProjects = () => baseQuery().execute();
-export const getProject = (projectId: string) =>
-  baseQuery().where(eq(projectTable.id, projectId)).execute();
-
-export const getPublicProjects = () =>
-  baseQuery().where(eq(projectTable.isPublic, true)).execute();
-export const getPublicProject = (projectId: string) =>
-  baseQuery()
-    .where(and(eq(projectTable.id, projectId), eq(projectTable.isPublic, true)))
-    .execute();
-
-export const getFilteredProjects = (q: ProjectFilter['q']) => {
-  if (!q) {
-    return getPublicProjects();
-  }
-
+export const getProjectsQuery = baseQuery().prepare('get_projects');
+export const getProjectQuery = baseQuery()
+  .where(eq(projectTable.id, sql.placeholder('projectId')))
+  .prepare('get_project');
+export const getPublicProjectsQuery = baseQuery()
+  .where(eq(projectTable.isPublic, true))
+  .prepare('get_public_projects');
+export const getPublicProjectQuery = baseQuery()
+  .where(
+    and(
+      eq(projectTable.id, sql.placeholder('projectId')),
+      eq(projectTable.isPublic, true),
+    ),
+  )
+  .prepare('get_public_project');
+export const getProjectImageIds = db
+  .select({
+    coverImageId: projectTable.coverImageId,
+    imageIds: projectTable.imageIds,
+  })
+  .from(projectTable)
+  .where(eq(projectTable.id, sql.placeholder('projectId')));
+export const getTotalProjectCountQuery = db
+  .select({ count: count() })
+  .from(projectTable)
+  .prepare('get_total_project_count');
+export const getFilteredProjectsQuery = (q: ProjectFilter['q']) => {
   const keyword = `%${q}%`;
 
-  return baseQuery()
-    .where(
-      and(
-        eq(projectTable.isPublic, true),
-        or(
-          ilike(projectTable.title, keyword),
-          ilike(projectTable.description, keyword),
-          ilike(projectTable.category, keyword),
-          ilike(sql`array_to_string(${techStackTable.stacks}, ',')`, keyword),
-        ),
+  return baseQuery().where(
+    and(
+      eq(projectTable.isPublic, true),
+      or(
+        ilike(projectTable.title, keyword),
+        ilike(projectTable.description, keyword),
+        ilike(projectTable.category, keyword),
+        ilike(sql`array_to_string(${techStackTable.stacks}, ',')`, keyword),
       ),
-    )
-    .execute();
+    ),
+  );
 };
+
+export const insertProjectQuery = (
+  values: ProjectTable.Insert,
+  client: DbClient = db,
+) => client.insert(projectTable).values(values);
+
+export const updateProjectQuery = (
+  values: Partial<ProjectTable.Insert>,
+  client: DbClient = db,
+) =>
+  client
+    .update(projectTable)
+    .set(values)
+    .where(eq(projectTable.id, sql.placeholder('projectId')));
+
+export const deleteProjectQuery = (client: DbClient = db) =>
+  client
+    .delete(projectTable)
+    .where(eq(projectTable.id, sql.placeholder('projectId')))
+    .prepare('delete_project');

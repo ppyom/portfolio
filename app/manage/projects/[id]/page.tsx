@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 
-import { getProject } from '@/database/queries/project';
+import { getProject } from '@/services/project';
 import PageTitle from '@/components/common/page-title';
 import ProjectEditForm from '@/components/admin/projects/project-edit-form';
 
@@ -11,7 +11,7 @@ interface Props {
 export default async function Page({ params }: Props) {
   const { id } = await params;
 
-  const [project] = await getProject(id);
+  const project = await getProject(id);
 
   if (!project) {
     return notFound();

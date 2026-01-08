@@ -9,7 +9,9 @@ import {
   EducationTable,
   ExperienceTable,
   HistoryTable,
+  ProfileTable,
 } from '@/database/types/profile';
+import type { DbClient } from '@/types/db';
 
 const experienceSubQuery = db
   .select({
@@ -97,6 +99,25 @@ const baseQuery = db
   .leftJoin(educationSubQuery, eq(profileTable.id, educationSubQuery.profileId))
   .leftJoin(historySubQuery, eq(profileTable.id, historySubQuery.profileId));
 
-export const getProfile = baseQuery
+export const getProfileQuery = baseQuery
   .where(eq(profileTable.language, sql.placeholder('language')))
   .prepare('get_profile');
+export const getLastProfileUpdateQuery = db
+  .select({ updatedAt: profileTable.updatedAt })
+  .from(profileTable)
+  .where(eq(profileTable.language, sql.placeholder('language')))
+  .prepare('get_profile_update');
+
+export const insertProfileQuery = (
+  values: ProfileTable.Insert,
+  client: DbClient = db,
+) =>
+  client
+    .insert(profileTable)
+    .values({ ...values, language: sql.placeholder('language') })
+    .onConflictDoUpdate({
+      target: profileTable.language,
+      set: {
+        ...values,
+      },
+    });

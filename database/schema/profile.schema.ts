@@ -2,6 +2,8 @@ import { sql } from 'drizzle-orm';
 import { pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { unique } from 'drizzle-orm/pg-core/unique-constraint';
 
+import { policies } from '@/database/policies';
+
 export const profileTable = pgTable(
   'profile',
   {
@@ -15,7 +17,9 @@ export const profileTable = pgTable(
       .$default(() => sql`NOW()`),
     updatedAt: text('updated_at').$onUpdate(() => sql`NOW()`),
   },
-  (table) => ({
-    profile_language_unique: unique().on(table.language),
-  }),
-);
+  (table) => [
+    unique().on(table.language),
+    policies.allUser.read,
+    ...policies.admin.all,
+  ],
+).enableRLS();

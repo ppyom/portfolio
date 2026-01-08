@@ -1,4 +1,4 @@
-import { getFilteredProjects } from '@/database/queries/project';
+import { getFilteredProjects } from '@/services/project';
 import PageTitle from '@/components/common/page-title';
 import ProjectList from '@/components/application/projects/project-list';
 import SearchForm from '@/components/application/projects/search-form';
@@ -10,7 +10,7 @@ interface Props {
 
 export default async function Page({ searchParams }: Props) {
   const { q } = await searchParams;
-  const projects = await getFilteredProjects(q);
+  const projects = await getFilteredProjects({ q });
 
   return (
     <>

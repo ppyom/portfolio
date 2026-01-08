@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { Edit2Icon, MoreVerticalIcon, Trash2Icon } from 'lucide-react';
 import { toast } from 'sonner';
 
-import { deleteProject } from '@/app/manage/projects/actions';
+import { deleteProjectAction } from '@/app/manage/projects/actions';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -20,7 +20,7 @@ interface Props {
 
 export default function ProjectDropdown({ projectId }: Props) {
   const handleDelete = () => {
-    deleteProject(projectId)
+    deleteProjectAction(projectId)
       .then((result) => {
         if (!result.success) {
           throw new Error(result.message);

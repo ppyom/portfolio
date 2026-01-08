@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 
-import { getSkillMetadata } from '@/database/queries/skill-metadata';
+import { getSkillMetadata } from '@/services/skills';
 import { config } from '@/lib/config';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/sonner';

@@ -1,16 +1,20 @@
 import { db } from '@/database';
 import { skillMetadataTable } from '@/database/schema/skill-metadata.schema';
-import type { SkillMetadata } from '@/types/skill';
+import { SkillMetadataTable } from '@/database/types/skill';
+import type { DbClient } from '@/types/db';
 
-export const getSkillMetadata = async () => {
-  const rows = await db
-    .select({
-      name: skillMetadataTable.name,
-      color: skillMetadataTable.color,
-    })
-    .from(skillMetadataTable);
+export const getSkillMetadataQuery = db
+  .select({
+    name: skillMetadataTable.name,
+    color: skillMetadataTable.color,
+  })
+  .from(skillMetadataTable)
+  .prepare('get_skill_metadata');
 
-  return Object.fromEntries(
-    rows.map(({ name, color }) => [name, { color }]),
-  ) as Record<string, SkillMetadata>;
-};
+export const insertSkillMetadataQuery = (
+  metadata: SkillMetadataTable.Insert[],
+  client: DbClient = db,
+) => client.insert(skillMetadataTable).values(metadata);
+
+export const deleteSkillMetadataQuery = (client: DbClient = db) =>
+  client.delete(skillMetadataTable);

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { getPublicProject } from '@/database/queries/project';
+import { getProject } from '@/services/project';
 import ProjectContents from '@/components/application/projects/project-detail';
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { id } = await params;
-  const [project] = await getPublicProject(id);
+  const project = await getProject(id, { isPublic: true });
 
   if (!project) {
     return {};
@@ -34,7 +34,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const { id } = await params;
-  const [project] = await getPublicProject(id);
+  const project = await getProject(id, { isPublic: true });
 
   if (!project) {
     return notFound();

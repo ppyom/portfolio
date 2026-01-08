@@ -1,8 +1,10 @@
-import { eq, sql } from 'drizzle-orm';
+import { desc, eq, sql } from 'drizzle-orm';
 
 import { db } from '@/database';
 import { skillTable } from '@/database/schema/skill.schema';
 import { skillCategoryTable } from '@/database/schema/skill-category.schema';
+import { SkillTable } from '@/database/types/skill';
+import type { DbClient } from '@/types/db';
 
 const baseQuery = db
   .select({
@@ -17,4 +19,18 @@ const baseQuery = db
   .groupBy(skillCategoryTable.name, skillCategoryTable.order)
   .orderBy(skillCategoryTable.order);
 
-export const getSkills = baseQuery.prepare('get_skills');
+export const getSkillsQuery = baseQuery.prepare('get_skills');
+export const getLastSkillUpdateQuery = db
+  .select({ updatedAt: skillTable.updatedAt })
+  .from(skillTable)
+  .orderBy(desc(skillTable.updatedAt))
+  .limit(1)
+  .prepare('get_last_skill_update');
+
+export const insertSkillsQuery = (
+  skills: SkillTable.Insert[],
+  client: DbClient = db,
+) => client.insert(skillTable).values(skills);
+
+export const deleteSkillsQuery = (client: DbClient = db) =>
+  client.delete(skillTable);

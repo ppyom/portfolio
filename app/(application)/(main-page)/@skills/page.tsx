@@ -1,10 +1,10 @@
-import { getSkills } from '@/database/queries/skill';
+import { getSkills } from '@/services/skills';
 import { cn } from '@/lib/utils';
 import PageTitle from '@/components/common/page-title';
 import SkillTag from '@/components/common/skill-tag';
 
 export default async function Page() {
-  const skills = await getSkills.execute();
+  const skills = await getSkills();
 
   return (
     <section id="skills" className="py-20 px-6">
