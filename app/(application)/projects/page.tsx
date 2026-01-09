@@ -1,4 +1,7 @@
+import { BookIcon } from 'lucide-react';
+
 import { getFilteredProjects } from '@/services/project';
+import Empty from '@/components/common/empty';
 import PageTitle from '@/components/common/page-title';
 import ProjectList from '@/components/application/projects/project-list';
 import SearchForm from '@/components/application/projects/search-form';
@@ -16,9 +19,14 @@ export default async function Page({ searchParams }: Props) {
     <>
       <PageTitle align="left">프로젝트 목록</PageTitle>
       <SearchForm defaultKeyword={q} />
-      <div className="flex flex-col gap-4 min-h-[66vh]">
-        <ProjectList projects={projects} />
-      </div>
+      {projects.length === 0 && (
+        <Empty icon={BookIcon} title="등록된 프로젝트가 없습니다." />
+      )}
+      {projects.length > 0 && (
+        <div className="flex flex-col gap-4 min-h-[66vh]">
+          <ProjectList projects={projects} />
+        </div>
+      )}
     </>
   );
 }
