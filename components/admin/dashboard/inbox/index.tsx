@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { InboxIcon } from 'lucide-react';
 
 import { getRecentMessages } from '@/services/contact';
 import { Button } from '@/components/ui/button';
@@ -9,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import Empty from '@/components/common/empty';
 import InboxMessageList from '@/components/admin/inbox/list';
 
 export default async function DashboardInbox() {
@@ -25,7 +27,14 @@ export default async function DashboardInbox() {
       </CardHeader>
       <CardContent>
         <div className="min-h-96">
-          <InboxMessageList messages={messages} />
+          {messages.length === 0 && (
+            <Empty
+              icon={InboxIcon}
+              title="받은 메시지가 없습니다."
+              description="아직 도착한 문의가 없습니다."
+            />
+          )}
+          {messages.length > 0 && <InboxMessageList messages={messages} />}
         </div>
       </CardContent>
     </Card>
