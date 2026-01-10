@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import { boolean, pgTable, text, uuid } from 'drizzle-orm/pg-core';
+import { boolean, integer, pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { jsonb } from 'drizzle-orm/pg-core/columns/jsonb';
 
 import { policies } from '@/database/policies';
@@ -36,6 +36,7 @@ export const projectTable = pgTable(
       })
       .array(),
     isPublic: boolean('is_public').$default(() => true),
+    order: integer('order').$default(() => 0),
     createdAt: text('created_at')
       .notNull()
       .$default(() => sql`NOW()`),
