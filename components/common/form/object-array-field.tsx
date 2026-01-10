@@ -18,11 +18,11 @@ import {
 import { Separator } from '@/components/ui/separator';
 import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
 import Field from '@/components/common/form/field';
-import SortableItem from '@/components/common/form/sortable/item';
+import SortableItem from '@/components/common/sortable/item';
 import type { FieldItem } from '@/types/field-item';
 
 const SortableList = dynamic(
-  () => import('@/components/common/form/sortable/list'),
+  () => import('@/components/common/sortable/list'),
   {
     ssr: false,
   },
