@@ -5,7 +5,7 @@ import { CSS } from '@dnd-kit/utilities';
 
 import { cn } from '@/lib/utils';
 
-interface SortableItemProps {
+interface Props {
   id: string;
   children: (props: {
     listeners: ReturnType<typeof useSortable>['listeners'];
@@ -14,7 +14,7 @@ interface SortableItemProps {
   }) => React.ReactNode;
 }
 
-export default function SortableItem({ id, children }: SortableItemProps) {
+export default function SortableItem({ id, children }: Props) {
   const { setNodeRef, attributes, listeners, transform, isDragging } =
     useSortable({ id });
 
