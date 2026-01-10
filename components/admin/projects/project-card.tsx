@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { ArrowUpRightIcon } from 'lucide-react';
+import { useSortable } from '@dnd-kit/sortable';
+import { ArrowUpRightIcon, GripVerticalIcon } from 'lucide-react';
 
 import { fullDateString } from '@/lib/utils/date';
 import { Button } from '@/components/ui/button';
@@ -19,13 +20,30 @@ import ProjectVisibilityToggle from './project-visibility-toggle';
 
 interface Props {
   project: Project;
+  dragHandleProps: {
+    listeners: ReturnType<typeof useSortable>['listeners'];
+    attributes: ReturnType<typeof useSortable>['attributes'];
+  };
 }
 
-export default function ProjectCard({ project }: Props) {
+export default function ProjectCard({
+  project,
+  dragHandleProps: { listeners, attributes },
+}: Props) {
   return (
     <Card>
       <CardHeader>
         <CardTitle className="flex gap-2 items-center">
+          <Button
+            type="button"
+            size="icon-sm"
+            variant="ghost"
+            className="cursor-grab touch-none"
+            {...listeners}
+            {...attributes}
+          >
+            <GripVerticalIcon />
+          </Button>
           {project.title}
           {project.isPublic && (
             <Button

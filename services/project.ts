@@ -154,6 +154,15 @@ export const updateProjectVisibility = async (
     projectId: id,
   });
 };
+export const updateProjectOrder = async (projectIds: string[]) => {
+  await db.transaction(async (tx) => {
+    await Promise.all(
+      projectIds.map((id, idx) =>
+        updateProjectQuery({ order: idx }, tx).execute({ projectId: id }),
+      ),
+    );
+  });
+};
 
 export const deleteProject = async (id: string) => {
   const [project] = await getProjectImageIds.execute({ projectId: id });
