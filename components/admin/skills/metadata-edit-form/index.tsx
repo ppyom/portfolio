@@ -37,14 +37,11 @@ export default function MetadataEditForm({ skillMetadata }: Props) {
       className="space-y-4"
       onSubmit={handleSubmit(
         async (data) => {
-          try {
-            const result = await updateSkillMetadataAction(data);
-            if (!result.success) {
-              throw new Error(result.message);
-            }
+          const result = await updateSkillMetadataAction(data);
+          if (result.success) {
             toast.success('저장되었습니다.');
-          } catch (error) {
-            notifyError(error);
+          } else {
+            toast.error(result.message);
           }
         },
         (error) => notifyError(error),

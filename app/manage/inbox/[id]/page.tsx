@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MoreVerticalIcon } from 'lucide-react';
+import { toast } from 'sonner';
 
 import { updateStatusAction } from '@/app/manage/inbox/actions';
 import { getInboxMessage } from '@/services/contact';
@@ -31,7 +32,10 @@ export default async function Page({ params }: Props) {
   }
 
   if (message.status === 'unread') {
-    await updateStatusAction(id, 'read');
+    const result = await updateStatusAction(id, 'read');
+    if (!result.success) {
+      toast.error(result.message);
+    }
   }
 
   return (

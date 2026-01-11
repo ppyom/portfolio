@@ -79,15 +79,12 @@ export default function ProjectEditForm({ defaultProject }: Props) {
           async (data: FormDataType) => {
             const formData = createFormData(data);
 
-            try {
-              const result = await action(formData, defaultProject?.id || '');
-              if (!result.success) {
-                throw new Error(result.message);
-              }
+            const result = await action(formData, defaultProject?.id || '');
+            if (result.success) {
               router.replace('/manage/projects');
               toast.success('저장되었습니다.');
-            } catch (error) {
-              notifyError(error);
+            } else {
+              toast.error(result.message);
             }
           },
           (error) => notifyError(error),
