@@ -44,14 +44,11 @@ export default function ProfileEditForm({ defaultProfile }: Props) {
         className="space-y-4"
         onSubmit={handleSubmit(
           async (data: FormDataType) => {
-            try {
-              const result = await updateProfileAction(data);
-              if (!result.success) {
-                throw new Error(result.message);
-              }
+            const result = await updateProfileAction(data);
+            if (result.success) {
               toast.success('저장되었습니다.');
-            } catch (error) {
-              notifyError(error);
+            } else {
+              toast.error(result.message);
             }
           },
           (error) => notifyError(error),

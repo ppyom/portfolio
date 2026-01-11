@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
-import { updateSkillsAction } from '@/app/manage/skills/action';
+import { updateSkillsAction } from '@/app/manage/skills/actions';
 import { notifyError } from '@/lib/utils/error';
 import { FormDataType, schema } from '@/lib/validation/skill.schema';
 import { Button } from '@/components/ui/button';
@@ -34,14 +34,11 @@ export default function SkillEditForm({ defaultSkills = [] }: Props) {
         className="space-y-4"
         onSubmit={handleSubmit(
           async (data: FormDataType) => {
-            try {
-              const result = await updateSkillsAction(data);
-              if (!result.success) {
-                throw new Error(result.message);
-              }
+            const result = await updateSkillsAction(data);
+            if (result.success) {
               toast.success('저장되었습니다.');
-            } catch (error) {
-              notifyError(error);
+            } else {
+              toast.error(result.message);
             }
           },
           (error) => notifyError(error),
