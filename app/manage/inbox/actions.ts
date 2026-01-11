@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 
 import { deleteContact, updateContactStatus } from '@/services/contact';
+import { extractErrorMessage } from '@/lib/utils/error';
 import type { InboxMessage } from '@/types/inbox-message';
 
 export const updateStatusAction = async (
@@ -18,10 +19,7 @@ export const updateStatusAction = async (
   } catch (error) {
     return {
       success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : '알 수 없는 오류가 발생했습니다.',
+      message: extractErrorMessage(error),
     };
   }
 };
@@ -36,10 +34,7 @@ export const deleteMessage = async (id: string) => {
   } catch (error) {
     return {
       success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : '알 수 없는 오류가 발생했습니다.',
+      message: extractErrorMessage(error),
     };
   }
 };

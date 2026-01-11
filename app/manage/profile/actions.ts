@@ -3,6 +3,7 @@
 import { revalidatePath } from 'next/cache';
 
 import { updateProfile } from '@/services/profile';
+import { extractErrorMessage } from '@/lib/utils/error';
 import type { FormDataType } from '@/lib/validation/profile.schema';
 
 export const updateProfileAction = async (data: FormDataType) => {
@@ -15,10 +16,7 @@ export const updateProfileAction = async (data: FormDataType) => {
   } catch (error) {
     return {
       success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : '알 수 없는 오류가 발생했습니다.',
+      message: extractErrorMessage(error),
     };
   }
 };
