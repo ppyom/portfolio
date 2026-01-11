@@ -5,9 +5,13 @@ import { commonErrorMessages } from '@/lib/constants/error-messages';
 /**
  * 에러 객체에서 메시지를 추출합니다.
  * @param error unknown
+ * @param defaultMessage 에러 객체가 올바르지 않은 경우 사용할 기본 메시지
  */
-export const extractErrorMessage = (error: unknown): string | undefined => {
-  if (!error || typeof error !== 'object') return undefined;
+export const extractErrorMessage = (
+  error: unknown,
+  defaultMessage: string = commonErrorMessages.unknown.default,
+): string | undefined => {
+  if (!error || typeof error !== 'object') return defaultMessage;
 
   if ('message' in error && typeof error.message === 'string') {
     return error.message;
@@ -18,7 +22,7 @@ export const extractErrorMessage = (error: unknown): string | undefined => {
     if (message) return message;
   }
 
-  return undefined;
+  return defaultMessage;
 };
 
 /**
@@ -30,6 +34,6 @@ export const notifyError = (
   error: unknown,
   fallbackMessage: string = commonErrorMessages.unknown.default,
 ) => {
-  const message = extractErrorMessage(error) ?? fallbackMessage;
+  const message = extractErrorMessage(error, fallbackMessage);
   toast.error(message);
 };
