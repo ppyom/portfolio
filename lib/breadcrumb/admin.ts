@@ -16,7 +16,7 @@ function resolveDynamicSegment(
   parentPath: string,
 ): string | null {
   if (parentPath === '/manage/projects') {
-    return '프로젝트 수정';
+    return `프로젝트 ${segment === 'new' ? '추가' : '수정'}`;
   }
   if (parentPath === '/manage/skills') {
     return '스킬 메타데이터 관리';
