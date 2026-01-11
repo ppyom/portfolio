@@ -6,7 +6,7 @@ import { commonErrorMessages } from '@/lib/constants/error-messages';
  * 에러 객체에서 메시지를 추출합니다.
  * @param error unknown
  */
-const extractErrorMessage = (error: unknown): string | undefined => {
+export const extractErrorMessage = (error: unknown): string | undefined => {
   if (!error || typeof error !== 'object') return undefined;
 
   if ('message' in error && typeof error.message === 'string') {
