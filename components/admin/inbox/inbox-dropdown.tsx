@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { MoreVerticalIcon, Trash2Icon } from 'lucide-react';
 import { toast } from 'sonner';
 
-import { deleteMessage } from '@/app/manage/inbox/action';
+import { deleteMessage } from '@/app/manage/inbox/actions';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,

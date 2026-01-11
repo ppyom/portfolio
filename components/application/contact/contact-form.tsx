@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
-import { sendContactAction } from '@/app/(application)/contact/action';
+import { sendContactAction } from '@/app/(application)/contact/actions';
 import { commonErrorMessages } from '@/lib/constants/error-messages';
 import { notifyError } from '@/lib/utils/error';
 import { FormDataType, schema } from '@/lib/validation/contact.schema';

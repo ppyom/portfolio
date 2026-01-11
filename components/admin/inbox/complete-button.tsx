@@ -3,7 +3,7 @@
 import { CheckCircleIcon, Undo2Icon } from 'lucide-react';
 import { toast } from 'sonner';
 
-import { updateStatusAction } from '@/app/manage/inbox/action';
+import { updateStatusAction } from '@/app/manage/inbox/actions';
 import { Button } from '@/components/ui/button';
 import type { InboxMessage } from '@/types/inbox-message';
 

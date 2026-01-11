@@ -4,7 +4,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { PlusIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
-import { updateSkillMetadataAction } from '@/app/manage/skills/action';
+import { updateSkillMetadataAction } from '@/app/manage/skills/actions';
 import { skillErrorMessages } from '@/lib/constants/error-messages';
 import { notifyError } from '@/lib/utils/error';
 import { Button } from '@/components/ui/button';

@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
-import { updateSkillsAction } from '@/app/manage/skills/action';
+import { updateSkillsAction } from '@/app/manage/skills/actions';
 import { notifyError } from '@/lib/utils/error';
 import { FormDataType, schema } from '@/lib/validation/skill.schema';
 import { Button } from '@/components/ui/button';

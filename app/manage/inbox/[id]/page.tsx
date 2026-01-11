@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MoreVerticalIcon } from 'lucide-react';
 
-import { updateStatusAction } from '@/app/manage/inbox/action';
+import { updateStatusAction } from '@/app/manage/inbox/actions';
 import { getInboxMessage } from '@/services/contact';
 import { cn } from '@/lib/utils';
 import { fullDateString } from '@/lib/utils/date';
