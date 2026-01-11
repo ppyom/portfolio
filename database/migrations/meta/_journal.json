@@ -120,6 +120,13 @@
       "when": 1767803604881,
       "tag": "0016_clean_midnight",
       "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1768017565645,
+      "tag": "0017_empty_goblin_queen",
+      "breakpoints": true
     }
   ]
 }

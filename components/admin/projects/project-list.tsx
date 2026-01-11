@@ -1,86 +1,50 @@
-import Link from 'next/link';
-import { ArrowUpRightIcon } from 'lucide-react';
+'use client';
 
-import { cn } from '@/lib/utils';
-import { fullDateString } from '@/lib/utils/date';
-import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import SkillTag from '@/components/common/skill-tag';
+import { useState } from 'react';
+import { arrayMove } from '@dnd-kit/sortable';
+import { toast } from 'sonner';
+
+import { updateProjectOrderAction } from '@/app/manage/projects/actions';
+import SortableItem from '@/components/common/sortable/item';
+import SortableList from '@/components/common/sortable/list';
 import type { Project } from '@/types/project';
 
-import ProjectDropdown from './project-dropdown';
-import ProjectVisibilityToggle from './project-visibility-toggle';
+import ProjectCard from './project-card';
 
 interface Props {
   projects: Project[];
 }
 
 export default function ProjectList({ projects }: Props) {
+  const [items, setItems] = useState(projects);
+  const ids = items.map((p) => p.id);
+
+  const handleMove = async (from: number, to: number) => {
+    const nextItems = arrayMove(items, from, to);
+    setItems(nextItems);
+
+    const result = await updateProjectOrderAction(nextItems.map((p) => p.id));
+    if (result.success) {
+      toast.success('저장되었습니다.');
+    } else {
+      toast.error(result.message);
+    }
+  };
+
   return (
-    <ul className="space-y-4">
-      {projects.map((project) => (
-        <li key={project.id}>
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex gap-2 items-center">
-                {project.title}
-                {project.isPublic && (
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-xs text-muted-foreground"
-                    asChild
-                  >
-                    <Link
-                      href={`/projects/${project.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <span className="hidden sm:inline">프로젝트 보기</span>
-                      <ArrowUpRightIcon className="size-3" />
-                    </Link>
-                  </Button>
-                )}
-              </CardTitle>
-              <CardDescription>{project.description}</CardDescription>
-              <CardAction className="space-x-1">
-                <ProjectVisibilityToggle
-                  projectId={project.id}
-                  isPublic={!!project.isPublic}
-                />
-                <ProjectDropdown projectId={project.id} />
-              </CardAction>
-            </CardHeader>
-            <CardContent className="space-y-2">
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">마지막 수정 일자</span>
-                <span className="font-semibold text-sm">
-                  {fullDateString(project.updatedAt || project.createdAt)}
-                </span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-muted-foreground">태그</span>
-                <div className="inline-flex gap-2 flex-wrap">
-                  {project.tags?.slice(0, 5).map((tag) => (
-                    <SkillTag
-                      key={`skill_tag-${project.id}-${tag}`}
-                      name={tag}
-                      size="sm"
-                    />
-                  ))}
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </li>
-      ))}
-    </ul>
+    <SortableList onMove={handleMove} items={ids}>
+      <div className="space-y-4">
+        {items.map((project) => (
+          <SortableItem key={project.id} id={project.id}>
+            {({ listeners, attributes }) => (
+              <ProjectCard
+                project={project}
+                dragHandleProps={{ listeners, attributes }}
+              />
+            )}
+          </SortableItem>
+        ))}
+      </div>
+    </SortableList>
   );
 }

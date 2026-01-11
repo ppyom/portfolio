@@ -6,8 +6,10 @@ import {
   createProject,
   deleteProject,
   updateProject,
+  updateProjectOrder,
   updateProjectVisibility,
 } from '@/services/project';
+import { extractErrorMessage } from '@/lib/utils/error';
 import { parseProjectFormData } from '@/lib/utils/parse-project-form-data';
 
 export async function createProjectAction(formData: FormData) {
@@ -23,10 +25,7 @@ export async function createProjectAction(formData: FormData) {
   } catch (error) {
     return {
       success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : '알 수 없는 오류가 발생했습니다.',
+      message: extractErrorMessage(error),
     };
   }
 }
@@ -48,10 +47,7 @@ export async function updateProjectAction(formData: FormData, id: string) {
   } catch (error) {
     return {
       success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : '알 수 없는 오류가 발생했습니다.',
+      message: extractErrorMessage(error),
     };
   }
 }
@@ -70,10 +66,23 @@ export async function updateProjectVisibilityAction(
   } catch (error) {
     return {
       success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : '알 수 없는 오류가 발생했습니다.',
+      message: extractErrorMessage(error),
+    };
+  }
+}
+
+export async function updateProjectOrderAction(projectIds: string[]) {
+  try {
+    await updateProjectOrder(projectIds);
+
+    revalidatePath('/manage/projects');
+    revalidatePath(`/projects`);
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message: extractErrorMessage(error),
     };
   }
 }
@@ -93,10 +102,7 @@ export async function deleteProjectAction(id: string) {
   } catch (error) {
     return {
       success: false,
-      message:
-        error instanceof Error
-          ? error.message
-          : '알 수 없는 오류가 발생했습니다.',
+      message: extractErrorMessage(error),
     };
   }
 }

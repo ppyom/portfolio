@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import { pgTable, text, uuid } from 'drizzle-orm/pg-core';
+import { integer, pgTable, text, uuid } from 'drizzle-orm/pg-core';
 import { unique } from 'drizzle-orm/pg-core/unique-constraint';
 
 import { policies } from '@/database/policies';
@@ -17,6 +17,7 @@ export const techStackTable = pgTable(
       .references(() => projectTable.id, { onDelete: 'cascade' }),
     title: text('title'),
     stacks: text('stacks').array(),
+    order: integer('order').$default(() => 0),
     createdAt: text('created_at')
       .notNull()
       .$default(() => sql`NOW()`),

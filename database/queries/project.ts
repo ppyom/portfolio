@@ -1,4 +1,4 @@
-import { and, count, desc, eq, ilike, or, sql } from 'drizzle-orm';
+import { and, asc, count, desc, eq, ilike, or, sql } from 'drizzle-orm';
 
 import { db } from '@/database';
 import { fileTable } from '@/database/schema/file.schema';
@@ -14,6 +14,7 @@ const baseQuery = () =>
       id: projectTable.id,
       title: projectTable.title,
       isPublic: projectTable.isPublic,
+      order: projectTable.order,
       description: projectTable.description,
       category: projectTable.category,
       githubUrl: projectTable.githubUrl,
@@ -49,6 +50,7 @@ const baseQuery = () =>
 					'createdAt', ${techStackTable.createdAt},
 					'updatedAt', ${techStackTable.updatedAt}
 				)
+		    ORDER BY ${techStackTable.order} ASC
 			) FILTER (WHERE ${techStackTable.id} IS NOT NULL),
 		  '[]'
 		)`.as('techStacks'),
@@ -57,7 +59,7 @@ const baseQuery = () =>
     .leftJoin(fileTable, eq(projectTable.coverImageId, fileTable.id))
     .leftJoin(techStackTable, eq(projectTable.id, techStackTable.projectId))
     .groupBy(projectTable.id, fileTable.id, fileTable.url)
-    .orderBy(desc(projectTable.createdAt));
+    .orderBy(asc(projectTable.order), desc(projectTable.createdAt));
 
 export const getProjectsQuery = baseQuery().prepare('get_projects');
 export const getProjectQuery = baseQuery()

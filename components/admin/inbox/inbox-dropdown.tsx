@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import { MoreVerticalIcon, Trash2Icon } from 'lucide-react';
 import { toast } from 'sonner';
 
-import { deleteMessage } from '@/app/manage/inbox/action';
+import { deleteMessage } from '@/app/manage/inbox/actions';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -22,22 +22,14 @@ interface Props {
 export default function InboxDropdown({ messageId, trigger }: Props) {
   const router = useRouter();
 
-  const handleDelete = () => {
-    deleteMessage(messageId)
-      .then((result) => {
-        if (!result.success) {
-          throw new Error(result.message);
-        }
-        router.replace('/manage/inbox');
-        toast.success('삭제되었습니다.');
-      })
-      .catch((error) => {
-        toast.error(
-          error instanceof Error
-            ? error.message
-            : '알 수 없는 오류가 발생했습니다.',
-        );
-      });
+  const handleDelete = async () => {
+    const result = await deleteMessage(messageId);
+    if (result.success) {
+      router.replace('/manage/inbox');
+      toast.success('삭제되었습니다.');
+    } else {
+      toast.error(result.message);
+    }
   };
 
   return (

@@ -4,8 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';
 
-import { sendContactAction } from '@/app/(application)/contact/action';
-import { commonErrorMessages } from '@/lib/constants/error-messages';
+import { sendContactAction } from '@/app/(application)/contact/actions';
 import { notifyError } from '@/lib/utils/error';
 import { FormDataType, schema } from '@/lib/validation/contact.schema';
 import { Button } from '@/components/ui/button';
@@ -24,18 +23,12 @@ export default function ContactForm() {
     <form
       onSubmit={handleSubmit(
         async (data: FormDataType) => {
-          try {
-            const result = await sendContactAction(data);
-            if (!result.success) {
-              throw new Error(result.message);
-            }
+          const result = await sendContactAction(data);
+          if (result.success) {
             toast.success('메시지 전달이 완료되었습니다.');
             reset();
-          } catch (error) {
-            notifyError(
-              error,
-              commonErrorMessages.retry('메시지 전송에 실패했습니다.'),
-            );
+          } else {
+            toast.error(result.message);
           }
         },
         (error) => notifyError(error),

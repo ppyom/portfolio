@@ -4,7 +4,7 @@ import { useFieldArray, useForm } from 'react-hook-form';
 import { PlusIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
-import { updateSkillMetadataAction } from '@/app/manage/skills/action';
+import { updateSkillMetadataAction } from '@/app/manage/skills/actions';
 import { skillErrorMessages } from '@/lib/constants/error-messages';
 import { notifyError } from '@/lib/utils/error';
 import { Button } from '@/components/ui/button';
@@ -37,14 +37,11 @@ export default function MetadataEditForm({ skillMetadata }: Props) {
       className="space-y-4"
       onSubmit={handleSubmit(
         async (data) => {
-          try {
-            const result = await updateSkillMetadataAction(data);
-            if (!result.success) {
-              throw new Error(result.message);
-            }
+          const result = await updateSkillMetadataAction(data);
+          if (result.success) {
             toast.success('저장되었습니다.');
-          } catch (error) {
-            notifyError(error);
+          } else {
+            toast.error(result.message);
           }
         },
         (error) => notifyError(error),

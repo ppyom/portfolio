@@ -12,8 +12,9 @@ export const insertTechStack = (
   client
     .insert(techStackTable)
     .values(
-      techStacks.map((t) => ({
+      techStacks.map((t, idx) => ({
         ...t,
+        order: idx,
         projectId: sql.placeholder('projectId'),
       })),
     )
@@ -21,6 +22,7 @@ export const insertTechStack = (
       target: [techStackTable.projectId, techStackTable.title],
       set: {
         stacks: sql`excluded.stacks`,
+        order: sql`excluded.order`,
       },
     });
 export const deleteTechStack = (client: DbClient = db) =>

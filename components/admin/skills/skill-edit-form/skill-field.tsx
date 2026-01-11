@@ -10,8 +10,8 @@ import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-butto
 import ArrayField from '@/components/common/form/array-field';
 import Field from '@/components/common/form/field';
 import FieldGroup from '@/components/common/form/field-group';
-import SortableItem from '@/components/common/form/sortable/item';
-import SortableList from '@/components/common/form/sortable/list';
+import SortableItem from '@/components/common/sortable/item';
+import SortableList from '@/components/common/sortable/list';
 
 export default function SkillField() {
   const { control, register } = useFormContext();
