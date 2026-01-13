@@ -17,7 +17,6 @@ import {
 import { ThemeToggle } from '@/components/common/theme/theme-toggle';
 
 import HeaderNavigation from './header-navigation';
-import { useMobileHeader } from './mobile-header-provider';
 import UserMenu from './user-menu';
 
 interface Props {
@@ -26,10 +25,9 @@ interface Props {
 
 export default function MobileHeaderMenu({ session }: Props) {
   const pathname = usePathname();
-  const { open, setOpen } = useMobileHeader();
 
   return (
-    <Sheet key={pathname} open={open} onOpenChange={setOpen}>
+    <Sheet key={pathname}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon-sm">
           <MenuIcon />

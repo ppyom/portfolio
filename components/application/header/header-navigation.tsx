@@ -4,11 +4,7 @@ import Link from 'next/link';
 
 import { headerNavItems } from '@/lib/constants/header-nav-items';
 
-import { useMobileHeader } from './mobile-header-provider';
-
 export default function HeaderNavigation() {
-  const { onClose } = useMobileHeader();
-
   return (
     <nav className="flex-1 flex flex-col items-center sm:flex-row sm:justify-center gap-6 text-sm font-medium">
       {headerNavItems.map((item) => (
@@ -17,7 +13,12 @@ export default function HeaderNavigation() {
           href={item.href}
           scroll={item.type !== 'anchor' || undefined}
           className="text-muted-foreground hover:text-foreground transition-colors"
-          onClick={onClose}
+          onClick={(event) => {
+            if (item.label === 'About') {
+              event.preventDefault();
+              alert('준비중입니다.');
+            }
+          }}
         >
           {item.label}
         </Link>
