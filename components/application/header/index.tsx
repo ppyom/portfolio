@@ -6,7 +6,6 @@ import { ThemeToggle } from '@/components/common/theme/theme-toggle';
 
 import HeaderNavigation from './header-navigation';
 import MobileHeaderMenu from './mobile-header-menu';
-import MobileHeaderProvider from './mobile-header-provider';
 import UserMenu from './user-menu';
 import HeaderWrapper from './wrapper';
 
@@ -23,9 +22,7 @@ export default async function Header() {
           <UserMenu session={session} />
         </div>
         <div className="block sm:hidden">
-          <MobileHeaderProvider>
-            <MobileHeaderMenu session={session} />
-          </MobileHeaderProvider>
+          <MobileHeaderMenu session={session} />
         </div>
       </div>
     </HeaderWrapper>
