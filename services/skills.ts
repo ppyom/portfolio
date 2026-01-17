@@ -42,7 +42,7 @@ export const updateSkills = async (skills: Skill[]) => {
       }
 
       const [insertedCategory] = await insertSkillCategoryQuery(
-        { name: skill.category },
+        { name: skill.category, order: i },
         tx,
       ).returning({ id: skillCategoryTable.id });
 
