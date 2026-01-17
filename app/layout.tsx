@@ -48,7 +48,7 @@ interface Props {
 export default async function RootLayout({ children }: Readonly<Props>) {
   const skillMetadata = await getSkillMetadata();
   return (
-    <html lang="ko" suppressHydrationWarning data-scroll-behavior="smooth">
+    <html lang="ko" suppressHydrationWarning>
       <body className={cn(pretendard.variable, donggle.variable)}>
         <ThemeProvider
           attribute="class"
