@@ -44,7 +44,11 @@ export const insertContactQuery = (
 export const updateContactQuery = (
   values: Partial<ContactTable.Insert>,
   client: DbClient = db,
-) => client.update(contactTable).set(values);
+) =>
+  client
+    .update(contactTable)
+    .set(values)
+    .where(eq(contactTable.id, sql.placeholder('contactId')));
 
 export const removeContactQuery = (client: DbClient = db) =>
   client
