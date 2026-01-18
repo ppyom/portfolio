@@ -1,5 +1,3 @@
-import { notFound } from 'next/navigation';
-
 import { getProfile } from '@/services/profile';
 import PageTitle from '@/components/common/page-title';
 import ProfileHistorySection from '@/components/application/about/profile-history-section';
@@ -8,7 +6,7 @@ export default async function Page() {
   const profile = await getProfile();
 
   if (!profile) {
-    return notFound();
+    return null;
   }
 
   return (
