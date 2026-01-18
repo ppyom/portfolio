@@ -1,4 +1,5 @@
 import {
+  getInboxMessageQuery,
   getInboxMessagesQuery,
   getRecentMessagesQuery,
   getUnreadMessageCountQuery,
@@ -11,8 +12,12 @@ import type { InboxMessage } from '@/types/inbox-message';
 
 export const getInboxMessages = async () => getInboxMessagesQuery.execute();
 export const getInboxMessage = async (id: string) => {
-  const [message] = await getInboxMessagesQuery.execute({ contactId: id });
-  return message;
+  try {
+    const [message] = await getInboxMessageQuery.execute({ contactId: id });
+    return message;
+  } catch {
+    return null;
+  }
 };
 export const getUnreadMessageCount = async () => {
   const [message] = await getUnreadMessageCountQuery.execute();
