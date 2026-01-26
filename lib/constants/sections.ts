@@ -1,8 +1,8 @@
 import {
   BookIcon,
+  HistoryIcon,
   HomeIcon,
   MailIcon,
-  MoreHorizontalIcon,
   StarIcon,
   UserIcon,
 } from 'lucide-react';
@@ -12,6 +12,6 @@ export const sections = [
   { id: 'about', name: 'About', link: '/#about', icon: UserIcon },
   { id: 'skills', name: 'Skills', link: '/#skills', icon: StarIcon },
   { id: 'projects', name: 'Projects', link: '/#projects', icon: BookIcon },
-  { id: 'other', name: 'Other', link: '/#other', icon: MoreHorizontalIcon },
+  { id: 'history', name: 'History', link: '/#history', icon: HistoryIcon },
   { id: 'contact', name: 'Contact', link: '/#contact', icon: MailIcon },
 ];
