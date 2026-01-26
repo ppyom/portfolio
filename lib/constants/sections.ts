@@ -1,6 +1,7 @@
 import {
   BookIcon,
   HomeIcon,
+  MailIcon,
   MoreHorizontalIcon,
   StarIcon,
   UserIcon,
@@ -12,4 +13,5 @@ export const sections = [
   { id: 'skills', name: 'Skills', link: '/#skills', icon: StarIcon },
   { id: 'projects', name: 'Projects', link: '/#projects', icon: BookIcon },
   { id: 'other', name: 'Other', link: '/#other', icon: MoreHorizontalIcon },
+  { id: 'contact', name: 'Contact', link: '/#contact', icon: MailIcon },
 ];

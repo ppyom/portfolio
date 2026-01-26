@@ -6,6 +6,7 @@ interface Props {
   skills: React.ReactNode;
   projects: React.ReactNode;
   other: React.ReactNode;
+  contact: React.ReactNode;
 }
 
 export default function Layout({
@@ -13,6 +14,7 @@ export default function Layout({
   about,
   skills,
   projects,
+  contact,
   other,
 }: Props) {
   return (
@@ -22,6 +24,7 @@ export default function Layout({
       {skills}
       {projects}
       {other}
+      {contact}
       <Navigation />
     </>
   );
