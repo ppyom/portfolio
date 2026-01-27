@@ -49,6 +49,7 @@ export default function LoginForm() {
     }
 
     router.replace(callbackUrl);
+    router.refresh();
   };
 
   return (
