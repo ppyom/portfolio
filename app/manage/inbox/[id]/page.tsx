@@ -1,10 +1,10 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { MoreVerticalIcon } from 'lucide-react';
-import { toast } from 'sonner';
 
 import { updateStatusAction } from '@/app/manage/inbox/actions';
 import { getInboxMessage } from '@/services/contact';
+import { commonErrorMessages } from '@/lib/constants/error-messages';
 import { cn } from '@/lib/utils';
 import { fullDateString } from '@/lib/utils/date';
 import { Button } from '@/components/ui/button';
@@ -31,10 +31,12 @@ export default async function Page({ params }: Props) {
     return notFound();
   }
 
+  let systemError: string | null = null;
+
   if (message.status === 'unread') {
     const result = await updateStatusAction(id, 'read');
     if (!result.success) {
-      toast.error(result.message);
+      systemError = result.message || commonErrorMessages.unknown.default;
     }
   }
 
@@ -52,6 +54,11 @@ export default async function Page({ params }: Props) {
           <CopyEmailButton email={message.email} />
         </div>
       </div>
+      {systemError && (
+        <div className="px-4 py-3 text-sm text-destructive bg-destructive/10 rounded-md">
+          {systemError}
+        </div>
+      )}
       <div className="space-y-2 px-4 relative">
         <p className="text-lg font-bold">{message.title}</p>
         <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
