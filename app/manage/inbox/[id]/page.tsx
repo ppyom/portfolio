@@ -10,6 +10,7 @@ import { fullDateString } from '@/lib/utils/date';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import PageTitle from '@/components/common/page-title';
+import SystemError from '@/components/common/system-error';
 import CompleteButton from '@/components/admin/inbox/complete-button';
 import CopyEmailButton from '@/components/admin/inbox/copy-email-button';
 import InboxDropdown from '@/components/admin/inbox/inbox-dropdown';
@@ -54,11 +55,7 @@ export default async function Page({ params }: Props) {
           <CopyEmailButton email={message.email} />
         </div>
       </div>
-      {systemError && (
-        <div className="px-4 py-3 text-sm text-destructive bg-destructive/10 rounded-md">
-          {systemError}
-        </div>
-      )}
+      <SystemError message={systemError} />
       <div className="space-y-2 px-4 relative">
         <p className="text-lg font-bold">{message.title}</p>
         <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
