@@ -59,13 +59,17 @@ export const getFilteredProjects = async ({ q }: ProjectFilter = {}): Promise<
 export const getProject = async (
   id: string,
   { isPublic }: Options = {},
-): Promise<Project> => {
-  const [project] = await (
-    isPublic ? getPublicProjectQuery : getProjectQuery
-  ).execute({
-    projectId: id,
-  });
-  return project;
+): Promise<Project | null> => {
+  try {
+    const [project] = await (
+      isPublic ? getPublicProjectQuery : getProjectQuery
+    ).execute({
+      projectId: id,
+    });
+    return project;
+  } catch {
+    return null;
+  }
 };
 export const getTotalProjectCount = async (): Promise<number> => {
   const [{ count }] = await getTotalProjectCountQuery.execute();

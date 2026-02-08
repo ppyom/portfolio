@@ -13,12 +13,6 @@ export default function HeaderNavigation() {
           href={item.href}
           scroll={item.type !== 'anchor' || undefined}
           className="text-muted-foreground hover:text-foreground transition-colors"
-          onClick={(event) => {
-            if (item.label === 'About') {
-              event.preventDefault();
-              alert('준비중입니다.');
-            }
-          }}
         >
           {item.label}
         </Link>

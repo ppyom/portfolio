@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
 
 import { getProject } from '@/services/project';
 import PageTitle from '@/components/common/page-title';
@@ -14,7 +14,7 @@ export default async function Page({ params }: Props) {
   const project = await getProject(id);
 
   if (!project) {
-    return notFound();
+    return redirect('/manage/projects/new');
   }
 
   return (
