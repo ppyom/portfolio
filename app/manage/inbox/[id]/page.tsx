@@ -1,25 +1,26 @@
-import type { Metadata } from 'next';
-import { notFound } from 'next/navigation';
-import { MoreVerticalIcon } from 'lucide-react';
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { MoreVerticalIcon } from "lucide-react";
 
-import { updateStatusAction } from '@/app/manage/inbox/actions';
-import { getInboxMessage } from '@/services/contact';
-import { commonErrorMessages } from '@/lib/constants/error-messages';
-import { cn } from '@/lib/utils';
-import { fullDateString } from '@/lib/utils/date';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
-import PageTitle from '@/components/common/page-title';
-import CompleteButton from '@/components/admin/inbox/complete-button';
-import CopyEmailButton from '@/components/admin/inbox/copy-email-button';
-import InboxDropdown from '@/components/admin/inbox/inbox-dropdown';
+import { updateStatusAction } from "@/app/manage/inbox/actions";
+import { getInboxMessage } from "@/services/contact";
+import { commonErrorMessages } from "@/lib/constants/error-messages";
+import { cn } from "@/lib/utils";
+import { fullDateString } from "@/lib/utils/date";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import PageTitle from "@/components/common/page-title";
+import SystemError from "@/components/common/system-error";
+import CompleteButton from "@/components/admin/inbox/complete-button";
+import CopyEmailButton from "@/components/admin/inbox/copy-email-button";
+import InboxDropdown from "@/components/admin/inbox/inbox-dropdown";
 
 interface Props {
   params: Promise<{ id: string }>;
 }
 
 export const metadata: Metadata = {
-  title: '받은 메시지 상세',
+  title: "받은 메시지 상세",
 };
 
 export default async function Page({ params }: Props) {
@@ -33,8 +34,8 @@ export default async function Page({ params }: Props) {
 
   let systemError: string | null = null;
 
-  if (message.status === 'unread') {
-    const result = await updateStatusAction(id, 'read');
+  if (message.status === "unread") {
+    const result = await updateStatusAction(id, "read");
     if (!result.success) {
       systemError = result.message || commonErrorMessages.unknown.default;
     }
@@ -46,19 +47,15 @@ export default async function Page({ params }: Props) {
         <PageTitle align="left">받은 메시지 상세</PageTitle>
         <div
           className={cn(
-            'fixed bottom-4 left-4 right-4 grid grid-cols-2 gap-2',
-            'sm:static sm:grid-cols-1',
+            "fixed bottom-4 left-4 right-4 grid grid-cols-2 gap-2",
+            "sm:static sm:grid-cols-1",
           )}
         >
           <CompleteButton id={id} currentStatus={message.status} />
           <CopyEmailButton email={message.email} />
         </div>
       </div>
-      {systemError && (
-        <div className="px-4 py-3 text-sm text-destructive bg-destructive/10 rounded-md">
-          {systemError}
-        </div>
-      )}
+      <SystemError message={systemError} />
       <div className="space-y-2 px-4 relative">
         <p className="text-lg font-bold">{message.title}</p>
         <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
@@ -67,7 +64,7 @@ export default async function Page({ params }: Props) {
               {message.name}
               {message.company && (
                 <span className="text-muted-foreground font-normal">
-                  {' /'}
+                  {" /"}
                   {message.company}
                 </span>
               )}
