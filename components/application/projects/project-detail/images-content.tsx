@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 
 import {
@@ -9,11 +11,17 @@ import {
 } from '@/components/ui/carousel';
 import type { ImageFile } from '@/types/project';
 
+import { useImagePreview } from './image-preview/provider';
+
 interface Props {
   images: ImageFile[];
 }
 
 export default function ImagesContent({ images }: Props) {
+  const { open } = useImagePreview();
+
+  const imageUrls = images.map((image) => image.url);
+
   return (
     <Carousel
       opts={{
@@ -30,6 +38,7 @@ export default function ImagesContent({ images }: Props) {
               alt={`시연 이미지 ${idx}`}
               width={500}
               height={500}
+              onClick={() => open(imageUrls, idx)}
             />
           </CarouselItem>
         ))}
