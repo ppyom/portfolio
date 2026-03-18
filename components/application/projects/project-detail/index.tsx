@@ -2,6 +2,8 @@ import type { Project } from '@/types/project';
 
 import ProjectContentBase from './content-base';
 import ProjectHeader from './header';
+import ImagePreviewModal from './image-preview/modal';
+import ImagePreviewProvider from './image-preview/provider';
 import ImagesContent from './images-content';
 import ListContent from './list-content';
 import MemberContent from './member-content';
@@ -13,7 +15,7 @@ interface Props {
 
 export default function ProjectContents({ project }: Props) {
   return (
-    <>
+    <ImagePreviewProvider>
       <ProjectHeader project={project} />
       <div className="space-y-4 py-4">
         {project.overview && (
@@ -46,6 +48,7 @@ export default function ProjectContents({ project }: Props) {
           </ProjectContentBase>
         )}
       </div>
-    </>
+      <ImagePreviewModal />
+    </ImagePreviewProvider>
   );
 }
