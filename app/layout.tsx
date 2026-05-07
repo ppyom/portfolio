@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { getSkillMetadata } from '@/services/skills';
 import { config } from '@/lib/config';
 import { cn } from '@/lib/utils';
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from '@/components/ui-legacy/sonner';
 import SkillMetadataProvider from '@/components/common/skill-metadata-provider';
 import ThemeProvider from '@/components/common/theme/theme-provider';
 import { donggle, pretendard, suite } from '@/theme/fonts';

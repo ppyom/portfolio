@@ -3,7 +3,7 @@
 import type { Session } from 'next-auth';
 import { MoreVerticalIcon } from 'lucide-react';
 
-import { SidebarMenuButton, useSidebar } from '@/components/ui/sidebar';
+import { SidebarMenuButton, useSidebar } from '@/components/ui-legacy/sidebar';
 import UserAvatar from '@/components/common/user/user-avatar';
 import UserDropdown from '@/components/common/user/user-dropdown';
 

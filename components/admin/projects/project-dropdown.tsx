@@ -5,13 +5,13 @@ import { Edit2Icon, MoreVerticalIcon, Trash2Icon } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { deleteProjectAction } from '@/app/manage/projects/actions';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui-legacy/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from '@/components/ui-legacy/dropdown-menu';
 import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
 
 interface Props {

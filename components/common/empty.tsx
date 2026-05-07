@@ -7,7 +7,7 @@ import {
   EmptyHeader,
   EmptyMedia,
   EmptyTitle,
-} from '@/components/ui/empty';
+} from '@/components/ui-legacy/empty';
 
 interface Props {
   icon: LucideIcon;

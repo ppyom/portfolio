@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { BookIcon, PlusIcon } from 'lucide-react';
 
 import { getProjects } from '@/services/project';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui-legacy/button';
 import Empty from '@/components/common/empty';
 import PageTitle from '@/components/common/page-title';
 import ProjectList from '@/components/admin/projects/project-list';

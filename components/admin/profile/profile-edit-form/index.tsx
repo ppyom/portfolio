@@ -13,7 +13,7 @@ import {
 import { notifyError } from '@/lib/utils/error';
 import { nullToUndefined } from '@/lib/utils/null-to-undefined';
 import { FormDataType, schema } from '@/lib/validation/profile.schema';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui-legacy/button';
 import ArrayField from '@/components/common/form/array-field';
 import FieldGroup from '@/components/common/form/field-group';
 import ObjectArrayField from '@/components/common/form/object-array-field';

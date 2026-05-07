@@ -8,7 +8,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '@/components/ui/carousel';
+} from '@/components/ui-legacy/carousel';
 import type { ImageFile } from '@/types/project';
 
 import { useImagePreview } from './image-preview/provider';

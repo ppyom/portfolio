@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth';
 
 import authOptions from '@/lib/auth-options';
 import { sidebarItems } from '@/lib/constants/admin-sidebar-items';
-import { Separator } from '@/components/ui/separator';
+import { Separator } from '@/components/ui-legacy/separator';
 import {
   Sidebar as SidebarRoot,
   SidebarContent,
@@ -14,7 +14,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from '@/components/ui/sidebar';
+} from '@/components/ui-legacy/sidebar';
 import { ThemeToggle } from '@/components/common/theme/theme-toggle';
 
 import UserMenu from './user-menu';

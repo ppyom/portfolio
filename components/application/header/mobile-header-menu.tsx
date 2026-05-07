@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import type { Session } from 'next-auth';
 import { MenuIcon, XIcon } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui-legacy/button';
 import {
   Sheet,
   SheetClose,
@@ -13,7 +13,7 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from '@/components/ui/sheet';
+} from '@/components/ui-legacy/sheet';
 import { ThemeToggle } from '@/components/common/theme/theme-toggle';
 
 import HeaderNavigation from './header-navigation';

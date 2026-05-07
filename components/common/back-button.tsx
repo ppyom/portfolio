@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui-legacy/button';
 
 interface Props {
   children: React.ReactNode;

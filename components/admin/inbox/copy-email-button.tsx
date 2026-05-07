@@ -3,7 +3,7 @@
 import { CopyIcon } from 'lucide-react';
 import { toast } from 'sonner';
 
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui-legacy/button';
 
 interface Props {
   email: string;

@@ -2,14 +2,14 @@ import Link from 'next/link';
 import { InboxIcon } from 'lucide-react';
 
 import { getRecentMessages } from '@/services/contact';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui-legacy/button';
 import {
   Card,
   CardAction,
   CardContent,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from '@/components/ui-legacy/card';
 import Empty from '@/components/common/empty';
 import InboxMessageList from '@/components/admin/inbox/list';
 

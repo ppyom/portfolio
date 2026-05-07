@@ -5,7 +5,7 @@ import { toast } from 'sonner';
 
 import { updateProjectVisibilityAction } from '@/app/manage/projects/actions';
 import { cn } from '@/lib/utils';
-import { Toggle } from '@/components/ui/toggle';
+import { Toggle } from '@/components/ui-legacy/toggle';
 
 interface Props {
   projectId: string;
