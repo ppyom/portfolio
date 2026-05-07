@@ -18,6 +18,16 @@
   --color-yellow: #fab95b;
   --color-blue: #7eacb5;
   --color-green: #99bc85;
+
+  --color-surface-primary: var(--color-surface-primary);
+  --color-surface-secondary: var(--color-surface-secondary);
+  --color-surface-elevated: var(--color-surface-elevated);
+  --color-surface-inverse: var(--color-surface-inverse);
+
+  --color-text-primary: var(--color-text-primary);
+  --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
+  --color-text-inverse: var(--color-text-inverse);
 }
 
 :root {
