@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 
 import { getSkillMetadata } from '@/services/skills';
 import { config } from '@/lib/config';
@@ -7,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/sonner';
 import SkillMetadataProvider from '@/components/common/skill-metadata-provider';
 import ThemeProvider from '@/components/common/theme/theme-provider';
+import { donggle, pretendard, suite } from '@/theme/fonts';
 
 import './globals.css';
 
@@ -26,27 +26,6 @@ export const metadata: Metadata = {
     images: ['/images/og.png'],
   },
 };
-
-const pretendard = localFont({
-  src: '../public/fonts/PretendardVariable.woff2',
-  display: 'swap',
-  weight: '45 920',
-  variable: '--font-pretendard',
-});
-
-const donggle = localFont({
-  src: '../public/fonts/Cafe24Dongdong-v2.0.woff2',
-  display: 'swap',
-  weight: '45 920',
-  variable: '--font-dongle',
-});
-
-const suite = localFont({
-  src: '../public/fonts/SUITE-Variable.woff2',
-  display: 'swap',
-  weight: '45 920',
-  variable: '--font-suite',
-});
 
 interface Props {
   children: React.ReactNode;

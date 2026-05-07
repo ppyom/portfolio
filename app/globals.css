@@ -11,6 +11,9 @@
 @import "../theme/layout.css";
 
 @layer base {
+  * {
+    @apply font-sans;
+  }
   html {
     @apply scroll-smooth;
   }
