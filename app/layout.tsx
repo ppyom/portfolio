@@ -41,6 +41,13 @@ const donggle = localFont({
   variable: '--font-dongle',
 });
 
+const suite = localFont({
+  src: '../public/fonts/SUITE-Variable.woff2',
+  display: 'swap',
+  weight: '45 920',
+  variable: '--font-suite',
+});
+
 interface Props {
   children: React.ReactNode;
 }
@@ -49,7 +56,9 @@ export default async function RootLayout({ children }: Readonly<Props>) {
   const skillMetadata = await getSkillMetadata();
   return (
     <html lang="ko" suppressHydrationWarning>
-      <body className={cn(pretendard.variable, donggle.variable)}>
+      <body
+        className={cn(pretendard.variable, donggle.variable, suite.variable)}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
