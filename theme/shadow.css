@@ -1,0 +1,5 @@
+@theme {
+  --shadow-soft: 0 2px 12px rgb(23 23 18 / 0.04);
+  --shadow-base: 0 8px 24px rgb(23 23 18 / 0.06);
+  --shadow-lg: 0 16px 40px rgb(23 23 18 / 0.08);
+}
