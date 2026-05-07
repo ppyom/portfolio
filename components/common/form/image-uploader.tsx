@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { PlusIcon, XIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui-legacy/button';
 import type { ImageFile } from '@/types/project';
 
 interface Props {

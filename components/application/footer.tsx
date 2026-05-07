@@ -1,5 +1,5 @@
 import { socialLinks } from '@/lib/constants/social-links';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui-legacy/button';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();

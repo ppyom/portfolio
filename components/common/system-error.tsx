@@ -1,6 +1,10 @@
 import { AlertTriangleIcon } from 'lucide-react';
 
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import {
+  Alert,
+  AlertDescription,
+  AlertTitle,
+} from '@/components/ui-legacy/alert';
 
 interface Props {
   title?: string;

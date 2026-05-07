@@ -3,7 +3,7 @@ import { MoreVerticalIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { relativeDateString } from '@/lib/utils/date';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui-legacy/button';
 import InboxDropdown from '@/components/admin/inbox/inbox-dropdown';
 import type { InboxMessage } from '@/types/inbox-message';
 

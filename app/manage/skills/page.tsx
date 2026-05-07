@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { SlidersHorizontalIcon } from 'lucide-react';
 
 import { getSkills } from '@/services/skills';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui-legacy/button';
 import PageTitle from '@/components/common/page-title';
 import SkillEditForm from '@/components/admin/skills/skill-edit-form';
 

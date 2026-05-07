@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import localFont from 'next/font/local';
 
 import { getSkillMetadata } from '@/services/skills';
 import { config } from '@/lib/config';
 import { cn } from '@/lib/utils';
-import { Toaster } from '@/components/ui/sonner';
+import { Toaster } from '@/components/ui-legacy/sonner';
 import SkillMetadataProvider from '@/components/common/skill-metadata-provider';
 import ThemeProvider from '@/components/common/theme/theme-provider';
+import { donggle, pretendard, suite } from '@/theme/fonts';
 
 import './globals.css';
 
@@ -27,20 +27,6 @@ export const metadata: Metadata = {
   },
 };
 
-const pretendard = localFont({
-  src: '../public/fonts/PretendardVariable.woff2',
-  display: 'swap',
-  weight: '45 920',
-  variable: '--font-pretendard',
-});
-
-const donggle = localFont({
-  src: '../public/fonts/Cafe24Dongdong-v2.0.woff2',
-  display: 'swap',
-  weight: '45 920',
-  variable: '--font-dongle',
-});
-
 interface Props {
   children: React.ReactNode;
 }
@@ -49,7 +35,9 @@ export default async function RootLayout({ children }: Readonly<Props>) {
   const skillMetadata = await getSkillMetadata();
   return (
     <html lang="ko" suppressHydrationWarning>
-      <body className={cn(pretendard.variable, donggle.variable)}>
+      <body
+        className={cn(pretendard.variable, donggle.variable, suite.variable)}
+      >
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

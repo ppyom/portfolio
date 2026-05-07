@@ -1,0 +1,10 @@
+@theme {
+  --spacing-space-xs: 4px;
+  --spacing-space-sm: 8px;
+  --spacing-space-md: 16px;
+  --spacing-space-lg: 24px;
+  --spacing-space-xl: 32px;
+  --spacing-space-2xl: 48px;
+  --spacing-space-3xl: 64px;
+  --spacing-space-4xl: 96px;
+}

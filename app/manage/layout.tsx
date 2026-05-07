@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-import { SidebarInset } from '@/components/ui/sidebar';
+import { SidebarInset } from '@/components/ui-legacy/sidebar';
 import AdminHeader from '@/components/admin/admin-header';
 import Sidebar from '@/components/admin/sidebar';
 import SidebarProvider from '@/components/admin/sidebar/provider';

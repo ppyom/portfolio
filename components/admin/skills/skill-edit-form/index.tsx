@@ -7,7 +7,7 @@ import { toast } from 'sonner';
 import { updateSkillsAction } from '@/app/manage/skills/actions';
 import { notifyError } from '@/lib/utils/error';
 import { FormDataType, schema } from '@/lib/validation/skill.schema';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui-legacy/button';
 import type { Skill } from '@/types/skill';
 
 import SkillField from './skill-field';

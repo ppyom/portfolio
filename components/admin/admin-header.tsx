@@ -12,9 +12,9 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from '@/components/ui/breadcrumb';
-import { Separator } from '@/components/ui/separator';
-import { SidebarTrigger } from '@/components/ui/sidebar';
+} from '@/components/ui-legacy/breadcrumb';
+import { Separator } from '@/components/ui-legacy/separator';
+import { SidebarTrigger } from '@/components/ui-legacy/sidebar';
 
 export default function AdminHeader() {
   const pathname = usePathname();

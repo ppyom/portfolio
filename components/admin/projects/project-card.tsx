@@ -3,7 +3,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { ArrowUpRightIcon, GripVerticalIcon } from 'lucide-react';
 
 import { fullDateString } from '@/lib/utils/date';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/ui-legacy/button';
 import {
   Card,
   CardAction,
@@ -11,7 +11,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
+} from '@/components/ui-legacy/card';
 import SkillTag from '@/components/common/skill-tag';
 import type { Project } from '@/types/project';
 

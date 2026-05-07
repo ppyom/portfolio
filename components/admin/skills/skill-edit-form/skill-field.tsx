@@ -4,8 +4,8 @@ import { useFieldArray, useFormContext } from 'react-hook-form';
 import { GripVerticalIcon, PlusIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui-legacy/button';
+import { Input } from '@/components/ui-legacy/input';
 import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
 import ArrayField from '@/components/common/form/array-field';
 import Field from '@/components/common/form/field';

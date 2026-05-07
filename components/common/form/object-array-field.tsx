@@ -5,8 +5,8 @@ import dynamic from 'next/dynamic';
 import { GripVerticalIcon, PlusIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui-legacy/button';
+import { Input } from '@/components/ui-legacy/input';
 import {
   Select,
   SelectContent,
@@ -14,8 +14,8 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Separator } from '@/components/ui/separator';
+} from '@/components/ui-legacy/select';
+import { Separator } from '@/components/ui-legacy/separator';
 import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
 import Field from '@/components/common/form/field';
 import SortableItem from '@/components/common/sortable/item';

@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
-import { SidebarProvider as Provider } from '@/components/ui/sidebar';
+import { SidebarProvider as Provider } from '@/components/ui-legacy/sidebar';
 
 interface Props {
   children: React.ReactNode;

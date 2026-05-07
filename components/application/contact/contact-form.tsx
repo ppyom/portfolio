@@ -7,9 +7,9 @@ import { toast } from 'sonner';
 import { sendContactAction } from '@/app/(application)/contact/actions';
 import { notifyError } from '@/lib/utils/error';
 import { FormDataType, schema } from '@/lib/validation/contact.schema';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui-legacy/button';
+import { Input } from '@/components/ui-legacy/input';
+import { Textarea } from '@/components/ui-legacy/textarea';
 import Field from '@/components/common/form/field';
 import FieldGroup from '@/components/common/form/field-group';
 

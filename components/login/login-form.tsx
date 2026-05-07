@@ -6,8 +6,8 @@ import { signIn } from 'next-auth/react';
 
 import { authErrorMessages } from '@/lib/constants/error-messages';
 import { isValidEmail } from '@/lib/utils/email';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui-legacy/button';
+import { Input } from '@/components/ui-legacy/input';
 import PageTitle from '@/components/common/page-title';
 
 export default function LoginForm() {

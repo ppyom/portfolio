@@ -5,9 +5,9 @@ import { GripVerticalIcon, PlusIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { useStringArray } from '@/hooks/use-string-array';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
+import { Button } from '@/components/ui-legacy/button';
+import { Input } from '@/components/ui-legacy/input';
+import { Textarea } from '@/components/ui-legacy/textarea';
 import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
 import SortableItem from '@/components/common/sortable/item';
 

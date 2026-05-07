@@ -12,8 +12,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
-import { Button } from '@/components/ui/button';
+} from '@/components/ui-legacy/alert-dialog';
+import { Button } from '@/components/ui-legacy/button';
 
 interface Props {
   onConfirm: () => void;
