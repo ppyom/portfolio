@@ -12,7 +12,9 @@
   --color-dark-900: #171712;
 
   --color-brand-primary: #faeab1;
+  --color-brand-text-primary: var(--color-dark-900);
   --color-brand-secondary: #badfdb;
+  --color-brand-text-secondary: var(--color-dark-900);
 
   --color-red: #bf4646;
   --color-yellow: #fab95b;
