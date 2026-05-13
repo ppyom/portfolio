@@ -4,7 +4,7 @@ import { Button } from './button';
 const meta: Meta<typeof Button> = {
   title: 'ui/button',
   component: Button,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {
     variant: {
       control: 'inline-radio',
