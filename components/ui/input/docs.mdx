@@ -10,7 +10,7 @@ import * as InputStories from "./stories";
 
 ## 🚀 Usage
 
-가장 기본적인 제어 컴포넌트 형식의 사용 예시입니다.
+가장 기본적인 사용 예시입니다. 필요한 `variant`와 `size`를 조합하여 사용하세요.
 
 <Source
   code={`
@@ -19,8 +19,8 @@ import { Input } from '@/components/ui/input';
 export const Example = () => (
   <Input
     placeholder="이메일을 입력해주세요"
+    variant="default"
     size="md"
-    onChange={(e) => console.log(e.target.value)}
   />
 );
 `}
@@ -31,7 +31,7 @@ export const Example = () => (
 
 ### Default
 
-가장 표준적인 입력 필드입니다. 텍스트, 이메일, 비밀번호 등 다양한 `type`을 지원합니다.
+가장 표준적인 입력 필드입니다. `md` 사이즈와 `default` 베리언트가 기본으로 적용됩니다.
 
 <Canvas of={InputStories.Default} />
 
@@ -46,7 +46,7 @@ export const Example = () => (
 
 ### Sizes
 
-화면의 복잡도나 UI 컨텍스트에 따라 적절한 높이값을 선택할 수 있습니다. (sm, md, lg)
+화면의 복잡도나 UI 컨텍스트에 따라 `sm`, `md`, `lg` 세 가지 크기를 지원합니다.
 
 <Canvas of={InputStories.Sizes} />
 
@@ -55,13 +55,13 @@ export const Example = () => (
 사용자 상호작용 가능 여부에 따른 시각적 상태입니다.
 
 - **Disabled**: 입력을 차단하며 투명도와 배경색을 통해 비활성 상태임을 명시합니다.
-- **Read Only**: 값의 수정은 불가능하지만, 텍스트 선택이나 복사는 가능한 상태에서 사용합니다.
+- **Error State**: 에러 값을 가진 상태에서의 시각적 피드백을 보여줍니다.
 
 <Canvas of={InputStories.States} />
 
 ## 🧪 Playground
 
-모든 Props를 조합하여 실제 동작을 테스트해볼 수 있습니다.
+`disabled` 상태나 베리언트 등 다양한 Props를 실시간으로 조합하며 동작을 확인할 수 있습니다.
 
 <Canvas of={InputStories.Playground} />
 <Controls of={InputStories.Playground} />
@@ -75,11 +75,10 @@ export const Example = () => (
 
 ### ♿ Accessibility
 
-- **Labeling**: 가급적 부모 컴포넌트에서 `<label>`과 `htmlFor`를 연결하여 입력 목적을 명확히 해야 합니다.
-- **Error Feedback**: `error` 상태일 경우 `aria-invalid="true"` 속성을 자동 부여하여 스크린 리더가 오류를 인지할 수 있게 합니다.
-- **Placeholder**: 플레이스홀더는 레이블을 대체할 수 없으므로, 중요한 정보는 항상 별도 텍스트로 노출해야 합니다.
+- **Labeling**: 가급적 부모 컴포넌트에서 `<label>`과 연결하여 입력 목적을 명확히 해야 합니다.
+- **Keyboard**: 키보드 접근성을 위해 `focus-visible` 시 명확한 아웃라인 피드백을 제공합니다.
 
 ### 🛠 Implementation Details
 
-- **Focus Ring**: 키보드 접근성을 위해 `focus-visible` 시 명확한 아웃라인 피드백을 제공합니다.
 - **Form Integration**: `React Hook Form` 등 외부 라이브러리와의 연동을 위해 `ref` 전달(Forwarding)이 완벽히 지원됩니다.
+- **Attribute Inheritance**: 기본 HTML `input` 요소의 속성들을 그대로 상속받아 유연하게 확장 가능합니다.
