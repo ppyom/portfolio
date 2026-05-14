@@ -4,7 +4,7 @@ import { Input } from './input';
 const meta: Meta<typeof Input> = {
   title: 'ui/input',
   component: Input,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {
     type: {
       table: {
