@@ -30,6 +30,11 @@
   --color-text-secondary: var(--color-text-secondary);
   --color-text-muted: var(--color-text-muted);
   --color-text-inverse: var(--color-text-inverse);
+
+  --color-semantic-error: var(--color-semantic-error);
+  --color-semantic-warning: var(--color-semantic-warning);
+  --color-semantic-info: var(--color-semantic-info);
+  --color-semantic-success: var(--color-semantic-success);
 }
 
 :root {
