@@ -4,7 +4,7 @@ import { Textarea } from './textarea';
 const meta: Meta<typeof Textarea> = {
   title: 'ui/textarea',
   component: Textarea,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {
     variant: {
       control: 'inline-radio',
