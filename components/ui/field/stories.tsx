@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 const meta: Meta<typeof Field> = {
   title: 'ui/field',
   component: Field,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {
     disabled: {
       control: 'boolean',
