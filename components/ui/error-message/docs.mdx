@@ -1,0 +1,94 @@
+import { Meta, Canvas, Controls, Source } from "@storybook/addon-docs/blocks";
+import * as ErrorMessageStories from "./stories";
+
+<Meta of={ErrorMessageStories} name="Docs" />
+
+# ErrorMessage
+
+`ErrorMessage` 컴포넌트는 입력 유효성 검사 실패 시 사용자에게 오류 상태를 전달하는 supporting text 요소입니다.
+
+명확한 피드백을 제공하여 입력 오류를 빠르게 인지하고 수정할 수 있도록 돕습니다.
+
+주로 `Field`, `Label`, `Input`, `Textarea`와 함께 조합하여 사용합니다.
+
+## 🚀 Usage
+
+기본적인 사용 예시입니다.
+
+<Source
+  code={`
+import { ErrorMessage } from '@/components/ui/error-message';
+
+export const Example = () => (
+  <ErrorMessage>
+    올바른 이메일 형식이 아닙니다.
+  </ErrorMessage>
+);
+`}
+  language="tsx"
+/>
+
+Field 조합 예시입니다.
+
+<Source
+  code={`
+<Field invalid>
+    <Label required htmlFor="email">
+      이메일
+    </Label>
+
+    <Input
+      id="email"
+      variant="error"
+      aria-invalid
+    />
+
+    <ErrorMessage>
+      올바른 이메일 형식이 아닙니다.
+    </ErrorMessage>
+
+  </Field>
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+기본적인 오류 피드백 메시지입니다.
+
+<Canvas of={ErrorMessageStories.Default} />
+
+### States
+
+다양한 오류 메시지와 여러 줄 표현을 지원합니다.
+
+<Canvas of={ErrorMessageStories.States} />
+
+## 🧪 Playground
+
+모든 Props를 조합하여 테스트할 수 있습니다.
+
+<Canvas of={ErrorMessageStories.Playground} />
+<Controls of={ErrorMessageStories.Playground} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Error Feedback**: 명확한 오류 전달 역할에 집중합니다.
+- **High Visibility**: Description보다 높은 시각적 강조 수준을 가집니다.
+- **Composable**: Form Primitive와 자연스럽게 조합됩니다.
+
+### ♿ Accessibility
+
+- **Immediate Feedback**: `role="alert"`를 통해 오류를 빠르게 전달합니다.
+- **Clear Messaging**: 문제 원인과 해결 방향이 명확해야 합니다.
+
+### 🛠 Implementation Details
+
+- **Typography Scale**: `text-xs`
+- **Readable Line Height**: `leading-relaxed`
+- **Semantic Color Token**: semantic error token 사용
+- **Screen Reader Support**: `role="alert"` 기본 제공
