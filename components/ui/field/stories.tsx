@@ -3,6 +3,8 @@ import { Field } from './field';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Description } from '@/components/ui/description';
+import { ErrorMessage } from '@/components/ui/error-message';
 
 const meta: Meta<typeof Field> = {
   title: 'ui/field',
@@ -92,6 +94,54 @@ export const States: Story = {
       <Field>
         <Label htmlFor="textarea">Textarea</Label>
         <Textarea id="textarea" placeholder="내용을 입력해주세요" />
+      </Field>
+    </div>
+  ),
+};
+
+/**
+ * Composition
+ */
+export const Composition: Story = {
+  render: () => (
+    <div className="flex flex-col gap-8">
+      <Field>
+        <Label htmlFor="email">이메일</Label>
+
+        <Description>회사 이메일을 입력해주세요.</Description>
+
+        <Input id="email" placeholder="이메일을 입력해주세요" />
+      </Field>
+
+      <Field invalid>
+        <Label required htmlFor="password">
+          비밀번호
+        </Label>
+
+        <Input
+          id="password"
+          type="password"
+          variant="error"
+          placeholder="비밀번호 입력"
+        />
+
+        <ErrorMessage>비밀번호는 8자 이상이어야 합니다.</ErrorMessage>
+      </Field>
+
+      <Field invalid>
+        <Label required htmlFor="bio">
+          자기소개
+        </Label>
+
+        <Description>최대 300자까지 입력 가능합니다.</Description>
+
+        <Textarea
+          id="bio"
+          variant="error"
+          placeholder="자기소개를 입력해주세요"
+        />
+
+        <ErrorMessage>입력 가능 글자 수를 초과했습니다.</ErrorMessage>
       </Field>
     </div>
   ),
