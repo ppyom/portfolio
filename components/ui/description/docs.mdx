@@ -1,0 +1,92 @@
+import { Meta, Canvas, Controls, Source } from "@storybook/addon-docs/blocks";
+import * as DescriptionStories from "./stories";
+
+<Meta of={DescriptionStories} name="Docs" />
+
+# Description
+
+`Description` 컴포넌트는 입력 필드에 대한 보조 설명을 제공하는 supporting text 요소입니다.
+
+입력 가이드, 작성 조건, 부가 안내 등 사용자가 입력 목적을 더 명확히 이해할 수 있도록 돕습니다.
+
+주로 `Field`, `Label`, `Input`, `Textarea`와 함께 조합하여 사용합니다.
+
+## 🚀 Usage
+
+기본적인 사용 예시입니다.
+
+<Source
+  code={`
+import { Description } from '@/components/ui/description';
+
+export const Example = () => (
+  <Description>
+    회사 이메일을 입력해주세요.
+  </Description>
+);
+`}
+  language="tsx"
+/>
+
+Field 조합 예시입니다.
+
+<Source
+  code={`
+<Field>
+    <Label htmlFor="email">
+      이메일
+    </Label>
+
+    <Input
+      id="email"
+      placeholder="이메일 입력"
+    />
+
+    <Description>
+      회사 이메일을 입력해주세요.
+    </Description>
+
+  </Field>
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+기본적인 보조 안내 텍스트입니다.
+
+<Canvas of={DescriptionStories.Default} />
+
+### States
+
+한 줄 및 여러 줄 설명을 지원합니다.
+
+<Canvas of={DescriptionStories.States} />
+
+## 🧪 Playground
+
+모든 Props를 조합하여 테스트할 수 있습니다.
+
+<Canvas of={DescriptionStories.Playground} />
+<Controls of={DescriptionStories.Playground} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Supporting Text**: 입력 보조 설명 역할에 집중합니다.
+- **Low Emphasis**: 본문보다 낮은 시각적 강조 수준을 유지합니다.
+- **Composable**: Form Primitive와 자연스럽게 조합됩니다.
+
+### ♿ Accessibility
+
+- **Supplementary Content**: 입력 보조 정보 제공 목적입니다.
+- **Clear Messaging**: 짧고 명확한 안내 문장을 권장합니다.
+
+### 🛠 Implementation Details
+
+- **Typography Scale**: `text-xs`
+- **Readable Line Height**: `leading-relaxed`
+- **Neutral Feedback Tone**: muted color token 사용
