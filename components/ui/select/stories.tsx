@@ -10,7 +10,7 @@ import { ErrorMessage } from '@/components/ui/error-message';
 const meta: Meta<typeof Select> = {
   title: 'ui/select',
   component: Select,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {
     disabled: {
       control: 'boolean',
