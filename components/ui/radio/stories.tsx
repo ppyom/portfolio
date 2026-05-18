@@ -9,7 +9,7 @@ import { ErrorMessage } from '@/components/ui/error-message';
 const meta: Meta<typeof Radio> = {
   title: 'ui/radio',
   component: Radio,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {
     checked: {
       control: 'boolean',
