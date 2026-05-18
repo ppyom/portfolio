@@ -1,0 +1,124 @@
+import { Meta, Canvas, Controls, Source } from "@storybook/addon-docs/blocks";
+import * as SelectStories from "./stories";
+
+<Meta of={SelectStories} name="Docs" />
+
+# Select
+
+`Select` 컴포넌트는 옵션 기반 선택 입력을 위한 Form Primitive입니다.
+
+Native `<select>` 요소를 기반으로 구현되어 브라우저 기본 접근성과 키보드 탐색을 유지하면서 디자인 시스템의 시각적 일관성을 제공합니다.
+
+기존 `Field`, `Label`, `Description`, `ErrorMessage`와 자연스럽게 조합되어 일관된 폼 구조를 구성할 수 있습니다.
+
+## 🚀 Usage
+
+가장 기본적인 사용 예시입니다.
+
+<Source
+  code={`
+import { Select } from '@/components/ui/select';
+
+export const Example = () => (
+    <Select defaultValue="">
+      <option value="" disabled>
+        선택해주세요
+      </option>
+      <option value="react">React</option>
+      <option value="next">Next.js</option>
+      <option value="vue">Vue</option>
+    </Select>
+);
+`}
+  language="tsx"
+/>
+
+Field와 함께 사용할 수도 있습니다.
+
+<Source
+  code={`
+<Field>
+    <Label htmlFor="stack" required>
+      기술 스택
+    </Label>
+    <Description>
+      가장 자신 있는 기술을 선택해주세요.
+    </Description>
+    <Select id="stack" defaultValue="">
+      <option value="" disabled>
+        기술 스택을 선택해주세요
+      </option>
+      <option value="react">React</option>
+      <option value="next">Next.js</option>
+    </Select>
+</Field>
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+기본 선택 상태입니다.
+
+<Canvas of={SelectStories.Default} />
+
+### Selected
+
+값이 선택된 상태입니다.
+
+<Canvas of={SelectStories.Selected} />
+
+### States
+
+상호작용 가능 여부에 따른 상태입니다.
+
+- **Default**: 일반 선택 가능 상태
+- **Selected**: 선택 완료 상태
+- **Disabled**: 비활성화 상태
+
+<Canvas of={SelectStories.States} />
+
+### Invalid
+
+유효성 검사 실패 상태입니다.
+
+`aria-invalid` 속성을 통해 시각적 피드백을 제공합니다.
+
+<Canvas of={SelectStories.Invalid} />
+
+### Composition
+
+Field Primitive와 조합한 실전 폼 예시입니다.
+
+<Canvas of={SelectStories.Composition} />
+
+## 🧪 Playground
+
+Props를 조합해 실제 동작을 테스트할 수 있습니다.
+
+<Canvas of={SelectStories.Playground} />
+<Controls of={SelectStories.Playground} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Native First**: 브라우저 기본 Select 동작을 유지합니다.
+- **Visual Consistency**: Input 계열 Primitive와 동일한 시각 구조를 사용합니다.
+- **Composable Structure**: Field 조합을 통해 확장 가능한 폼 구조를 구성합니다.
+
+### ♿ Accessibility
+
+- **Keyboard Navigation**: 기본 방향키 탐색 지원
+- **Label Association**: `htmlFor` 연결 권장
+- **Validation Feedback**: `aria-invalid` 상태 지원
+- **Disabled State**: 네이티브 비활성 처리 유지
+
+### 🛠 Implementation Details
+
+- **Appearance Reset**: 기본 브라우저 UI 제거
+- **Custom Indicator**: Chevron 아이콘 사용
+- **Cross Browser Support**: vendor appearance 속성 대응
+- **Semantic HTML**: Native `<select>` 기반 구현
