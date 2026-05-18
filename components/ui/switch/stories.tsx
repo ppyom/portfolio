@@ -9,7 +9,7 @@ import { ErrorMessage } from '@/components/ui/error-message';
 const meta: Meta<typeof Switch> = {
   title: 'ui/switch',
   component: Switch,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {
     checked: {
       control: 'boolean',
