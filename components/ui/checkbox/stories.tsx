@@ -9,7 +9,7 @@ import { ErrorMessage } from '@/components/ui/error-message';
 const meta: Meta<typeof Checkbox> = {
   title: 'ui/checkbox',
   component: Checkbox,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {
     checked: {
       control: 'boolean',
