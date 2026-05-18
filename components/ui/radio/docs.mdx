@@ -1,0 +1,129 @@
+import { Meta, Canvas, Controls, Source } from "@storybook/addon-docs/blocks";
+
+import * as RadioStories from "./stories";
+
+<Meta of={RadioStories} name="Docs" />
+
+# Radio
+
+`Radio` 컴포넌트는 여러 선택지 중 **하나만 선택해야 하는 상황**을 위한 Form Primitive입니다.
+
+Native radio 접근성을 유지하면서 디자인 시스템 토큰 기반의 일관된 시각 피드백을 제공합니다.
+
+개별 사용도 가능하지만 동일한 `name` 속성을 가진 그룹 형태로 사용하는 것을 권장합니다.
+
+## 🚀 Usage
+
+기본 사용 예시입니다.
+
+<Source
+  code={`
+import { Radio } from '@/components/ui/radio';
+
+export const Example = () => (
+    <Radio name="plan" />
+);
+`}
+  language="tsx"
+/>
+
+권장되는 그룹 사용 예시입니다.
+
+<Source
+  code={`
+<Field>
+    <Description>
+      플랜을 선택해주세요.
+    </Description>
+    <div className="flex flex-col gap-3">
+      <div className="flex items-center gap-2">
+        <Radio
+          id="basic"
+          name="plan"
+        />
+        <Label htmlFor="basic">
+          Basic
+        </Label>
+      </div>
+      <div className="flex items-center gap-2">
+        <Radio
+          id="pro"
+          name="plan"
+        />
+        <Label htmlFor="pro">
+          Pro
+        </Label>
+      </div>
+    </div>
+</Field>
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+기본 선택 컨트롤입니다.
+
+<Canvas of={RadioStories.Default} />
+
+### Checked
+
+선택된 상태입니다.
+
+<Canvas of={RadioStories.Checked} />
+
+### States
+
+Disabled 및 다양한 상태를 표현합니다.
+
+<Canvas of={RadioStories.States} />
+
+### Invalid
+
+유효성 검사 실패 상태입니다.
+
+<Canvas of={RadioStories.Invalid} />
+
+### Group
+
+동일한 `name` 속성을 가진 Native Radio Group 예시입니다.
+
+<Canvas of={RadioStories.Group} />
+
+### Composition
+
+Field / Label / Supporting Text와 함께 완전한 Form 구조를 구성할 수 있습니다.
+
+<Canvas of={RadioStories.Composition} />
+
+## 🧪 Playground
+
+모든 Props를 조합하여 테스트할 수 있습니다.
+
+<Canvas of={RadioStories.Playground} />
+<Controls of={RadioStories.Playground} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Single Selection Control**
+- 동일 그룹 내 하나만 선택 가능
+- Primitive 단독 사용 가능
+- Group composition 권장
+
+### ♿ Accessibility
+
+- Native `<input type="radio">`
+- Keyboard navigation 지원
+- Label 연결 권장 (`htmlFor`)
+- `aria-invalid` / `Field invalid` 지원
+
+### 🛠 Implementation Details
+
+- Hidden native input + custom indicator
+- `peer-*` 기반 상태 동기화
+- `group-data-*` 기반 Field 상태 전달
+- Scale transition 기반 선택 애니메이션
