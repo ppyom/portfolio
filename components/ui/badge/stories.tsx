@@ -4,7 +4,7 @@ import { Badge } from './badge';
 const meta: Meta<typeof Badge> = {
   title: 'ui/badge',
   component: Badge,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {
     variant: {
       control: 'inline-radio',
