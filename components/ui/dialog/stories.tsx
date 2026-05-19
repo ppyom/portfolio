@@ -18,7 +18,7 @@ import { Label } from '@/components/ui/label';
 const meta: Meta<typeof Dialog> = {
   title: 'ui/dialog',
   component: Dialog,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {
     defaultOpen: {
       control: 'boolean',
