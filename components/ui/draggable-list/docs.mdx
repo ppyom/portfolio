@@ -1,0 +1,101 @@
+import { Meta, Canvas, Source } from "@storybook/addon-docs/blocks";
+import * as DraggableListStories from "./stories";
+
+<Meta of={DraggableListStories} name="Docs" />
+
+# DraggableList
+
+`DraggableList`는 정렬 가능한 리스트 UI를 구성하기 위한 interaction primitive입니다.
+
+`@dnd-kit/sortable` 기반으로 동작하며, 아이템 순서 변경 로직과 UI 표현을 분리하여 Admin UI에서 재사용 가능한 drag-and-drop 구조를 제공합니다.
+
+`DraggableItem`, `DragHandle`과 조합하여 정렬 가능한 복합 입력 UI를 구성할 수 있습니다.
+
+## 🚀 Usage
+
+기본적인 정렬 가능한 리스트 구성 예시입니다.
+
+<Source
+  code={`
+import { DraggableList, DraggableItem, DragHandle } from '@/components/ui/draggable-list';
+const items = [
+    { id: '1', label: 'Item A' },
+    { id: '2', label: 'Item B' },
+];
+export function Example() {
+    return (
+      <DraggableList items={items} getId={(item) => item.id} onChange={setItems}>
+        {items.map((item) => (
+          <DraggableItem key={item.id} id={item.id}>
+            <div className="flex items-center gap-2">
+              <DragHandle />
+              {item.label}
+            </div>
+          </DraggableItem>
+        ))}
+      </DraggableList>
+    );
+}`}
+  language="tsx"
+/>
+
+비활성 상태도 지원합니다.
+
+<Source
+  code={`
+<DraggableItem id="2" disabled>
+    <DragHandle />
+    Disabled Item
+</DraggableItem>
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+가장 기본적인 sortable list 구성입니다.
+
+<Canvas of={DraggableListStories.Default} />
+
+### States
+
+아이템 상태를 표현할 수 있습니다.
+
+- **Normal**: 일반 정렬 가능 상태
+- **Disabled**: 드래그 비활성화 상태
+
+<Canvas of={DraggableListStories.States} />
+
+### Composition
+
+CMS / 관리자 입력 폼과 조합된 실제 활용 패턴입니다.
+
+- Drag reorder
+- Editable content
+- Add / Remove actions
+
+<Canvas of={DraggableListStories.Composition} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Composition First**: `DraggableItem`, `DragHandle`과 조합하여 사용합니다.
+- **Controlled State**: 정렬 결과는 `onChange`를 통해 외부 상태에서 관리합니다.
+- **Logic / UI Separation**: drag interaction과 UI 표현을 분리합니다.
+- **CMS Ready**: 반복 입력 / 관리자 정렬 UI에 최적화되어 있습니다.
+
+### ♿ Accessibility
+
+- **Keyboard Friendly**: dnd-kit sortable interaction 지원
+- **Disabled Support**: drag interaction 차단 및 시각적 상태 제공
+- **Semantic Handle**: drag trigger를 명확히 분리합니다.
+
+### 🛠 Implementation Details
+
+- **Powered by**: `@dnd-kit/sortable`
+- **Context Sharing**: Drag listeners / attributes 전달
+- **Controlled Reordering**: `items + onChange`
+- **Optional Disable State**: item 단위 drag 차단 가능
