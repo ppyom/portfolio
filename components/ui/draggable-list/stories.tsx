@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 const meta: Meta<typeof DraggableList> = {
   title: 'ui/draggable-list',
   component: DraggableList,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {},
 };
 
