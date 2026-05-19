@@ -1,0 +1,90 @@
+import { Meta, Canvas, Source } from "@storybook/addon-docs/blocks";
+import * as DialogStories from "./stories";
+
+<Meta of={DialogStories} name="Docs" />
+
+# Dialog
+
+`Dialog`는 사용자 작업 흐름을 잠시 분리하여 확인, 입력, 편집 등의 상호작용을 처리하기 위한 overlay primitive입니다.
+
+Compound Component 패턴 기반으로 구성되며 Header / Content / Footer를 조합해 다양한 모달 인터페이스를 구성할 수 있습니다.
+
+## 🚀 Usage
+
+기본적인 Dialog 구조입니다.
+
+<Source
+  code={`
+<Dialog>
+    <DialogTrigger>
+      <Button>열기</Button>
+    </DialogTrigger>
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle>
+          Dialog Title
+        </DialogTitle>
+        <DialogDescription>
+          Dialog Description
+        </DialogDescription>
+      </DialogHeader>
+      <DialogFooter>
+        <DialogClose>
+          <Button variant="ghost">
+            취소
+          </Button>
+        </DialogClose>
+        <Button>
+          저장
+        </Button>
+      </DialogFooter>
+    </DialogContent>
+</Dialog>
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+가장 기본적인 Dialog 구조입니다.
+
+<Canvas of={DialogStories.Default} />
+
+### Composition
+
+폼 입력과 함께 사용하는 실전 패턴입니다.
+
+<Canvas of={DialogStories.Composition} />
+
+### Confirm
+
+사용자 확인이 필요한 액션 패턴입니다.
+
+<Canvas of={DialogStories.Confirm} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Compound Composition**: 필요한 영역만 조합해 유연하게 구성합니다.
+
+- **Controlled / Uncontrolled**: 내부 상태 또는 외부 상태 제어를 모두 지원합니다.
+
+- **Portal Rendering**: Overlay는 document body 기준으로 렌더링됩니다.
+
+- **Close Abstraction**: `DialogClose`를 통해 닫기 동작을 재사용합니다.
+
+### ♿ Accessibility
+
+- `role="dialog"`
+- `aria-modal="true"`
+- ESC 및 backdrop close 지원
+
+### 🛠 Implementation Details
+
+- Context 기반 상태 공유
+- `createPortal`
+- outside click dismiss
+- compound component architecture
