@@ -15,7 +15,7 @@ import { Button } from '@/components/ui/button';
 const meta: Meta<typeof DropdownMenu> = {
   title: 'ui/dropdown-menu',
   component: DropdownMenu,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {
     defaultOpen: {
       control: 'boolean',
@@ -74,7 +74,7 @@ export const Variants: Story = {
  */
 export const Placement: Story = {
   render: () => (
-    <div className="flex flex-col gap-8 p-16">
+    <div className="flex flex-col items-center gap-8 p-16">
       {(['top', 'bottom', 'left', 'right'] as const).map((side) => (
         <DropdownMenu key={side} defaultOpen>
           <DropdownTrigger>
