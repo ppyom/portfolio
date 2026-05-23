@@ -1,0 +1,120 @@
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+import {
+  PencilIcon,
+  CopyIcon,
+  Trash2Icon,
+  MoreHorizontalIcon,
+} from 'lucide-react';
+import { DropdownMenu } from './dropdown-menu';
+import { DropdownTrigger } from './dropdown-trigger';
+import { DropdownContent } from './dropdown-content';
+import { DropdownItem } from './dropdown-item';
+import { DropdownSeparator } from './dropdown-separator';
+import { Button } from '@/components/ui/button';
+
+const meta: Meta<typeof DropdownMenu> = {
+  title: 'ui/dropdown-menu',
+  component: DropdownMenu,
+  tags: ['autodocs'],
+  argTypes: {
+    defaultOpen: {
+      control: 'boolean',
+      table: {
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+  },
+};
+
+export default meta;
+
+type Story = StoryObj<typeof DropdownMenu>;
+
+/**
+ * Default
+ */
+export const Default: Story = {
+  render: () => (
+    <DropdownMenu>
+      <DropdownTrigger>
+        <Button>메뉴 열기</Button>
+      </DropdownTrigger>
+      <DropdownContent>
+        <DropdownItem>수정</DropdownItem>
+        <DropdownItem>복제</DropdownItem>
+        <DropdownSeparator />
+        <DropdownItem variant="destructive">삭제</DropdownItem>
+      </DropdownContent>
+    </DropdownMenu>
+  ),
+};
+
+/**
+ * Variants
+ */
+export const Variants: Story = {
+  render: () => (
+    <DropdownMenu defaultOpen>
+      <DropdownTrigger>
+        <Button>Item Variants</Button>
+      </DropdownTrigger>
+      <DropdownContent>
+        <DropdownItem>Default</DropdownItem>
+        <DropdownItem disabled>Disabled</DropdownItem>
+        <DropdownItem variant="destructive">Destructive</DropdownItem>
+      </DropdownContent>
+    </DropdownMenu>
+  ),
+};
+
+/**
+ * Placement
+ */
+export const Placement: Story = {
+  render: () => (
+    <div className="flex flex-col gap-8 p-16">
+      {(['top', 'bottom', 'left', 'right'] as const).map((side) => (
+        <DropdownMenu key={side} defaultOpen>
+          <DropdownTrigger>
+            <Button>{side}</Button>
+          </DropdownTrigger>
+          <DropdownContent side={side}>
+            <DropdownItem>Menu Item</DropdownItem>
+          </DropdownContent>
+        </DropdownMenu>
+      ))}
+    </div>
+  ),
+};
+
+/**
+ * Composition
+ */
+export const Composition: Story = {
+  render: () => (
+    <DropdownMenu>
+      <DropdownTrigger>
+        <Button variant="ghost">
+          <MoreHorizontalIcon size={16} />
+        </Button>
+      </DropdownTrigger>
+      <DropdownContent>
+        <DropdownItem>
+          <PencilIcon size={14} />
+          수정
+        </DropdownItem>
+        <DropdownItem>
+          <CopyIcon size={14} />
+          복제
+        </DropdownItem>
+        <DropdownSeparator />
+        <DropdownItem variant="destructive">
+          <Trash2Icon size={14} />
+          삭제
+        </DropdownItem>
+      </DropdownContent>
+    </DropdownMenu>
+  ),
+};
