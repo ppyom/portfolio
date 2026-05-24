@@ -13,11 +13,11 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: 'bg-brand-primary text-text-primary hover:bg-brand-primary/80',
+        primary:
+          'bg-brand-primary text-brand-text-primary hover:bg-brand-primary/80',
         secondary:
-          'bg-brand-secondary text-brand-text-primary hover:bg-brand-secondary/80',
-        ghost:
-          'bg-transparent text-brand-text-primary hover:bg-surface-inverse/10',
+          'bg-brand-secondary text-brand-text-secondary hover:bg-brand-secondary/80',
+        ghost: 'bg-transparent text-text-primary hover:bg-surface-inverse/10',
       },
       size: {
         sm: 'h-8 px-3 text-sm',
