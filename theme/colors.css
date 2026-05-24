@@ -39,6 +39,11 @@
   --color-semantic-warning: var(--color-semantic-warning);
   --color-semantic-info: var(--color-semantic-info);
   --color-semantic-success: var(--color-semantic-success);
+
+  --color-text-semantic-error: #7f2c2c;
+  --color-text-semantic-warning: #7a5620;
+  --color-text-semantic-info: #3e6670;
+  --color-text-semantic-success: #557542;
 }
 
 :root {

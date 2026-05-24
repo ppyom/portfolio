@@ -1,0 +1,141 @@
+import { Meta, Canvas, Source } from "@storybook/addon-docs/blocks";
+import * as ToastStories from "./stories";
+
+<Meta of={ToastStories} name="Docs" />
+
+# Toast
+
+`Toast`는 사용자 액션 결과를 비동기적으로 전달하는 feedback 컴포넌트입니다.
+
+전역 emitter 기반으로 동작하며 애플리케이션 어디서든 간단하게 호출할 수 있습니다.
+
+성공, 실패, 경고, 정보 상태를 시맨틱하게 표현하며 자동 dismiss와 duration 제어를 지원합니다.
+
+관리자 페이지의 저장 / 삭제 / 상태 변경과 같은 CMS 피드백 UX에 최적화되어 있습니다.
+
+## 🚀 Usage
+
+기본적인 사용 예시입니다.
+
+<Source
+  code={`
+import { ToastProvider, toast } from '@/components/ui/toast';
+
+export default function App() {
+    return (
+      <ToastProvider>
+        <Button
+          onClick={() =>
+            toast('기본 Toast 메시지')
+          }
+        >
+          Show Toast
+        </Button>
+      </ToastProvider>
+    );
+}
+`}
+  language="tsx"
+/>
+
+Semantic variant 호출도 지원합니다.
+
+<Source
+  code={`
+toast.success(
+    '저장 완료',
+    '변경사항이 반영됐습니다.'
+);
+toast.error(
+    '삭제 실패',
+    '다시 시도해주세요.'
+);
+toast.warning(
+    '주의 필요',
+    '확인 후 진행해주세요.'
+);
+toast.info(
+    '새 알림',
+    '업데이트가 있습니다.'
+);
+`}
+  language="tsx"
+/>
+
+지속 시간 및 상태 옵션도 제어할 수 있습니다.
+
+<Source
+  code={`
+toast('Toast', {
+    duration: 1500,
+    closable: true,
+});
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+가장 기본적인 Toast 호출입니다.
+
+<Canvas of={ToastStories.Default} />
+
+### Variants
+
+Semantic feedback 상태를 시각적으로 구분합니다.
+
+- **Default**: 일반 안내
+- **Success**: 성공 상태
+- **Error**: 실패 상태
+- **Warning**: 주의 상태
+- **Info**: 정보성 안내
+
+<Canvas of={ToastStories.Variants} />
+
+### States
+
+Toast 동작 상태를 제어할 수 있습니다.
+
+- **Closable**
+- **Short Duration**
+- **Long Duration**
+- **Persistent**
+
+<Canvas of={ToastStories.States} />
+
+### Composition
+
+실제 CMS 액션 완료 피드백 예시입니다.
+
+<Canvas of={ToastStories.Composition} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Global Feedback API**: 어디서든 호출 가능한 전역 emitter
+- **Minimal API Surface**: 단순한 호출 방식 유지
+- **Semantic Variant System**: 상태 의미 명확화
+- **Transient Feedback First**: 짧고 즉각적인 UX 피드백
+
+### ♿ Accessibility
+
+- semantic status announcement 지원
+- error 상태 우선 알림 처리
+- screen reader dismiss action 제공
+
+### 🛠 Implementation Details
+
+- Context 기반 상태 관리
+- Provider-driven viewport rendering
+- `createPortal` 기반 body 렌더링
+- `cva` semantic variant 관리
+- enter / exit transition 처리
+
+## ⚠️ Provider Rules
+
+`ToastProvider`는 일반적으로 애플리케이션 루트에서 한 번만 마운트하는 것을 권장합니다.
+
+전역 emitter 기반 구조이므로 실제 서비스에서는 단일 Provider 구성이 가장 안정적입니다.

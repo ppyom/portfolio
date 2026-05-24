@@ -1,5 +1,6 @@
 import type { Preview } from '@storybook/nextjs-vite';
 
+import { ToastProvider } from '../components/ui/toast';
 import { suite } from '../theme/fonts';
 
 import '../app/globals.css';
@@ -27,9 +28,11 @@ const preview: Preview = {
 
   decorators: [
     (Story) => (
-      <div className={suite.variable}>
-        <Story />
-      </div>
+      <ToastProvider>
+        <div className={suite.variable}>
+          <Story />
+        </div>
+      </ToastProvider>
     ),
   ],
 };
