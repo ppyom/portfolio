@@ -1,0 +1,104 @@
+import { Meta, Canvas, Source } from "@storybook/addon-docs/blocks";
+import * as CarouselStories from "./stories";
+
+<Meta of={CarouselStories} name="Docs" />
+
+# Carousel
+
+`Carousel`은 콘텐츠를 순차적으로 탐색할 수 있는 Gallery Primitive 컴포넌트입니다.
+
+프로젝트 상세 이미지, 시연 화면, CMS 미리보기 등 다양한 콘텐츠를 슬라이드 기반으로 탐색할 수 있으며 `CarouselContent`, `CarouselItem`, `CarouselPrevious`, `CarouselNext`, `CarouselDots`와 조합하여 유연한 UI를 구성할 수 있습니다.
+
+Embla Carousel을 기반으로 구현되며 swipe / drag / keyboard navigation을 지원합니다.
+
+## 🚀 Usage
+
+기본적인 사용 예시입니다.
+
+<Source
+  code={`
+import {
+    Carousel,
+    CarouselContent,
+    CarouselItem,
+    CarouselPrevious,
+    CarouselNext,
+    CarouselDots,
+} from '@/components/ui/carousel';
+
+export const Example = () => (
+    <Carousel>
+      <CarouselContent>
+        <CarouselItem>Slide 1</CarouselItem>
+        <CarouselItem>Slide 2</CarouselItem>
+        <CarouselItem>Slide 3</CarouselItem>
+      </CarouselContent>
+      <CarouselPrevious />
+      <CarouselDots />
+      <CarouselNext />
+    </Carousel>
+);
+`}
+  language="tsx"
+/>
+
+Loop 모드도 지원합니다.
+
+<Source
+  code={`
+<Carousel loop>
+    ...
+</Carousel>
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+가장 기본적인 Carousel 구조입니다.
+
+<Canvas of={CarouselStories.Default} />
+
+### Loop
+
+무한 순환 탐색이 가능한 Carousel입니다.
+
+<Canvas of={CarouselStories.Loop} />
+
+### Multiple Slides
+
+여러 슬라이드를 동시에 표시하는 Gallery 레이아웃입니다.
+
+<Canvas of={CarouselStories.MultipleSlides} />
+
+### Composition
+
+실제 프로젝트 콘텐츠 탐색 UI 구성 예시입니다.
+
+<Canvas of={CarouselStories.Composition} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Composition First**: Content / Item / Controls 조합 중심 구조
+- **Minimal Surface API**: 필요한 Primitive만 노출
+- **Centered Navigation UX**: 활성 슬라이드를 중심 정렬
+- **Flexible Layout**: 단일 / 다중 슬라이드 모두 지원
+
+### ♿ Accessibility
+
+- Arrow key navigation 지원
+- `aria-label` 기반 컨트롤 접근성 제공
+- focusable viewport 지원
+- pagination state 전달
+
+### 🛠 Implementation Details
+
+- Embla Carousel 기반 동작
+- Context 기반 상태 공유
+- Compound Component 패턴 적용
+- `containScroll={false}` 기반 centered edge 유지
+- selected index / snap state 동기화
