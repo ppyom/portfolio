@@ -4,7 +4,7 @@ import { Avatar } from './avatar';
 const meta: Meta<typeof Avatar> = {
   title: 'ui/avatar',
   component: Avatar,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {
     size: {
       control: 'radio',
