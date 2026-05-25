@@ -1,0 +1,127 @@
+import { Meta, Canvas, Source } from "@storybook/addon-docs/blocks";
+import * as ImageUploadStories from "./stories";
+
+<Meta of={ImageUploadStories} name="Docs" />
+
+# ImageUpload
+
+`ImageUpload`는 이미지 업로드와 미리보기를 관리하는 파일 업로드 컴포넌트입니다.
+
+기존 업로드된 이미지와 새로 추가된 이미지를 동일한 구조로 관리하며 단일 및 다중 업로드를 지원합니다.
+
+프로젝트 썸네일 업로드, 시연 이미지 등록, CMS 편집 화면과 같은 관리자 인터페이스에 최적화되어 있습니다.
+
+## 🚀 Usage
+
+기본적인 사용 예시입니다.
+
+<Source
+  code={`
+import {
+    ImageUpload,
+    ImageUploadTrigger,
+    ImageUploadPreview,
+} from '@/components/ui/image-upload';
+
+export const Example = () => (
+    <ImageUpload>
+      <ImageUploadTrigger />
+      <ImageUploadPreview />
+    </ImageUpload>
+);
+`}
+language="tsx"
+/>
+
+다중 업로드도 지원합니다.
+
+<Source
+  code={`
+<ImageUpload multiple>
+    <ImageUploadTrigger />
+    <ImageUploadPreview />
+</ImageUpload>
+`}
+  language="tsx"
+/>
+
+기존 업로드된 이미지도 초기값으로 설정할 수 있습니다.
+
+<Source
+  code={`
+<ImageUpload
+    multiple
+    defaultFiles={[
+      {
+        id: '1',
+        url: '/project-thumbnail.png',
+      },
+    ]}
+>
+    <ImageUploadTrigger />
+    <ImageUploadPreview />
+</ImageUpload>
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+가장 기본적인 단일 업로드 구조입니다.
+
+<Canvas of={ImageUploadStories.Default} />
+
+### Multiple
+
+여러 이미지를 동시에 업로드할 수 있습니다.
+
+<Canvas of={ImageUploadStories.Multiple} />
+
+### With Existing Images
+
+기존 업로드 이미지와 새 업로드 이미지를 함께 관리합니다.
+
+- **Uploaded**: 서버에 저장된 기존 이미지
+- **New**: 새로 추가된 로컬 이미지
+
+<Canvas of={ImageUploadStories.WithExistingImages} />
+
+### Disabled
+
+업로드 및 삭제 동작이 모두 비활성화됩니다.
+
+<Canvas of={ImageUploadStories.Disabled} />
+
+### Composition
+
+실제 CMS 프로젝트 등록 화면 구성 예시입니다.
+
+- 프로젝트 썸네일
+- 시연 이미지 갤러리
+
+<Canvas of={ImageUploadStories.Composition} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Compound Composition**: Trigger / Preview 조합 구조
+- **Single Source of Truth**: Context 기반 상태 관리
+- **Unified File Model**: remote / local 파일 통합 관리
+- **Minimal API Surface**: 핵심 업로드 흐름 중심 설계
+
+### ♿ Accessibility
+
+- native file input 기반 업로드
+- `button` 기반 명확한 삭제 액션 제공
+- `disabled` 상태 시 전체 상호작용 차단
+
+### 🛠 Implementation Details
+
+- Context 기반 상태 공유
+- `URL.createObjectURL` 미리보기 생성
+- `URL.revokeObjectURL` 메모리 정리
+- remote / local 상태 구분 관리
+- disabled 상태 전파 처리

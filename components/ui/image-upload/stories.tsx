@@ -6,7 +6,7 @@ import { ImageUploadPreview } from './image-upload-preview';
 const meta: Meta<typeof ImageUpload> = {
   title: 'ui/image-upload',
   component: ImageUpload,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {
     multiple: {
       control: 'boolean',
