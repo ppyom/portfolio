@@ -12,7 +12,7 @@ const slides = Array.from({ length: 5 });
 const meta: Meta<typeof Carousel> = {
   title: 'ui/carousel',
   component: Carousel,
-  tags: ['autodocs'],
+  tags: ['!dev'],
   argTypes: {
     loop: {
       control: 'boolean',
