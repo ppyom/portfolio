@@ -1,9 +1,17 @@
 import type { Metadata } from 'next';
+import { getServerSession } from 'next-auth';
 
-import { SidebarInset } from '@/components/ui-legacy/sidebar';
-import AdminHeader from '@/components/admin/admin-header';
-import Sidebar from '@/components/admin/sidebar';
-import SidebarProvider from '@/components/admin/sidebar/provider';
+import authOptions from '@/lib/auth-options';
+import {
+  AdminBreadcrumb,
+  AdminHeader,
+  AdminLayout,
+  AdminMain,
+  AdminSidebar,
+  AdminSidebarNav,
+  AdminSidebarTrigger,
+  AdminUserMenu,
+} from '@/components/admin/layout';
 
 interface Props {
   children: React.ReactNode;
@@ -23,15 +31,21 @@ export const metadata: Metadata = {
 };
 
 export default async function Layout({ children }: Props) {
+  const session = await getServerSession(authOptions);
+
   return (
-    <SidebarProvider>
-      <Sidebar />
-      <SidebarInset className="min-w-0">
-        <AdminHeader />
-        <main className="container mx-auto px-4 py-8 space-y-8">
-          {children}
-        </main>
-      </SidebarInset>
-    </SidebarProvider>
+    <AdminLayout>
+      <AdminSidebar>
+        <AdminSidebarNav />
+        <AdminUserMenu session={session} />
+      </AdminSidebar>
+      <AdminMain>
+        <AdminHeader>
+          <AdminSidebarTrigger />
+          <AdminBreadcrumb />
+        </AdminHeader>
+        {children}
+      </AdminMain>
+    </AdminLayout>
   );
 }

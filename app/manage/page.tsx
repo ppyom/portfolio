@@ -5,7 +5,7 @@ import DashboardQuickActions from '@/components/admin/dashboard/quick-action';
 
 export default function Page() {
   return (
-    <>
+    <div className="p-4 space-y-4">
       <PageTitle align="left">관리자 대시보드</PageTitle>
       <section className="space-y-6">
         <DashboardOverview />
@@ -16,6 +16,6 @@ export default function Page() {
           <DashboardQuickActions />
         </div>
       </section>
-    </>
+    </div>
   );
 }
