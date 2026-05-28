@@ -1,7 +1,7 @@
 import { closestCenter, DndContext, type DragEndEvent } from '@dnd-kit/core';
 import {
-  SortableContext,
   arrayMove,
+  SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 

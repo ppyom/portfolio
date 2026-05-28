@@ -1,5 +1,7 @@
 import { XIcon } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
+
 import { useImageUpload } from './image-upload-context';
 
 export function ImageUploadPreview() {

@@ -1,8 +1,9 @@
 import { createContext, useContext } from 'react';
+import type { useSortable } from '@dnd-kit/sortable';
 
 type DragContextValue = {
-  listeners: any;
-  attributes: any;
+  listeners: ReturnType<typeof useSortable>['listeners'];
+  attributes: ReturnType<typeof useSortable>['attributes'];
   disabled?: boolean;
 };
 

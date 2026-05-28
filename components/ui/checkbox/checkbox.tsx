@@ -1,10 +1,8 @@
 import { CheckIcon } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
 
-interface Props extends Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  'type'
-> {}
+type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>;
 
 export function Checkbox({ className, ...props }: Props) {
   return (

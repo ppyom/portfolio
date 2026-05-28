@@ -1,7 +1,8 @@
 import { ChevronDownIcon } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
 
-interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {}
+type Props = React.SelectHTMLAttributes<HTMLSelectElement>;
 
 export function Select({ className, children, ...props }: Props) {
   return (

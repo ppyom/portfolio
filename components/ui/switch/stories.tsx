@@ -1,10 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
-import { Switch } from './switch';
-import { Field } from '@/components/ui/field';
-import { Label } from '@/components/ui/label';
 import { Description } from '@/components/ui/description';
 import { ErrorMessage } from '@/components/ui/error-message';
+import { Field } from '@/components/ui/field';
+import { Label } from '@/components/ui/label';
+
+import { Switch } from './switch';
 
 const meta: Meta<typeof Switch> = {
   title: 'ui/switch',

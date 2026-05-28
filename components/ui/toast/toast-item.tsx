@@ -1,6 +1,8 @@
-import { XIcon } from 'lucide-react';
 import { cva } from 'class-variance-authority';
+import { XIcon } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
+
 import { type ToastItem as ToastItemType, useToast } from './toast-context';
 
 interface Props {

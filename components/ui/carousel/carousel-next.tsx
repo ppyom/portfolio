@@ -1,5 +1,7 @@
 import { ChevronRightIcon } from 'lucide-react';
+
 import { cn } from '@/lib/utils';
+
 import { useCarousel } from './carousel-context';
 
 interface Props {

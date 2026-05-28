@@ -1,4 +1,5 @@
 import { Meta, StoryObj } from '@storybook/nextjs-vite';
+
 import { Description } from './description';
 
 const meta: Meta<typeof Description> = {

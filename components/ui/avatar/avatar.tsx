@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
+
 import { cn } from '@/lib/utils';
 
 interface Props extends VariantProps<typeof avatarVariants> {
