@@ -15,7 +15,7 @@ export function AdminSidebar({ children, className }: Props) {
   return (
     <aside
       className={cn(
-        'sticky top-0 h-screen shrink-0 border-r bg-surface-primary transition-all duration-200',
+        'sticky top-0 flex flex-col h-screen shrink-0 border-r bg-surface-primary transition-all duration-200',
         isCollapsed ? 'w-16' : 'w-64',
         className,
       )}

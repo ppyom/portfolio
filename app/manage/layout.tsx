@@ -38,7 +38,7 @@ export default async function Layout({ children }: Props) {
     <AdminLayout>
       <AdminSidebar>
         <AdminSidebarNav />
-        <div className="flex gap-1 items-center p-2">
+        <div className="flex gap-1 items-center p-1">
           <AdminUserMenu session={session} />
           <ThemeToggle side="top" />
         </div>
