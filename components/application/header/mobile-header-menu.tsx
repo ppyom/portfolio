@@ -45,7 +45,7 @@ export default function MobileHeaderMenu({ session }: Props) {
             <div className="flex-1">
               <UserMenu session={session} />
             </div>
-            <ThemeToggle size="icon-sm" />
+            <ThemeToggle />
             <SheetClose asChild>
               <Button variant="ghost" size="icon-sm">
                 <XIcon />
