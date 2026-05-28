@@ -31,7 +31,7 @@ export function AdminUserMenu({ session }: Props) {
   }
 
   return (
-    <DropdownMenu className="w-full p-2">
+    <DropdownMenu className="flex-1">
       <DropdownTrigger>
         <Button
           variant="ghost"
@@ -61,7 +61,7 @@ export function AdminUserMenu({ session }: Props) {
 
       <DropdownContent side="top">
         <DropdownItem onClick={handleLogout}>
-          <LogOutIcon />
+          <LogOutIcon size={14} />
           로그아웃
         </DropdownItem>
       </DropdownContent>

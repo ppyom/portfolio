@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 
 import authOptions from '@/lib/auth-options';
+import { ThemeToggle } from '@/components/common/theme/theme-toggle';
 import {
   AdminBreadcrumb,
   AdminHeader,
@@ -37,7 +38,10 @@ export default async function Layout({ children }: Props) {
     <AdminLayout>
       <AdminSidebar>
         <AdminSidebarNav />
-        <AdminUserMenu session={session} />
+        <div className="flex gap-1 items-center p-2">
+          <AdminUserMenu session={session} />
+          <ThemeToggle side="top" />
+        </div>
       </AdminSidebar>
       <AdminMain>
         <AdminHeader>
