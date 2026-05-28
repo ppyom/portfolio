@@ -1,9 +1,6 @@
 import { cn } from '@/lib/utils';
 
-interface Props extends Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  'type'
-> {}
+type Props = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'>;
 
 export function Switch({ className, ...props }: Props) {
   return (

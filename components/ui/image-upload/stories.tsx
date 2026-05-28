@@ -1,7 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
 import { ImageUpload } from './image-upload';
-import { ImageUploadTrigger } from './image-upload-trigger';
 import { ImageUploadPreview } from './image-upload-preview';
+import { ImageUploadTrigger } from './image-upload-trigger';
 
 const meta: Meta<typeof ImageUpload> = {
   title: 'ui/image-upload',

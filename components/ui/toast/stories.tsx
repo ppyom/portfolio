@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { toast } from './toast';
+
 import { Button } from '@/components/ui/button';
+
+import { toast } from './toast';
 
 const meta: Meta = {
   title: 'ui/toast',

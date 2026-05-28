@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
+
+import { registerToast } from './toast';
 import ToastContext, {
   type ToastItem,
   type ToastPosition,
 } from './toast-context';
 import { ToastViewport } from './toast-viewport';
-import { registerToast } from './toast';
 
 interface Props {
   children: React.ReactNode;

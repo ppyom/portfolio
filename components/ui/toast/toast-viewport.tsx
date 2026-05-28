@@ -1,6 +1,8 @@
 import { createPortal } from 'react-dom';
 import { cva } from 'class-variance-authority';
+
 import { cn } from '@/lib/utils';
+
 import { useToast } from './toast-context';
 import { ToastItem } from './toast-item';
 

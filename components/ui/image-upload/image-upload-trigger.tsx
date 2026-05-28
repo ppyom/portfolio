@@ -1,5 +1,7 @@
 import { useRef } from 'react';
+
 import { Button } from '@/components/ui/button';
+
 import { useImageUpload } from './image-upload-context';
 
 export function ImageUploadTrigger() {

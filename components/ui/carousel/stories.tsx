@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
 import { Button } from '@/components/ui/button';
+
 import { Carousel } from './carousel';
 import { CarouselContent } from './carousel-content';
 import { CarouselDots } from './carousel-dots';

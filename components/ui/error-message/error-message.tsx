@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
 
-interface Props extends React.HTMLAttributes<HTMLParagraphElement> {}
+type Props = React.HTMLAttributes<HTMLParagraphElement>;
 
 export function ErrorMessage({ className, ...props }: Props) {
   return (

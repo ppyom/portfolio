@@ -1,16 +1,18 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import {
-  PencilIcon,
   CopyIcon,
-  Trash2Icon,
   MoreHorizontalIcon,
+  PencilIcon,
+  Trash2Icon,
 } from 'lucide-react';
-import { DropdownMenu } from './dropdown-menu';
-import { DropdownTrigger } from './dropdown-trigger';
+
+import { Button } from '@/components/ui/button';
+
 import { DropdownContent } from './dropdown-content';
 import { DropdownItem } from './dropdown-item';
+import { DropdownMenu } from './dropdown-menu';
 import { DropdownSeparator } from './dropdown-separator';
-import { Button } from '@/components/ui/button';
+import { DropdownTrigger } from './dropdown-trigger';
 
 const meta: Meta<typeof DropdownMenu> = {
   title: 'ui/dropdown-menu',
