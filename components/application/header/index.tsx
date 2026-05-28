@@ -18,7 +18,7 @@ export default async function Header() {
         <Logo />
         <div className="hidden flex-1 sm:flex gap-2">
           <HeaderNavigation />
-          <ThemeToggle size="icon-sm" />
+          <ThemeToggle />
           <UserMenu session={session} />
         </div>
         <div className="block sm:hidden">
