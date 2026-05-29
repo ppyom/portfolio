@@ -18,12 +18,17 @@ import {
 } from '@/database/queries/profile';
 import { profileTable } from '@/database/schema/profile.schema';
 import type { FormDataType } from '@/lib/validation/profile.schema';
+import { profileMock } from '@/mocks/profile.mock';
+
+import { USE_MOCK } from './common';
 
 export const getProfile = async (language = 'ko') => {
+  if (USE_MOCK) return profileMock;
   const [profile] = await getProfileQuery.execute({ language });
   return profile;
 };
 export const getLastProfileUpdate = async (language = 'ko') => {
+  if (USE_MOCK) return profileMock.updatedAt;
   const [profile] = await getLastProfileUpdateQuery.execute({ language });
   return profile.updatedAt;
 };
