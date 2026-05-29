@@ -15,19 +15,39 @@ const contentVariants = cva(
   {
     variants: {
       side: {
-        top: 'bottom-full mb-2 left-0',
-        bottom: 'top-full mt-2 left-0',
-        left: 'right-full mr-2 top-0',
-        right: 'left-full ml-2 top-0',
+        top: 'bottom-full mb-2',
+        bottom: 'top-full mt-2',
+        left: 'right-full mr-2',
+        right: 'left-full ml-2',
+      },
+      align: {
+        start: '',
+        center: '',
+        end: '',
       },
     },
+    compoundVariants: [
+      { side: 'bottom', align: 'start', class: 'left-0' },
+      { side: 'bottom', align: 'center', class: 'left-1/2 -translate-x-1/2' },
+      { side: 'bottom', align: 'end', class: 'right-0' },
+      { side: 'top', align: 'start', class: 'left-0' },
+      { side: 'top', align: 'center', class: 'left-1/2 -translate-x-1/2' },
+      { side: 'top', align: 'end', class: 'right-0' },
+      { side: 'left', align: 'start', class: 'top-0' },
+      { side: 'left', align: 'center', class: 'top-1/2 -translate-y-1/2' },
+      { side: 'left', align: 'end', class: 'bottom-0' },
+      { side: 'right', align: 'start', class: 'top-0' },
+      { side: 'right', align: 'center', class: 'top-1/2 -translate-y-1/2' },
+      { side: 'right', align: 'end', class: 'bottom-0' },
+    ],
     defaultVariants: {
       side: 'bottom',
+      align: 'start',
     },
   },
 );
 
-export function DropdownContent({ className, children, side }: Props) {
+export function DropdownContent({ className, children, side, align }: Props) {
   const { open, setOpen } = useDropdown();
 
   useEffect(() => {
@@ -45,7 +65,10 @@ export function DropdownContent({ className, children, side }: Props) {
   return (
     <>
       <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
-      <div role="menu" className={cn(contentVariants({ side }), className)}>
+      <div
+        role="menu"
+        className={cn(contentVariants({ side, align }), className)}
+      >
         {children}
       </div>
     </>
