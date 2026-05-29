@@ -51,12 +51,12 @@ Controlled 상태도 지원합니다.
   code={`
 const [open, setOpen] = useState(false);
 
-<DropdownMenu
-    open={open}
-    onOpenChange={setOpen}
->
-    ...
-</DropdownMenu>
+  <DropdownMenu
+      open={open}
+      onOpenChange={setOpen}
+  >
+      ...
+  </DropdownMenu>
 `}
   language="tsx"
 />
@@ -80,12 +80,10 @@ const [open, setOpen] = useState(false);
 
 ### Placement
 
-Trigger를 기준으로 다양한 방향에 배치할 수 있습니다.
+Trigger를 기준으로 4가지 방향(`side`)과 3가지 정렬 축(`align`)을 조합하여 세밀한 위치 제어가 가능합니다.
 
-- **Top**
-- **Bottom**
-- **Left**
-- **Right**
+- **Side**: `top` | `bottom` | `left` | `right`
+- **Align**: `start` | `center` | `end`
 
 <Canvas of={DropdownStories.Placement} />
 
@@ -114,5 +112,5 @@ Trigger를 기준으로 다양한 방향에 배치할 수 있습니다.
 
 - Context 기반 상태 공유
 - `cloneElement` Trigger 확장
-- `cva` variant 관리
+- `cva` 및 `compoundVariants`를 활용한 12가지 방향성 대응
 - Trigger 기준 상대 위치 계산
