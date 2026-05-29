@@ -75,20 +75,29 @@ export const Variants: Story = {
  * Placement
  */
 export const Placement: Story = {
-  render: () => (
-    <div className="flex flex-col items-center gap-8 p-16">
-      {(['top', 'bottom', 'left', 'right'] as const).map((side) => (
-        <DropdownMenu key={side} defaultOpen>
-          <DropdownTrigger>
-            <Button>{side}</Button>
-          </DropdownTrigger>
-          <DropdownContent side={side}>
-            <DropdownItem>Menu Item</DropdownItem>
-          </DropdownContent>
-        </DropdownMenu>
-      ))}
-    </div>
-  ),
+  render: () => {
+    const sides = ['top', 'bottom', 'left', 'right'] as const;
+    const aligns = ['start', 'center', 'end'] as const;
+
+    return (
+      <div className="grid grid-cols-3 gap-y-24 gap-x-8 p-16 justify-items-center">
+        {sides.map((side) =>
+          aligns.map((align) => (
+            <DropdownMenu key={`${side}-${align}`} defaultOpen>
+              <DropdownTrigger>
+                <Button className="w-32 text-xs">
+                  {side} / {align}
+                </Button>
+              </DropdownTrigger>
+              <DropdownContent side={side} align={align}>
+                <DropdownItem>Menu Item</DropdownItem>
+              </DropdownContent>
+            </DropdownMenu>
+          )),
+        )}
+      </div>
+    );
+  },
 };
 
 /**
