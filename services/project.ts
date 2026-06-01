@@ -187,7 +187,7 @@ export const deleteProject = async (id: string) => {
 
   return db.transaction(async (tx) => {
     await deleteFiles(deletedImages, tx).execute();
-    await deleteTechStack(tx).execute();
+    await deleteTechStack(tx).execute({ projectId: id });
     await deleteProjectQuery(tx).execute({ projectId: id });
   });
 };
