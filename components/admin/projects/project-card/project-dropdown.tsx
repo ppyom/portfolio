@@ -1,28 +1,42 @@
 'use client';
 
 import Link from 'next/link';
-import { Edit2Icon, MoreVerticalIcon, Trash2Icon } from 'lucide-react';
-import { toast } from 'sonner';
-
-import { deleteProjectAction } from '@/app/manage/projects/actions';
-import { Button } from '@/components/ui-legacy/button';
 import {
+  Edit2Icon,
+  EyeIcon,
+  MoreVerticalIcon,
+  SquareArrowOutUpRightIcon,
+  Trash2Icon,
+} from 'lucide-react';
+
+import { updateProjectVisibilityAction } from '@/app/manage/projects/actions';
+import { Button } from '@/components/ui/button';
+import {
+  DropdownContent,
+  DropdownItem,
   DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui-legacy/dropdown-menu';
-import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
+  DropdownSeparator,
+  DropdownTrigger,
+} from '@/components/ui/dropdown-menu';
+import { toast } from '@/components/ui/toast';
+
+import { ProjectDeleteDialog } from './project-delete-dialog';
 
 interface Props {
   projectId: string;
+  isPublic: boolean;
+  applicationUrl: string | null;
 }
 
-export function ProjectDropdown({ projectId }: Props) {
-  const handleDelete = async () => {
-    const result = await deleteProjectAction(projectId);
+export function ProjectDropdown({
+  projectId,
+  isPublic,
+  applicationUrl,
+}: Props) {
+  const handleChangeVisibility = async () => {
+    const result = await updateProjectVisibilityAction(projectId, !isPublic);
     if (result.success) {
-      toast.success('삭제되었습니다.');
+      toast.success('공개 상태가 변경되었습니다.');
     } else {
       toast.error(result.message);
     }
@@ -30,33 +44,48 @@ export function ProjectDropdown({ projectId }: Props) {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button className="cursor-pointer" variant="ghost" size="icon">
-          <MoreVerticalIcon />
+      <DropdownTrigger>
+        <Button
+          className="text-text-muted hover:text-text-primary"
+          variant="ghost"
+          size="sm"
+        >
+          <MoreVerticalIcon size={14} />
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem className="group" asChild>
-          <Link href={`/manage/projects/${projectId}`}>
-            <Edit2Icon className="group-hover:scale-120 group-hover:animate-bounce duration-300 transition" />
+      </DropdownTrigger>
+      <DropdownContent align="end">
+        {applicationUrl && (
+          <>
+            <DropdownItem>
+              <Link href={applicationUrl} className="flex gap-2 w-full">
+                <SquareArrowOutUpRightIcon size={14} />
+                <span>사이트로 이동</span>
+              </Link>
+            </DropdownItem>
+            <DropdownSeparator />
+          </>
+        )}
+        <DropdownItem>
+          <Link
+            href={`/manage/projects/${projectId}`}
+            className="flex gap-2 w-full"
+          >
+            <Edit2Icon size={14} />
             <span>수정</span>
           </Link>
-        </DropdownMenuItem>
-        <ConfirmDeleteButton
-          trigger={
-            <DropdownMenuItem
-              className="group"
-              onSelect={(event) => {
-                event.preventDefault();
-              }}
-            >
-              <Trash2Icon className="group-hover:scale-120 group-hover:rotate-45 duration-300 transition" />
-              <span>삭제</span>
-            </DropdownMenuItem>
-          }
-          onConfirm={handleDelete}
-        />
-      </DropdownMenuContent>
+        </DropdownItem>
+        <DropdownItem onClick={handleChangeVisibility}>
+          <EyeIcon size={14} />
+          <span>{isPublic ? '비공개로 설정' : '공개로 설정'}</span>
+        </DropdownItem>
+        <DropdownSeparator />
+        <ProjectDeleteDialog projectId={projectId}>
+          <DropdownItem variant="destructive" preventClose>
+            <Trash2Icon size={14} />
+            <span>삭제</span>
+          </DropdownItem>
+        </ProjectDeleteDialog>
+      </DropdownContent>
     </DropdownMenu>
   );
 }

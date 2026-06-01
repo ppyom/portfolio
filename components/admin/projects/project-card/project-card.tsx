@@ -1,92 +1,53 @@
-import Link from 'next/link';
-import { useSortable } from '@dnd-kit/sortable';
-import { ArrowUpRightIcon, GripVerticalIcon } from 'lucide-react';
+'use client';
 
+import { cn } from '@/lib/utils';
 import { fullDateString } from '@/lib/utils/date';
-import { Button } from '@/components/ui-legacy/button';
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui-legacy/card';
-import SkillTag from '@/components/common/skill-tag';
+import { DragHandle } from '@/components/ui/draggable-list';
 import type { Project } from '@/types/project';
 
 import { ProjectDropdown } from './project-dropdown';
 
 interface Props {
   project: Project;
-  dragHandleProps: {
-    listeners: ReturnType<typeof useSortable>['listeners'];
-    attributes: ReturnType<typeof useSortable>['attributes'];
-  };
 }
 
-export function ProjectCard({
-  project,
-  dragHandleProps: { listeners, attributes },
-}: Props) {
+export function ProjectCard({ project }: Props) {
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="flex gap-2 items-center">
-          <Button
-            type="button"
-            size="icon-sm"
-            variant="ghost"
-            className="cursor-grab touch-none"
-            {...listeners}
-            {...attributes}
-          >
-            <GripVerticalIcon />
-          </Button>
-          {project.title}
-          {project.isPublic && (
-            <Button
-              variant="ghost"
-              size="sm"
-              className="text-xs text-muted-foreground"
-              asChild
-            >
-              <Link
-                href={`/projects/${project.id}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <span className="hidden sm:inline">프로젝트 보기</span>
-                <ArrowUpRightIcon className="size-3" />
-              </Link>
-            </Button>
+    <div
+      className={cn(
+        'relative bg-surface-secondary px-1 py-6 rounded-lg flex gap-2',
+      )}
+    >
+      <DragHandle />
+      <div className="space-y-4 flex-1">
+        <div className="mr-10">
+          <p className="text-text-primary font-semibold line-clamp-1">
+            {project.title}
+          </p>
+          {project.description && (
+            <p className="text-text-secondary line-clamp-1">
+              {project.description}
+            </p>
           )}
-        </CardTitle>
-        <CardDescription>{project.description}</CardDescription>
-        <CardAction className="space-x-1">
-          <ProjectDropdown projectId={project.id} />
-        </CardAction>
-      </CardHeader>
-      <CardContent className="space-y-2">
-        <div className="flex items-center justify-between">
-          <span className="text-muted-foreground">마지막 수정 일자</span>
-          <span className="font-semibold text-sm">
-            {fullDateString(project.updatedAt || project.createdAt)}
-          </span>
         </div>
-        <div className="flex items-center justify-between">
-          <span className="text-muted-foreground">태그</span>
-          <div className="inline-flex gap-2 flex-wrap">
-            {project.tags?.slice(0, 5).map((tag) => (
-              <SkillTag
-                key={`skill_tag-${project.id}-${tag}`}
-                name={tag}
-                size="sm"
-              />
-            ))}
+        <div className="text-sm space-y-1">
+          <div className="space-x-4">
+            <span className="text-text-muted">수정일</span>
+            <span>{fullDateString(project.updatedAt)}</span>
+          </div>
+          <div className="space-x-4">
+            <span className="text-text-muted">공개 상태</span>
+            <span>{project.isPublic ? '공개' : '비공개'}</span>
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+      <div className="absolute right-2 top-6">
+        <ProjectDropdown
+          projectId={project.id}
+          isPublic={!!project.isPublic}
+          applicationUrl={project.applicationUrl}
+        />
+      </div>
+    </div>
   );
 }

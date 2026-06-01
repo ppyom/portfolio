@@ -1,12 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import { arrayMove } from '@dnd-kit/sortable';
-import { toast } from 'sonner';
+import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 
 import { updateProjectOrderAction } from '@/app/manage/projects/actions';
-import SortableItem from '@/components/common/sortable/item';
-import SortableList from '@/components/common/sortable/list';
+import { toast } from '@/components/ui/toast';
 import type { Project } from '@/types/project';
 
 import { ProjectCard } from '../project-card';
@@ -15,15 +13,30 @@ interface Props {
   projects: Project[];
 }
 
+const DraggableList = dynamic(
+  () =>
+    import('@/components/ui/draggable-list').then(
+      (mod) => mod.DraggableList<Project>,
+    ),
+  {
+    ssr: false,
+  },
+);
+const DraggableItem = dynamic(
+  () =>
+    import('@/components/ui/draggable-list').then((mod) => mod.DraggableItem),
+  {
+    ssr: false,
+  },
+);
+
 export function ProjectList({ projects }: Props) {
   const [items, setItems] = useState(projects);
-  const ids = items.map((p) => p.id);
 
-  const handleMove = async (from: number, to: number) => {
-    const nextItems = arrayMove(items, from, to);
-    setItems(nextItems);
+  const handleMove = async (projects: Project[]) => {
+    setItems(projects);
 
-    const result = await updateProjectOrderAction(nextItems.map((p) => p.id));
+    const result = await updateProjectOrderAction(projects.map((p) => p.id));
     if (result.success) {
       toast.success('저장되었습니다.');
     } else {
@@ -31,20 +44,23 @@ export function ProjectList({ projects }: Props) {
     }
   };
 
+  useEffect(() => {
+    setItems(projects);
+  }, [projects]);
+
   return (
-    <SortableList onMove={handleMove} items={ids}>
+    <DraggableList
+      items={items}
+      getId={(project) => project.id}
+      onChange={handleMove}
+    >
       <div className="space-y-4">
         {items.map((project) => (
-          <SortableItem key={project.id} id={project.id}>
-            {({ listeners, attributes }) => (
-              <ProjectCard
-                project={project}
-                dragHandleProps={{ listeners, attributes }}
-              />
-            )}
-          </SortableItem>
+          <DraggableItem key={project.id} id={project.id}>
+            <ProjectCard project={project} />
+          </DraggableItem>
         ))}
       </div>
-    </SortableList>
+    </DraggableList>
   );
 }
