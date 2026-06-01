@@ -18,7 +18,7 @@ interface Props {
   projectId: string;
 }
 
-export default function ProjectDropdown({ projectId }: Props) {
+export function ProjectDropdown({ projectId }: Props) {
   const handleDelete = async () => {
     const result = await deleteProjectAction(projectId);
     if (result.success) {

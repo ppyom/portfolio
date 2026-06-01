@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 
 import { getProject } from '@/services/project';
 import PageTitle from '@/components/common/page-title';
-import ProjectEditForm from '@/components/admin/projects/project-edit-form';
+import { ProjectEditForm } from '@/components/admin/projects/project-edit-form';
 
 interface Props {
   params: Promise<{ id: string }>;

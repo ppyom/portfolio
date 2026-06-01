@@ -9,13 +9,13 @@ import SortableItem from '@/components/common/sortable/item';
 import SortableList from '@/components/common/sortable/list';
 import type { Project } from '@/types/project';
 
-import ProjectCard from './project-card';
+import { ProjectCard } from '../project-card';
 
 interface Props {
   projects: Project[];
 }
 
-export default function ProjectList({ projects }: Props) {
+export function ProjectList({ projects }: Props) {
   const [items, setItems] = useState(projects);
   const ids = items.map((p) => p.id);
 

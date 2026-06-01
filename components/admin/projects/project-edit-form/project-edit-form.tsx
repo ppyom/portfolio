@@ -23,13 +23,13 @@ import FieldGroup from '@/components/common/form/field-group';
 import ImageUploader from '@/components/common/form/image-uploader';
 import type { Project } from '@/types/project';
 
-import TechStackField from './tech-stack-field';
+import { TechStackField } from './tech-stack-field';
 
 interface Props {
   defaultProject?: Project;
 }
 
-export default function ProjectEditForm({ defaultProject }: Props) {
+export function ProjectEditForm({ defaultProject }: Props) {
   const router = useRouter();
 
   const form = useForm<FormDataType>({

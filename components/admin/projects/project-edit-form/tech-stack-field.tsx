@@ -18,7 +18,7 @@ const SortableList = dynamic(
   },
 );
 
-export default function TechStackField() {
+export function TechStackField() {
   const { control, register, watch, setValue } = useFormContext();
   const { fields, append, remove, move } = useFieldArray({
     control,

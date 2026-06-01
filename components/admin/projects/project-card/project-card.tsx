@@ -15,8 +15,7 @@ import {
 import SkillTag from '@/components/common/skill-tag';
 import type { Project } from '@/types/project';
 
-import ProjectDropdown from './project-dropdown';
-import ProjectVisibilityToggle from './project-visibility-toggle';
+import { ProjectDropdown } from './project-dropdown';
 
 interface Props {
   project: Project;
@@ -26,7 +25,7 @@ interface Props {
   };
 }
 
-export default function ProjectCard({
+export function ProjectCard({
   project,
   dragHandleProps: { listeners, attributes },
 }: Props) {
@@ -65,10 +64,6 @@ export default function ProjectCard({
         </CardTitle>
         <CardDescription>{project.description}</CardDescription>
         <CardAction className="space-x-1">
-          <ProjectVisibilityToggle
-            projectId={project.id}
-            isPublic={!!project.isPublic}
-          />
           <ProjectDropdown projectId={project.id} />
         </CardAction>
       </CardHeader>
