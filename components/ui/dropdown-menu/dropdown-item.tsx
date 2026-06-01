@@ -7,7 +7,9 @@ import { useDropdown } from './dropdown-context';
 interface Props
   extends
     React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof itemVariants> {}
+    VariantProps<typeof itemVariants> {
+  preventClose?: boolean;
+}
 
 const itemVariants = cva(
   'w-full flex gap-2 items-center rounded-sm px-3 py-2 text-sm transition-colors disabled:opacity-40 disabled:pointer-events-none',
@@ -24,7 +26,13 @@ const itemVariants = cva(
   },
 );
 
-export function DropdownItem({ className, onClick, variant, ...props }: Props) {
+export function DropdownItem({
+  className,
+  onClick,
+  variant,
+  preventClose,
+  ...props
+}: Props) {
   const { setOpen } = useDropdown();
 
   return (
@@ -38,7 +46,9 @@ export function DropdownItem({ className, onClick, variant, ...props }: Props) {
       )}
       onClick={(e) => {
         onClick?.(e);
-        setOpen(false);
+        if (!preventClose) {
+          setOpen(false);
+        }
       }}
       {...props}
     />
