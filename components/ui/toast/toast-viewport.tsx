@@ -1,7 +1,11 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { cva } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
+import { useMounted } from '@/hooks/use-mounted';
 
 import { useToast } from './toast-context';
 import { ToastItem } from './toast-item';
@@ -25,8 +29,9 @@ const viewportVariants = cva(
 
 export function ToastViewport() {
   const { position, toasts } = useToast();
+  const isMounted = useMounted();
 
-  if (typeof document === 'undefined') {
+  if (!isMounted) {
     return null;
   }
 
