@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import ImageUploadContext, { type ImageItem } from './image-upload-context';
+import type { ImageItem } from '@/types/image';
+
+import ImageUploadContext from './image-upload-context';
 
 interface DefaultFile {
   id: string;
@@ -105,6 +107,7 @@ export function ImageUpload({
         disabled,
         addFiles,
         removeFile,
+        setFiles,
         openFileDialog: () => inputRef.current?.click(),
       }}
     >
