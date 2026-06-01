@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import ImageUploadContext, { type ImageItem } from './image-upload-context';
 
@@ -9,6 +9,7 @@ interface DefaultFile {
 
 interface Props {
   children: React.ReactNode;
+  id?: string;
   multiple?: boolean;
   disabled?: boolean;
   defaultFiles?: DefaultFile[];
@@ -16,10 +17,12 @@ interface Props {
 
 export function ImageUpload({
   children,
+  id,
   multiple = false,
   disabled = false,
   defaultFiles = [],
 }: Props) {
+  const inputRef = useRef<HTMLInputElement>(null);
   const [files, setFiles] = useState<ImageItem[]>(
     defaultFiles.map((file) => ({
       ...file,
@@ -71,8 +74,23 @@ export function ImageUpload({
         disabled,
         addFiles,
         removeFile,
+        openFileDialog: () => inputRef.current?.click(),
       }}
     >
+      <input
+        id={id}
+        ref={inputRef}
+        type="file"
+        accept="image/*"
+        multiple={multiple}
+        hidden
+        disabled={disabled}
+        onChange={(event) => {
+          if (event.target.files) {
+            addFiles(event.target.files);
+          }
+        }}
+      />
       {children}
     </ImageUploadContext.Provider>
   );

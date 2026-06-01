@@ -1,32 +1,20 @@
-import { useRef } from 'react';
-
-import { Button } from '@/components/ui/button';
+import { cloneElement, isValidElement } from 'react';
 
 import { useImageUpload } from './image-upload-context';
 
-export function ImageUploadTrigger() {
-  const inputRef = useRef<HTMLInputElement>(null);
+interface Props {
+  children: React.ReactElement<React.ButtonHTMLAttributes<HTMLElement>>;
+}
 
-  const { addFiles, multiple, disabled } = useImageUpload();
+export function ImageUploadTrigger({ children }: Props) {
+  const { disabled, openFileDialog } = useImageUpload();
 
-  return (
-    <>
-      <input
-        ref={inputRef}
-        type="file"
-        accept="image/*"
-        multiple={multiple}
-        hidden
-        disabled={disabled}
-        onChange={(event) => {
-          if (event.target.files) {
-            addFiles(event.target.files);
-          }
-        }}
-      />
-      <Button disabled={disabled} onClick={() => inputRef.current?.click()}>
-        Upload Image
-      </Button>
-    </>
-  );
+  if (!isValidElement(children)) {
+    return null;
+  }
+
+  return cloneElement(children, {
+    disabled,
+    onClick: openFileDialog,
+  });
 }

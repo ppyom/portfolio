@@ -19,6 +19,7 @@ interface ContextValue {
   disabled: boolean;
   addFiles: (files: FileList) => void;
   removeFile: (id: string) => void;
+  openFileDialog: () => void;
 }
 
 const ImageUploadContext = createContext<ContextValue | null>(null);
