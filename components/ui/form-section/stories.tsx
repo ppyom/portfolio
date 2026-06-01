@@ -24,7 +24,7 @@ import { FormSection } from './form-section';
 const meta: Meta<typeof FormSection> = {
   title: 'ui/form-section',
   component: FormSection,
-  tags: [],
+  tags: ['!dev'],
 };
 
 export default meta;
@@ -118,7 +118,9 @@ function ProjectFormExample() {
           <Field>
             <Label>커버 이미지</Label>
             <ImageUpload>
-              <ImageUploadTrigger />
+              <ImageUploadTrigger>
+                <Button>커버 이미지 등록</Button>
+              </ImageUploadTrigger>
               <ImageUploadPreview />
             </ImageUpload>
           </Field>

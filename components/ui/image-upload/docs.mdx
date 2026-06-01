@@ -17,6 +17,7 @@ import * as ImageUploadStories from "./stories";
 
 <Source
   code={`
+import { Button } from '@/components/ui/button';
 import {
     ImageUpload,
     ImageUploadTrigger,
@@ -25,12 +26,14 @@ import {
 
 export const Example = () => (
     <ImageUpload>
-      <ImageUploadTrigger />
+      <ImageUploadTrigger>
+        <Button>이미지 업로드</Button>
+      </ImageUploadTrigger>
       <ImageUploadPreview />
     </ImageUpload>
 );
 `}
-language="tsx"
+  language="tsx"
 />
 
 다중 업로드도 지원합니다.
@@ -38,9 +41,11 @@ language="tsx"
 <Source
   code={`
 <ImageUpload multiple>
-    <ImageUploadTrigger />
+    <ImageUploadTrigger>
+      <Button>이미지 업로드</Button>
+    </ImageUploadTrigger>
     <ImageUploadPreview />
-</ImageUpload>
+  </ImageUpload>
 `}
   language="tsx"
 />
@@ -58,7 +63,9 @@ language="tsx"
       },
     ]}
 >
-    <ImageUploadTrigger />
+    <ImageUploadTrigger>
+      <Button>이미지 업로드</Button>
+    </ImageUploadTrigger>
     <ImageUploadPreview />
 </ImageUpload>
 `}
@@ -107,7 +114,8 @@ language="tsx"
 
 ### 🧠 Design Rules
 
-- **Compound Composition**: Trigger / Preview 조합 구조
+- **Compound Composition**: Trigger / Preview 기반 조합 구조
+- **Headless Trigger**: Trigger UI를 소비자가 자유롭게 구성
 - **Single Source of Truth**: Context 기반 상태 관리
 - **Unified File Model**: remote / local 파일 통합 관리
 - **Minimal API Surface**: 핵심 업로드 흐름 중심 설계

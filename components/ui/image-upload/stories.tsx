@@ -1,5 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 
+import { Button } from '@/components/ui/button';
+
 import { ImageUpload } from './image-upload';
 import { ImageUploadPreview } from './image-upload-preview';
 import { ImageUploadTrigger } from './image-upload-trigger';
@@ -26,7 +28,9 @@ function Template(args: React.ComponentProps<typeof ImageUpload>) {
   return (
     <ImageUpload {...args}>
       <div className="space-y-4">
-        <ImageUploadTrigger />
+        <ImageUploadTrigger>
+          <Button>Upload Image</Button>
+        </ImageUploadTrigger>
         <ImageUploadPreview />
       </div>
     </ImageUpload>
@@ -105,7 +109,9 @@ export const Composition: Story = {
           ]}
         >
           <div className="space-y-4">
-            <ImageUploadTrigger />
+            <ImageUploadTrigger>
+              <Button>Upload Image</Button>
+            </ImageUploadTrigger>
             <ImageUploadPreview />
           </div>
         </ImageUpload>
@@ -128,7 +134,9 @@ export const Composition: Story = {
           ]}
         >
           <div className="space-y-4">
-            <ImageUploadTrigger />
+            <ImageUploadTrigger>
+              <Button>Upload Image</Button>
+            </ImageUploadTrigger>
             <ImageUploadPreview />
           </div>
         </ImageUpload>
