@@ -6,14 +6,17 @@ import { useImageUpload } from './image-upload-context';
 
 export function ImageUploadPreview() {
   const { files, removeFile, disabled } = useImageUpload();
+  const visibleFiles = files.filter((file) =>
+    file.type === 'remote' ? !file.deleted : true,
+  );
 
-  if (!files.length) {
+  if (!visibleFiles.length) {
     return null;
   }
 
   return (
     <div className={cn('grid grid-cols-3 gap-4', disabled && 'opacity-50')}>
-      {files.map((file) => (
+      {visibleFiles.map((file) => (
         <div
           key={file.id}
           className="relative overflow-hidden rounded-lg border bg-surface-muted"
