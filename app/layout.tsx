@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { getSkillMetadata } from '@/services/skills';
 import { config } from '@/lib/config';
 import { cn } from '@/lib/utils';
+import { ToastProvider } from '@/components/ui/toast';
 import { Toaster } from '@/components/ui-legacy/sonner';
 import SkillMetadataProvider from '@/components/common/skill-metadata-provider';
 import ThemeProvider from '@/components/common/theme/theme-provider';
@@ -44,10 +45,12 @@ export default async function RootLayout({ children }: Readonly<Props>) {
           enableSystem
           disableTransitionOnChange
         >
-          <SkillMetadataProvider metadata={skillMetadata}>
-            {children}
+          <ToastProvider>
+            <SkillMetadataProvider metadata={skillMetadata}>
+              {children}
+            </SkillMetadataProvider>
             <Toaster position="top-right" richColors={true} duration={5000} />
-          </SkillMetadataProvider>
+          </ToastProvider>
         </ThemeProvider>
       </body>
     </html>
