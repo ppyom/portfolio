@@ -1,6 +1,7 @@
 import { z } from 'zod';
 
 import { projectErrorMessages } from '@/lib/constants/error-messages';
+import { stringItemSchema } from '@/lib/validation/common.schema';
 
 const imageItemSchema = z.discriminatedUnion('type', [
   z.object({
@@ -26,15 +27,15 @@ export const schema = z.object({
   applicationUrl: z.string(),
   tags: z.array(z.string()),
   overview: z.string(),
-  features: z.array(z.string()),
-  goals: z.array(z.string()),
-  results: z.array(z.string()),
+  features: z.array(stringItemSchema),
+  goals: z.array(stringItemSchema),
+  results: z.array(stringItemSchema),
   member: z.object({
     size: z
       .number(projectErrorMessages.required.member.size)
       .min(1, projectErrorMessages.length.member.size),
     role: z.string(),
-    responsibilities: z.array(z.string()),
+    responsibilities: z.array(stringItemSchema),
   }),
   techStacks: z.array(
     z.object({

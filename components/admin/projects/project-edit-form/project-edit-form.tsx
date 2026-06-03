@@ -26,7 +26,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from '@/components/ui/toast';
-import ArrayField from '@/components/common/form/array-field';
+import { StringArrayField } from '@/components/form';
 import type { Project } from '@/types/project';
 
 import { ImageUploadController } from './image-upload-controller';
@@ -139,13 +139,9 @@ export function ProjectEditForm({ defaultProject }: Props) {
           title="주요 기능"
           description="프로젝트의 주요 기능을 작성해주세요."
         >
-          <ArrayField name="features" />
+          <StringArrayField name="features" />
         </FormSection>
-        <FormSection
-          title="기술 스택"
-          description="기술 스택은 콤마(,)로 구분해서 작성해주세요."
-          className="space-y-4"
-        >
+        <FormSection title="기술 스택" className="space-y-4 pb-4">
           <TechStackField />
         </FormSection>
         <FormSection title="시연 이미지">
@@ -176,15 +172,15 @@ export function ProjectEditForm({ defaultProject }: Props) {
             </Field>
             <Field>
               <Label>담당 업무</Label>
-              <ArrayField name="member.responsibilities" />
+              <StringArrayField name="member.responsibilities" />
             </Field>
           </div>
         </FormSection>
         <FormSection title="목표" description="프로젝트의 목표를 작성해주세요.">
-          <ArrayField name="goals" />
+          <StringArrayField name="goals" />
         </FormSection>
         <FormSection title="결과" description="프로젝트의 결과를 작성해주세요.">
-          <ArrayField name="results" />
+          <StringArrayField name="results" />
         </FormSection>
         <Button
           className="w-full sticky bottom-4 font-semibold"

@@ -1,6 +1,20 @@
+import type { StringItem } from '@/lib/validation/common.schema';
 import type { FormDataType } from '@/lib/validation/project.schema';
 import type { ImageItem } from '@/types/image';
 import type { Project } from '@/types/project';
+
+function createStringItems(values: string[] | null | undefined): StringItem[] {
+  if (!values) return [];
+
+  return values.map((value) => ({
+    id: crypto.randomUUID(),
+    value,
+  }));
+}
+
+function toStringArray(items: StringItem[]) {
+  return items.map((item) => item.value);
+}
 
 function splitImages(images: ImageItem[]) {
   return {
@@ -25,6 +39,15 @@ export function createProjectPayload(data: FormDataType) {
   return {
     ...data,
 
+    features: toStringArray(data.features),
+    goals: toStringArray(data.features),
+    results: toStringArray(data.features),
+
+    member: {
+      ...data.member,
+      responsibilities: toStringArray(data.member.responsibilities),
+    },
+
     coverImage: cover.remote,
     coverImageFile: cover.files,
 
@@ -43,13 +66,13 @@ export function createProjectDefaultValues(project?: Project): FormDataType {
     applicationUrl: project?.applicationUrl || '',
     tags: project?.tags || [],
     overview: project?.overview || '',
-    features: project?.features ?? [],
-    goals: project?.goals || [],
-    results: project?.results || [],
-    member: project?.member || {
-      size: 1,
-      role: '',
-      responsibilities: [],
+    features: createStringItems(project?.features),
+    goals: createStringItems(project?.goals),
+    results: createStringItems(project?.results),
+    member: {
+      size: project?.member?.size ?? 1,
+      role: project?.member?.role ?? '',
+      responsibilities: createStringItems(project?.member?.responsibilities),
     },
     techStacks:
       project?.techStacks.map((item) => ({
