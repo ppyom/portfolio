@@ -3,7 +3,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toast } from 'sonner';
+import { PlusIcon } from 'lucide-react';
 
 import {
   createProjectAction,
@@ -11,18 +11,29 @@ import {
 } from '@/app/manage/projects/actions';
 import { notifyError } from '@/lib/utils/error';
 import { createFormData } from '@/lib/utils/form-data';
-import { nullToUndefined } from '@/lib/utils/null-to-undefined';
 import { type FormDataType, schema } from '@/lib/validation/project.schema';
-import { Button } from '@/components/ui-legacy/button';
-import { Input } from '@/components/ui-legacy/input';
-import { Switch } from '@/components/ui-legacy/switch';
-import { Textarea } from '@/components/ui-legacy/textarea';
+import { Button } from '@/components/ui/button';
+import { Description } from '@/components/ui/description';
+import { Field } from '@/components/ui/field';
+import { FormSection } from '@/components/ui/form-section';
+import {
+  ImageUpload,
+  ImageUploadPreview,
+  ImageUploadTrigger,
+} from '@/components/ui/image-upload';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { Textarea } from '@/components/ui/textarea';
+import { toast } from '@/components/ui/toast';
 import ArrayField from '@/components/common/form/array-field';
-import Field from '@/components/common/form/field';
-import FieldGroup from '@/components/common/form/field-group';
-import ImageUploader from '@/components/common/form/image-uploader';
 import type { Project } from '@/types/project';
 
+import { ImageUploadController } from './image-upload-controller';
+import {
+  createProjectDefaultValues,
+  createProjectPayload,
+} from './project-edit-form.utils';
 import { TechStackField } from './tech-stack-field';
 
 interface Props {
@@ -34,32 +45,7 @@ export function ProjectEditForm({ defaultProject }: Props) {
 
   const form = useForm<FormDataType>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      title: defaultProject?.title || '',
-      isPublic: defaultProject?.isPublic ?? true,
-      description: defaultProject?.description || '',
-      category: defaultProject?.category || '',
-      githubUrl: defaultProject?.githubUrl || '',
-      applicationUrl: defaultProject?.applicationUrl || '',
-      tags: defaultProject?.tags || [],
-      overview: defaultProject?.overview || '',
-      features: defaultProject?.features ?? [],
-      goals: defaultProject?.goals || [],
-      results: defaultProject?.results || [],
-      member: defaultProject?.member || {
-        responsibilities: [],
-      },
-      techStacks:
-        defaultProject?.techStacks.map((item) => nullToUndefined(item)) || [],
-      imageFiles: undefined,
-      coverImageFile: undefined,
-      existedCoverImage: defaultProject?.coverImage
-        ? [{ ...defaultProject.coverImage, deleted: false }]
-        : [],
-      existedImages: defaultProject?.images
-        ? defaultProject.images.map((image) => ({ ...image, deleted: false }))
-        : [],
-    },
+    defaultValues: createProjectDefaultValues(defaultProject),
   });
   const {
     register,
@@ -77,7 +63,8 @@ export function ProjectEditForm({ defaultProject }: Props) {
         className="space-y-4"
         onSubmit={handleSubmit(
           async (data: FormDataType) => {
-            const formData = createFormData(data);
+            const payload = createProjectPayload(data);
+            const formData = createFormData(payload);
 
             const result = await action(formData, defaultProject?.id || '');
             if (result.success) {
@@ -90,87 +77,115 @@ export function ProjectEditForm({ defaultProject }: Props) {
           (error) => notifyError(error),
         )}
       >
-        <FieldGroup
-          title="프로젝트 기본 정보"
-          className="space-y-4"
-          headerActions={
-            <Field
-              label="프로젝트 공개 여부"
-              className="flex gap-2 text-muted-foreground"
-            >
-              <Switch
-                checked={watch('isPublic')}
-                onCheckedChange={(v) => setValue('isPublic', v)}
+        <FormSection title="프로젝트 기본 정보" className="relative">
+          <Field className="absolute top-6 right-6 flex-row items-center">
+            <Label htmlFor="isPublic">프로젝트 공개 여부</Label>
+            <Switch
+              id="isPublic"
+              checked={watch('isPublic')}
+              onChange={({ target }) => setValue('isPublic', target.checked)}
+            />
+          </Field>
+          <div className="space-y-2.5">
+            <Field required>
+              <Label htmlFor="title" required>
+                프로젝트 제목
+              </Label>
+              <Input id="title" {...register('title')} />
+            </Field>
+            <Field>
+              <Label htmlFor="description">프로젝트 간단 설명</Label>
+              <Input id="description" {...register('description')} />
+            </Field>
+            <Field>
+              <Label htmlFor="category">카테고리</Label>
+              <Input id="category" {...register('category')} />
+            </Field>
+            <Field>
+              <Label htmlFor="coverImage">커버 이미지</Label>
+              <ImageUpload id="coverImage">
+                <ImageUploadController name="coverImage" />
+                <ImageUploadTrigger>
+                  <Button type="button" className="gap-2">
+                    <PlusIcon size={14} />
+                    이미지 선택
+                  </Button>
+                </ImageUploadTrigger>
+                <ImageUploadPreview />
+              </ImageUpload>
+            </Field>
+            <Field>
+              <Label htmlFor="githubUrl">Github Repository 주소</Label>
+              <Input id="githubUrl" {...register('githubUrl')} />
+            </Field>
+            <Field>
+              <Label htmlFor="applicationUrl">실제 애플리케이션 주소</Label>
+              <Input id="applicationUrl" {...register('applicationUrl')} />
+            </Field>
+            <Field>
+              <Label>기술스택 태그</Label>
+              <Description>콤마(,)로 구분해서 작성해주세요.</Description>
+              <Input
+                value={watch('tags').join(',')}
+                onChange={(e) => setValue('tags', e.target.value.split(','))}
               />
             </Field>
-          }
+          </div>
+        </FormSection>
+        <FormSection title="프로젝트 개요">
+          <Textarea className="w-full" {...register('overview')} />
+        </FormSection>
+        <FormSection
+          title="주요 기능"
+          description="프로젝트의 주요 기능을 작성해주세요."
         >
-          <Field label="프로젝트 제목" required>
-            <Input aria-invalid={!!errors.title} {...register('title')} />
-          </Field>
-          <Field label="프로젝트 간단 설명">
-            <Input {...register('description')} />
-          </Field>
-          <Field label="카테고리">
-            <Input {...register('category')} />
-          </Field>
-          <Field label="커버 이미지">
-            <ImageUploader
-              name="coverImageFile"
-              existName="existedCoverImage"
-            />
-          </Field>
-          <Field label="GitHub Repository 주소">
-            <Input {...register('githubUrl')} />
-          </Field>
-          <Field label="실제 애플리케이션 주소">
-            <Input {...register('applicationUrl')} />
-          </Field>
-          <Field label="기술스택 태그">
-            <Input
-              placeholder="기술스택 태그 (,로 구분해서 작성)"
-              value={watch('tags').join(',')}
-              onChange={(e) => setValue('tags', e.target.value.split(','))}
-            />
-          </Field>
-        </FieldGroup>
-        <FieldGroup title="프로젝트 개요">
-          <Textarea className="resize-none" {...register('overview')} />
-        </FieldGroup>
-        <FieldGroup title="주요 기능" description="프로젝트의 주요 기능을 작성">
           <ArrayField name="features" />
-        </FieldGroup>
-        <FieldGroup
+        </FormSection>
+        <FormSection
           title="기술 스택"
           description="기술 스택은 콤마(,)로 구분해서 작성해주세요."
           className="space-y-4"
         >
           <TechStackField />
-        </FieldGroup>
-        <FieldGroup title="시연 이미지">
-          <ImageUploader name="imageFiles" existName="existedImages" multiple />
-        </FieldGroup>
-        <FieldGroup title="프로젝트 구성원">
-          <Field label="전체 인원" required>
-            <Input
-              type="number"
-              aria-invalid={!!errors.member?.size}
-              {...register('member.size', { valueAsNumber: true })}
-            />
-          </Field>
-          <Field label="내가 맡은 역할">
-            <Input {...register('member.role')} />
-          </Field>
-          <Field label="담당 업무">
-            <ArrayField name="member.responsibilities" />
-          </Field>
-        </FieldGroup>
-        <FieldGroup title="목표" description="프로젝트의 목표를 작성">
+        </FormSection>
+        <FormSection title="시연 이미지">
+          <ImageUpload id="images" multiple>
+            <ImageUploadController name="images" />
+            <ImageUploadTrigger>
+              <Button type="button" className="gap-2">
+                <PlusIcon size={14} />
+                이미지 추가
+              </Button>
+            </ImageUploadTrigger>
+            <ImageUploadPreview />
+          </ImageUpload>
+        </FormSection>
+        <FormSection title="프로젝트 구성원">
+          <div className="space-y-2.5">
+            <Field required>
+              <Label required>전체 인원</Label>
+              <Input
+                type="number"
+                aria-invalid={!!errors.member?.size}
+                {...register('member.size', { valueAsNumber: true })}
+              />
+            </Field>
+            <Field>
+              <Label>내가 맡은 역할</Label>
+              <Input {...register('member.role')} />
+            </Field>
+            <Field>
+              <Label>담당 업무</Label>
+              <ArrayField name="member.responsibilities" />
+            </Field>
+          </div>
+        </FormSection>
+        <FormSection title="목표" description="프로젝트의 목표를 작성해주세요.">
           <ArrayField name="goals" />
-        </FieldGroup>
-        <FieldGroup title="결과" description="프로젝트의 결과를 작성">
+        </FormSection>
+        <FormSection title="결과" description="프로젝트의 결과를 작성해주세요.">
           <ArrayField name="results" />
-        </FieldGroup>
+        </FormSection>
         <Button
           className="w-full sticky bottom-4 font-semibold"
           size="lg"
