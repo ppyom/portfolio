@@ -2,8 +2,10 @@ import { createContext, useContext } from 'react';
 
 type AdminLayoutContextValue = {
   isCollapsed: boolean;
-  toggleSidebar: () => void;
+  isSidebarOpen: boolean;
   setIsCollapsed: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleSidebar: () => void;
 };
 
 const AdminLayoutContext = createContext<AdminLayoutContextValue | null>(null);
