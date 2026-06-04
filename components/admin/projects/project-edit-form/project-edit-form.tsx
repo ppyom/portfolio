@@ -90,7 +90,7 @@ export function ProjectEditForm({ defaultProject }: Props) {
               onChange={({ target }) => setValue('isPublic', target.checked)}
             />
           </Field>
-          <div className="space-y-2.5">
+          <div className="space-y-4">
             <Field required>
               <Label htmlFor="title" required>
                 프로젝트 제목
@@ -174,7 +174,7 @@ export function ProjectEditForm({ defaultProject }: Props) {
           </ImageUpload>
         </FormSection>
         <FormSection title="프로젝트 구성원">
-          <div className="space-y-2.5">
+          <div className="space-y-4">
             <Field required>
               <Label required>전체 인원</Label>
               <Input
