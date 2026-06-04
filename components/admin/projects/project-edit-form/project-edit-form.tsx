@@ -81,7 +81,11 @@ export function ProjectEditForm({ defaultProject }: Props) {
           (error) => notifyError(error),
         )}
       >
-        <FormSection title="프로젝트 기본 정보" className="relative">
+        <FormSection
+          className="relative"
+          title="프로젝트 기본 정보"
+          description="프로젝트를 소개하는 기본 정보를 작성합니다."
+        >
           <Field className="absolute top-6 right-6 flex-row items-center">
             <Label htmlFor="isPublic">프로젝트 공개 여부</Label>
             <Switch
@@ -149,19 +153,29 @@ export function ProjectEditForm({ defaultProject }: Props) {
             </Field>
           </div>
         </FormSection>
-        <FormSection title="프로젝트 개요">
+        <FormSection
+          title="프로젝트 개요"
+          description="프로젝트의 목적과 전반적인 내용을 작성합니다."
+        >
           <Textarea className="w-full" {...register('overview')} />
         </FormSection>
         <FormSection
           title="주요 기능"
-          description="프로젝트의 주요 기능을 작성해주세요."
+          description="프로젝트에서 제공하는 주요 기능을 작성합니다."
         >
           <StringArrayField name="features" />
         </FormSection>
-        <FormSection title="기술 스택" className="space-y-4 pb-4">
+        <FormSection
+          className="space-y-4 pb-4"
+          title="기술 스택"
+          description="프로젝트에 사용된 기술과 도구를 작성합니다."
+        >
           <TechStackField />
         </FormSection>
-        <FormSection title="시연 이미지">
+        <FormSection
+          title="시연 이미지"
+          description="프로젝트의 주요 화면이나 기능을 확인할 수 있는 이미지를 등록합니다."
+        >
           <ImageUpload id="images" multiple>
             <ImageUploadController name="images" />
             <ImageUploadTrigger>
@@ -173,7 +187,10 @@ export function ProjectEditForm({ defaultProject }: Props) {
             <ImageUploadPreview />
           </ImageUpload>
         </FormSection>
-        <FormSection title="프로젝트 구성원">
+        <FormSection
+          title="프로젝트 구성원"
+          description="프로젝트 규모와 담당 역할 및 업무를 작성합니다."
+        >
           <div className="space-y-4">
             <Field required>
               <Label required>전체 인원</Label>
@@ -193,10 +210,16 @@ export function ProjectEditForm({ defaultProject }: Props) {
             </Field>
           </div>
         </FormSection>
-        <FormSection title="목표" description="프로젝트의 목표를 작성해주세요.">
+        <FormSection
+          title="목표"
+          description="프로젝트를 진행하며 달성하고자 했던 목표를 작성합니다."
+        >
           <StringArrayField name="goals" />
         </FormSection>
-        <FormSection title="결과" description="프로젝트의 결과를 작성해주세요.">
+        <FormSection
+          title="결과"
+          description="프로젝트 진행 후 얻은 성과와 결과를 작성합니다."
+        >
           <StringArrayField name="results" />
         </FormSection>
         <Button
