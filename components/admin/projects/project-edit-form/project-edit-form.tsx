@@ -1,6 +1,6 @@
 'use client';
 
-import { FormProvider, useForm } from 'react-hook-form';
+import { Controller, FormProvider, useForm, useWatch } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { PlusIcon } from 'lucide-react';
@@ -50,10 +50,14 @@ export function ProjectEditForm({ defaultProject }: Props) {
   const {
     register,
     handleSubmit,
-    watch,
     setValue,
+    control,
     formState: { errors },
   } = form;
+  const isPublic = useWatch({
+    control,
+    name: 'isPublic',
+  });
 
   const action = defaultProject?.id ? updateProjectAction : createProjectAction;
 
@@ -82,7 +86,7 @@ export function ProjectEditForm({ defaultProject }: Props) {
             <Label htmlFor="isPublic">프로젝트 공개 여부</Label>
             <Switch
               id="isPublic"
-              checked={watch('isPublic')}
+              checked={isPublic}
               onChange={({ target }) => setValue('isPublic', target.checked)}
             />
           </Field>
@@ -125,9 +129,22 @@ export function ProjectEditForm({ defaultProject }: Props) {
             <Field>
               <Label>기술스택 태그</Label>
               <Description>콤마(,)로 구분해서 작성해주세요.</Description>
-              <Input
-                value={watch('tags').join(',')}
-                onChange={(e) => setValue('tags', e.target.value.split(','))}
+              <Controller
+                control={control}
+                name="tags"
+                render={({ field }) => (
+                  <Input
+                    value={field.value.join(',')}
+                    onChange={(e) =>
+                      field.onChange(
+                        e.target.value
+                          .split(',')
+                          .map((item) => item.trim())
+                          .filter(Boolean),
+                      )
+                    }
+                  />
+                )}
               />
             </Field>
           </div>
