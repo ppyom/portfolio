@@ -16,7 +16,7 @@ export function FormSection({
   return (
     <section
       className={cn(
-        'rounded-lg border bg-surface-secondary space-y-4 p-6',
+        'rounded-lg border bg-surface-secondary space-y-6 p-6',
         className,
       )}
     >

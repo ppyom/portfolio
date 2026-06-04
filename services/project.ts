@@ -115,8 +115,8 @@ export const createProject = async (project: ProjectFormData) => {
 
 export const updateProject = async (id: string, project: ProjectFormData) => {
   const deletedImages = getDeletedImages(
-    ...project.existedCoverImage,
-    ...project.existedImages,
+    ...project.coverImage,
+    ...project.images,
   );
 
   await db.transaction(async (tx) => {
@@ -125,7 +125,7 @@ export const updateProject = async (id: string, project: ProjectFormData) => {
       deletedImages.map((i) => i.id),
       tx,
     ).execute();
-    const remainingImageIds = project.existedImages
+    const remainingImageIds = project.images
       .filter((i) => !i.deleted)
       .map((i) => i.id);
 
@@ -134,7 +134,7 @@ export const updateProject = async (id: string, project: ProjectFormData) => {
       {
         ...project,
         coverImageId:
-          project.existedCoverImage?.[0]?.deleted === false
+          project.coverImage?.[0]?.deleted === false
             ? undefined
             : (coverImageId ?? null),
         imageIds: [...remainingImageIds, ...imageIds],
@@ -187,7 +187,7 @@ export const deleteProject = async (id: string) => {
 
   return db.transaction(async (tx) => {
     await deleteFiles(deletedImages, tx).execute();
-    await deleteTechStack(tx).execute();
+    await deleteTechStack(tx).execute({ projectId: id });
     await deleteProjectQuery(tx).execute({ projectId: id });
   });
 };

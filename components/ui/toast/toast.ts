@@ -13,34 +13,35 @@ export function registerToast(handler: CreateToast) {
 }
 
 export function toast(
-  title: string,
+  title?: string,
   options?: Omit<ToastItem, 'id' | 'title'>,
 ) {
+  if (!title) return;
   createToast?.({
     title,
     ...options,
   });
 }
 
-toast.success = (title: string, description?: string) =>
+toast.success = (title?: string, description?: string) =>
   toast(title, {
     description,
     variant: 'success',
   });
 
-toast.error = (title: string, description?: string) =>
+toast.error = (title?: string, description?: string) =>
   toast(title, {
     description,
     variant: 'error',
   });
 
-toast.warning = (title: string, description?: string) =>
+toast.warning = (title?: string, description?: string) =>
   toast(title, {
     description,
     variant: 'warning',
   });
 
-toast.info = (title: string, description?: string) =>
+toast.info = (title?: string, description?: string) =>
   toast(title, {
     description,
     variant: 'info',

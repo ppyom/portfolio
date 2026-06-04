@@ -1,6 +1,22 @@
 import { z } from 'zod';
 
 import { projectErrorMessages } from '@/lib/constants/error-messages';
+import { stringItemSchema } from '@/lib/validation/common.schema';
+
+const imageItemSchema = z.discriminatedUnion('type', [
+  z.object({
+    id: z.string(),
+    type: z.literal('remote'),
+    url: z.string(),
+    deleted: z.boolean().optional(),
+  }),
+  z.object({
+    id: z.string(),
+    type: z.literal('local'),
+    url: z.string(),
+    file: z.instanceof(File),
+  }),
+]);
 
 export const schema = z.object({
   title: z.string().nonempty(projectErrorMessages.required.title),
@@ -11,15 +27,15 @@ export const schema = z.object({
   applicationUrl: z.string(),
   tags: z.array(z.string()),
   overview: z.string(),
-  features: z.array(z.string()),
-  goals: z.array(z.string()),
-  results: z.array(z.string()),
+  features: z.array(stringItemSchema),
+  goals: z.array(stringItemSchema),
+  results: z.array(stringItemSchema),
   member: z.object({
     size: z
       .number(projectErrorMessages.required.member.size)
       .min(1, projectErrorMessages.length.member.size),
     role: z.string(),
-    responsibilities: z.array(z.string()),
+    responsibilities: z.array(stringItemSchema),
   }),
   techStacks: z.array(
     z.object({
@@ -27,18 +43,8 @@ export const schema = z.object({
       stacks: z.array(z.string()),
     }),
   ),
-  coverImageFile: z.instanceof(File).optional(),
-  imageFiles: z.array(z.instanceof(File)).optional(),
-  existedCoverImage: z.array(
-    z.object({
-      id: z.string(),
-      url: z.string(),
-      deleted: z.boolean(),
-    }),
-  ),
-  existedImages: z.array(
-    z.object({ id: z.string(), url: z.string(), deleted: z.boolean() }),
-  ),
+  coverImage: z.array(imageItemSchema),
+  images: z.array(imageItemSchema),
 });
 
 export type FormDataType = z.infer<typeof schema>;

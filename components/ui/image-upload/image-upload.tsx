@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import ImageUploadContext, { type ImageItem } from './image-upload-context';
+import type { ImageItem } from '@/types/image';
+
+import ImageUploadContext from './image-upload-context';
 
 interface DefaultFile {
   id: string;
@@ -39,21 +41,52 @@ export function ImageUpload({
         url: URL.createObjectURL(file),
       }));
 
-      setFiles((prev) => (multiple ? [...prev, ...next] : next));
+      setFiles((prev) => {
+        if (multiple) {
+          return [...prev, ...next];
+        }
+
+        prev.forEach((file) => {
+          if (file.type === 'local') {
+            URL.revokeObjectURL(file.url);
+          }
+        });
+
+        return [
+          ...prev.map((file) =>
+            file.type === 'remote'
+              ? {
+                  ...file,
+                  deleted: true,
+                }
+              : file,
+          ),
+          ...next,
+        ];
+      });
     },
     [multiple],
   );
 
   const removeFile = useCallback((id: string) => {
-    setFiles((prev) => {
-      const target = prev.find((file) => file.id === id);
+    setFiles((prev) =>
+      prev.flatMap((file) => {
+        if (file.id !== id) {
+          return file;
+        }
 
-      if (target?.type === 'local') {
-        URL.revokeObjectURL(target.url);
-      }
+        if (file.type === 'remote') {
+          return {
+            ...file,
+            deleted: true,
+          };
+        }
 
-      return prev.filter((file) => file.id !== id);
-    });
+        URL.revokeObjectURL(file.url);
+
+        return [];
+      }),
+    );
   }, []);
 
   useEffect(() => {
@@ -74,6 +107,7 @@ export function ImageUpload({
         disabled,
         addFiles,
         removeFile,
+        setFiles,
         openFileDialog: () => inputRef.current?.click(),
       }}
     >

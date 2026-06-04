@@ -3,6 +3,7 @@ import {
   ProjectTable,
   TechStackTable,
 } from '@/database/types/project';
+import type { ImageItem } from '@/types/image';
 
 export interface ImageFile {
   id: FileTable.Select.id;
@@ -26,7 +27,9 @@ export interface ProjectFormData {
   applicationUrl: string;
   overview: string;
   isPublic: boolean;
+  coverImage: Extract<ImageItem, { type: 'remote' }>[];
   coverImageFile: File[];
+  images: Extract<ImageItem, { type: 'remote' }>[];
   imageFiles: File[];
   tags: Project['tags'];
   features: Project['features'];
@@ -34,8 +37,6 @@ export interface ProjectFormData {
   results: Project['results'];
   member: Project['member'];
   techStacks: Project['techStacks'];
-  existedCoverImage: (ImageFile & { deleted: boolean })[];
-  existedImages: (ImageFile & { deleted: boolean })[];
 }
 
 export interface ProjectFilter {

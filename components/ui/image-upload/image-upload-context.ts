@@ -1,17 +1,6 @@
 import { createContext, useContext } from 'react';
 
-export type ImageItem =
-  | {
-      id: string;
-      type: 'remote';
-      url: string;
-    }
-  | {
-      id: string;
-      type: 'local';
-      file: File;
-      url: string;
-    };
+import type { ImageItem } from '@/types/image';
 
 interface ContextValue {
   files: ImageItem[];
@@ -19,6 +8,7 @@ interface ContextValue {
   disabled: boolean;
   addFiles: (files: FileList) => void;
   removeFile: (id: string) => void;
+  setFiles: React.Dispatch<React.SetStateAction<ImageItem[]>>;
   openFileDialog: () => void;
 }
 
