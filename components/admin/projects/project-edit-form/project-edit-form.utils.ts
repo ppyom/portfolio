@@ -1,16 +1,8 @@
+import { createStringItems } from '@/lib/utils/form';
 import type { StringItem } from '@/lib/validation/common.schema';
 import type { FormDataType } from '@/lib/validation/project.schema';
 import type { ImageItem } from '@/types/image';
 import type { Project } from '@/types/project';
-
-function createStringItems(values: string[] | null | undefined): StringItem[] {
-  if (!values) return [];
-
-  return values.map((value) => ({
-    id: crypto.randomUUID(),
-    value,
-  }));
-}
 
 function toStringArray(items: StringItem[]) {
   return items.map((item) => item.value);
