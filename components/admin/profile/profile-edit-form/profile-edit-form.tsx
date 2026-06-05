@@ -11,13 +11,17 @@ import {
   historyFields,
 } from '@/lib/form/profile.fields';
 import { notifyError } from '@/lib/utils/error';
-import { nullToUndefined } from '@/lib/utils/null-to-undefined';
 import { FormDataType, schema } from '@/lib/validation/profile.schema';
 import { Button } from '@/components/ui/button';
 import { FormSection } from '@/components/ui/form-section';
-import ArrayField from '@/components/common/form/array-field';
 import ObjectArrayField from '@/components/common/form/object-array-field';
+import { StringArrayField } from '@/components/form';
 import type { Profile } from '@/types/profile';
+
+import {
+  createProfileDefaultValues,
+  createProfilePayload,
+} from './profile-edit-form.utils';
 
 interface Props {
   defaultProfile?: Profile;
@@ -26,15 +30,7 @@ interface Props {
 export function ProfileEditForm({ defaultProfile }: Props) {
   const form = useForm<FormDataType>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      introduce: defaultProfile?.introduce ?? [],
-      experience:
-        defaultProfile?.experience?.map((item) => nullToUndefined(item)) ?? [],
-      education:
-        defaultProfile?.education?.map((item) => nullToUndefined(item)) ?? [],
-      history:
-        defaultProfile?.history?.map((item) => nullToUndefined(item)) ?? [],
-    },
+    defaultValues: createProfileDefaultValues(defaultProfile),
   });
   const { handleSubmit } = form;
 
@@ -44,7 +40,9 @@ export function ProfileEditForm({ defaultProfile }: Props) {
         className="space-y-4"
         onSubmit={handleSubmit(
           async (data: FormDataType) => {
-            const result = await updateProfileAction(data);
+            const payload = createProfilePayload(data);
+            const result = await updateProfileAction(payload);
+
             if (result.success) {
               toast.success('저장되었습니다.');
             } else {
@@ -55,7 +53,7 @@ export function ProfileEditForm({ defaultProfile }: Props) {
         )}
       >
         <FormSection title="자기 소개">
-          <ArrayField name="introduce" placeholder="자기 소개" />
+          <StringArrayField name="introduce" textarea />
         </FormSection>
         <FormSection title="경력">
           <ObjectArrayField
