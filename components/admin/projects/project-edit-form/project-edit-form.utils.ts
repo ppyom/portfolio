@@ -1,12 +1,7 @@
-import { createStringItems } from '@/lib/utils/form';
-import type { StringItem } from '@/lib/validation/common.schema';
+import { createStringItems, toStringArray } from '@/lib/utils/form';
 import type { FormDataType } from '@/lib/validation/project.schema';
 import type { ImageItem } from '@/types/image';
 import type { Project } from '@/types/project';
-
-function toStringArray(items: StringItem[]) {
-  return items.map((item) => item.value);
-}
 
 function splitImages(images: ImageItem[]) {
   return {
