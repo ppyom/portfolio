@@ -4,31 +4,27 @@ export const experienceFields: FieldItem[] = [
   {
     name: 'name',
     label: '회사 이름',
-    placeholder: '회사 이름',
   },
   {
     name: 'position',
     label: '직무',
-    placeholder: '직무',
     required: true,
   },
   {
     name: 'startDate',
     label: '입사일',
-    placeholder: '입사일',
     colSpan: 'half',
     required: true,
   },
   {
     name: 'endDate',
     label: '퇴사일',
-    placeholder: '퇴사일',
     colSpan: 'half',
   },
   {
     name: 'description',
     label: '주요 성과',
-    placeholder: '해당 회사에서 이룬 성과를 간단하게 작성',
+    placeholder: '해당 회사에서 이룬 성과를 간단하게 작성해주세요.',
   },
 ];
 
@@ -36,26 +32,22 @@ export const educationFields: FieldItem[] = [
   {
     name: 'name',
     label: '학교 이름',
-    placeholder: '학교 이름',
     required: true,
   },
   {
     name: 'major',
     label: '전공',
-    placeholder: '전공',
     required: true,
   },
   {
     name: 'startDate',
     label: '입학일',
-    placeholder: '입학일',
     colSpan: 'half',
     required: true,
   },
   {
     name: 'endDate',
     label: '졸업일',
-    placeholder: '졸업일',
     colSpan: 'half',
   },
 ];

@@ -2,7 +2,6 @@
 
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { toast } from 'sonner';
 
 import { updateProfileAction } from '@/app/manage/profile/actions';
 import {
@@ -14,8 +13,8 @@ import { notifyError } from '@/lib/utils/error';
 import { FormDataType, schema } from '@/lib/validation/profile.schema';
 import { Button } from '@/components/ui/button';
 import { FormSection } from '@/components/ui/form-section';
-import ObjectArrayField from '@/components/common/form/object-array-field';
-import { StringArrayField } from '@/components/form';
+import { toast } from '@/components/ui/toast';
+import { ObjectArrayField, StringArrayField } from '@/components/form';
 import type { Profile } from '@/types/profile';
 
 import {
