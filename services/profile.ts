@@ -17,8 +17,8 @@ import {
   insertProfileQuery,
 } from '@/database/queries/profile';
 import { profileTable } from '@/database/schema/profile.schema';
-import type { FormDataType } from '@/lib/validation/profile.schema';
 import { profileMock } from '@/mocks/profile.mock';
+import type { ProfileFormData } from '@/types/profile';
 
 import { USE_MOCK } from './common';
 
@@ -34,7 +34,7 @@ export const getLastProfileUpdate = async (language = 'ko') => {
 };
 
 export const updateProfile = async (
-  { introduce, experience, education, history }: FormDataType,
+  { introduce, experience, education, history }: ProfileFormData,
   language = 'ko',
 ) => {
   return await db.transaction(async (tx) => {
