@@ -51,24 +51,36 @@ export function ProfileEditForm({ defaultProfile }: Props) {
           (error) => notifyError(error),
         )}
       >
-        <FormSection title="자기 소개">
+        <FormSection
+          title="자기 소개"
+          description="본인을 소개할 수 있는 내용을 작성합니다."
+        >
           <StringArrayField name="introduce" textarea />
         </FormSection>
-        <FormSection title="경력">
+        <FormSection
+          title="경력"
+          description="근무 경력과 주요 업무 내용을 작성합니다."
+        >
           <ObjectArrayField
             name="experience"
             title="경력"
             fieldList={experienceFields}
           />
         </FormSection>
-        <FormSection title="학력">
+        <FormSection
+          title="학력"
+          description="학력 및 전공과 관련된 정보를 작성합니다."
+        >
           <ObjectArrayField
             name="education"
             title="학력"
             fieldList={educationFields}
           />
         </FormSection>
-        <FormSection title="이력">
+        <FormSection
+          title="이력"
+          description="수상, 자격증, 교육, 대외활동 등 주요 이력을 작성합니다."
+        >
           <ObjectArrayField
             name="history"
             title="이력"
