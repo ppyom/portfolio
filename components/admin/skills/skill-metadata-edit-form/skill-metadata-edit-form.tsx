@@ -29,7 +29,7 @@ export function SkillMetadataEditForm({ skillMetadata }: Props) {
   const form = useForm({
     defaultValues: createSkillMetadataDefaultValues(skillMetadata),
   });
-  const { register, handleSubmit, setValue, watch, control } = form;
+  const { register, handleSubmit, control } = form;
   const { fields, append, remove } = useFieldArray({
     control: control,
     name: 'items',
@@ -62,7 +62,7 @@ export function SkillMetadataEditForm({ skillMetadata }: Props) {
               type="button"
               variant="ghost"
               size="sm"
-              onClick={remove}
+              onClick={() => remove(idx)}
             >
               <Trash2Icon size={14} />
             </Button>
