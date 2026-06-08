@@ -5,6 +5,10 @@ export interface Skill {
   items: SkillTable.Select['name'][];
 }
 
+export interface SkillFormData {
+  skills: Skill[];
+}
+
 export interface SkillMetadata {
   name: string;
   color: string;
