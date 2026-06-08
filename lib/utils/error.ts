@@ -1,6 +1,5 @@
-import { toast } from 'sonner';
-
 import { commonErrorMessages } from '@/lib/constants/error-messages';
+import { toast } from '@/components/ui/toast';
 
 /**
  * 에러 객체에서 메시지를 추출합니다.

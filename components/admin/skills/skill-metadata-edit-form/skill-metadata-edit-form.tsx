@@ -1,109 +1,132 @@
 'use client';
 
-import { useFieldArray, useForm } from 'react-hook-form';
-import { PlusIcon } from 'lucide-react';
-import { toast } from 'sonner';
+import {
+  Controller,
+  FormProvider,
+  useFieldArray,
+  useForm,
+} from 'react-hook-form';
+import { PlusIcon, Trash2Icon } from 'lucide-react';
 
 import { updateSkillMetadataAction } from '@/app/manage/skills/actions';
 import { skillErrorMessages } from '@/lib/constants/error-messages';
 import { notifyError } from '@/lib/utils/error';
-import { Button } from '@/components/ui-legacy/button';
-import { Input } from '@/components/ui-legacy/input';
-import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
-import Field from '@/components/common/form/field';
-import FieldGroup from '@/components/common/form/field-group';
+import { Button } from '@/components/ui/button';
+import { Field } from '@/components/ui/field';
+import { FormSection } from '@/components/ui/form-section';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { toast } from '@/components/ui/toast';
 import type { SkillMetadata } from '@/types/skill';
+
+import { createSkillMetadataDefaultValues } from './skill-metadata-edit-form.utils';
 
 interface Props {
   skillMetadata: Record<string, SkillMetadata>;
 }
 
 export function SkillMetadataEditForm({ skillMetadata }: Props) {
-  const { register, handleSubmit, setValue, watch, control } = useForm({
-    defaultValues: {
-      items: Object.entries(skillMetadata).map(([name, value]) => ({
-        name,
-        color: value.color,
-      })),
-    },
+  const form = useForm({
+    defaultValues: createSkillMetadataDefaultValues(skillMetadata),
   });
+  const { register, handleSubmit, setValue, watch, control } = form;
   const { fields, append, remove } = useFieldArray({
     control: control,
     name: 'items',
   });
 
   return (
-    <form
-      className="space-y-4"
-      onSubmit={handleSubmit(
-        async (data) => {
-          const result = await updateSkillMetadataAction(data);
-          if (result.success) {
-            toast.success('저장되었습니다.');
-          } else {
-            toast.error(result.message);
-          }
-        },
-        (error) => notifyError(error),
-      )}
-    >
-      {fields.map((field, idx) => (
-        <FieldGroup
-          title={`Skill ${idx + 1}`}
-          key={field.id}
-          headerActions={<ConfirmDeleteButton onConfirm={() => remove(idx)} />}
-        >
-          <Field label="스킬명" required>
-            <Input
-              {...register(`items.${idx}.name`, {
-                required: skillErrorMessages.required.metadata,
-              })}
-            />
-          </Field>
-          <Field label="색상">
-            <div className="flex gap-2">
-              <Input
-                type="text"
-                value={watch(`items.${idx}.color`) ?? ''}
-                onChange={({ target }) =>
-                  setValue(`items.${idx}.color`, target.value)
-                }
-              />
-              <Input
-                type="color"
-                value={watch(`items.${idx}.color`) ?? ''}
-                onChange={({ target }) =>
-                  setValue(`items.${idx}.color`, target.value)
-                }
-              />
+    <FormProvider {...form}>
+      <form
+        className="space-y-4"
+        onSubmit={handleSubmit(
+          async (data) => {
+            const result = await updateSkillMetadataAction(data);
+            if (result.success) {
+              toast.success('저장되었습니다.');
+            } else {
+              toast.error(result.message);
+            }
+          },
+          (error) => notifyError(error),
+        )}
+      >
+        {fields.map((field, idx) => (
+          <FormSection
+            key={field.id}
+            className="relative"
+            title={`Skill ${idx + 1}`}
+          >
+            <Button
+              className="absolute top-6 right-6 text-text-muted"
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={remove}
+            >
+              <Trash2Icon size={14} />
+            </Button>
+            <div className="space-y-6">
+              <Field required>
+                <Label required>스킬명</Label>
+                <Input
+                  {...register(`items.${idx}.name`, {
+                    required: skillErrorMessages.required.metadata,
+                  })}
+                />
+              </Field>
+              <Field>
+                <Label>색상</Label>
+                <Controller
+                  control={control}
+                  name={`items.${idx}.color`}
+                  render={({ field }) => (
+                    <div className="flex gap-2">
+                      <Input
+                        className="flex-1"
+                        type="text"
+                        value={field.value ?? ''}
+                        onChange={field.onChange}
+                      />
+                      <Input
+                        className="w-12 p-1"
+                        type="color"
+                        value={field.value ?? '#000000'}
+                        onChange={field.onChange}
+                      />
+                    </div>
+                  )}
+                />
+              </Field>
             </div>
-          </Field>
-        </FieldGroup>
-      ))}
-      <Button
-        className="w-full"
-        variant="secondary"
-        type="button"
-        onClick={() => {
-          append({ name: '', color: '#000000' });
+          </FormSection>
+        ))}
+        <Button
+          className="w-full space-x-2"
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={() => {
+            append({ name: '', color: '#000000' });
 
-          requestAnimationFrame(() => {
-            document.body.scrollIntoView({
-              behavior: 'smooth',
-              block: 'end',
+            requestAnimationFrame(() => {
+              document.body.scrollIntoView({
+                behavior: 'smooth',
+                block: 'end',
+              });
             });
-          });
-        }}
-      >
-        <PlusIcon /> 스킬 추가
-      </Button>
-      <Button
-        className="w-full sticky bottom-4 font-semibold"
-        size="lg"
-        type="submit"
-      >
-        저장하기
-      </Button>
-    </form>
+          }}
+        >
+          <PlusIcon size={14} /> 스킬 추가
+        </Button>
+        <Button
+          className="w-full sticky bottom-4 font-semibold"
+          size="lg"
+          type="submit"
+        >
+          저장하기
+        </Button>
+      </form>
+    </FormProvider>
   );
 }
