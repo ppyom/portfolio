@@ -10,13 +10,13 @@ import { FormDataType, schema } from '@/lib/validation/skill.schema';
 import { Button } from '@/components/ui-legacy/button';
 import type { Skill } from '@/types/skill';
 
-import SkillField from './skill-field';
+import { SkillField } from './skill-field';
 
 interface Props {
   defaultSkills?: Skill[];
 }
 
-export default function SkillEditForm({ defaultSkills = [] }: Props) {
+export function SkillEditForm({ defaultSkills = [] }: Props) {
   const form = useForm<FormDataType>({
     resolver: zodResolver(schema),
     defaultValues: {

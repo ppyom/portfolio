@@ -18,7 +18,7 @@ interface Props {
   skillMetadata: Record<string, SkillMetadata>;
 }
 
-export default function MetadataEditForm({ skillMetadata }: Props) {
+export function SkillMetadataEditForm({ skillMetadata }: Props) {
   const { register, handleSubmit, setValue, watch, control } = useForm({
     defaultValues: {
       items: Object.entries(skillMetadata).map(([name, value]) => ({

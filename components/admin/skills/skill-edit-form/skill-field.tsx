@@ -13,7 +13,7 @@ import FieldGroup from '@/components/common/form/field-group';
 import SortableItem from '@/components/common/sortable/item';
 import SortableList from '@/components/common/sortable/list';
 
-export default function SkillField() {
+export function SkillField() {
   const { control, register } = useFormContext();
   const { fields, append, remove, move } = useFieldArray({
     control,
