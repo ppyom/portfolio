@@ -2,7 +2,6 @@
 
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Trash2Icon } from 'lucide-react';
 
 import { updateSkillsAction } from '@/app/manage/skills/actions';
 import { notifyError } from '@/lib/utils/error';
@@ -14,6 +13,7 @@ import { FormSection } from '@/components/ui/form-section';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/components/ui/toast';
+import { DeleteButton, DeleteDialog } from '@/components/delete';
 import { FieldArray, StringArrayField } from '@/components/form';
 import type { Skill } from '@/types/skill';
 
@@ -67,15 +67,9 @@ export function SkillEditForm({ defaultSkills = [] }: Props) {
             >
               <div className="absolute top-6 right-6 flex gap-2">
                 <DragHandle />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  className="text-text-muted"
-                  onClick={remove}
-                >
-                  <Trash2Icon size={14} />
-                </Button>
+                <DeleteDialog onConfirm={remove}>
+                  <DeleteButton />
+                </DeleteDialog>
               </div>
               <div className="flex-1 space-y-4">
                 <Field required>

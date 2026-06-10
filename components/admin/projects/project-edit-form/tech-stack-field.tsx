@@ -1,14 +1,13 @@
 'use client';
 
 import { Controller, useFormContext } from 'react-hook-form';
-import { Trash2Icon } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
 import { Description } from '@/components/ui/description';
 import { DragHandle } from '@/components/ui/draggable-list';
 import { Field } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { DeleteButton, DeleteDialog } from '@/components/delete';
 import { FieldArray } from '@/components/form';
 
 export function TechStackField() {
@@ -59,15 +58,9 @@ export function TechStackField() {
               />
             </Field>
           </div>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            className="text-text-muted"
-            onClick={remove}
-          >
-            <Trash2Icon size={14} />
-          </Button>
+          <DeleteDialog onConfirm={remove}>
+            <DeleteButton />
+          </DeleteDialog>
         </div>
       )}
     </FieldArray>
