@@ -6,7 +6,7 @@ import {
   useFieldArray,
   useForm,
 } from 'react-hook-form';
-import { PlusIcon, Trash2Icon } from 'lucide-react';
+import { PlusIcon } from 'lucide-react';
 
 import { updateSkillMetadataAction } from '@/app/manage/skills/actions';
 import { skillErrorMessages } from '@/lib/constants/error-messages';
@@ -17,6 +17,7 @@ import { FormSection } from '@/components/ui/form-section';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { toast } from '@/components/ui/toast';
+import { DeleteButton, DeleteDialog } from '@/components/delete';
 import type { SkillMetadata } from '@/types/skill';
 
 import { createSkillMetadataDefaultValues } from './skill-metadata-edit-form.utils';
@@ -57,15 +58,9 @@ export function SkillMetadataEditForm({ skillMetadata }: Props) {
             className="relative"
             title={`Skill ${idx + 1}`}
           >
-            <Button
-              className="absolute top-6 right-6 text-text-muted"
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={() => remove(idx)}
-            >
-              <Trash2Icon size={14} />
-            </Button>
+            <DeleteDialog onConfirm={() => remove(idx)}>
+              <DeleteButton className="absolute top-6 right-6" />
+            </DeleteDialog>
             <div className="space-y-6">
               <Field required>
                 <Label required>스킬명</Label>

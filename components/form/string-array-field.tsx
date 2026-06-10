@@ -1,13 +1,12 @@
 'use client';
 
 import { useFormContext } from 'react-hook-form';
-import { Trash2Icon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
 import { DragHandle } from '@/components/ui/draggable-list';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { DeleteButton, DeleteDialog } from '@/components/delete';
 
 import { FieldArray } from './field-array';
 
@@ -34,15 +33,9 @@ export function StringArrayField({ name, placeholder, textarea }: Props) {
             placeholder={placeholder}
             {...register(`${name}.${index}.value`)}
           />
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            className={cn('text-text-muted', textarea && 'mt-2')}
-            onClick={remove}
-          >
-            <Trash2Icon size={14} />
-          </Button>
+          <DeleteDialog onConfirm={remove}>
+            <DeleteButton />
+          </DeleteDialog>
         </div>
       )}
     </FieldArray>
