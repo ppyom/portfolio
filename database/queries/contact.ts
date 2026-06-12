@@ -54,4 +54,4 @@ export const removeContactQuery = (client: DbClient = db) =>
   client
     .update(contactTable)
     .set({ deletedAt: sql`now()` })
-    .from(eq(contactTable.id, sql.placeholder('contactId')));
+    .where(eq(contactTable.id, sql.placeholder('contactId')));
