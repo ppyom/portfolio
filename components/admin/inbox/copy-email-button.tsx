@@ -9,7 +9,7 @@ interface Props {
   email: string;
 }
 
-export default function CopyEmailButton({ email }: Props) {
+export function CopyEmailButton({ email }: Props) {
   const handleCopy = async () => {
     await navigator.clipboard.writeText(email);
     toast.success('이메일주소가 복사되었습니다.');

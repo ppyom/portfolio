@@ -12,7 +12,7 @@ interface Props {
   currentStatus: InboxMessage['status'];
 }
 
-export default function CompleteButton({ id, currentStatus }: Props) {
+export function CompleteButton({ id, currentStatus }: Props) {
   const text =
     currentStatus === 'read' ? (
       <>

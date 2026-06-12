@@ -11,7 +11,7 @@ import {
   CardTitle,
 } from '@/components/ui-legacy/card';
 import Empty from '@/components/common/empty';
-import InboxMessageList from '@/components/admin/inbox/list';
+import { InboxMessageList } from '@/components/admin/inbox/inbox-message-list';
 
 export default async function DashboardInbox() {
   const messages = await getRecentMessages();

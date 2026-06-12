@@ -4,14 +4,15 @@ import { MoreVerticalIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { relativeDateString } from '@/lib/utils/date';
 import { Button } from '@/components/ui-legacy/button';
-import InboxDropdown from '@/components/admin/inbox/inbox-dropdown';
 import type { InboxMessage } from '@/types/inbox-message';
+
+import { InboxDropdown } from '../inbox-dropdown';
 
 interface Props {
   message: InboxMessage;
 }
 
-export default function InboxMessageItem({ message }: Props) {
+export function InboxMessageItem({ message }: Props) {
   return (
     <div
       className={cn(

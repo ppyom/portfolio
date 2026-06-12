@@ -18,7 +18,7 @@ interface Props {
   trigger: React.ReactNode;
 }
 
-export default function InboxDropdown({ messageId, trigger }: Props) {
+export function InboxDropdown({ messageId, trigger }: Props) {
   const router = useRouter();
 
   const handleDelete = async () => {

@@ -11,9 +11,9 @@ import { Button } from '@/components/ui-legacy/button';
 import { Separator } from '@/components/ui-legacy/separator';
 import PageTitle from '@/components/common/page-title';
 import SystemError from '@/components/common/system-error';
-import CompleteButton from '@/components/admin/inbox/complete-button';
-import CopyEmailButton from '@/components/admin/inbox/copy-email-button';
-import InboxDropdown from '@/components/admin/inbox/inbox-dropdown';
+import { CompleteButton } from '@/components/admin/inbox/complete-button';
+import { CopyEmailButton } from '@/components/admin/inbox/copy-email-button';
+import { InboxDropdown } from '@/components/admin/inbox/inbox-dropdown';
 
 interface Props {
   params: Promise<{ id: string }>;

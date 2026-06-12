@@ -1,11 +1,12 @@
-import InboxMessageItem from '@/components/admin/inbox/item';
 import type { InboxMessage } from '@/types/inbox-message';
+
+import { InboxMessageItem } from './inbox-message-item';
 
 interface Props {
   messages: InboxMessage[];
 }
 
-export default function InboxMessageList({ messages }: Props) {
+export function InboxMessageList({ messages }: Props) {
   return (
     <div className="space-y-2">
       {messages.map((message) => (
