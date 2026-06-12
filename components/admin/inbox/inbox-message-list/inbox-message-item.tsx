@@ -1,11 +1,9 @@
 'use client';
 
 import Link from 'next/link';
-import { MoreVerticalIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
 import { relativeDateString } from '@/lib/utils/date';
-import { Button } from '@/components/ui/button';
 import type { InboxMessage } from '@/types/inbox-message';
 
 import { InboxDropdown } from '../inbox-dropdown';
@@ -57,11 +55,7 @@ export function InboxMessageItem({ message }: Props) {
           messageId={message.id}
           currentStatus={message.status}
           email={message.email}
-        >
-          <Button className="text-text-muted" variant="ghost" size="sm">
-            <MoreVerticalIcon size={14} />
-          </Button>
-        </InboxDropdown>
+        />
       </div>
     </div>
   );

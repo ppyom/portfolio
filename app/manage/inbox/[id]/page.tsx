@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { MoreVerticalIcon } from 'lucide-react';
 
 import { updateStatusAction } from '@/app/manage/inbox/actions';
 import { getInboxMessage } from '@/services/contact';
@@ -8,7 +7,6 @@ import { commonErrorMessages } from '@/lib/constants/error-messages';
 import { inboxStatusLabel, inboxStatusVariant } from '@/lib/constants/inbox';
 import { fullDateString } from '@/lib/utils/date';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { InboxDropdown } from '@/components/admin/inbox/inbox-dropdown';
 import { SystemError } from '@/components/feedback/system-error';
 
@@ -65,11 +63,7 @@ export default async function Page({ params }: Props) {
             messageId={message.id}
             currentStatus={message.status}
             email={message.email}
-          >
-            <Button className="text-text-muted" variant="ghost" size="sm">
-              <MoreVerticalIcon size={14} />
-            </Button>
-          </InboxDropdown>
+          />
         </div>
       </div>
       <div className="px-4 whitespace-pre-wrap wrap-break-word leading-relaxed">

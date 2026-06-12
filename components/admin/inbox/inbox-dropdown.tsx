@@ -1,18 +1,19 @@
 'use client';
 
-import type { ButtonHTMLAttributes } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   CheckCircleIcon,
   CopyIcon,
   MailIcon,
   MailOpenIcon,
+  MoreVerticalIcon,
   Trash2Icon,
   Undo2Icon,
 } from 'lucide-react';
 
 import { deleteMessage, updateStatusAction } from '@/app/manage/inbox/actions';
 import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import {
   DropdownContent,
   DropdownItem,
@@ -28,7 +29,6 @@ interface Props {
   messageId: string;
   currentStatus: InboxMessage['status'];
   email: InboxMessage['email'];
-  children: React.ReactElement<ButtonHTMLAttributes<HTMLElement>>;
   className?: string;
 }
 
@@ -36,7 +36,6 @@ export function InboxDropdown({
   messageId,
   currentStatus,
   email,
-  children,
   className,
 }: Props) {
   const router = useRouter();
@@ -93,7 +92,11 @@ export function InboxDropdown({
 
   return (
     <DropdownMenu className={cn('self-start', className)}>
-      <DropdownTrigger>{children}</DropdownTrigger>
+      <DropdownTrigger>
+        <Button className="text-text-muted" variant="ghost" size="sm">
+          <MoreVerticalIcon size={14} />
+        </Button>
+      </DropdownTrigger>
       <DropdownContent align="end">
         {currentStatus !== 'completed' && (
           <DropdownItem
