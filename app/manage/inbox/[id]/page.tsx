@@ -1,14 +1,12 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
-import { updateStatusAction } from '@/app/manage/inbox/actions';
 import { getInboxMessage } from '@/services/contact';
-import { commonErrorMessages } from '@/lib/constants/error-messages';
 import { inboxStatusLabel, inboxStatusVariant } from '@/lib/constants/inbox';
 import { fullDateString } from '@/lib/utils/date';
 import { Badge } from '@/components/ui/badge';
 import { InboxDropdown } from '@/components/admin/inbox/inbox-dropdown';
-import { SystemError } from '@/components/feedback/system-error';
+import { MarkAsRead } from '@/components/admin/inbox/mark-as-read';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -27,18 +25,9 @@ export default async function Page({ params }: Props) {
     return notFound();
   }
 
-  let systemError: string | null = null;
-
-  if (message.status === 'unread') {
-    const result = await updateStatusAction(id, 'read');
-    if (!result.success) {
-      systemError = result.message || commonErrorMessages.unknown.default;
-    }
-  }
-
   return (
     <div className="mx-auto w-full max-w-5xl px-6 py-8 md:px-8 space-y-8">
-      <SystemError message={systemError} />
+      <MarkAsRead id={message.id} status={message.status} />
       <div className="relative flex flex-col gap-2 sm:flex-row sm:items-end justify-between">
         <div className="flex-1 space-y-2">
           <Badge variant={inboxStatusVariant[message.status]}>
