@@ -2,25 +2,84 @@
 
 import type { ButtonHTMLAttributes } from 'react';
 import { useRouter } from 'next/navigation';
-import { Trash2Icon } from 'lucide-react';
+import {
+  CheckCircleIcon,
+  CopyIcon,
+  MailIcon,
+  MailOpenIcon,
+  Trash2Icon,
+  Undo2Icon,
+} from 'lucide-react';
 
-import { deleteMessage } from '@/app/manage/inbox/actions';
+import { deleteMessage, updateStatusAction } from '@/app/manage/inbox/actions';
+import { cn } from '@/lib/utils';
 import {
   DropdownContent,
   DropdownItem,
   DropdownMenu,
+  DropdownSeparator,
   DropdownTrigger,
 } from '@/components/ui/dropdown-menu';
 import { toast } from '@/components/ui/toast';
 import { DeleteDialog } from '@/components/delete';
+import type { InboxMessage } from '@/types/inbox-message';
 
 interface Props {
   messageId: string;
+  currentStatus: InboxMessage['status'];
+  email: InboxMessage['email'];
   children: React.ReactElement<ButtonHTMLAttributes<HTMLElement>>;
+  className?: string;
 }
 
-export function InboxDropdown({ messageId, children }: Props) {
+export function InboxDropdown({
+  messageId,
+  currentStatus,
+  email,
+  children,
+  className,
+}: Props) {
   const router = useRouter();
+
+  const readAction =
+    currentStatus === 'read'
+      ? {
+          icon: MailIcon,
+          label: '안읽음 상태로 변경',
+          nextStatus: 'unread' as const,
+        }
+      : {
+          icon: MailOpenIcon,
+          label: '읽음 상태로 변경',
+          nextStatus: 'read' as const,
+        };
+  const completedAction =
+    currentStatus === 'read'
+      ? {
+          icon: CheckCircleIcon,
+          label: '완료로 표시',
+          nextStatus: 'completed' as const,
+        }
+      : {
+          icon: Undo2Icon,
+          label: '읽음 상태로 되돌리기',
+          nextStatus: 'read' as const,
+        };
+
+  const handleChangeStatus = async (status: InboxMessage['status']) => {
+    const result = await updateStatusAction(messageId, status);
+
+    if (result.success) {
+      toast.success('메시지 상태를 변경했습니다.');
+    } else {
+      toast.error(result.message);
+    }
+  };
+
+  const handleEmailCopy = async () => {
+    await navigator.clipboard.writeText(email);
+    toast.success('이메일주소가 복사되었습니다.');
+  };
 
   const handleDelete = async () => {
     const result = await deleteMessage(messageId);
@@ -33,9 +92,31 @@ export function InboxDropdown({ messageId, children }: Props) {
   };
 
   return (
-    <DropdownMenu className="self-start">
+    <DropdownMenu className={cn('self-start', className)}>
       <DropdownTrigger>{children}</DropdownTrigger>
       <DropdownContent align="end">
+        {currentStatus !== 'completed' && (
+          <DropdownItem
+            onClick={() => handleChangeStatus(readAction.nextStatus)}
+          >
+            <readAction.icon size={14} />
+            {readAction.label}
+          </DropdownItem>
+        )}
+        {currentStatus !== 'unread' && (
+          <DropdownItem
+            onClick={() => handleChangeStatus(completedAction.nextStatus)}
+          >
+            <completedAction.icon size={14} />
+            {completedAction.label}
+          </DropdownItem>
+        )}
+        <DropdownSeparator />
+        <DropdownItem onClick={handleEmailCopy}>
+          <CopyIcon size={14} />
+          이메일 주소 복사
+        </DropdownItem>
+        <DropdownSeparator />
         <DeleteDialog onConfirm={handleDelete}>
           <DropdownItem variant="destructive" preventClose>
             <Trash2Icon size={14} />

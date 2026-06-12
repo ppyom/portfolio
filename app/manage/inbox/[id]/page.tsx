@@ -5,15 +5,12 @@ import { MoreVerticalIcon } from 'lucide-react';
 import { updateStatusAction } from '@/app/manage/inbox/actions';
 import { getInboxMessage } from '@/services/contact';
 import { commonErrorMessages } from '@/lib/constants/error-messages';
-import { cn } from '@/lib/utils';
+import { inboxStatusLabel, inboxStatusVariant } from '@/lib/constants/inbox';
 import { fullDateString } from '@/lib/utils/date';
-import { Button } from '@/components/ui-legacy/button';
-import { Separator } from '@/components/ui-legacy/separator';
-import PageTitle from '@/components/common/page-title';
-import SystemError from '@/components/common/system-error';
-import { CompleteButton } from '@/components/admin/inbox/complete-button';
-import { CopyEmailButton } from '@/components/admin/inbox/copy-email-button';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { InboxDropdown } from '@/components/admin/inbox/inbox-dropdown';
+import { SystemError } from '@/components/feedback/system-error';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -42,59 +39,42 @@ export default async function Page({ params }: Props) {
   }
 
   return (
-    <>
-      <div className="flex flex-col gap-2 sm:flex-row sm:items-end justify-between">
-        <PageTitle align="left">받은 메시지 상세</PageTitle>
-        <div
-          className={cn(
-            'fixed bottom-4 left-4 right-4 grid grid-cols-2 gap-2',
-            'sm:static sm:grid-cols-1',
-          )}
-        >
-          <CompleteButton id={id} currentStatus={message.status} />
-          <CopyEmailButton email={message.email} />
-        </div>
-      </div>
+    <div className="mx-auto w-full max-w-5xl px-6 py-8 md:px-8 space-y-8">
       <SystemError message={systemError} />
-      <div className="space-y-2 px-4 relative">
-        <p className="text-lg font-bold">{message.title}</p>
-        <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
-          <div className="flex flex-col">
-            <p className="font-medium">
-              {message.name}
-              {message.company && (
-                <span className="text-muted-foreground font-normal">
-                  {' /'}
-                  {message.company}
-                </span>
-              )}
-            </p>
-
-            <p className="text-sm text-muted-foreground">({message.email})</p>
-          </div>
-
+      <div className="relative flex flex-col gap-2 sm:flex-row sm:items-end justify-between">
+        <div className="flex-1 space-y-2">
+          <Badge variant={inboxStatusVariant[message.status]}>
+            {inboxStatusLabel[message.status]}
+          </Badge>
+          <p className="text-2xl font-bold">{message.title}</p>
+          <p className="font-medium">
+            {message.name}
+            {message.company && (
+              <span className="text-muted-foreground font-normal">
+                {' /'}
+                {message.company}
+              </span>
+            )}
+          </p>
+          <p className="text-sm text-muted-foreground">({message.email})</p>
           <p className="text-xs text-muted-foreground/70">
             {fullDateString(message.createdAt)}
           </p>
-
           <InboxDropdown
+            className="absolute top-0 right-0"
             messageId={message.id}
-            trigger={
-              <Button
-                className="absolute top-0 right-0 text-muted-foreground"
-                variant="ghost"
-                size="sm"
-              >
-                <MoreVerticalIcon />
-              </Button>
-            }
-          />
+            currentStatus={message.status}
+            email={message.email}
+          >
+            <Button className="text-text-muted" variant="ghost" size="sm">
+              <MoreVerticalIcon size={14} />
+            </Button>
+          </InboxDropdown>
         </div>
       </div>
-      <Separator />
-      <div className="px-4 whitespace-pre-wrap break-words leading-relaxed">
+      <div className="px-4 whitespace-pre-wrap wrap-break-word leading-relaxed">
         {message.content}
       </div>
-    </>
+    </div>
   );
 }

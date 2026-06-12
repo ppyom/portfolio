@@ -53,7 +53,11 @@ export function InboxMessageItem({ message }: Props) {
             {message.content}
           </p>
         </Link>
-        <InboxDropdown messageId={message.id}>
+        <InboxDropdown
+          messageId={message.id}
+          currentStatus={message.status}
+          email={message.email}
+        >
           <Button className="text-text-muted" variant="ghost" size="sm">
             <MoreVerticalIcon size={14} />
           </Button>
