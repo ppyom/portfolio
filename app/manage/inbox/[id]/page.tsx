@@ -46,16 +46,16 @@ export default async function Page({ params }: Props) {
           </Badge>
           <p className="text-2xl font-bold">{message.title}</p>
           <p className="font-medium">
-            {message.name}
+            <span className="text-text-secondary">{message.name}</span>
             {message.company && (
-              <span className="text-muted-foreground font-normal">
+              <span className="text-text-muted font-normal">
                 {' /'}
                 {message.company}
               </span>
             )}
           </p>
-          <p className="text-sm text-muted-foreground">({message.email})</p>
-          <p className="text-xs text-muted-foreground/70">
+          <p className="text-sm text-text-muted">({message.email})</p>
+          <p className="text-xs text-text-muted/70">
             {fullDateString(message.createdAt)}
           </p>
           <InboxDropdown
