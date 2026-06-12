@@ -1,3 +1,5 @@
+'use client';
+
 import type { InboxMessage } from '@/types/inbox-message';
 
 import { InboxMessageItem } from './inbox-message-item';
