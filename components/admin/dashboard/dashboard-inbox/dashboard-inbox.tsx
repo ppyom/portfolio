@@ -13,7 +13,7 @@ export async function DashboardInbox() {
       title="받은 메시지"
       action={
         <Button
-          className="text-brand-primary font-bold"
+          className="text-text-secondary font-bold"
           variant="ghost"
           size="sm"
         >
