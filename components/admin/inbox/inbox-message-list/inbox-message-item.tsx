@@ -16,7 +16,7 @@ interface Props {
 
 export function InboxMessageItem({ message }: Props) {
   return (
-    <div className="flex flex-col rounded-lg border p-6 hover:bg-surface-secondary/50 cursor-pointer relative">
+    <div className="flex flex-col rounded-lg p-6 bg-surface-elevated hover:bg-surface-elevated/80 cursor-pointer relative">
       <Link href={`/manage/inbox/${message.id}`} className="flex-1 min-w-0">
         <div className="flex justify-between">
           <div className="min-w-0 space-y-1">
