@@ -1,9 +1,9 @@
 import { getDashboardOverview } from '@/services/dashboard';
 import { relativeDateString } from '@/lib/utils/date';
 
-import StatCard from './stat-card';
+import { StatCard } from './stat-card';
 
-export default async function DashboardOverview() {
+export async function DashboardOverview() {
   const [
     totalProjectCount,
     unreadMessageCount,

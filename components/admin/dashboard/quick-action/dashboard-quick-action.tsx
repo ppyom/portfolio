@@ -7,9 +7,9 @@ import {
   CardTitle,
 } from '@/components/ui-legacy/card';
 
-import ActionItem from './action-item';
+import { ActionItem } from './action-item';
 
-export default function DashboardQuickActions() {
+export function DashboardQuickActions() {
   return (
     <Card>
       <CardHeader>

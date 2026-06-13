@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { InboxIcon } from 'lucide-react';
 
 import { getRecentMessages } from '@/services/contact';
-import { Button } from '@/components/ui-legacy/button';
+import { Button } from '@/components/ui/button';
 import {
   Card,
   CardAction,
@@ -11,16 +11,21 @@ import {
   CardTitle,
 } from '@/components/ui-legacy/card';
 import Empty from '@/components/common/empty';
-import { InboxMessageList } from '@/components/admin/inbox/inbox-message-list';
 
-export default async function DashboardInbox() {
+import { InboxMessageList } from '../../inbox/inbox-message-list';
+
+export async function DashboardInbox() {
   const messages = await getRecentMessages();
   return (
     <Card>
       <CardHeader>
         <CardTitle className="text-muted-foreground">받은 메시지</CardTitle>
         <CardAction>
-          <Button className="text-xs" variant="link" size="sm" asChild>
+          <Button
+            className="text-brand-primary font-bold"
+            variant="ghost"
+            size="sm"
+          >
             <Link href="/manage/inbox">더보기</Link>
           </Button>
         </CardAction>

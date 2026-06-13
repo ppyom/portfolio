@@ -1,7 +1,9 @@
 import PageTitle from '@/components/common/page-title';
-import DashboardInbox from '@/components/admin/dashboard/inbox';
-import DashboardOverview from '@/components/admin/dashboard/overview';
-import DashboardQuickActions from '@/components/admin/dashboard/quick-action';
+import {
+  DashboardInbox,
+  DashboardOverview,
+  DashboardQuickActions,
+} from '@/components/admin/dashboard';
 
 export default function Page() {
   return (

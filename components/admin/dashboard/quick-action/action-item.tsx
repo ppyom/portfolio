@@ -7,7 +7,7 @@ interface Props {
   href: string;
 }
 
-export default function ActionItem({ icon, name, href }: Props) {
+export function ActionItem({ icon, name, href }: Props) {
   const IconComponent = icon;
 
   return (
