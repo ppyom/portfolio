@@ -9,7 +9,7 @@ export function DashboardQuickActions() {
     <DashboardSection title="Quick Action" className="flex flex-col gap-2">
       <QuickActionItem
         icon={BookIcon}
-        name="새로운 프로젝트 추가"
+        name="프로젝트 추가"
         href="/manage/projects/new"
       />
       <QuickActionItem
