@@ -12,7 +12,7 @@ export async function DashboardOverview() {
   ] = await getDashboardOverview();
 
   return (
-    <section className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+    <section className="grid grid-cols-2 gap-6 lg:grid-cols-4">
       <DashboardSection
         title="전체 프로젝트"
         className="text-2xl font-bold text-right"
