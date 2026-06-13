@@ -1,3 +1,3 @@
 export * from './dashboard-inbox';
-export * from './overview';
+export * from './dashboard-overview';
 export * from './quick-action';
