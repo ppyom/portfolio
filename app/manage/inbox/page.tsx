@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
+import { InboxIcon } from 'lucide-react';
 
 import { getInboxMessages } from '@/services/contact';
 import { InboxMessageList } from '@/components/admin/inbox/inbox-message-list';
+import { Empty } from '@/components/feedback/empty';
 
 export const metadata: Metadata = {
   title: '받은 메시지',
@@ -18,6 +20,13 @@ export default async function Page() {
           사용자가 보낸 문의 메시지를 확인하고 관리할 수 있습니다.
         </p>
       </div>
+      {messages.length === 0 && (
+        <Empty
+          icon={InboxIcon}
+          title="받은 메시지가 없습니다."
+          description="아직 도착한 문의가 없습니다."
+        />
+      )}
       {messages.length > 0 && <InboxMessageList messages={messages} />}
     </div>
   );
