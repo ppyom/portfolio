@@ -2,19 +2,32 @@
 
 import Link from 'next/link';
 import type { Session } from 'next-auth';
-import { LayoutDashboardIcon } from 'lucide-react';
+import { signOut } from 'next-auth/react';
+import { LayoutDashboardIcon, LogOutIcon } from 'lucide-react';
 
+import { useIsMobile } from '@/hooks/use-mobile';
+import { Avatar } from '@/components/ui/avatar';
+import {
+  DropdownContent,
+  DropdownItem,
+  DropdownMenu,
+  DropdownSeparator,
+  DropdownTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Button } from '@/components/ui-legacy/button';
-import { DropdownMenuItem } from '@/components/ui-legacy/dropdown-menu';
-import UserAvatar from '@/components/common/user/user-avatar';
-import UserDropdown from '@/components/common/user/user-dropdown';
 
 interface Props {
   session: Session | null;
 }
 
 export function UserMenu({ session }: Props) {
-  if (!session) {
+  const isMobile = useIsMobile();
+
+  const handleLogout = () => {
+    signOut();
+  };
+
+  if (!session?.user) {
     return (
       <Button size="sm" asChild>
         <Link href="/login">로그인</Link>
@@ -23,25 +36,25 @@ export function UserMenu({ session }: Props) {
   }
 
   return (
-    <UserDropdown
-      align="start"
-      trigger={
-        <button
-          className="flex gap-2 outline-none cursor-pointer"
-          title="사용자 메뉴 열기"
-        >
-          <UserAvatar session={session} hideUsername />
-        </button>
-      }
-    >
-      {session.user.admin && (
-        <DropdownMenuItem asChild>
-          <Link href="/manage">
-            <LayoutDashboardIcon />
+    <DropdownMenu>
+      <DropdownTrigger>
+        <Button variant="ghost" className="px-2">
+          <Avatar size="sm" fallback={session.user.name} />
+        </Button>
+      </DropdownTrigger>
+      <DropdownContent side="bottom" align={isMobile ? 'start' : 'end'}>
+        <DropdownItem>
+          <Link className="flex items-center gap-2" href="/manage">
+            <LayoutDashboardIcon size={14} />
             포트폴리오 관리자
           </Link>
-        </DropdownMenuItem>
-      )}
-    </UserDropdown>
+        </DropdownItem>
+        <DropdownSeparator />
+        <DropdownItem onClick={handleLogout}>
+          <LogOutIcon size={14} />
+          로그아웃
+        </DropdownItem>
+      </DropdownContent>
+    </DropdownMenu>
   );
 }
