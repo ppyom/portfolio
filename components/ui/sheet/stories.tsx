@@ -11,7 +11,7 @@ import { SheetTrigger } from './sheet-trigger';
 const meta: Meta<typeof Sheet> = {
   title: 'ui/sheet',
   component: Sheet,
-  tags: [],
+  tags: ['!dev'],
   argTypes: {
     defaultOpen: {
       control: 'boolean',
