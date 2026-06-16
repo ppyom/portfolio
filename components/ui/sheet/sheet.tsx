@@ -25,6 +25,18 @@ export function Sheet({
     onOpenChange?.(next);
   };
 
+  useEffect(() => {
+    if (!currentOpen) return;
+
+    const original = document.body.style.overflow;
+
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = original;
+    };
+  }, [currentOpen]);
+
   return (
     <SheetContext.Provider
       value={{
