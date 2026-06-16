@@ -53,7 +53,9 @@ export function MobileHeaderMenu({ session }: Props) {
             </SheetClose>
           </div>
         </SheetHeader>
-        <HeaderNavigation />
+        <nav className="flex flex-col items-center gap-6 text-sm font-medium">
+          <HeaderNavigation />
+        </nav>
       </SheetContent>
     </Sheet>
   );
