@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import SheetContext from './sheet-context';
 
@@ -24,6 +24,22 @@ export function Sheet({
     }
     onOpenChange?.(next);
   };
+
+  useEffect(() => {
+    if (!currentOpen) return;
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleEscape);
+
+    return () => {
+      window.removeEventListener('keydown', handleEscape);
+    };
+  }, [currentOpen]);
 
   useEffect(() => {
     if (!currentOpen) return;

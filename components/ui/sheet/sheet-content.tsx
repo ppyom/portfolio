@@ -34,18 +34,6 @@ const sheetVariants = cva(
 export function SheetContent({ children, className, side }: Props) {
   const { open, setOpen } = useSheet();
 
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setOpen(false);
-      }
-    };
-    window.addEventListener('keydown', handleEscape);
-    return () => {
-      window.removeEventListener('keydown', handleEscape);
-    };
-  }, [setOpen]);
-
   if (!open) return null;
 
   return (
