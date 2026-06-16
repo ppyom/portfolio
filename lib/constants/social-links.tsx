@@ -20,4 +20,4 @@ export const socialLinks = [
     ),
   },
   { type: 'mail', name: 'Email', href: 'ouob77@kakao.com', icon: MailIcon },
-];
+] as const;
