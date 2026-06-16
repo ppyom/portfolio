@@ -16,14 +16,14 @@ import {
 } from '@/components/ui-legacy/sheet';
 import { ThemeToggle } from '@/components/common/theme/theme-toggle';
 
-import HeaderNavigation from './header-navigation';
-import UserMenu from './user-menu';
+import { HeaderNavigation } from './header-navigation';
+import { UserMenu } from './user-menu';
 
 interface Props {
   session: Session | null;
 }
 
-export default function MobileHeaderMenu({ session }: Props) {
+export function MobileHeaderMenu({ session }: Props) {
   const pathname = usePathname();
 
   return (

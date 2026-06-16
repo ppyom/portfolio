@@ -9,7 +9,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function HeaderWrapper({ children }: Props) {
+export function HeaderWrapper({ children }: Props) {
   const pathname = usePathname();
   const isIndexPage = pathname === '/';
   const { visible } = useScrollVisibility({ enable: isIndexPage });

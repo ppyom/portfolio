@@ -1,4 +1,4 @@
-import Navigation from '@/components/application/navigation';
+import { Navigation } from '@/components/application/layout';
 
 interface Props {
   children: React.ReactNode;

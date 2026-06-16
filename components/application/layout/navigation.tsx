@@ -8,7 +8,7 @@ import { useScrollSpy } from '@/hooks/use-scroll-spy';
 import { useScrollVisibility } from '@/hooks/use-scroll-visibility';
 import { Button } from '@/components/ui-legacy/button';
 
-export default function Navigation() {
+export function Navigation() {
   const activeId = useScrollSpy(sections.map((s) => s.id));
   const { visible } = useScrollVisibility();
 

@@ -4,12 +4,12 @@ import authOptions from '@/lib/auth-options';
 import Logo from '@/components/common/logo';
 import { ThemeToggle } from '@/components/common/theme/theme-toggle';
 
-import HeaderNavigation from './header-navigation';
-import MobileHeaderMenu from './mobile-header-menu';
-import UserMenu from './user-menu';
-import HeaderWrapper from './wrapper';
+import { HeaderNavigation } from './header-navigation';
+import { HeaderWrapper } from './header-wrapper';
+import { MobileHeaderMenu } from './mobile-header-menu';
+import { UserMenu } from './user-menu';
 
-export default async function Header() {
+export async function Header() {
   const session = await getServerSession(authOptions);
 
   return (

@@ -13,7 +13,7 @@ interface Props {
   session: Session | null;
 }
 
-export default function UserMenu({ session }: Props) {
+export function UserMenu({ session }: Props) {
   if (!session) {
     return (
       <Button size="sm" asChild>
