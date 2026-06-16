@@ -12,14 +12,17 @@ interface Props
     VariantProps<typeof sheetVariants> {}
 
 const sheetVariants = cva(
-  ['fixed z-50 bg-background shadow-lg', 'transition-transform duration-300'],
+  [
+    'fixed z-50 bg-background shadow-lg',
+    'transition-transform animate-in duration-200',
+  ],
   {
     variants: {
       side: {
-        top: 'top-0 left-0 right-0',
-        bottom: 'bottom-0 left-0 right-0',
-        left: 'left-0 top-0 h-full w-80',
-        right: 'right-0 top-0 h-full w-80',
+        top: 'top-0 left-0 right-0 slide-in-from-top',
+        bottom: 'bottom-0 left-0 right-0 slide-in-from-bottom',
+        left: 'left-0 top-0 h-full w-80 slide-in-from-left',
+        right: 'right-0 top-0 h-full w-80 slide-in-from-right',
       },
     },
     defaultVariants: {
