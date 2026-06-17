@@ -1,8 +1,8 @@
 import { getProfile } from '@/services/profile';
 import { getSkills } from '@/services/skills';
 import { AchievementSection } from '@/components/application/about/achievement-section';
-import { ProfileHistorySection } from '@/components/application/about/profile-history-section';
-import { ProfileIntroduction } from '@/components/application/about/profile-introduction';
+import { HistorySection } from '@/components/application/about/history-section';
+import { IntroductionSection } from '@/components/application/about/introduction-section';
 import { TechStacks } from '@/components/application/skills/stacks';
 import PageTitle from '@/components/legacy/page-title';
 
@@ -19,8 +19,8 @@ export default async function Page() {
       <PageTitle align="left">About</PageTitle>
       {profile && (
         <>
-          <ProfileIntroduction profile={profile} />
-          <ProfileHistorySection title="👩‍💻 Profile History" profile={profile} />
+          <IntroductionSection profile={profile} />
+          <HistorySection title="👩‍💻 Profile History" profile={profile} />
           <AchievementSection title="📖 Learning" items={learnings} />
           <AchievementSection
             title="🏅 Certifications"
