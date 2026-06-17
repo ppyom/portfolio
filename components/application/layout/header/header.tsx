@@ -1,7 +1,7 @@
 import { getServerSession } from 'next-auth';
 
 import authOptions from '@/lib/auth-options';
-import { ThemeToggle } from '@/components/common/theme/theme-toggle';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
 
 import { HeaderNavigation } from './header-navigation';
 import { HeaderWrapper } from './header-wrapper';

@@ -11,7 +11,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { ThemeToggle } from '@/components/common/theme/theme-toggle';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
 
 import { HeaderNavigation } from './header-navigation';
 import { UserMenu } from './user-menu';
