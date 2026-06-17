@@ -19,7 +19,7 @@ export function DialogContent({
       >
         <div
           className={cn(
-            'w-full max-w-lg rounded-lg border bg-background p-6 shadow-xl',
+            'w-full max-w-lg rounded-lg border bg-surface-primary p-6 shadow-xl',
             className,
           )}
           onClick={(e) => e.stopPropagation()}

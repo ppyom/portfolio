@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@import "../theme/legacy.css";
-
 @import "../theme/colors.css";
 @import "../theme/typography.css";
 @import "../theme/spacing.css";
@@ -12,12 +10,12 @@
 
 @layer base {
   * {
-    @apply font-sans;
+    @apply font-sans border-border;
   }
   html {
     @apply scroll-smooth;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-surface-primary text-text-primary;
   }
 }

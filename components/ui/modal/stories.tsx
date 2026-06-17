@@ -41,7 +41,7 @@ export const Default: Story = {
         <ModalContent>
           <div className="space-y-4">
             <h2 className="text-lg font-semibold">기본 모달</h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-text-muted">
               가장 단순한 Modal 구조입니다.
             </p>
             <ModalClose>
