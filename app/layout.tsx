@@ -5,7 +5,7 @@ import { config } from '@/lib/config';
 import { cn } from '@/lib/utils';
 import { ToastProvider } from '@/components/ui/toast';
 import { Toaster } from '@/components/ui-legacy/sonner';
-import SkillMetadataProvider from '@/components/provider/skill-metadata-provider';
+import { SkillMetadataProvider } from '@/components/provider/skill-metadata';
 import ThemeProvider from '@/components/provider/theme-provider';
 import { donggle, pretendard, suite } from '@/theme/fonts';
 

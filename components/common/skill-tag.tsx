@@ -2,7 +2,7 @@
 
 import { dynamicTextColor } from '@/lib/utils/color';
 import Tag from '@/components/common/tag';
-import { useSkillMetadataContext } from '@/components/provider/skill-metadata-provider';
+import { useSkillMetadataContext } from '@/components/provider/skill-metadata';
 
 interface Props {
   name: string;
