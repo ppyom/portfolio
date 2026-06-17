@@ -20,13 +20,13 @@ export default async function Page() {
       {profile && (
         <>
           <IntroductionSection profile={profile} />
+          <TechStacks title="✨ Tech Stacks" skills={skills} />
           <HistorySection title="👩‍💻 Profile History" profile={profile} />
           <AchievementSection title="📖 Learning" items={learnings} />
           <AchievementSection
             title="🏅 Certifications"
             items={certifications}
           />
-          <TechStacks title="✨ Tech Stacks" skills={skills} />
         </>
       )}
     </main>
