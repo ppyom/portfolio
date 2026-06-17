@@ -6,7 +6,7 @@ import { SectionTitle } from './section-title';
 const meta: Meta<typeof Section> = {
   title: 'ui/section',
   component: Section,
-  tags: [],
+  tags: ['!dev'],
 };
 
 export default meta;
