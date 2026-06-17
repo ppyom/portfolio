@@ -4,7 +4,7 @@ interface Props {
   profile: Profile;
 }
 
-export function IntroductionSection({ profile }: Props) {
+export function Introduction({ profile }: Props) {
   return (
     <div className="space-y-6 text-text-secondary">
       {profile.introduce?.map((content, idx) => (

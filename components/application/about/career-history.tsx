@@ -2,19 +2,13 @@ import type { Profile } from '@/types/profile';
 
 interface Props {
   profile: Profile;
-  title?: string;
 }
 
-export function HistorySection({ profile, title }: Props) {
+export function CareerHistory({ profile }: Props) {
   return (
-    <div className="space-y-6">
-      {title && (
-        <p className="text-xl md:text-2xl font-bold text-text-primary">
-          {title}
-        </p>
-      )}
+    <>
       <div className="bg-background rounded-xl p-6 border border-border glow-hover">
-        <h3 className="text-primary font-bold text-lg mb-2">Experience</h3>
+        <p className="text-primary font-bold text-lg mb-2">Experience</p>
         <ul className="space-y-1 text-foreground/70">
           {profile.experience?.map((content, idx) => (
             <li key={`experience_${idx}`}>
@@ -39,7 +33,7 @@ export function HistorySection({ profile, title }: Props) {
         </ul>
       </div>
       <div className="bg-background rounded-xl p-6 border border-border glow-hover">
-        <h3 className="text-primary font-bold text-lg mb-2">Education</h3>
+        <p className="text-primary font-bold text-lg mb-2">Education</p>
         <ul className="space-y-1 text-foreground/70">
           {profile.education?.map((content, idx) => (
             <li key={`education_${idx}`}>
@@ -54,6 +48,6 @@ export function HistorySection({ profile, title }: Props) {
           ))}
         </ul>
       </div>
-    </div>
+    </>
   );
 }

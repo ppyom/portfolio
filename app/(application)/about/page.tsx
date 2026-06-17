@@ -1,8 +1,9 @@
 import { getProfile } from '@/services/profile';
 import { getSkills } from '@/services/skills';
-import { AchievementSection } from '@/components/application/about/achievement-section';
-import { HistorySection } from '@/components/application/about/history-section';
-import { IntroductionSection } from '@/components/application/about/introduction-section';
+import { Section, SectionTitle } from '@/components/ui/section';
+import { Achievement } from '@/components/application/about/achievement';
+import { CareerHistory } from '@/components/application/about/career-history';
+import { Introduction } from '@/components/application/about/introduction';
 import PageTitle from '@/components/legacy/page-title';
 import { TechStacks } from '@/components/skill/tech-stacks';
 
@@ -19,14 +20,25 @@ export default async function Page() {
       <PageTitle align="left">About</PageTitle>
       {profile && (
         <>
-          <IntroductionSection profile={profile} />
-          <TechStacks skills={skills} />
-          <HistorySection title="👩‍💻 Profile History" profile={profile} />
-          <AchievementSection title="📖 Learning" items={learnings} />
-          <AchievementSection
-            title="🏅 Certifications"
-            items={certifications}
-          />
+          <Section>
+            <Introduction profile={profile} />
+          </Section>
+          <Section>
+            <SectionTitle>✨ Tech Stacks</SectionTitle>
+            <TechStacks skills={skills} />
+          </Section>
+          <Section>
+            <SectionTitle>👩‍💻 Profile History</SectionTitle>
+            <CareerHistory profile={profile} />
+          </Section>
+          <Section>
+            <SectionTitle>📖 Learning</SectionTitle>
+            <Achievement items={learnings} />
+          </Section>
+          <Section>
+            <SectionTitle>🏅 Certifications</SectionTitle>
+            <Achievement items={certifications} />
+          </Section>
         </>
       )}
     </main>
