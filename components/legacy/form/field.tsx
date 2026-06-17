@@ -8,6 +8,9 @@ interface Props {
   required?: boolean;
 }
 
+/**
+ * @deprecated
+ */
 export default function Field({ children, label, className, required }: Props) {
   return (
     <div className={cn('space-y-2', className)}>

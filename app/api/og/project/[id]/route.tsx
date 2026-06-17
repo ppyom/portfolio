@@ -1,11 +1,11 @@
+import type { CSSProperties } from 'react';
 import { ImageResponse } from 'next/og';
-import type { Properties } from 'csstype';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { getProject } from '@/services/project';
 
-const containerStyle: Properties = {
+const containerStyle: CSSProperties = {
   width: '100%',
   height: '100%',
   display: 'flex',

@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { getServerSession } from 'next-auth';
 
 import authOptions from '@/lib/auth-options';
-import { ThemeToggle } from '@/components/common/theme/theme-toggle';
 import {
   AdminBreadcrumb,
   AdminHeader,
@@ -13,6 +12,7 @@ import {
   AdminSidebarTrigger,
   AdminUserMenu,
 } from '@/components/admin/layout';
+import { ThemeToggle } from '@/components/theme/theme-toggle';
 
 interface Props {
   children: React.ReactNode;

@@ -2,7 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import BaseModal from '@/components/common/base-modal';
+import BaseModal from '@/components/legacy/base-modal';
 import type { Project } from '@/types/project';
 
 import ProjectContents from './project-detail';

@@ -1,4 +1,4 @@
-import SectionTitle from '@/components/common/section-title';
+import SectionTitle from '@/components/legacy/section-title';
 import type { Profile } from '@/types/profile';
 
 interface Props {

@@ -8,7 +8,7 @@ import { authErrorMessages } from '@/lib/constants/error-messages';
 import { isValidEmail } from '@/lib/utils/email';
 import { Button } from '@/components/ui-legacy/button';
 import { Input } from '@/components/ui-legacy/input';
-import PageTitle from '@/components/common/page-title';
+import PageTitle from '@/components/legacy/page-title';
 
 export default function LoginForm() {
   const router = useRouter();
