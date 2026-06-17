@@ -24,7 +24,7 @@ export function ModalContent({
           className={cn(
             'relative z-10 w-full max-w-3xl',
             'h-full md:h-[calc(100vh-4rem)] overflow-y-auto',
-            'md:rounded-lg bg-background p-6 shadow-lg',
+            'md:rounded-lg bg-surface-elevated p-6 shadow-lg',
             className,
           )}
           aria-modal="true"
