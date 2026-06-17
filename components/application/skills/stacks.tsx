@@ -1,5 +1,4 @@
 import { cn } from '@/lib/utils';
-import SectionTitle from '@/components/legacy/section-title';
 import SkillTag from '@/components/skill/skill-tag';
 import type { Skill } from '@/types/skill';
 
@@ -11,7 +10,11 @@ interface Props {
 export function TechStacks({ skills, title }: Props) {
   return (
     <div className="space-y-6">
-      {title && <SectionTitle>{title}</SectionTitle>}
+      {title && (
+        <p className="text-xl md:text-2xl font-bold text-text-primary">
+          {title}
+        </p>
+      )}
       <div className="grid md:grid-cols-2 gap-8">
         {skills.map((skillGroup) => (
           <div

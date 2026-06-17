@@ -1,4 +1,3 @@
-import SectionTitle from '@/components/legacy/section-title';
 import type { Profile } from '@/types/profile';
 
 interface Props {
@@ -9,7 +8,11 @@ interface Props {
 export function HistorySection({ profile, title }: Props) {
   return (
     <div className="space-y-6">
-      {title && <SectionTitle>{title}</SectionTitle>}
+      {title && (
+        <p className="text-xl md:text-2xl font-bold text-text-primary">
+          {title}
+        </p>
+      )}
       <div className="bg-background rounded-xl p-6 border border-border glow-hover">
         <h3 className="text-primary font-bold text-lg mb-2">Experience</h3>
         <ul className="space-y-1 text-foreground/70">
