@@ -6,7 +6,7 @@ interface Props {
   title?: string;
 }
 
-export default function ProfileHistorySection({ profile, title }: Props) {
+export function ProfileHistorySection({ profile, title }: Props) {
   return (
     <div className="space-y-6">
       {title && <SectionTitle>{title}</SectionTitle>}

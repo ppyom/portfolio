@@ -1,5 +1,5 @@
 import { getSkills } from '@/services/skills';
-import TechStacks from '@/components/application/skills/stacks';
+import { TechStacks } from '@/components/application/skills/stacks';
 import PageTitle from '@/components/legacy/page-title';
 
 export default async function Page() {

@@ -4,7 +4,7 @@ interface Props {
   profile: Profile;
 }
 
-export default function ProfileIntroduction({ profile }: Props) {
+export function ProfileIntroduction({ profile }: Props) {
   return (
     <div className="space-y-6 text-foreground/80">
       {profile.introduce?.map((content, idx) => (

@@ -1,17 +1,16 @@
-import SectionTitle from '@/components/legacy/section-title';
 import type { Achievement } from '@/types/achievement';
 
-import AchievementCard from './achievement-card';
+import { AchievementCard } from './achievement-card';
 
 interface Props {
   title: string;
   items: Achievement[];
 }
 
-export default function AchievementSection({ title, items }: Props) {
+export function AchievementSection({ title, items }: Props) {
   return (
     <div className="space-y-6">
-      <SectionTitle>{title}</SectionTitle>
+      <p className="text-xl md:text-2xl font-bold text-text-primary">{title}</p>
       <div className="grid md:grid-cols-2 gap-6">
         {items.map((item, idx) => (
           <AchievementCard key={`learnings_${idx}`} {...item} />

@@ -8,7 +8,7 @@ interface Props {
   title?: string;
 }
 
-export default function TechStacks({ skills, title }: Props) {
+export function TechStacks({ skills, title }: Props) {
   return (
     <div className="space-y-6">
       {title && <SectionTitle>{title}</SectionTitle>}

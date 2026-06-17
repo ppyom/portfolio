@@ -2,7 +2,7 @@ import type { Achievement } from '@/types/achievement';
 
 type Props = Omit<Achievement, 'type'>;
 
-export default function AchievementCard({ name, description, date }: Props) {
+export function AchievementCard({ name, description, date }: Props) {
   return (
     <div className="bg-card rounded-xl p-6 pb-5 border border-border glow-hover space-y-3">
       <div className="flex items-start justify-between">

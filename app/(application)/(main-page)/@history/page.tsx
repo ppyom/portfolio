@@ -2,7 +2,7 @@ import {
   getCertificationsQuery,
   getLearningsQuery,
 } from '@/database/queries/history';
-import AchievementSection from '@/components/application/about/achievement-section';
+import { AchievementSection } from '@/components/application/about/achievement-section';
 import PageTitle from '@/components/legacy/page-title';
 
 export default async function Page() {

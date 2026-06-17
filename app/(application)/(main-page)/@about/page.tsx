@@ -1,5 +1,5 @@
 import { getProfile } from '@/services/profile';
-import ProfileHistorySection from '@/components/application/about/profile-history-section';
+import { ProfileHistorySection } from '@/components/application/about/profile-history-section';
 import PageTitle from '@/components/legacy/page-title';
 
 export default async function Page() {

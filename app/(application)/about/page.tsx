@@ -1,9 +1,9 @@
 import { getProfile } from '@/services/profile';
 import { getSkills } from '@/services/skills';
-import AchievementSection from '@/components/application/about/achievement-section';
-import ProfileHistorySection from '@/components/application/about/profile-history-section';
-import ProfileIntroduction from '@/components/application/about/profile-introduction';
-import TechStacks from '@/components/application/skills/stacks';
+import { AchievementSection } from '@/components/application/about/achievement-section';
+import { ProfileHistorySection } from '@/components/application/about/profile-history-section';
+import { ProfileIntroduction } from '@/components/application/about/profile-introduction';
+import { TechStacks } from '@/components/application/skills/stacks';
 import PageTitle from '@/components/legacy/page-title';
 
 export default async function Page() {
