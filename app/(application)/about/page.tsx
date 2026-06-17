@@ -3,8 +3,8 @@ import { getSkills } from '@/services/skills';
 import { AchievementSection } from '@/components/application/about/achievement-section';
 import { HistorySection } from '@/components/application/about/history-section';
 import { IntroductionSection } from '@/components/application/about/introduction-section';
-import { TechStacks } from '@/components/application/skills/stacks';
 import PageTitle from '@/components/legacy/page-title';
+import { TechStacks } from '@/components/skill/tech-stacks';
 
 export default async function Page() {
   const profile = await getProfile();
@@ -20,7 +20,7 @@ export default async function Page() {
       {profile && (
         <>
           <IntroductionSection profile={profile} />
-          <TechStacks title="✨ Tech Stacks" skills={skills} />
+          <TechStacks skills={skills} />
           <HistorySection title="👩‍💻 Profile History" profile={profile} />
           <AchievementSection title="📖 Learning" items={learnings} />
           <AchievementSection
