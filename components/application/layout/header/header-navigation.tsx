@@ -12,7 +12,7 @@ export function HeaderNavigation() {
           key={item.href}
           href={item.href}
           scroll={item.type !== 'anchor' || undefined}
-          className="text-muted-foreground hover:text-foreground transition-colors"
+          className="text-text-muted hover:text-text-primary transition-colors"
         >
           {item.label}
         </Link>
