@@ -11,7 +11,7 @@ import { ModalTrigger } from './modal-trigger';
 const meta: Meta<typeof Modal> = {
   title: 'ui/modal',
   component: Modal,
-  tags: [],
+  tags: ['!dev'],
   argTypes: {
     defaultOpen: {
       control: 'boolean',

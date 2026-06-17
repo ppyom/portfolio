@@ -1,0 +1,61 @@
+import { Meta, Canvas, Source } from "@storybook/addon-docs/blocks";
+import * as ModalStories from "./stories";
+
+<Meta of={ModalStories} name="Docs" />
+
+# Modal
+
+`Modal`은 사용자 인터페이스에서 특정 작업에 집중하도록 화면 위에 오버레이를 띄우는 가장 기본적인 UI primitive입니다.
+
+`Dialog`와 달리 복합 구성(Header / Footer / Description 등)은 포함하지 않고 최소 단위의 overlay 기반 인터랙션만 제공합니다.
+
+## 🚀 Usage
+
+기본적인 Modal 구조입니다.
+
+<Source
+  code={`
+<Modal open={open} onOpenChange={setOpen}>
+    <ModalTrigger>
+      <Button>열기</Button>
+    </ModalTrigger>
+    <ModalContent>
+      <ModalClose>
+        <Button variant="ghost">닫기</Button>
+      </ModalClose>
+      <div>
+        Modal Content
+      </div>
+    </ModalContent>
+  </Modal>
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+가장 기본적인 Modal 구조입니다.
+
+<Canvas of={ModalStories.Default} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Primitive Composition**: 최소 단위 UI 요소로 구성됩니다.
+- **Controlled / Uncontrolled**: 내부 상태 또는 외부 상태 제어를 모두 지원합니다.
+- **Portal Rendering**: Overlay는 document body 기준으로 렌더링됩니다.
+- **Close Abstraction**: `ModalClose`를 통해 닫기 동작을 재사용합니다.
+
+### ♿ Accessibility
+
+- `aria-modal="true"`
+- ESC 및 backdrop close 지원
+
+### 🛠 Implementation Details
+
+- Context 기반 상태 공유
+- outside click dismiss
+- compound component architecture
