@@ -2,8 +2,8 @@ import {
   getCertificationsQuery,
   getLearningsQuery,
 } from '@/database/queries/history';
-import PageTitle from '@/components/common/page-title';
 import AchievementSection from '@/components/application/about/achievement-section';
+import PageTitle from '@/components/legacy/page-title';
 
 export default async function Page() {
   const learnings = await getLearningsQuery();

@@ -8,6 +8,9 @@ interface Props {
   style?: CSSProperties;
 }
 
+/**
+ * @deprecated
+ */
 export default function Tag({ name, style, size = 'md' }: Props) {
   return (
     <span

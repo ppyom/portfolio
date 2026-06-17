@@ -11,6 +11,9 @@ interface Props {
   className?: string;
 }
 
+/**
+ * @deprecated
+ */
 export default function BaseModal({
   open,
   onClose,

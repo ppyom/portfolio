@@ -10,6 +10,9 @@ interface Props {
   className?: string;
 }
 
+/**
+ * @deprecated
+ */
 export default function BackButton({ children, className }: Props) {
   const router = useRouter();
 

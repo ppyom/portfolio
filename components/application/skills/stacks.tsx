@@ -1,6 +1,6 @@
 import { cn } from '@/lib/utils';
-import SectionTitle from '@/components/common/section-title';
-import SkillTag from '@/components/common/skill-tag';
+import SectionTitle from '@/components/legacy/section-title';
+import SkillTag from '@/components/skill/skill-tag';
 import type { Skill } from '@/types/skill';
 
 interface Props {

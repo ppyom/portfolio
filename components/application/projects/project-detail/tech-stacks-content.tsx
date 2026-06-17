@@ -4,7 +4,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui-legacy/card';
-import Tag from '@/components/common/tag';
+import Tag from '@/components/legacy/tag';
 import type { Project } from '@/types/project';
 
 import ProjectContentBase from './content-base';

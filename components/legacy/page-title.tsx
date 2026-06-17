@@ -6,6 +6,9 @@ interface Props {
   className?: string;
 }
 
+/**
+ * @deprecated
+ */
 export default function PageTitle({
   children,
   align = 'center',

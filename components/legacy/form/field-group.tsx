@@ -16,6 +16,9 @@ interface Props {
   headerActions?: React.ReactNode;
 }
 
+/**
+ * @deprecated
+ */
 export default function FieldGroup({
   children,
   title,

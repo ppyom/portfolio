@@ -2,8 +2,8 @@ import Image from 'next/image';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 
 import { Button } from '@/components/ui-legacy/button';
-import BackButton from '@/components/common/back-button';
-import PageTitle from '@/components/common/page-title';
+import BackButton from '@/components/legacy/back-button';
+import PageTitle from '@/components/legacy/page-title';
 import type { Project } from '@/types/project';
 
 interface Props {

@@ -10,8 +10,8 @@ import { FormDataType, schema } from '@/lib/validation/contact.schema';
 import { Button } from '@/components/ui-legacy/button';
 import { Input } from '@/components/ui-legacy/input';
 import { Textarea } from '@/components/ui-legacy/textarea';
-import Field from '@/components/common/form/field';
-import FieldGroup from '@/components/common/form/field-group';
+import Field from '@/components/legacy/form/field';
+import FieldGroup from '@/components/legacy/form/field-group';
 
 export default function ContactForm() {
   const { register, handleSubmit, reset } = useForm<FormDataType>({

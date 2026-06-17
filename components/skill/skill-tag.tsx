@@ -1,7 +1,7 @@
 'use client';
 
 import { dynamicTextColor } from '@/lib/utils/color';
-import Tag from '@/components/common/tag';
+import Tag from '@/components/legacy/tag';
 import { useSkillMetadataContext } from '@/components/provider/skill-metadata';
 
 interface Props {
