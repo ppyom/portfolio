@@ -1,11 +1,11 @@
 import { getServerSession } from 'next-auth';
 
 import authOptions from '@/lib/auth-options';
-import Logo from '@/components/common/logo';
 import { ThemeToggle } from '@/components/common/theme/theme-toggle';
 
 import { HeaderNavigation } from './header-navigation';
 import { HeaderWrapper } from './header-wrapper';
+import { Logo } from './logo';
 import { MobileHeaderMenu } from './mobile-header-menu';
 import { UserMenu } from './user-menu';
 
