@@ -45,7 +45,7 @@ export function ProjectList({ projects }: Props) {
   };
 
   useEffect(() => {
-    setItems(projects);
+    (() => setItems(projects))();
   }, [projects]);
 
   return (
