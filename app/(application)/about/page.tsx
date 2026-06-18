@@ -21,7 +21,7 @@ export default async function Page() {
       {profile && (
         <>
           <Section>
-            <Introduction profile={profile} />
+            <Introduction contents={profile.introduce} />
           </Section>
           <Section>
             <SectionTitle>✨ Tech Stacks</SectionTitle>
