@@ -1,4 +1,4 @@
-import { Footer, Header } from '@/components/application/layout';
+import { Footer, Header, ScrollToTop } from '@/components/application/layout';
 
 interface Props {
   children: React.ReactNode;
@@ -12,6 +12,7 @@ export default function Layout({ children, modal }: Props) {
       {children}
       {modal}
       <Footer />
+      <ScrollToTop />
     </>
   );
 }

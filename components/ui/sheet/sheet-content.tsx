@@ -12,7 +12,7 @@ interface Props
 
 const sheetVariants = cva(
   [
-    'fixed z-50 bg-background shadow-lg',
+    'fixed z-50 bg-surface-primary shadow-lg',
     'transition-transform animate-in duration-200',
   ],
   {

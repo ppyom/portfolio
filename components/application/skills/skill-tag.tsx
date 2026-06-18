@@ -1,7 +1,7 @@
 'use client';
 
 import { dynamicTextColor } from '@/lib/utils/color';
-import Tag from '@/components/legacy/tag';
+import { Badge } from '@/components/ui/badge';
 import { useSkillMetadataContext } from '@/components/provider/skill-metadata';
 
 interface Props {
@@ -9,17 +9,19 @@ interface Props {
   size?: 'sm' | 'md' | 'lg';
 }
 
-export default function SkillTag(props: Props) {
+export default function SkillTag({ name, size = 'lg' }: Props) {
   const skillMeta = useSkillMetadataContext();
-  const color = skillMeta[props.name]?.color || '#aaaaaa';
+  const color = skillMeta[name]?.color || '#aaaaaa';
 
   return (
-    <Tag
-      {...props}
+    <Badge
       style={{
         background: color,
         color: dynamicTextColor(color),
       }}
-    />
+      size={size}
+    >
+      {name}
+    </Badge>
   );
 }

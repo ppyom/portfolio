@@ -2,7 +2,7 @@ import {
   getCertificationsQuery,
   getLearningsQuery,
 } from '@/database/queries/history';
-import AchievementSection from '@/components/application/about/achievement-section';
+import { Achievement } from '@/components/application/about/achievement';
 import PageTitle from '@/components/legacy/page-title';
 
 export default async function Page() {
@@ -13,8 +13,8 @@ export default async function Page() {
     <section id="history" className="py-20 px-6">
       <div className="max-w-4xl mx-auto space-y-12">
         <PageTitle>Learning & Growth</PageTitle>
-        <AchievementSection title="📖 Learning" items={learnings} />
-        <AchievementSection title="🏅 Certifications" items={certifications} />
+        <Achievement contents={learnings} />
+        <Achievement contents={certifications} />
       </div>
     </section>
   );

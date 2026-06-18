@@ -1,5 +1,5 @@
 import { getSkills } from '@/services/skills';
-import TechStacks from '@/components/application/skills/stacks';
+import { TechStack } from '@/components/application/skills/tech-stack';
 import PageTitle from '@/components/legacy/page-title';
 
 export default async function Page() {
@@ -9,7 +9,7 @@ export default async function Page() {
     <section id="skills" className="py-20 px-6">
       <div className="max-w-4xl mx-auto space-y-12">
         <PageTitle>Skills & Tools</PageTitle>
-        <TechStacks skills={skills} />
+        <TechStack skills={skills} />
       </div>
     </section>
   );

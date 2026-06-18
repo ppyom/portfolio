@@ -11,7 +11,7 @@ interface Props
     VariantProps<typeof contentVariants> {}
 
 const contentVariants = cva(
-  'absolute z-50 min-w-48 rounded-md border bg-background p-1 shadow-lg',
+  'absolute z-50 min-w-48 rounded-md border bg-surface-primary p-1 shadow-lg',
   {
     variants: {
       side: {
