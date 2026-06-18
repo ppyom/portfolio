@@ -9,7 +9,7 @@ interface Props {
   size?: 'sm' | 'md' | 'lg';
 }
 
-export default function SkillTag({ name, size = 'lg' }: Props) {
+export function SkillTag({ name, size = 'lg' }: Props) {
   const skillMeta = useSkillMetadataContext();
   const color = skillMeta[name]?.color || '#aaaaaa';
 
