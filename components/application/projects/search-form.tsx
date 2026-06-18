@@ -11,7 +11,7 @@ interface Props {
   defaultKeyword?: string;
 }
 
-export default function SearchForm({ defaultKeyword = '' }: Props) {
+export function SearchForm({ defaultKeyword = '' }: Props) {
   const router = useRouter();
   const [keyword, setKeyword] = useState(defaultKeyword);
 

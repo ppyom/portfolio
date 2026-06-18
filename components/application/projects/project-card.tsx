@@ -6,7 +6,7 @@ import type { Project } from '@/types/project';
 
 type Props = Project;
 
-export default function ProjectCard({
+export function ProjectCard({
   id,
   coverImage: image,
   title,
@@ -27,9 +27,9 @@ export default function ProjectCard({
           />
         </div>
         <div className="p-6 space-y-4">
-          <h3 className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200">
+          <p className="text-xl font-bold text-foreground group-hover:text-primary transition-colors duration-200">
             {title}
-          </h3>
+          </p>
           <p className="text-foreground/70 text-sm leading-relaxed">
             {description}
           </p>

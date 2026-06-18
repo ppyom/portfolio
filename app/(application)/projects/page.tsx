@@ -1,8 +1,8 @@
 import { BookIcon } from 'lucide-react';
 
 import { getFilteredProjects } from '@/services/project';
-import ProjectList from '@/components/application/projects/project-list';
-import SearchForm from '@/components/application/projects/search-form';
+import { ProjectList } from '@/components/application/projects/project-list';
+import { SearchForm } from '@/components/application/projects/search-form';
 import { Empty } from '@/components/feedback/empty';
 import PageTitle from '@/components/legacy/page-title';
 import type { ProjectFilter } from '@/types/project';

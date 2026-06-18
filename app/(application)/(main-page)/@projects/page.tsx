@@ -1,7 +1,7 @@
 import { BookIcon } from 'lucide-react';
 
 import { getProjects } from '@/services/project';
-import ProjectList from '@/components/application/projects/project-list';
+import { ProjectList } from '@/components/application/projects/project-list';
 import { Empty } from '@/components/feedback/empty';
 import PageTitle from '@/components/legacy/page-title';
 
