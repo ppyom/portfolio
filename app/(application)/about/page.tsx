@@ -29,7 +29,10 @@ export default async function Page() {
           </Section>
           <Section>
             <SectionTitle>👩‍💻 Profile History</SectionTitle>
-            <CareerHistory profile={profile} />
+            <CareerHistory
+              experiences={profile.experience}
+              educations={profile.education}
+            />
           </Section>
           <Section>
             <SectionTitle>📖 Learning</SectionTitle>

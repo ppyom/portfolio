@@ -1,29 +1,26 @@
 import type { Profile } from '@/types/profile';
 
 interface Props {
-  profile: Profile;
+  experiences: Profile['experience'];
+  educations: Profile['education'];
 }
 
-export function CareerHistory({ profile }: Props) {
+export function CareerHistory({ experiences, educations }: Props) {
   return (
     <>
-      <div className="bg-background rounded-xl p-6 border border-border glow-hover">
-        <p className="text-primary font-bold text-lg mb-2">Experience</p>
-        <ul className="space-y-1 text-foreground/70">
-          {profile.experience?.map((content, idx) => (
+      <div className="bg-surface-secondary rounded-md p-6 border">
+        <p className="text-text-primary font-bold text-lg mb-2">Experience</p>
+        <ul className="space-y-1 text-text-secondary">
+          {experiences?.map((content, idx) => (
             <li key={`experience_${idx}`}>
               {content.name && (
                 <>
-                  <span className="font-semibold font-foground/90">
-                    {content.name}
-                  </span>
+                  <span className="font-semibold">{content.name}</span>
                   <span className="text-sm"> / {content.position} </span>
                 </>
               )}
               {!content.name && (
-                <span className="font-semibold text-foground/90 mr-2">
-                  {content.position}
-                </span>
+                <span className="font-semibold mr-2">{content.position}</span>
               )}
               <span className="text-sm">
                 ({content.startDate} - {content.endDate ?? '재직중'})
@@ -32,14 +29,12 @@ export function CareerHistory({ profile }: Props) {
           ))}
         </ul>
       </div>
-      <div className="bg-background rounded-xl p-6 border border-border glow-hover">
-        <p className="text-primary font-bold text-lg mb-2">Education</p>
-        <ul className="space-y-1 text-foreground/70">
-          {profile.education?.map((content, idx) => (
+      <div className="bg-surface-secondary rounded-md p-6 border">
+        <p className="text-text-primary font-bold text-lg mb-2">Education</p>
+        <ul className="space-y-1 text-text-secondary">
+          {educations?.map((content, idx) => (
             <li key={`education_${idx}`}>
-              <span className="font-semibold font-foground/90">
-                {content.name}
-              </span>
+              <span className="font-semibold">{content.name}</span>
               <span className="text-sm"> / {content.major} </span>
               <span className="text-sm">
                 ({content.startDate} - {content.endDate ?? '재학중'})
