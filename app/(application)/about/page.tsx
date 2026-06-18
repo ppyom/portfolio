@@ -4,7 +4,7 @@ import { Section, SectionTitle } from '@/components/ui/section';
 import { Achievement } from '@/components/application/about/achievement';
 import { CareerHistory } from '@/components/application/about/career-history';
 import { Introduction } from '@/components/application/about/introduction';
-import { TechStack } from '@/components/skill/tech-stack';
+import { TechStack } from '@/components/application/skills/tech-stack';
 
 export default async function Page() {
   const profile = await getProfile();

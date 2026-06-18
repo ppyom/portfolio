@@ -1,6 +1,6 @@
 import { getSkills } from '@/services/skills';
+import { TechStack } from '@/components/application/skills/tech-stack';
 import PageTitle from '@/components/legacy/page-title';
-import { TechStack } from '@/components/skill/tech-stack';
 
 export default async function Page() {
   const skills = await getSkills();
