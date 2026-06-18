@@ -6,7 +6,7 @@ interface Props {
   skills: Skill[];
 }
 
-export function TechStacks({ skills }: Props) {
+export function TechStack({ skills }: Props) {
   return (
     <div className="grid md:grid-cols-2 gap-8">
       {skills.map((skillGroup) => (
