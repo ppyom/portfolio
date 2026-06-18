@@ -13,8 +13,8 @@ export default async function Page() {
     <section id="history" className="py-20 px-6">
       <div className="max-w-4xl mx-auto space-y-12">
         <PageTitle>Learning & Growth</PageTitle>
-        <Achievement title="📖 Learning" items={learnings} />
-        <Achievement title="🏅 Certifications" items={certifications} />
+        <Achievement title="📖 Learning" contents={learnings} />
+        <Achievement title="🏅 Certifications" contents={certifications} />
       </div>
     </section>
   );
