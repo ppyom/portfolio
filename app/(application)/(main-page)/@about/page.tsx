@@ -1,4 +1,5 @@
 import { getProfile } from '@/services/profile';
+import { Section } from '@/components/ui/section';
 import { CareerHistory } from '@/components/application/about/career-history';
 import PageTitle from '@/components/legacy/page-title';
 
@@ -22,7 +23,12 @@ export default async function Page() {
               </p>
             ))}
           </div>
-          <CareerHistory profile={profile} />
+          <Section>
+            <CareerHistory
+              experiences={profile.experience}
+              educations={profile.education}
+            />
+          </Section>
         </div>
       </div>
     </section>
