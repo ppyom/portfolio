@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { SearchIcon, Undo2Icon } from 'lucide-react';
 
-import { Button } from '@/components/ui-legacy/button';
-import { Input } from '@/components/ui-legacy/input';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 interface Props {
   defaultKeyword?: string;
@@ -27,8 +27,9 @@ export function SearchForm({ defaultKeyword = '' }: Props) {
   };
 
   return (
-    <form className="flex gap-2" onSubmit={handleSearch}>
+    <form className="flex items-center gap-2" onSubmit={handleSearch}>
       <Input
+        className="flex-1"
         value={keyword}
         onChange={({ target }) => setKeyword(target.value)}
         placeholder="프로젝트, 기술 스택, 카테고리를 검색해보세요."
@@ -37,15 +38,14 @@ export function SearchForm({ defaultKeyword = '' }: Props) {
         <Button
           type="button"
           variant="secondary"
-          size="icon"
           onClick={handleReset}
           title="입력 초기화"
         >
-          <Undo2Icon />
+          <Undo2Icon size={14} />
         </Button>
       )}
-      <Button type="submit" variant="secondary" size="icon">
-        <SearchIcon />
+      <Button className="flex" type="submit">
+        <SearchIcon size={14} />
       </Button>
     </form>
   );
