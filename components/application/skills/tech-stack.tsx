@@ -1,6 +1,6 @@
 import type { Skill } from '@/types/skill';
 
-import SkillTag from './skill-tag';
+import { SkillTag } from './skill-tag';
 
 interface Props {
   skills: Skill[];
