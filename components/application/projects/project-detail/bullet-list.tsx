@@ -1,29 +1,19 @@
 import { cn } from '@/lib/utils';
 
 interface Props {
-  name: string;
   items: string[];
-  color?: 'primary' | 'secondary' | 'neutral';
   className?: string;
 }
 
-export function BulletList({
-  name,
-  items,
-  color = 'primary',
-  className,
-}: Props) {
+export function BulletList({ items, className }: Props) {
   return (
-    <ul className={className}>
+    <ul className={cn('space-y-2', className)}>
       {items.map((item, idx) => (
         <li
-          key={`${name}_${idx}`}
+          key={`${item}_${idx}`}
           className={cn(
-            'flex items-center gap-2',
-            'before:size-1.5 before:inline-block',
-            color === 'primary' && 'before:bg-chart-1',
-            color === 'secondary' && 'before:bg-chart-2',
-            color === 'neutral' && 'before:bg-neutral-500',
+            'flex items-center gap-2 text-text-primary',
+            'before:rounded-full before:size-1.5 before:inline-block before:bg-text-muted',
           )}
         >
           {item}

@@ -16,7 +16,7 @@ export function ProjectDetail({ project }: Props) {
   return (
     <ImagePreviewProvider>
       <Header {...project} />
-      <main className="max-w-4xl mx-auto p-4 space-y-6">
+      <main className="max-w-4xl mx-auto p-6 space-y-6">
         {project.overview && (
           <Section>
             <SectionTitle>프로젝트 개요</SectionTitle>
@@ -26,7 +26,7 @@ export function ProjectDetail({ project }: Props) {
         {project.features && project.features.length !== 0 && (
           <Section>
             <SectionTitle>주요 기능</SectionTitle>
-            <BulletList name="features" items={project.features} />
+            <BulletList items={project.features} />
           </Section>
         )}
         {project.member && (
@@ -44,13 +44,13 @@ export function ProjectDetail({ project }: Props) {
         {project.goals && project.goals.length !== 0 && (
           <Section>
             <SectionTitle>목표</SectionTitle>
-            <BulletList name="goals" items={project.goals} />
+            <BulletList items={project.goals} />
           </Section>
         )}
         {project.results && project.results.length !== 0 && (
           <Section>
             <SectionTitle>성과</SectionTitle>
-            <BulletList name="results" items={project.results} />
+            <BulletList items={project.results} />
           </Section>
         )}
         {project.images && project.images.length !== 0 && (
