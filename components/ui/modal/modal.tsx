@@ -1,4 +1,10 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useId, useState } from 'react';
+
+import {
+  isTopModal,
+  pushModal,
+  removeModal,
+} from '@/components/ui/modal/modal-manager';
 
 import ModalContext from './modal-context';
 
@@ -15,6 +21,7 @@ export function Modal({
   defaultOpen = false,
   onOpenChange,
 }: Props) {
+  const id = useId();
   const [internalOpen, setInternalOpen] = useState(defaultOpen);
 
   const isControlled = open !== undefined;
@@ -31,22 +38,26 @@ export function Modal({
   );
 
   useEffect(() => {
+    if (!currentOpen) return;
+
+    pushModal(id);
+
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setOpen(false);
-      }
+      if (e.key !== 'Escape') return;
+
+      if (!isTopModal(id)) return;
+
+      e.preventDefault();
+      setOpen(false);
     };
 
-    if (currentOpen) {
-      window.addEventListener('keydown', onKeyDown);
-      document.body.style.overflow = 'hidden';
-    }
+    window.addEventListener('keydown', onKeyDown);
 
     return () => {
       window.removeEventListener('keydown', onKeyDown);
-      document.body.style.overflow = '';
+      removeModal(id);
     };
-  }, [currentOpen, setOpen]);
+  }, [id, currentOpen, setOpen]);
 
   return (
     <ModalContext.Provider
