@@ -1,56 +1,78 @@
-import Image from 'next/image';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+'use client';
 
-import { Button } from '@/components/ui-legacy/button';
-import BackButton from '@/components/legacy/back-button';
-import PageTitle from '@/components/legacy/page-title';
+import { ArrowUpRight } from 'lucide-react';
+
+import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
+import { PageHeader } from '@/components/application/layout';
 import type { Project } from '@/types/project';
 
 interface Props {
-  project: Project;
+  title: Project['title'];
+  description: Project['description'];
+  githubUrl: Project['githubUrl'];
+  applicationUrl: Project['applicationUrl'];
+  coverImage: Project['coverImage'];
 }
 
-export function Header({ project }: Props) {
+export function Header({
+  title,
+  description,
+  githubUrl,
+  applicationUrl,
+  coverImage,
+}: Props) {
   return (
-    <header>
-      <BackButton className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group mb-8">
-        <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
-        Back to Projects
-      </BackButton>
-      <div className="space-y-6 animate-in fade-in slide-up duration-500">
-        <div className="flex flex-col gap-2 sm:flex-row justify-between">
-          <PageTitle align="left">{project.title}</PageTitle>
-          {(project.githubUrl || project.applicationUrl) && (
-            <div className="space-x-1">
-              {project.githubUrl && (
-                <Button className="font-bold" size="lg" asChild>
-                  <a href={project.githubUrl} target="_blank">
+    <header
+      className={cn(
+        'relative bg-cover bg-center',
+        !coverImage?.url && 'bg-surface-secondary',
+      )}
+      style={{
+        backgroundImage: coverImage?.url
+          ? `url(${coverImage?.url})`
+          : undefined,
+      }}
+    >
+      {coverImage?.url && (
+        <div className="absolute inset-0 bg-linear-to-b to-black/70 from-black/50" />
+      )}
+      <div className="relative max-w-4xl mx-auto p-6 pt-14 space-y-6 sm:pt-32">
+        <div className="flex flex-col gap-2 sm:flex-row justify-between items-end">
+          <PageHeader
+            className="mb-0"
+            title={title}
+            description={description || undefined}
+          />
+          {(githubUrl || applicationUrl) && (
+            <div className="flex flex-wrap gap-2">
+              {githubUrl && (
+                <Button variant="secondary">
+                  <a
+                    className="flex gap-2 items-center"
+                    href={githubUrl}
+                    target="_blank"
+                  >
                     GitHub
-                    <ArrowUpRight />
+                    <ArrowUpRight size={14} />
                   </a>
                 </Button>
               )}
-              {project.applicationUrl && (
-                <Button className="font-bold" size="lg" asChild>
-                  <a href={project.applicationUrl} target="_blank">
+              {applicationUrl && (
+                <Button variant="secondary">
+                  <a
+                    className="flex gap-2 items-center"
+                    href={applicationUrl}
+                    target="_blank"
+                  >
                     View Site
-                    <ArrowUpRight />
+                    <ArrowUpRight size={14} />
                   </a>
                 </Button>
               )}
             </div>
           )}
         </div>
-        {project.coverImage && (
-          <Image
-            className="w-full h-full object-cover"
-            src={project.coverImage.url}
-            alt={project.title}
-            width={1080}
-            height={567}
-            loading="eager"
-          />
-        )}
       </div>
     </header>
   );

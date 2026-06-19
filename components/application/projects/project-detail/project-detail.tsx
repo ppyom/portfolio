@@ -17,6 +17,7 @@ export function ProjectDetail({ project }: Props) {
     <ImagePreviewProvider>
       <Header project={project} />
       <div className="space-y-4 py-4">
+      <Header {...project} />
         {project.overview && (
           <Section>
             <SectionTitle>프로젝트 개요</SectionTitle>
