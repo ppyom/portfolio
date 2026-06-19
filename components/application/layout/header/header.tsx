@@ -15,9 +15,9 @@ interface Props {
 export function Header({ session }: Props) {
   return (
     <HeaderWrapper>
-      <div className="max-w-4xl mx-auto p-4 flex gap-2 justify-between">
+      <div className="max-w-4xl mx-auto p-4 flex items-center gap-2 justify-between">
         <Logo />
-        <div className="hidden flex-1 sm:flex gap-2">
+        <div className="hidden flex-1 sm:flex items-center gap-2">
           <nav className="flex-1 flex items-center justify-center gap-6 text-sm font-medium">
             <HeaderNavigation />
           </nav>
