@@ -7,15 +7,15 @@ import {
 import Tag from '@/components/legacy/tag';
 import type { Project } from '@/types/project';
 
-import ProjectContentBase from './content-base';
+import { ContentBase } from './content-base';
 
 interface Props {
   techStacks: NonNullable<Project['techStacks']>;
 }
 
-export default function TechStacksContent({ techStacks }: Props) {
+export function TechStack({ techStacks }: Props) {
   return (
-    <ProjectContentBase title="사용 기술">
+    <ContentBase title="사용 기술">
       <div className="grid sm:grid-cols-2 gap-2">
         {techStacks.map((techStack) => (
           <Card key={techStack.id}>
@@ -30,6 +30,6 @@ export default function TechStacksContent({ techStacks }: Props) {
           </Card>
         ))}
       </div>
-    </ProjectContentBase>
+    </ContentBase>
   );
 }

@@ -10,7 +10,7 @@ interface Props {
   project: Project;
 }
 
-export default function ProjectHeader({ project }: Props) {
+export function Header({ project }: Props) {
   return (
     <header>
       <BackButton className="inline-flex items-center gap-2 text-primary hover:text-primary/80 transition-colors group mb-8">

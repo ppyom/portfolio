@@ -1,15 +1,15 @@
 import type { Project } from '@/types/project';
 
-import ProjectContentBase from './content-base';
-import ListContent from './list-content';
+import { BulletList } from './bullet-list';
+import { ContentBase } from './content-base';
 
 interface Props {
   member: NonNullable<Project['member']>;
 }
 
-export default function MemberContent({ member }: Props) {
+export function Member({ member }: Props) {
   return (
-    <ProjectContentBase title="프로젝트 구성원">
+    <ContentBase title="프로젝트 구성원">
       <div className="grid grid-cols-[80px_1fr] gap-2">
         <span className="font-semibold">인원</span>
         <span>{member.size}명</span>
@@ -20,13 +20,13 @@ export default function MemberContent({ member }: Props) {
         <span className="font-semibold col-span-2 sm:col-span-1">
           담당 업무
         </span>
-        <ListContent
+        <BulletList
           className="col-span-2 sm:col-span-1"
           name="member"
           items={member.responsibilities}
           color="secondary"
         />
       </div>
-    </ProjectContentBase>
+    </ContentBase>
   );
 }

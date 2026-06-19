@@ -14,9 +14,9 @@ import {
   CarouselPrevious,
 } from '@/components/ui-legacy/carousel';
 
-import { useImagePreview } from './provider';
+import { useImagePreview } from './image-preview-context';
 
-export default function ImagePreviewModal() {
+export function ImagePreviewModal() {
   const { state, close, next, prev } = useImagePreview();
 
   // ESC / 키보드 처리
@@ -60,11 +60,11 @@ export default function ImagePreviewModal() {
 
   return createPortal(
     <div
-      className="fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center"
+      className="fixed inset-0 z-9999 bg-black/80 flex items-center justify-center"
       onClick={close}
     >
       <div
-        className="relative max-w-[500px] w-full"
+        className="relative max-w-125 w-full"
         onClick={(e) => e.stopPropagation()}
       >
         <Carousel

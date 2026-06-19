@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { getProject } from '@/services/project';
-import ProjectContents from '@/components/application/projects/project-detail';
+import { ProjectDetail } from '@/components/application/projects/project-detail';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -40,5 +40,5 @@ export default async function Page({ params }: Props) {
     return notFound();
   }
 
-  return <ProjectContents project={project} />;
+  return <ProjectDetail project={project} />;
 }

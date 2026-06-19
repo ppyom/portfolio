@@ -7,7 +7,7 @@ interface Props {
   className?: string;
 }
 
-export default function ListContent({
+export function BulletList({
   name,
   items,
   color = 'primary',

@@ -11,13 +11,13 @@ import {
 } from '@/components/ui-legacy/carousel';
 import type { ImageFile } from '@/types/project';
 
-import { useImagePreview } from './image-preview/provider';
+import { useImagePreview } from './image-preview';
 
 interface Props {
   images: ImageFile[];
 }
 
-export default function ImagesContent({ images }: Props) {
+export function Images({ images }: Props) {
   const { open } = useImagePreview();
 
   const imageUrls = images.map((image) => image.url);
