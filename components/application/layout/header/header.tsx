@@ -1,6 +1,5 @@
-import { getServerSession } from 'next-auth';
+import type { Session } from 'next-auth';
 
-import authOptions from '@/lib/auth-options';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 
 import { HeaderNavigation } from './header-navigation';
@@ -9,9 +8,11 @@ import { Logo } from './logo';
 import { MobileHeaderMenu } from './mobile-header-menu';
 import { UserMenu } from './user-menu';
 
-export async function Header() {
-  const session = await getServerSession(authOptions);
+interface Props {
+  session: Session | null;
+}
 
+export function Header({ session }: Props) {
   return (
     <HeaderWrapper>
       <div className="max-w-4xl mx-auto p-4 flex gap-2 justify-between">
