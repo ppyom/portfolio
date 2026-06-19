@@ -1,3 +1,6 @@
+import { getServerSession } from 'next-auth';
+
+import authOptions from '@/lib/auth-options';
 import { Footer, Header, ScrollToTop } from '@/components/application/layout';
 
 interface Props {
@@ -5,10 +8,12 @@ interface Props {
   modal: React.ReactNode;
 }
 
-export default function Layout({ children, modal }: Props) {
+export default async function Layout({ children, modal }: Props) {
+  const session = await getServerSession(authOptions);
+
   return (
     <>
-      <Header />
+      <Header session={session} />
       {children}
       {modal}
       <Footer />
