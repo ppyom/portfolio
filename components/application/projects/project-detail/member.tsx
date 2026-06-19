@@ -8,20 +8,21 @@ interface Props {
 
 export function Member({ member }: Props) {
   return (
-    <div className="grid grid-cols-[80px_1fr] gap-2">
-      <span className="font-semibold">인원</span>
-      <span>{member.size}명</span>
-
-      <span className="font-semibold">역할</span>
-      <span>{member.role}</span>
-
-      <span className="font-semibold col-span-2 sm:col-span-1">담당 업무</span>
-      <BulletList
-        className="col-span-2 sm:col-span-1"
-        name="member"
-        items={member.responsibilities}
-        color="secondary"
-      />
+    <div className="space-y-4">
+      <div>
+        <p className="font-semibold text-text-primary">인원</p>
+        <p className="text-text-secondary">{member.size}명</p>
+      </div>
+      <div>
+        <p className="font-semibold text-text-primary">역할</p>
+        <p className="text-text-secondary">{member.role}</p>
+      </div>
+      {member.responsibilities.length > 0 && (
+        <div>
+          <p className="font-semibold text-text-primary mb-2">담당 업무</p>
+          <BulletList items={member.responsibilities} />
+        </div>
+      )}
     </div>
   );
 }
