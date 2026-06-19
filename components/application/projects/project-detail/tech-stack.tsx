@@ -1,10 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui-legacy/card';
-import Tag from '@/components/legacy/tag';
+import { Badge } from '@/components/ui/badge';
 import type { Project } from '@/types/project';
 
 interface Props {
@@ -13,18 +7,23 @@ interface Props {
 
 export function TechStack({ techStacks }: Props) {
   return (
-    <div className="grid sm:grid-cols-2 gap-2">
+    <div className="grid gap-4 sm:grid-cols-2">
       {techStacks.map((techStack) => (
-        <Card key={techStack.id}>
-          <CardHeader>
-            <CardTitle>{techStack.title}</CardTitle>
-          </CardHeader>
-          <CardContent className="flex gap-1 flex-wrap">
+        <div
+          key={techStack.id}
+          className="bg-surface-secondary rounded-md border p-4"
+        >
+          <p className="font-semibold text-text-primary mb-3">
+            {techStack.title}
+          </p>
+          <div className="flex flex-wrap gap-2">
             {techStack.stacks?.map((stack) => (
-              <Tag key={`${techStack.id}_${stack}`} name={stack} size="sm" />
+              <Badge key={`${techStack.id}-${stack}`} variant="muted">
+                {stack}
+              </Badge>
             ))}
-          </CardContent>
-        </Card>
+          </div>
+        </div>
       ))}
     </div>
   );
