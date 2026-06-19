@@ -15,9 +15,8 @@ interface Props {
 export function ProjectDetail({ project }: Props) {
   return (
     <ImagePreviewProvider>
-      <Header project={project} />
-      <div className="space-y-4 py-4">
       <Header {...project} />
+      <main className="max-w-4xl mx-auto p-4 space-y-6">
         {project.overview && (
           <Section>
             <SectionTitle>프로젝트 개요</SectionTitle>
@@ -60,7 +59,7 @@ export function ProjectDetail({ project }: Props) {
             <Images images={project.images} />
           </Section>
         )}
-      </div>
+      </main>
       <ImagePreviewModal />
     </ImagePreviewProvider>
   );

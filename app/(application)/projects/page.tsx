@@ -16,7 +16,7 @@ export default async function Page({ searchParams }: Props) {
   const projects = await getFilteredProjects({ q });
 
   return (
-    <>
+    <main className="max-w-4xl mx-auto p-4 space-y-6">
       <PageHeader
         title="프로젝트 목록"
         description="진행했던 프로젝트들을 정리했습니다."
@@ -30,6 +30,6 @@ export default async function Page({ searchParams }: Props) {
           <ProjectList projects={projects} />
         </div>
       )}
-    </>
+    </main>
   );
 }
