@@ -1,7 +1,7 @@
+import { Section, SectionTitle } from '@/components/ui/section';
 import type { Project } from '@/types/project';
 
 import { BulletList } from './bullet-list';
-import { ContentBase } from './content-base';
 import { Header } from './header';
 import { ImagePreviewModal, ImagePreviewProvider } from './image-preview';
 import { Images } from './images';
@@ -18,33 +18,46 @@ export function ProjectDetail({ project }: Props) {
       <Header project={project} />
       <div className="space-y-4 py-4">
         {project.overview && (
-          <ContentBase title="프로젝트 개요">
+          <Section>
+            <SectionTitle>프로젝트 개요</SectionTitle>
             <p className="whitespace-pre-wrap">{project.overview}</p>
-          </ContentBase>
+          </Section>
         )}
         {project.features && project.features.length !== 0 && (
-          <ContentBase title="주요 기능">
+          <Section>
+            <SectionTitle>주요 기능</SectionTitle>
             <BulletList name="features" items={project.features} />
-          </ContentBase>
+          </Section>
         )}
-        {project.member && <Member member={project.member} />}
+        {project.member && (
+          <Section>
+            <SectionTitle>프로젝트 구성원</SectionTitle>
+            <Member member={project.member} />
+          </Section>
+        )}
         {project.techStacks && project.techStacks.length !== 0 && (
-          <TechStack techStacks={project.techStacks} />
+          <Section>
+            <SectionTitle>사용 기술</SectionTitle>
+            <TechStack techStacks={project.techStacks} />
+          </Section>
         )}
         {project.goals && project.goals.length !== 0 && (
-          <ContentBase title="목표">
+          <Section>
+            <SectionTitle>목표</SectionTitle>
             <BulletList name="goals" items={project.goals} />
-          </ContentBase>
+          </Section>
         )}
         {project.results && project.results.length !== 0 && (
-          <ContentBase title="성과">
+          <Section>
+            <SectionTitle>성과</SectionTitle>
             <BulletList name="results" items={project.results} />
-          </ContentBase>
+          </Section>
         )}
         {project.images && project.images.length !== 0 && (
-          <ContentBase title="시연 이미지">
+          <Section>
+            <SectionTitle>시연 이미지</SectionTitle>
             <Images images={project.images} />
-          </ContentBase>
+          </Section>
         )}
       </div>
       <ImagePreviewModal />
