@@ -7,6 +7,7 @@ import { LayoutDashboardIcon, LogOutIcon } from 'lucide-react';
 
 import { useIsMobile } from '@/hooks/use-mobile';
 import { Avatar } from '@/components/ui/avatar';
+import { Button } from '@/components/ui/button';
 import {
   DropdownContent,
   DropdownItem,
@@ -14,7 +15,6 @@ import {
   DropdownSeparator,
   DropdownTrigger,
 } from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui-legacy/button';
 
 interface Props {
   session: Session | null;
@@ -29,7 +29,7 @@ export function UserMenu({ session }: Props) {
 
   if (!session?.user) {
     return (
-      <Button size="sm" asChild>
+      <Button size="sm">
         <Link href="/login">로그인</Link>
       </Button>
     );

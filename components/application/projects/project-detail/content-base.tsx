@@ -5,7 +5,10 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default function ProjectContentBase({ title, children }: Props) {
+/**
+ * @deprecated
+ */
+export function ContentBase({ title, children }: Props) {
   return (
     <div className="space-y-2">
       <ContentTitle>{title}</ContentTitle>
