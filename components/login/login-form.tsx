@@ -10,7 +10,7 @@ import { Button } from '@/components/ui-legacy/button';
 import { Input } from '@/components/ui-legacy/input';
 import PageTitle from '@/components/legacy/page-title';
 
-export default function LoginForm() {
+export function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') ?? '/';
