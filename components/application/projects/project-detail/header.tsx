@@ -47,28 +47,20 @@ export function Header({
           {(githubUrl || applicationUrl) && (
             <div className="flex flex-wrap gap-2">
               {githubUrl && (
-                <Button variant="secondary">
-                  <a
-                    className="flex gap-2 items-center"
-                    href={githubUrl}
-                    target="_blank"
-                  >
+                <a href={githubUrl} target="_blank">
+                  <Button className="gap-2" variant="secondary">
                     GitHub
                     <ArrowUpRight size={14} />
-                  </a>
-                </Button>
+                  </Button>
+                </a>
               )}
               {applicationUrl && (
-                <Button variant="secondary">
-                  <a
-                    className="flex gap-2 items-center"
-                    href={applicationUrl}
-                    target="_blank"
-                  >
+                <a href={applicationUrl} target="_blank">
+                  <Button className="gap-2" variant="secondary">
                     View Site
                     <ArrowUpRight size={14} />
-                  </a>
-                </Button>
+                  </Button>
+                </a>
               )}
             </div>
           )}

@@ -23,12 +23,12 @@ export default async function Page() {
             포트폴리오에 표시될 프로젝트를 관리하고 순서를 정렬할 수 있습니다.
           </p>
         </div>
-        <Button>
-          <Link href="/manage/projects/new" className="flex gap-2 items-center">
+        <Link href="/manage/projects/new">
+          <Button className="gap-2">
             <PlusIcon size={14} />
             프로젝트 추가
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </div>
       {projects.length === 0 && (
         <Empty
@@ -36,15 +36,12 @@ export default async function Page() {
           title="등록된 프로젝트가 없습니다."
           description="프로젝트를 추가해 포트폴리오를 구성해보세요."
         >
-          <Button>
-            <Link
-              className="flex items-center gap-2"
-              href="/manage/projects/new"
-            >
+          <Link href="/manage/projects/new">
+            <Button className="gap-2">
               <PlusIcon size={14} />
               새로운 프로젝트 추가하기
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </Empty>
       )}
       {projects.length > 0 && <ProjectList projects={projects} />}

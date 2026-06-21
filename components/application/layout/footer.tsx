@@ -10,16 +10,17 @@ export function Footer() {
         <p>&copy; {currentYear} Yejin Lee. All rights reserved.</p>
         <div className="flex items-center gap-2">
           {socialLinks.map((link) => (
-            <Button key={link.name} variant="ghost">
-              <a
-                href={link.type === 'mail' ? `mailto:${link.href}` : link.href}
-                title={link.name}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+            <a
+              key={link.name}
+              href={link.type === 'mail' ? `mailto:${link.href}` : link.href}
+              title={link.name}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Button variant="ghost">
                 <link.icon className="size-5" />
-              </a>
-            </Button>
+              </Button>
+            </a>
           ))}
         </div>
       </div>

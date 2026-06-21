@@ -23,20 +23,20 @@ export function SectionNavigation() {
       )}
     >
       {sections.map((section) => (
-        <Button
+        <Link
           key={`nav__${section.name}`}
-          variant="ghost"
-          size="sm"
-          title={section.name}
-          className={cn(
-            'rounded-full',
-            activeId === section.id &&
-              'bg-brand-primary/20! text-brand-primary',
-          )}
+          className="group/item relative flex items-center"
+          href={section.link}
         >
-          <Link
-            className="group/item relative flex items-center"
-            href={section.link}
+          <Button
+            variant="ghost"
+            size="sm"
+            title={section.name}
+            className={cn(
+              'rounded-full',
+              activeId === section.id &&
+                'bg-brand-primary/20! text-brand-primary',
+            )}
           >
             <section.icon size={14} />
             <span
@@ -52,8 +52,8 @@ export function SectionNavigation() {
             >
               {section.name}
             </span>
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       ))}
     </nav>
   );
