@@ -7,9 +7,10 @@ export default async function Page() {
 
   return (
     <Section id="history" className="py-20 px-6 max-w-4xl mx-auto space-y-12">
-      <SectionTitle className="text-3xl text-center">
-        Learning & Growth
-      </SectionTitle>
+      <div className="space-y-3 text-center">
+        <SectionTitle className="text-3xl">Learning & Growth</SectionTitle>
+        <p className="text-text-muted">학습 및 활동 이력입니다.</p>
+      </div>
       <Achievement contents={histories} />
     </Section>
   );
