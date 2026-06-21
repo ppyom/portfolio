@@ -1,15 +1,23 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 
+import { cn } from '@/lib/utils';
+
 import CarouselContext from './carousel-context';
 
 interface Props {
   children: React.ReactNode;
+  className?: string;
   loop?: boolean;
   align?: 'start' | 'center' | 'end';
 }
 
-export function Carousel({ children, loop = false, align = 'center' }: Props) {
+export function Carousel({
+  children,
+  className,
+  loop = false,
+  align = 'center',
+}: Props) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     loop,
     align,
@@ -84,7 +92,7 @@ export function Carousel({ children, loop = false, align = 'center' }: Props) {
     >
       <div
         ref={emblaRef}
-        className="overflow-hidden"
+        className={cn('overflow-hidden', className)}
         tabIndex={0}
         onKeyDown={(e) => {
           if (e.key === 'ArrowLeft') {
