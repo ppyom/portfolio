@@ -5,6 +5,8 @@ import { historyTable } from '@/database/schema/history.schema';
 import { HistoryTable } from '@/database/types/profile';
 import type { DbClient } from '@/types/db';
 
+export const getHistoriesQuery = () => db.select().from(historyTable);
+
 export const getLearningsQuery = () =>
   db.select().from(historyTable).where(eq(historyTable.type, 'learning'));
 
