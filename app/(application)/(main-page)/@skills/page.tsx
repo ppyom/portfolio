@@ -1,16 +1,16 @@
 import { getSkills } from '@/services/skills';
+import { Section, SectionTitle } from '@/components/ui/section';
 import { TechStack } from '@/components/application/skills/tech-stack';
-import PageTitle from '@/components/legacy/page-title';
 
 export default async function Page() {
   const skills = await getSkills();
 
   return (
-    <section id="skills" className="py-20 px-6">
-      <div className="max-w-4xl mx-auto space-y-12">
-        <PageTitle>Skills & Tools</PageTitle>
-        <TechStack skills={skills} />
-      </div>
-    </section>
+    <Section id="skills" className="py-20 px-6 max-w-4xl mx-auto space-y-12">
+      <SectionTitle className="text-3xl text-center">
+        Skills & Tools
+      </SectionTitle>
+      <TechStack skills={skills} />
+    </Section>
   );
 }
