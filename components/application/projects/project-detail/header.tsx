@@ -40,7 +40,7 @@ export function Header({
       <div className="relative max-w-4xl mx-auto p-6 pt-14 space-y-6 sm:pt-32">
         <div className="flex flex-col gap-2 sm:flex-row justify-between items-end">
           <PageHeader
-            className="mb-0"
+            className="mb-0 self-start"
             title={title}
             description={description || undefined}
           />

@@ -49,7 +49,7 @@ export function ImagePreviewModal() {
           )}
         </Carousel>
         <ModalClose>
-          <Button className="fixed top-4 right-4 text-white" variant="ghost">
+          <Button className="fixed top-4 right-4 bg-surface-elevated text-primary">
             <XIcon size={14} />
           </Button>
         </ModalClose>
