@@ -72,7 +72,12 @@ export function LoginForm() {
 
   return (
     <FormProvider {...form}>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <form
+        onSubmit={handleSubmit(onSubmit, (errors) =>
+          setError('root', { message: Object.values(errors)[0].message }),
+        )}
+        className="space-y-4"
+      >
         <Field>
           <Label htmlFor="username">아이디</Label>
           <Input id="username" type="text" {...register('username')} />
