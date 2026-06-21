@@ -1,105 +1,59 @@
 'use client';
 
-import { useEffect } from 'react';
-import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import { XIcon } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
+import { Button } from '@/components/ui/button';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
-} from '@/components/ui-legacy/carousel';
+} from '@/components/ui/carousel';
+import { Modal, ModalClose, ModalContent } from '@/components/ui/modal';
 
 import { useImagePreview } from './image-preview-context';
 
 export function ImagePreviewModal() {
-  const { state, close, next, prev } = useImagePreview();
-
-  // ESC / 키보드 처리
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      if (!state.isOpen) return;
-
-      if (event.key === 'Escape') {
-        event.preventDefault();
-        close();
-      }
-      if (event.key === 'ArrowRight') {
-        event.preventDefault();
-        next();
-      }
-      if (event.key === 'ArrowLeft') {
-        event.preventDefault();
-        prev();
-      }
-      if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
-        event.preventDefault();
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [state.isOpen, close, next, prev]);
-
-  useEffect(() => {
-    if (!state.isOpen) return;
-
-    const originalStyle = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-
-    return () => {
-      document.body.style.overflow = originalStyle;
-    };
-  }, [state.isOpen]);
+  const { state, close } = useImagePreview();
+  const hasMultipleImages = state.images.length > 1;
 
   if (!state.isOpen) return null;
 
-  return createPortal(
-    <div
-      className="fixed inset-0 z-9999 bg-black/80 flex items-center justify-center"
-      onClick={close}
-    >
-      <div
-        className="relative max-w-125 w-full"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <Carousel
-          opts={{
-            startIndex: state.currentIndex,
-            loop: true,
-          }}
-        >
-          <CarouselContent>
-            {state.images.map((imageUrl, idx) => (
-              <CarouselItem key={imageUrl}>
+  return (
+    <Modal open={state.isOpen} onOpenChange={close}>
+      <ModalContent className="relative bg-transparent max-w-none border-0 shadow-none">
+        <Carousel className="h-full" loop={hasMultipleImages}>
+          <CarouselContent className="h-full">
+            {state.images.map((image, idx) => (
+              <CarouselItem
+                key={`${idx}_${image}`}
+                className="h-full flex items-center justify-center"
+              >
                 <Image
-                  src={imageUrl}
-                  alt={`시연 이미지 Preview ${idx}`}
+                  className="h-full w-auto object-contain"
+                  src={image}
+                  alt={`preview-${idx + 1}`}
                   width={1200}
                   height={800}
                 />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden sm:flex" />
-          <CarouselNext className="hidden sm:flex" />
-        </Carousel>
-        <button
-          className={cn(
-            'sm:fixed',
-            'absolute top-4 right-4 p-2 rounded-full',
-            'bg-black/20 text-white',
+          {hasMultipleImages && (
+            <div className="fixed top-1/2 left-4 right-4 -translate-y-1/2 flex justify-between">
+              <CarouselPrevious className="bg-surface-elevated shadow-lg" />
+              <CarouselNext className="bg-surface-elevated shadow-lg" />
+            </div>
           )}
-          onClick={close}
-        >
-          <XIcon />
-        </button>
-      </div>
-    </div>,
-    document.body,
+        </Carousel>
+        <ModalClose>
+          <Button className="fixed top-4 right-4 text-white" variant="ghost">
+            <XIcon size={14} />
+          </Button>
+        </ModalClose>
+      </ModalContent>
+    </Modal>
   );
 }
