@@ -1,6 +1,6 @@
 import { socialLinks } from '@/lib/constants/social-links';
 
-export default function ContactInformation() {
+export function ContactInformation() {
   return (
     <div className="py-12">
       <div className="space-y-2 mb-8">

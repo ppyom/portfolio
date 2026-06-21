@@ -13,7 +13,7 @@ import { Textarea } from '@/components/ui-legacy/textarea';
 import Field from '@/components/legacy/form/field';
 import FieldGroup from '@/components/legacy/form/field-group';
 
-export default function ContactForm() {
+export function ContactForm() {
   const { register, handleSubmit, reset } = useForm<FormDataType>({
     resolver: zodResolver(schema),
     defaultValues: {},

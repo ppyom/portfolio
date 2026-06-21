@@ -1,5 +1,5 @@
-import ContactForm from '@/components/application/contact/contact-form';
-import ContactInformation from '@/components/application/contact/contact-information';
+import { ContactForm } from '@/components/application/contact/contact-form';
+import { ContactInformation } from '@/components/application/contact/contact-information';
 import PageTitle from '@/components/legacy/page-title';
 
 export default function Page() {
