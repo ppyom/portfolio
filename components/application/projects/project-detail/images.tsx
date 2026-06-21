@@ -41,9 +41,9 @@ export function Images({ images }: Props) {
           ))}
         </CarouselContent>
         {hasMultipleImages && (
-          <div className="absolute top-1/2 left-2 right-2 -translate-y-1/2 flex justify-between">
-            <CarouselPrevious className="bg-surface-elevated shadow-lg" />
-            <CarouselNext className="bg-surface-elevated shadow-lg" />
+          <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 flex justify-between">
+            <CarouselPrevious className="absolute left-2 bg-surface-elevated shadow-lg" />
+            <CarouselNext className="absolute right-2 bg-surface-elevated shadow-lg" />
           </div>
         )}
       </Carousel>
