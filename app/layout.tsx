@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 import { ToastProvider } from '@/components/ui/toast';
 import { SkillMetadataProvider } from '@/components/provider/skill-metadata';
 import { ThemeProvider } from '@/components/provider/theme-provider';
-import { donggle, pretendard, suite } from '@/theme/fonts';
+import { suite } from '@/theme/fonts';
 
 import './globals.css';
 
@@ -35,9 +35,7 @@ export default async function RootLayout({ children }: Readonly<Props>) {
   const skillMetadata = await getSkillMetadata();
   return (
     <html lang="ko" suppressHydrationWarning>
-      <body
-        className={cn(pretendard.variable, donggle.variable, suite.variable)}
-      >
+      <body className={cn(suite.variable)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
