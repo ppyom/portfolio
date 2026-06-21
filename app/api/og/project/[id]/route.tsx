@@ -14,8 +14,8 @@ const containerStyle: CSSProperties = {
   alignItems: 'center',
   textAlign: 'center',
   padding: '80px',
-  background: '#231B00',
-  color: '#ffffff',
+  background: '#12120F',
+  color: '#FAF8F1',
   fontFamily: 'SUITE',
 };
 
