@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 
 import { getProject } from '@/services/project';
-import ProjectDetailModal from '@/components/application/projects/project-detail-modal';
+import { ProjectDetailModal } from '@/components/application/projects/project-detail-modal';
 
 interface Props {
   params: Promise<{ id: string }>;

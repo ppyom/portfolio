@@ -13,7 +13,7 @@ interface Props {
   project: Project;
 }
 
-export default function ProjectDetailModal({ project }: Props) {
+export function ProjectDetailModal({ project }: Props) {
   const router = useRouter();
   return (
     <Modal defaultOpen={true} onOpenChange={() => router.back()}>
