@@ -29,9 +29,9 @@ export function UserMenu({ session }: Props) {
 
   if (!session?.user) {
     return (
-      <Button size="sm">
-        <Link href="/login">로그인</Link>
-      </Button>
+      <Link href="/login">
+        <Button size="sm">로그인</Button>
+      </Link>
     );
   }
 

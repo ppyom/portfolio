@@ -113,13 +113,15 @@ export function ProjectEditForm({ defaultProject }: Props) {
               <Label htmlFor="coverImage">커버 이미지</Label>
               <ImageUpload id="coverImage">
                 <ImageUploadController name="coverImage" />
-                <ImageUploadTrigger>
-                  <Button type="button" className="gap-2">
-                    <PlusIcon size={14} />
-                    이미지 선택
-                  </Button>
-                </ImageUploadTrigger>
-                <ImageUploadPreview />
+                <div className="space-y-2">
+                  <ImageUploadTrigger>
+                    <Button type="button" className="gap-2">
+                      <PlusIcon size={14} />
+                      이미지 선택
+                    </Button>
+                  </ImageUploadTrigger>
+                  <ImageUploadPreview />
+                </div>
               </ImageUpload>
             </Field>
             <Field>
@@ -178,13 +180,15 @@ export function ProjectEditForm({ defaultProject }: Props) {
         >
           <ImageUpload id="images" multiple>
             <ImageUploadController name="images" />
-            <ImageUploadTrigger>
-              <Button type="button" className="gap-2">
-                <PlusIcon size={14} />
-                이미지 추가
-              </Button>
-            </ImageUploadTrigger>
-            <ImageUploadPreview />
+            <div className="space-y-4">
+              <ImageUploadTrigger>
+                <Button type="button" className="gap-2">
+                  <PlusIcon size={14} />
+                  이미지 추가
+                </Button>
+              </ImageUploadTrigger>
+              <ImageUploadPreview />
+            </div>
           </ImageUpload>
         </FormSection>
         <FormSection

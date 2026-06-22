@@ -46,26 +46,21 @@ export function ImageUpload({
           return [...prev, ...next];
         }
 
-        prev.forEach((file) => {
+        files.forEach((file) => {
           if (file.type === 'local') {
             URL.revokeObjectURL(file.url);
           }
         });
 
-        return [
-          ...prev.map((file) =>
-            file.type === 'remote'
-              ? {
-                  ...file,
-                  deleted: true,
-                }
-              : file,
-          ),
-          ...next,
-        ];
+        return Array.from(list).map((file) => ({
+          id: crypto.randomUUID(),
+          type: 'local',
+          file,
+          url: URL.createObjectURL(file),
+        }));
       });
     },
-    [multiple],
+    [files, multiple],
   );
 
   const removeFile = useCallback((id: string) => {

@@ -22,15 +22,12 @@ export default async function Page() {
             보유한 기술 스택을 카테고리별로 작성합니다.
           </p>
         </div>
-        <Button variant="secondary" size="sm">
-          <Link
-            href="/manage/skills/metadata"
-            className="flex gap-2 items-center"
-          >
+        <Link href="/manage/skills/metadata">
+          <Button className="gap-2" variant="secondary" size="sm">
             <SlidersHorizontalIcon size={14} />
             스킬 메타데이터 관리
-          </Link>
-        </Button>
+          </Button>
+        </Link>
       </div>
       <SkillEditForm defaultSkills={skills} />
     </div>
