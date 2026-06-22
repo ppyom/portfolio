@@ -3,14 +3,18 @@
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
+const excludedPaths = [/^\/projects\/[^/]+$/];
+
 export function ScrollToTop() {
   const pathname = usePathname();
 
   useEffect(() => {
     const hasHash = typeof window !== 'undefined' && window.location.hash;
-
-    // hash가 있으면 브라우저 기본 이동으로 처리
     if (hasHash) return;
+
+    if (excludedPaths.some((path) => path.test(pathname))) {
+      return;
+    }
 
     window.scrollTo({
       top: 0,
