@@ -3,6 +3,8 @@
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
+const excludedPaths = [/^\/projects\/[^/]+$/];
+
 export function ScrollToTop() {
   const pathname = usePathname();
 
@@ -10,8 +12,9 @@ export function ScrollToTop() {
     const hasHash = typeof window !== 'undefined' && window.location.hash;
     if (hasHash) return;
 
-    const isProjectModal = /^\/projects\/[^/]+$/.test(pathname);
-    if (isProjectModal) return;
+    if (excludedPaths.some((path) => path.test(pathname))) {
+      return;
+    }
 
     window.scrollTo({
       top: 0,
