@@ -1,10 +1,10 @@
 import { BookIcon } from 'lucide-react';
 
 import { getFilteredProjects } from '@/services/project';
-import Empty from '@/components/common/empty';
-import PageTitle from '@/components/common/page-title';
-import ProjectList from '@/components/application/projects/project-list';
-import SearchForm from '@/components/application/projects/search-form';
+import { PageHeader } from '@/components/application/layout';
+import { ProjectList } from '@/components/application/projects/project-list';
+import { SearchForm } from '@/components/application/projects/search-form';
+import { Empty } from '@/components/feedback/empty';
 import type { ProjectFilter } from '@/types/project';
 
 interface Props {
@@ -16,8 +16,11 @@ export default async function Page({ searchParams }: Props) {
   const projects = await getFilteredProjects({ q });
 
   return (
-    <>
-      <PageTitle align="left">프로젝트 목록</PageTitle>
+    <main className="max-w-4xl mx-auto p-4 space-y-6">
+      <PageHeader
+        title="프로젝트 목록"
+        description="진행했던 프로젝트들을 정리했습니다."
+      />
       <SearchForm defaultKeyword={q} />
       {projects.length === 0 && (
         <Empty icon={BookIcon} title="등록된 프로젝트가 없습니다." />
@@ -27,6 +30,6 @@ export default async function Page({ searchParams }: Props) {
           <ProjectList projects={projects} />
         </div>
       )}
-    </>
+    </main>
   );
 }

@@ -15,16 +15,27 @@ import {
   insertSkillMetadataQuery,
 } from '@/database/queries/skill-metadata';
 import { skillCategoryTable } from '@/database/schema/skill-category.schema';
+import { skillMetaMock, skillMock } from '@/mocks/skill.mock';
 import type { Skill, SkillMetadata } from '@/types/skill';
 
-export const getSkills = async () => getSkillsQuery.execute();
+import { USE_MOCK } from './common';
+
+export const getSkills = async () => {
+  if (USE_MOCK) return skillMock;
+  return getSkillsQuery.execute();
+};
 export const getSkillMetadata = async () => {
+  if (USE_MOCK)
+    return Object.fromEntries(
+      skillMetaMock.map(({ name, color }) => [name, { name, color }]),
+    ) as Record<string, SkillMetadata>;
   const rows = await getSkillMetadataQuery.execute();
   return Object.fromEntries(
     rows.map(({ name, color }) => [name, { name, color }]),
   ) as Record<string, SkillMetadata>;
 };
 export const getLastSkillUpdate = async () => {
+  if (USE_MOCK) return new Date().toISOString();
   const [skill] = await getLastSkillUpdateQuery.execute();
   return skill.updatedAt;
 };

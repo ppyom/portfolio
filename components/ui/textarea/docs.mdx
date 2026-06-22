@@ -1,0 +1,84 @@
+import { Meta, Canvas, Controls, Source } from "@storybook/addon-docs/blocks";
+import * as TextareaStories from "./stories";
+
+<Meta of={TextareaStories} name="Docs" />
+
+# Textarea
+
+`Textarea` 컴포넌트는 사용자로부터 여러 줄의 텍스트를 입력받을 때 사용합니다.
+기본적인 디자인 시스템의 입출력 가이드를 준수하며, 상황에 따라 크기 조절 여부를 선택할 수 있습니다.
+
+## 🚀 Usage
+
+가장 기본적인 사용법입니다.
+
+<Source
+  code={`
+import { Textarea } from '@/components/ui/textarea';
+
+export const Example = () => (
+  <Textarea
+    placeholder="메시지를 입력하세요"
+    variant="default"
+    size="md"
+  />
+);
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+표준적인 텍스트 영역입니다. `md` 사이즈와 `default` 베리언트가 기본으로 적용됩니다.
+
+<Canvas of={TextareaStories.Default} />
+
+### Variants
+
+입력 값의 유효성이나 시각적 위계에 따라 선택합니다.
+
+- **Default**: 일반적인 입력 상태입니다.
+- **Error**: 유효성 검사에 실패했거나 주의가 필요한 상태에 사용합니다.
+
+<Canvas of={TextareaStories.Variants} />
+
+### Sizes
+
+화면의 밀도에 맞춰 `sm`, `md`, `lg` 세 가지 크기를 제공합니다.
+
+<Canvas of={TextareaStories.Sizes} />
+
+### States
+
+사용자의 상호작용 가능 여부 및 시스템 상태를 보여줍니다.
+
+- **Disabled**: 인터랙션이 완전히 차단된 상태입니다.
+- **Error State**: 에러 메시지와 함께 시각적인 경고를 제공할 때 사용합니다.
+
+<Canvas of={TextareaStories.States} />
+
+## 🧪 Playground
+
+`resizable` 여부나 `disabled` 상태 등 다양한 Props를 조합하여 테스트할 수 있습니다.
+
+<Canvas of={TextareaStories.Playground} />
+<Controls of={TextareaStories.Playground} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Resizable Control**: `resizable` 속성이 `true`일 경우 사용자가 자유롭게 세로 크기를 조절할 수 있습니다. 기본값은 `false`로 고정된 레이아웃을 권장합니다.
+- **State Persistence**: 에러 상태(`variant="error"`)에서도 사용자가 입력한 값은 유지되어야 하며, 즉각적인 수정이 가능해야 합니다.
+
+### ♿ Accessibility
+
+- **Screen Reader**: `variant="error"`가 활성화되면 시각적 정보와 함께 적절한 에러 텍스트를 제공하는 것을 권장합니다.
+- **Keyboard Navigation**: `Tab` 키를 통해 접근 가능하며, 포커스 시 명확한 아웃라인을 제공합니다.
+
+### 🛠 Implementation Details
+
+- **Forwarding Refs**: 표준 HTML `textarea` 요소의 모든 속성을 상속받으며, 외부 라이브러리와의 연동을 위한 `ref` 전달이 지원됩니다.
+- **Style Overrides**: `Tailwind CSS`를 통해 커스텀 클래스를 주입하여 레이아웃에 맞게 스타일을 확장할 수 있습니다.

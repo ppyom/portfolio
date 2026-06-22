@@ -1,20 +1,29 @@
-import PageTitle from '@/components/common/page-title';
-import ContactForm from '@/components/application/contact/contact-form';
-import ContactInformation from '@/components/application/contact/contact-information';
+import { Section, SectionTitle } from '@/components/ui/section';
+import { ContactForm } from '@/components/application/contact/contact-form';
+import { ContactLinks } from '@/components/application/contact/contact-links';
+import { PageHeader } from '@/components/application/layout';
 
 export default function Page() {
   return (
-    <main className="max-w-4xl mx-auto space-y-4 py-4 md:py-12">
-      <PageTitle align="left" className="ml-4">
-        Contact
-      </PageTitle>
-      <div className="flex flex-col md:flex-row p-2">
-        <div className="flex-2">
+    <main className="max-w-4xl mx-auto space-y-8 p-4 pb-12 md:py-12">
+      <PageHeader
+        title="Contact"
+        description="문의 사항이나 협업 제안이 있다면 편하게 연락해 주세요."
+      />
+      <div className="grid gap-8 sm:grid-cols-[2fr_1fr]">
+        <Section className="p-6 rounded-md bg-surface-secondary border">
+          <SectionTitle>문의하기</SectionTitle>
           <ContactForm />
-        </div>
-        <div className="flex-1 pl-6 md:pl-8">
-          <ContactInformation />
-        </div>
+        </Section>
+        <Section>
+          <div className="space-y-2">
+            <SectionTitle>연락처 정보</SectionTitle>
+            <p className="text-sm text-text-muted">
+              아래 정보를 통해 직접 연락하실 수 있습니다.
+            </p>
+          </div>
+          <ContactLinks />
+        </Section>
       </div>
     </main>
   );

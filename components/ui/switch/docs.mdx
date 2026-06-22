@@ -1,0 +1,144 @@
+import { Meta, Canvas, Controls, Source } from "@storybook/addon-docs/blocks";
+
+import * as SwitchStories from "./stories";
+
+<Meta of={SwitchStories} name="Docs" />
+
+# Switch
+
+`Switch` 컴포넌트는 **즉시 반영되는 on/off 상태 전환**을 위한 Form Primitive입니다.
+
+설정 활성화 여부와 같이 사용자의 즉각적인 토글 상호작용이 필요한 상황에서 사용합니다.
+
+Native checkbox semantics를 유지하면서 디자인 시스템 토큰 기반의 일관된 시각 피드백을 제공합니다.
+
+## 🚀 Usage
+
+기본 사용 예시입니다.
+
+<Source
+  code={`
+import { Switch } from '@/components/ui/switch';
+
+export const Example = () => (
+    <Switch />
+);
+`}
+  language="tsx"
+/>
+
+설정 토글 형태 예시입니다.
+
+<Source
+  code={`
+<Field>
+    <div className="flex items-center justify-between gap-4">
+      <div className="space-y-1">
+        <Label htmlFor="notifications">
+          알림 수신
+        </Label>
+        <Description>
+          새로운 소식을 이메일로 받아봅니다.
+        </Description>
+      </div>
+      <Switch
+        id="notifications"
+        defaultChecked
+      />
+    </div>
+</Field>
+`}
+  language="tsx"
+/>
+
+오류 상태 예시입니다.
+
+<Source
+  code={`
+<Field invalid>
+    <ErrorMessage>
+      필수 설정 항목입니다.
+    </ErrorMessage>
+</Field>
+`}
+  language="tsx"
+/>
+
+---
+
+## 📌 Examples
+
+### Default
+
+기본 비활성 상태입니다.
+
+<Canvas of={SwitchStories.Default} />
+
+### Checked
+
+활성화된 상태입니다.
+
+<Canvas of={SwitchStories.Checked} />
+
+### States
+
+Disabled 및 다양한 상태를 표현합니다.
+
+<Canvas of={SwitchStories.States} />
+
+### Invalid
+
+유효성 검사 실패 상태입니다.
+
+<Canvas of={SwitchStories.Invalid} />
+
+### Settings
+
+실제 설정 UI에서 사용하는 대표적인 조합입니다.
+
+<Canvas of={SwitchStories.Settings} />
+
+### Composition
+
+Field / Label / Supporting Text와 조합된 완전한 Form 구조입니다.
+
+<Canvas of={SwitchStories.Composition} />
+
+---
+
+## 🧪 Playground
+
+모든 Props를 조합하여 테스트할 수 있습니다.
+
+<Canvas of={SwitchStories.Playground} />
+<Controls of={SwitchStories.Playground} />
+
+---
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Immediate Toggle Feedback**: 상태 변경이 즉시 반영되는 상황에 사용합니다.
+- **Binary State**: 두 가지 상태만 표현합니다.
+- **Composition Friendly**
+  - 단독 사용 가능
+  - Field 조합 권장
+
+---
+
+### ♿ Accessibility
+
+- Native `<input type="checkbox">`
+- Keyboard interaction 지원
+- Label 연결 권장 (`htmlFor`)
+- `aria-invalid` / `Field invalid` 지원
+
+---
+
+### 🛠 Implementation Details
+
+- Hidden native input + custom visual track/thumb
+- `peer-*` 기반 상태 동기화
+- `group-data-*` 기반 Field 상태 전달
+- Thumb translate transition 기반 애니메이션

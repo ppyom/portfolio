@@ -18,8 +18,11 @@ import {
 } from '@/database/queries/tech-stack';
 import { remove } from '@/lib/upload/file';
 import { getDeletedImages, uploadImage } from '@/lib/upload/image';
+import { projectMock } from '@/mocks/project.mock';
 import type { DbClient } from '@/types/db';
 import type { Project, ProjectFilter, ProjectFormData } from '@/types/project';
+
+import { USE_MOCK } from './common';
 
 interface Options {
   isPublic?: boolean;
@@ -51,15 +54,20 @@ const uploadAndInsertImages = async (
 export const getProjects = async ({ isPublic }: Options = {}): Promise<
   Project[]
 > => {
+  if (USE_MOCK) return projectMock;
   return (isPublic ? getPublicProjectsQuery : getProjectsQuery).execute();
 };
 export const getFilteredProjects = async ({ q }: ProjectFilter = {}): Promise<
   Project[]
-> => (q ? getFilteredProjectsQuery(q) : getPublicProjectsQuery).execute();
+> => {
+  if (USE_MOCK) return projectMock;
+  return (q ? getFilteredProjectsQuery(q) : getPublicProjectsQuery).execute();
+};
 export const getProject = async (
   id: string,
   { isPublic }: Options = {},
 ): Promise<Project | null> => {
+  if (USE_MOCK) return projectMock[0];
   try {
     const [project] = await (
       isPublic ? getPublicProjectQuery : getProjectQuery
@@ -72,6 +80,7 @@ export const getProject = async (
   }
 };
 export const getTotalProjectCount = async (): Promise<number> => {
+  if (USE_MOCK) return projectMock.length;
   const [{ count }] = await getTotalProjectCountQuery.execute();
   return count;
 };
@@ -106,8 +115,8 @@ export const createProject = async (project: ProjectFormData) => {
 
 export const updateProject = async (id: string, project: ProjectFormData) => {
   const deletedImages = getDeletedImages(
-    ...project.existedCoverImage,
-    ...project.existedImages,
+    ...project.coverImage,
+    ...project.images,
   );
 
   await db.transaction(async (tx) => {
@@ -116,7 +125,7 @@ export const updateProject = async (id: string, project: ProjectFormData) => {
       deletedImages.map((i) => i.id),
       tx,
     ).execute();
-    const remainingImageIds = project.existedImages
+    const remainingImageIds = project.images
       .filter((i) => !i.deleted)
       .map((i) => i.id);
 
@@ -125,7 +134,7 @@ export const updateProject = async (id: string, project: ProjectFormData) => {
       {
         ...project,
         coverImageId:
-          project.existedCoverImage?.[0]?.deleted === false
+          project.coverImage?.[0]?.deleted === false
             ? undefined
             : (coverImageId ?? null),
         imageIds: [...remainingImageIds, ...imageIds],
@@ -178,7 +187,7 @@ export const deleteProject = async (id: string) => {
 
   return db.transaction(async (tx) => {
     await deleteFiles(deletedImages, tx).execute();
-    await deleteTechStack(tx).execute();
+    await deleteTechStack(tx).execute({ projectId: id });
     await deleteProjectQuery(tx).execute({ projectId: id });
   });
 };

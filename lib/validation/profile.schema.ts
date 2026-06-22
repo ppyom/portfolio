@@ -1,9 +1,10 @@
 import { z } from 'zod';
 
 import { profileErrorMessages } from '@/lib/constants/error-messages';
+import { stringItemSchema } from '@/lib/validation/common.schema';
 
 export const schema = z.object({
-  introduce: z.string().array(),
+  introduce: z.array(stringItemSchema),
   experience: z
     .object({
       name: z.string(),

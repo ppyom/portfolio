@@ -15,7 +15,9 @@ export const contactTable = pgTable(
     id: uuid('id')
       .primaryKey()
       .default(sql`gen_random_uuid()`),
-    status: contactStatusEnum('status').$default(() => 'unread'),
+    status: contactStatusEnum('status')
+      .$default(() => 'unread')
+      .notNull(),
     title: text('title').notNull(),
     content: text('content').notNull(),
     company: text('company'),

@@ -4,10 +4,9 @@ import { revalidatePath } from 'next/cache';
 
 import { updateSkillMetadata, updateSkills } from '@/services/skills';
 import { extractErrorMessage } from '@/lib/utils/error';
-import type { FormDataType } from '@/lib/validation/skill.schema';
-import type { SkillMetadata } from '@/types/skill';
+import type { SkillFormData, SkillMetadata } from '@/types/skill';
 
-export const updateSkillsAction = async ({ skills }: FormDataType) => {
+export const updateSkillsAction = async ({ skills }: SkillFormData) => {
   try {
     await updateSkills(skills);
 

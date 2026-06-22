@@ -4,9 +4,9 @@ import { revalidatePath } from 'next/cache';
 
 import { updateProfile } from '@/services/profile';
 import { extractErrorMessage } from '@/lib/utils/error';
-import type { FormDataType } from '@/lib/validation/profile.schema';
+import type { ProfileFormData } from '@/types/profile';
 
-export const updateProfileAction = async (data: FormDataType) => {
+export const updateProfileAction = async (data: ProfileFormData) => {
   try {
     await updateProfile(data);
 

@@ -1,0 +1,66 @@
+import { Meta, Canvas, Source } from "@storybook/addon-docs/blocks";
+import * as SheetStories from "./stories";
+
+<Meta of={SheetStories} name="Docs" />
+
+# Sheet
+
+`Sheet`는 화면 가장자리에서 슬라이드되어 나타나는 overlay primitive입니다.
+
+보조 메뉴, 설정 패널, 모바일 내비게이션 등 현재 페이지를 유지한 상태에서 추가 UI를 제공할 때 사용합니다.
+
+Compound Component 패턴 기반으로 구성되며 Trigger와 Content를 조합하여 다양한 Drawer UI를 구성할 수 있습니다.
+
+## 🚀 Usage
+
+기본적인 Sheet 구조입니다.
+
+<Source
+  code={`
+<Sheet>
+    <SheetTrigger>
+      <Button>메뉴 열기</Button>
+    </SheetTrigger>
+    <SheetContent side="right">
+      Sheet Content
+    </SheetContent>
+</Sheet>
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+가장 기본적인 Sheet 구조입니다.
+
+<Canvas of={SheetStories.Default} />
+
+### Composition
+
+모바일 메뉴처럼 사용하는 실전 패턴입니다.
+
+<Canvas of={SheetStories.Composition} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Side Panel Pattern**: 현재 화면을 유지한 상태에서 보조 UI를 제공합니다.
+- **Compound Composition**: Trigger와 Content를 조합하여 유연하게 구성합니다.
+- **Controlled / Uncontrolled**: 내부 상태 또는 외부 상태 제어를 모두 지원합니다.
+- **Portal Rendering**: Overlay와 Content는 document body 기준으로 렌더링됩니다.
+
+### ♿ Accessibility
+
+- ESC close 지원
+- Overlay click close 지원
+- 키보드 접근 가능
+
+### 🛠 Implementation Details
+
+- Context 기반 상태 공유
+- createPortal
+- Overlay dismiss
+- Compound component architecture

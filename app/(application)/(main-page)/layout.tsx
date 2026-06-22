@@ -1,4 +1,4 @@
-import Navigation from '@/components/application/navigation';
+import { SectionNavigation } from '@/components/application/layout';
 
 interface Props {
   children: React.ReactNode;
@@ -25,7 +25,7 @@ export default function Layout({
       {projects}
       {history}
       {contact}
-      <Navigation />
+      <SectionNavigation />
     </>
   );
 }

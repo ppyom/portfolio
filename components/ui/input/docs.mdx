@@ -1,0 +1,84 @@
+import { Meta, Canvas, Controls, Source } from "@storybook/addon-docs/blocks";
+import * as InputStories from "./stories";
+
+<Meta of={InputStories} name="Docs" />
+
+# Input
+
+`Input` 컴포넌트는 사용자의 텍스트 데이터를 수집하기 위한 가장 기본적인 필드 요소입니다.
+디자인 시스템의 타이포그래피 및 색상 토큰을 준수하며, 다양한 상태 피드백을 통해 직관적인 입력 경험을 제공합니다.
+
+## 🚀 Usage
+
+가장 기본적인 사용 예시입니다. 필요한 `variant`와 `size`를 조합하여 사용하세요.
+
+<Source
+  code={`
+import { Input } from '@/components/ui/input';
+
+export const Example = () => (
+  <Input
+    placeholder="이메일을 입력해주세요"
+    variant="default"
+    size="md"
+  />
+);
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+가장 표준적인 입력 필드입니다. `md` 사이즈와 `default` 베리언트가 기본으로 적용됩니다.
+
+<Canvas of={InputStories.Default} />
+
+### Variants
+
+검증 결과나 시스템 메시지에 따라 시각적 변화를 제공합니다.
+
+- **Default**: 일반적인 입력 대기 상태입니다.
+- **Error**: 유효성 검사에 실패했을 때 사용하며, 강조된 보더 컬러로 사용자 주의를 환기합니다.
+
+<Canvas of={InputStories.Variants} />
+
+### Sizes
+
+화면의 복잡도나 UI 컨텍스트에 따라 `sm`, `md`, `lg` 세 가지 크기를 지원합니다.
+
+<Canvas of={InputStories.Sizes} />
+
+### States
+
+사용자 상호작용 가능 여부에 따른 시각적 상태입니다.
+
+- **Disabled**: 입력을 차단하며 투명도와 배경색을 통해 비활성 상태임을 명시합니다.
+- **Error State**: 에러 값을 가진 상태에서의 시각적 피드백을 보여줍니다.
+
+<Canvas of={InputStories.States} />
+
+## 🧪 Playground
+
+`disabled` 상태나 베리언트 등 다양한 Props를 실시간으로 조합하며 동작을 확인할 수 있습니다.
+
+<Canvas of={InputStories.Playground} />
+<Controls of={InputStories.Playground} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **UI Primitive**: 인풋 컴포넌트는 외부 레이아웃에 영향을 주지 않도록 자체적인 외부 여백(margin)을 가지지 않습니다.
+- **Visual Consistency**: `Error` 상태일 때 레이아웃이 흔들리지 않도록 보더 두께를 고정하고 색상만 변경하는 것을 권장합니다.
+
+### ♿ Accessibility
+
+- **Labeling**: 가급적 부모 컴포넌트에서 `<label>`과 연결하여 입력 목적을 명확히 해야 합니다.
+- **Keyboard**: 키보드 접근성을 위해 `focus-visible` 시 명확한 아웃라인 피드백을 제공합니다.
+
+### 🛠 Implementation Details
+
+- **Form Integration**: `React Hook Form` 등 외부 라이브러리와의 연동을 위해 `ref` 전달(Forwarding)이 완벽히 지원됩니다.
+- **Attribute Inheritance**: 기본 HTML `input` 요소의 속성들을 그대로 상속받아 유연하게 확장 가능합니다.

@@ -1,0 +1,124 @@
+import { Meta, Canvas, Controls, Source } from "@storybook/addon-docs/blocks";
+
+import * as CheckboxStories from "./stories";
+
+<Meta of={CheckboxStories} name="Docs" />
+
+# Checkbox
+
+`Checkbox` 컴포넌트는 사용자의 선택 여부를 표현하는 Form Primitive입니다.
+
+단일 옵션 동의, 다중 선택, 설정 활성화 여부 등 Boolean 상태를 직관적으로 제어하기 위해 사용합니다.
+
+Native checkbox 접근성을 유지하면서 디자인 시스템 토큰 기반 커스텀 스타일을 제공합니다.
+
+## 🚀 Usage
+
+기본 사용 예시입니다.
+
+<Source
+  code={`
+import { Checkbox } from '@/components/ui/checkbox';
+
+export const Example = () => (
+    <Checkbox />
+);
+`}
+  language="tsx"
+/>
+
+Label과 함께 사용하는 권장 예시입니다.
+
+<Source
+  code={`
+<Field>
+    <div className="flex items-center gap-2">
+      <Checkbox id="terms" />
+      <Label htmlFor="terms">
+        약관에 동의합니다
+      </Label>
+    </div>
+</Field>
+`}
+  language="tsx"
+/>
+
+오류 상태 예시입니다.
+
+<Source
+  code={`
+<Field invalid>
+    <div className="flex items-center gap-2">
+      <Checkbox id="privacy" aria-invalid />
+      <Label required htmlFor="privacy">
+        개인정보 수집 동의
+      </Label>
+    </div>
+    <ErrorMessage>
+      필수 동의 항목입니다.
+    </ErrorMessage>
+</Field>
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+기본 선택 컨트롤입니다.
+
+<Canvas of={CheckboxStories.Default} />
+
+### Checked
+
+선택된 상태를 표현합니다.
+
+<Canvas of={CheckboxStories.Checked} />
+
+### States
+
+Disabled 및 다양한 상태 표현 예시입니다.
+
+<Canvas of={CheckboxStories.States} />
+
+### Invalid
+
+유효성 검사 실패 상태를 표현합니다.
+
+<Canvas of={CheckboxStories.Invalid} />
+
+### Composition
+
+Field / Label / Supporting Text와 함께 완전한 Form 구조를 구성할 수 있습니다.
+
+<Canvas of={CheckboxStories.Composition} />
+
+## 🧪 Playground
+
+모든 Props를 조합하여 테스트할 수 있습니다.
+
+<Canvas of={CheckboxStories.Playground} />
+<Controls of={CheckboxStories.Playground} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Boolean Control**: 단일 true / false 선택 상태를 표현합니다.
+- **Primitive First**: 상태 조합은 상위 Form 구조에서 관리합니다.
+- **Minimal API**: checked / disabled / aria-invalid 중심 설계
+
+### ♿ Accessibility
+
+- Native `<input type="checkbox">` 기반
+- Keyboard navigation 지원
+- Label 연결 권장 (`htmlFor`)
+- `aria-invalid` 기반 오류 상태 전달 가능
+
+### 🛠 Implementation Details
+
+- Hidden native input + custom visual indicator
+- `peer-*` selector 기반 상태 동기화
+- `focus-visible` keyboard focus ring 제공
+- SVG scale transition 기반 check animation

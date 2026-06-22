@@ -1,21 +1,30 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
+import { XIcon } from 'lucide-react';
 
-import BaseModal from '@/components/common/base-modal';
+import { Button } from '@/components/ui/button';
+import { Modal, ModalClose, ModalContent } from '@/components/ui/modal';
 import type { Project } from '@/types/project';
 
-import ProjectContents from './project-detail';
+import { ProjectDetail } from './project-detail';
 
 interface Props {
   project: Project;
 }
 
-export default function ProjectDetailModal({ project }: Props) {
+export function ProjectDetailModal({ project }: Props) {
   const router = useRouter();
   return (
-    <BaseModal open={true} onClose={() => router.back()}>
-      <ProjectContents project={project} />
-    </BaseModal>
+    <Modal defaultOpen={true} onOpenChange={() => router.back()}>
+      <ModalContent className="p-0">
+        <ProjectDetail project={project} />
+        <ModalClose>
+          <Button className="absolute top-2 right-2" variant="ghost" size="sm">
+            <XIcon size={14} />
+          </Button>
+        </ModalClose>
+      </ModalContent>
+    </Modal>
   );
 }

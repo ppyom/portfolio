@@ -1,89 +1,68 @@
 'use client';
 
-import { useFieldArray, useFormContext } from 'react-hook-form';
-import dynamic from 'next/dynamic';
-import { GripVerticalIcon, PlusIcon } from 'lucide-react';
+import { Controller, useFormContext } from 'react-hook-form';
 
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/button';
+import { Description } from '@/components/ui/description';
+import { DragHandle } from '@/components/ui/draggable-list';
+import { Field } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
-import ConfirmDeleteButton from '@/components/common/dialog/confirm-delete-button';
-import Field from '@/components/common/form/field';
-import SortableItem from '@/components/common/sortable/item';
+import { Label } from '@/components/ui/label';
+import { DeleteButton, DeleteDialog } from '@/components/delete';
+import { FieldArray } from '@/components/form';
 
-const SortableList = dynamic(
-  () => import('@/components/common/sortable/list'),
-  {
-    ssr: false,
-  },
-);
-
-export default function TechStackField() {
-  const { control, register, watch, setValue } = useFormContext();
-  const { fields, append, remove, move } = useFieldArray({
-    control,
-    name: 'techStacks',
-    keyName: 'fieldId',
-  });
-
-  const ids = fields.map((field) => field.fieldId);
+export function TechStackField() {
+  const { register, control } = useFormContext();
 
   return (
-    <SortableList items={ids} onMove={move}>
-      {fields.map((field, idx) => (
-        <SortableItem key={field.fieldId} id={field.fieldId}>
-          {({ listeners, attributes }) => (
-            <div
-              key={field.fieldId}
-              className={cn(
-                'flex items-center gap-2',
-                idx === fields.length - 1 && 'mb-6',
-              )}
-            >
-              <div className="shrink-0 pt-2">
-                <Button
-                  type="button"
-                  size="icon"
-                  variant="ghost"
-                  className="cursor-grab touch-none"
-                  {...listeners}
-                  {...attributes}
-                >
-                  <GripVerticalIcon />
-                </Button>
-              </div>
-              <div className="flex-1 grid gap-1">
-                <Field label="유형">
-                  <Input {...register(`techStacks.${idx}.title`)} />
-                </Field>
-                <Field label="기술 스택">
+    <FieldArray
+      className="space-y-8"
+      name="techStacks"
+      createItem={() => ({
+        id: crypto.randomUUID(),
+        title: '',
+        stacks: [],
+      })}
+      addButtonText="기술스택 추가"
+    >
+      {({ index, remove }) => (
+        <div className="flex items-start gap-2">
+          <DragHandle className="mt-2" />
+
+          <div className="flex-1 space-y-4">
+            <Field>
+              <Label>유형</Label>
+              <Input {...register(`techStacks.${index}.title`)} />
+            </Field>
+
+            <Field>
+              <Label>기술 스택</Label>
+              <Description>
+                기술 스택은 콤마(,)로 구분해서 작성해주세요.
+              </Description>
+              <Controller
+                control={control}
+                name={`techStacks.${index}.stacks`}
+                render={({ field }) => (
                   <Input
-                    value={watch(`techStacks.${idx}.stacks`).join(',')}
-                    onChange={({ target }) =>
-                      setValue(
-                        `techStacks.${idx}.stacks`,
-                        target.value.split(','),
+                    value={field.value.join(',')}
+                    onChange={(e) =>
+                      field.onChange(
+                        e.target.value
+                          .split(',')
+                          .map((item) => item.trim())
+                          .filter(Boolean),
                       )
                     }
-                    placeholder="기술 스택 (,로 구분)"
                   />
-                </Field>
-              </div>
-              <div className="shrink-0 pt-2">
-                <ConfirmDeleteButton onConfirm={() => remove(idx)} />
-              </div>
-            </div>
-          )}
-        </SortableItem>
-      ))}
-      <Button
-        className="w-full"
-        variant="secondary"
-        type="button"
-        onClick={() => append({ title: '', stacks: [] })}
-      >
-        <PlusIcon /> 기술스택 추가
-      </Button>
-    </SortableList>
+                )}
+              />
+            </Field>
+          </div>
+          <DeleteDialog onConfirm={remove}>
+            <DeleteButton />
+          </DeleteDialog>
+        </div>
+      )}
+    </FieldArray>
   );
 }

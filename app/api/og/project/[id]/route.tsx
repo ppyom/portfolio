@@ -1,11 +1,11 @@
+import type { CSSProperties } from 'react';
 import { ImageResponse } from 'next/og';
-import type { Properties } from 'csstype';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { getProject } from '@/services/project';
 
-const containerStyle: Properties = {
+const containerStyle: CSSProperties = {
   width: '100%',
   height: '100%',
   display: 'flex',
@@ -14,9 +14,9 @@ const containerStyle: Properties = {
   alignItems: 'center',
   textAlign: 'center',
   padding: '80px',
-  background: '#231B00',
-  color: '#ffffff',
-  fontFamily: 'Pretendard',
+  background: '#12120F',
+  color: '#FAF8F1',
+  fontFamily: 'SUITE',
 };
 
 const imageSize = { width: 1200, height: 630 };
@@ -29,7 +29,7 @@ export async function GET(
   const project = await getProject(id, { isPublic: true });
 
   const font = await readFile(
-    path.join(process.cwd(), 'public/fonts/og/Pretendard-Bold.otf'),
+    path.join(process.cwd(), 'public/fonts/og/SUITE-Bold.otf'),
   );
 
   // 프로젝트가 없을 경우 fallback
@@ -38,7 +38,7 @@ export async function GET(
       ...imageSize,
       fonts: [
         {
-          name: 'Pretendard',
+          name: 'SUITE',
           data: font,
           weight: 700,
         },
@@ -66,7 +66,7 @@ export async function GET(
       ...imageSize,
       fonts: [
         {
-          name: 'Pretendard',
+          name: 'SUITE',
           data: font,
           weight: 700,
         },

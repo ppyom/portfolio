@@ -1,0 +1,66 @@
+import { Meta, Canvas, Source } from "@storybook/addon-docs/blocks";
+import * as SectionStories from "./stories";
+
+<Meta of={SectionStories} name="Docs" />
+
+# Section
+
+`Section`은 페이지 내 콘텐츠를 의미 단위로 구분하기 위한 레이아웃 primitive입니다.
+
+제목과 콘텐츠를 조합하여 일관된 섹션 구조를 구성할 수 있으며 특정 도메인에 의존하지 않고 재사용할 수 있습니다.
+
+## 🚀 Usage
+
+기본적인 Section 구조입니다.
+
+<Source
+  code={`
+<Section>
+    <SectionTitle as="h3">
+      Profile History
+    </SectionTitle>
+    <HistorySection />
+</Section>
+`}
+  language="tsx"
+/>
+
+## 📌 Examples
+
+### Default
+
+제목과 함께 사용하는 기본적인 Section 구조입니다.
+
+<Canvas of={SectionStories.Default} />
+
+### WithoutTitle
+
+제목 없이 콘텐츠만 렌더링하는 구조입니다.
+
+<Canvas of={SectionStories.WithoutTitle} />
+
+### CustomHeading
+
+다양한 heading 태그를 사용할 수 있습니다.
+
+<Canvas of={SectionStories.CustomHeading} />
+
+## 📝 Technical Guidelines
+
+### 🧠 Design Rules
+
+- **Content Grouping**: 관련된 콘텐츠를 하나의 의미 단위로 묶습니다.
+- **Composable Structure**: SectionTitle과 조합하여 사용할 수 있습니다.
+- **Flexible Layout**: 제목 없이도 사용할 수 있습니다.
+- **Domain Independent**: 특정 비즈니스 로직에 의존하지 않습니다.
+
+### ♿ Accessibility
+
+- `section`
+- semantic heading structure
+
+### 🛠 Implementation Details
+
+- compound component pattern
+- polymorphic heading support (`as`)
+- reusable layout primitive
