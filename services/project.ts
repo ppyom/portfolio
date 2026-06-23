@@ -148,6 +148,10 @@ export const updateProject = async (id: string, project: ProjectFormData) => {
       throw new Error('실패했습니다.');
     }
 
+    await deleteTechStack(tx).execute({
+      projectId: id,
+    });
+
     if (project.techStacks.length > 0) {
       await insertTechStack(project.techStacks, tx).execute({ projectId: id });
     }
