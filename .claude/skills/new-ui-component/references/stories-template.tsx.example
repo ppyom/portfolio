@@ -1,0 +1,63 @@
+// 템플릿: <Name>, <name>, 옵션 값들을 실제 컴포넌트에 맞게 바꾼다.
+import { Meta, StoryObj } from '@storybook/nextjs-vite';
+
+import { Name } from './name';
+
+const meta: Meta<typeof Name> = {
+  title: 'ui/name',
+  component: Name,
+  tags: ['!dev'],
+  argTypes: {
+    variant: {
+      control: 'inline-radio',
+      options: ['primary', 'secondary'],
+      table: {
+        type: { summary: 'primary | secondary' },
+        defaultValue: { summary: 'primary' },
+      },
+    },
+    disabled: {
+      control: 'boolean',
+      table: {
+        defaultValue: { summary: 'false' },
+      },
+    },
+  },
+};
+export default meta;
+
+type Story = StoryObj<typeof Name>;
+
+/**
+ * Default Name
+ */
+export const Default: Story = {
+  args: {
+    children: 'Name',
+    variant: 'primary',
+  },
+};
+
+/**
+ * Variant 비교
+ */
+export const Variants: Story = {
+  render: (args) => (
+    <div className="flex gap-4">
+      <Name {...args} variant="primary">
+        Primary
+      </Name>
+      <Name {...args} variant="secondary">
+        Secondary
+      </Name>
+    </div>
+  ),
+};
+
+export const Playground: Story = {
+  args: {
+    children: 'Name',
+    variant: 'primary',
+    disabled: false,
+  },
+};
