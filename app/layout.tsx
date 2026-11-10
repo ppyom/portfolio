@@ -41,7 +41,8 @@ export default async function RootLayout({ children }: Readonly<Props>) {
   ]);
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    // globals.css의 scroll-smooth를 페이지 이동 때는 끄도록 Next에 알린다 (앵커 이동에만 부드러운 스크롤 적용)
+    <html lang={locale} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={cn(suite.variable)}>
         <ThemeProvider
           attribute="class"
