@@ -84,6 +84,7 @@ const baseQuery = db
   .select({
     id: profileTable.id,
     introduce: profileTable.introduce,
+    resumeUrl: profileTable.resumeUrl,
     createdAt: profileTable.createdAt,
     updatedAt: profileTable.updatedAt,
     language: profileTable.language,
@@ -107,6 +108,11 @@ export const getLastProfileUpdateQuery = db
   .from(profileTable)
   .where(eq(profileTable.language, sql.placeholder('language')))
   .prepare('get_profile_update');
+export const getResumeUrlQuery = db
+  .select({ resumeUrl: profileTable.resumeUrl })
+  .from(profileTable)
+  .where(eq(profileTable.language, sql.placeholder('language')))
+  .prepare('get_resume_url');
 
 export const insertProfileQuery = (
   values: ProfileTable.Insert,
@@ -120,4 +126,16 @@ export const insertProfileQuery = (
       set: {
         ...values,
       },
+    });
+
+export const upsertResumeUrlQuery = (
+  resumeUrl: string | null,
+  client: DbClient = db,
+) =>
+  client
+    .insert(profileTable)
+    .values({ resumeUrl, language: sql.placeholder('language') })
+    .onConflictDoUpdate({
+      target: profileTable.language,
+      set: { resumeUrl },
     });
