@@ -5,6 +5,7 @@ import { ThemeToggle } from '@/components/theme/theme-toggle';
 
 import { HeaderNavigation } from './header-navigation';
 import { HeaderWrapper } from './header-wrapper';
+import { LocaleSwitcher } from './locale-switcher';
 import { Logo } from './logo';
 import { MobileHeaderMenu } from './mobile-header-menu';
 import { UserMenu } from './user-menu';
@@ -26,6 +27,7 @@ export function Header({ session, resumeUrl }: Props) {
           <ResumeDownloadButton url={resumeUrl} variant="ghost" size="sm">
             이력서
           </ResumeDownloadButton>
+          <LocaleSwitcher />
           <ThemeToggle />
           <UserMenu session={session} />
         </div>

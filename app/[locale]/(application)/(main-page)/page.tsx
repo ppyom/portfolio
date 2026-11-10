@@ -1,7 +1,14 @@
+import type { Metadata } from 'next';
+
 import { getResumeUrl } from '@/services/profile';
+import { createAlternates } from '@/lib/i18n/alternates';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ResumeDownloadButton } from '@/components/application/resume/resume-download-button';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return { alternates: await createAlternates('/') };
+}
 
 export default async function Page() {
   const resumeUrl = await getResumeUrl();

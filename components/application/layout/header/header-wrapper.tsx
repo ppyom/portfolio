@@ -1,9 +1,8 @@
 'use client';
 
-import { usePathname } from 'next/navigation';
-
 import { cn } from '@/lib/utils';
 import { useScrollVisibility } from '@/hooks/use-scroll-visibility';
+import { usePathname } from '@/i18n/navigation';
 
 interface Props {
   children: React.ReactNode;

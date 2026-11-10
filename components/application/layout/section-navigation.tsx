@@ -1,12 +1,11 @@
 'use client';
 
-import Link from 'next/link';
-
 import { sections } from '@/lib/constants/sections';
 import { cn } from '@/lib/utils';
 import { useScrollSpy } from '@/hooks/use-scroll-spy';
 import { useScrollVisibility } from '@/hooks/use-scroll-visibility';
 import { Button } from '@/components/ui/button';
+import { Link } from '@/i18n/navigation';
 
 export function SectionNavigation() {
   const activeId = useScrollSpy(sections.map((s) => s.id));

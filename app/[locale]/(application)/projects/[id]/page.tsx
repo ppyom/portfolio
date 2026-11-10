@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 import { getProject } from '@/services/project';
+import { createAlternates } from '@/lib/i18n/alternates';
 import { ProjectDetail } from '@/components/application/projects/project-detail';
 
 interface Props {
@@ -24,6 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
+    alternates: await createAlternates(`/projects/${id}`),
     openGraph: {
       title,
       description,

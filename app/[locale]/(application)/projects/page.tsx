@@ -1,6 +1,8 @@
+import type { Metadata } from 'next';
 import { BookIcon } from 'lucide-react';
 
 import { getFilteredProjects } from '@/services/project';
+import { createAlternates } from '@/lib/i18n/alternates';
 import { PageHeader } from '@/components/application/layout';
 import { ProjectList } from '@/components/application/projects/project-list';
 import { SearchForm } from '@/components/application/projects/search-form';
@@ -9,6 +11,10 @@ import type { ProjectFilter } from '@/types/project';
 
 interface Props {
   searchParams: Promise<ProjectFilter>;
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  return { alternates: await createAlternates('/projects') };
 }
 
 export default async function Page({ searchParams }: Props) {

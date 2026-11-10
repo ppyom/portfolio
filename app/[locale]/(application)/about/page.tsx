@@ -1,11 +1,18 @@
+import type { Metadata } from 'next';
+
 import { getProfile } from '@/services/profile';
 import { getSkills } from '@/services/skills';
+import { createAlternates } from '@/lib/i18n/alternates';
 import { Section, SectionTitle } from '@/components/ui/section';
 import { Achievement } from '@/components/application/about/achievement';
 import { CareerHistory } from '@/components/application/about/career-history';
 import { Introduction } from '@/components/application/about/introduction';
 import { PageHeader } from '@/components/application/layout';
 import { TechStack } from '@/components/application/skills/tech-stack';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return { alternates: await createAlternates('/about') };
+}
 
 export default async function Page() {
   const profile = await getProfile();

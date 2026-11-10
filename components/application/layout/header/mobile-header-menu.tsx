@@ -15,6 +15,7 @@ import { ResumeDownloadButton } from '@/components/application/resume/resume-dow
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 
 import { HeaderNavigation } from './header-navigation';
+import { LocaleSwitcher } from './locale-switcher';
 import { UserMenu } from './user-menu';
 
 interface Props {
@@ -41,6 +42,7 @@ export function MobileHeaderMenu({ session, resumeUrl }: Props) {
           <div className="flex-1 ml-2">
             <UserMenu session={session} />
           </div>
+          <LocaleSwitcher />
           <ThemeToggle />
           <SheetClose>
             <Button className="text-text-muted" variant="ghost" size="sm">

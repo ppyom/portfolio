@@ -3,7 +3,7 @@
 import { FormProvider, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-import { sendContactAction } from '@/app/(application)/contact/actions';
+import { sendContactAction } from '@/app/[locale]/(application)/contact/actions';
 import { notifyError } from '@/lib/utils/error';
 import { FormDataType, schema } from '@/lib/validation/contact.schema';
 import { Button } from '@/components/ui/button';
