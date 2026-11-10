@@ -28,6 +28,10 @@ export const metadata: Metadata = {
   },
 };
 
+// 모든 페이지가 세션·DB를 읽어 어차피 요청마다 렌더링된다(ƒ Dynamic).
+// 빌드 중 미리 렌더링을 시도하면 워커들이 동시에 DB에 접속해 빌드가 실패하거나 멈추므로 끈다.
+export const dynamic = 'force-dynamic';
+
 interface Props {
   children: React.ReactNode;
 }
