@@ -1,8 +1,7 @@
 'use client';
 
-import Link from 'next/link';
-
 import { headerNavItems } from '@/lib/constants/header-nav-items';
+import { Link } from '@/i18n/navigation';
 
 export function HeaderNavigation() {
   return (

@@ -1,9 +1,16 @@
+import type { Metadata } from 'next';
+
 import { getResumeUrl } from '@/services/profile';
+import { createAlternates } from '@/lib/i18n/alternates';
 import { Section, SectionTitle } from '@/components/ui/section';
 import { ContactForm } from '@/components/application/contact/contact-form';
 import { ContactLinks } from '@/components/application/contact/contact-links';
 import { PageHeader } from '@/components/application/layout';
 import { ResumeDownloadButton } from '@/components/application/resume/resume-download-button';
+
+export async function generateMetadata(): Promise<Metadata> {
+  return { alternates: await createAlternates('/contact') };
+}
 
 export default async function Page() {
   const resumeUrl = await getResumeUrl();

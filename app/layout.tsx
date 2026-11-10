@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getLocale } from 'next-intl/server';
 
 import { getSkillMetadata } from '@/services/skills';
 import { config } from '@/lib/config';
@@ -31,10 +32,16 @@ interface Props {
   children: React.ReactNode;
 }
 
+// 이 레이아웃은 언어를 바꿔도 다시 렌더링되지 않는다 (ThemeProvider의 <script>를 다시 그리지 않기 위해 여기 둔다).
+// 언어에 따라 바뀌는 번역 Provider와 lang 갱신은 app/[locale]/layout.tsx가 맡는다.
 export default async function RootLayout({ children }: Readonly<Props>) {
-  const skillMetadata = await getSkillMetadata();
+  const [skillMetadata, locale] = await Promise.all([
+    getSkillMetadata(),
+    getLocale(),
+  ]);
+
   return (
-    <html lang="ko" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body className={cn(suite.variable)}>
         <ThemeProvider
           attribute="class"
