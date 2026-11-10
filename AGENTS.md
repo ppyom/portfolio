@@ -15,6 +15,7 @@ npx tsc --noEmit          # 타입체크
 npm run build             # 빌드
 npm run storybook         # Storybook (6006)
 npx drizzle-kit generate  # 스키마 변경 → 마이그레이션 파일 생성
+npm run db:migrate        # 마이그레이션 DB 반영 (실패 시 실제 에러 출력)
 ```
 
 `NEXT_PUBLIC_USE_MOCK=true`면 services가 DB 대신 `mocks/` 데이터를 반환한다.
@@ -130,7 +131,8 @@ ESLint(`simple-import-sort`)가 강제한다: 외부 라이브러리 → `@/app`
 - 테이블 변수명 `<x>Table`, 컬럼은 camelCase ↔ DB snake_case.
 - `id`는 uuid + `gen_random_uuid()`, `createdAt` / `updatedAt` 포함.
 - RLS: `.enableRLS()`와 `database/policies.ts`의 정책을 붙인다 (기본: `policies.allUser.read, ...policies.admin.all`).
-- 스키마 변경 후 `npx drizzle-kit generate`로 마이그레이션 생성. **`drizzle-kit migrate`(실제 DB 반영)는 사용자 확인 후에만.**
+- 스키마 변경 후 `npx drizzle-kit generate`로 마이그레이션 생성. **`npm run db:migrate`(실제 DB 반영)는 사용자 확인 후에만.**
+- `npx drizzle-kit migrate`는 실패해도 에러를 출력하지 않으므로 쓰지 않는다.
 - `database/types/<x>.d.ts`에 `namespace XTable { type Select; type Insert }`를 추가한다.
 
 ### 훅·유틸

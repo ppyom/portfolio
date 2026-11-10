@@ -1,7 +1,11 @@
+import { getResumeUrl } from '@/services/profile';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { ResumeDownloadButton } from '@/components/application/resume/resume-download-button';
 
-export default function Page() {
+export default async function Page() {
+  const resumeUrl = await getResumeUrl();
+
   return (
     <section
       id="intro"
@@ -32,6 +36,7 @@ export default function Page() {
                 연락하기
               </Button>
             </a>
+            <ResumeDownloadButton url={resumeUrl} size="lg" variant="ghost" />
           </div>
         </div>
       </div>

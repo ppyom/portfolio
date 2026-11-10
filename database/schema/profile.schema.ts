@@ -12,6 +12,7 @@ export const profileTable = pgTable(
       .default(sql`gen_random_uuid()`),
     language: text('language').notNull().default('ko'),
     introduce: text('introduce').array(),
+    resumeUrl: text('resume_url'),
     createdAt: text('created_at')
       .notNull()
       .$default(() => sql`NOW()`),

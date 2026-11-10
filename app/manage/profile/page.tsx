@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 
 import { getProfile } from '@/services/profile';
 import { ProfileEditForm } from '@/components/admin/profile/profile-edit-form';
+import { ResumeUpload } from '@/components/admin/profile/resume-upload';
 
 export const metadata: Metadata = {
   title: '프로필 관리',
@@ -15,10 +16,11 @@ export default async function Page() {
       <div className="flex-1 space-y-2">
         <p className="text-2xl font-bold">프로필 관리</p>
         <p className="text-text-secondary">
-          자기소개, 경력, 학력 및 이력 정보를 관리하고 표시 순서를 조정할 수
-          있습니다.
+          이력서와 자기소개, 경력, 학력 및 이력 정보를 관리하고 표시 순서를
+          조정할 수 있습니다.
         </p>
       </div>
+      <ResumeUpload resumeUrl={profile?.resumeUrl} />
       <ProfileEditForm defaultProfile={profile} />
     </div>
   );

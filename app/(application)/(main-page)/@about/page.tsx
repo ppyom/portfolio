@@ -2,6 +2,7 @@ import { getProfile } from '@/services/profile';
 import { Section, SectionTitle } from '@/components/ui/section';
 import { CareerHistory } from '@/components/application/about/career-history';
 import { Introduction } from '@/components/application/about/introduction';
+import { ResumeDownloadButton } from '@/components/application/resume/resume-download-button';
 
 export default async function Page() {
   const profile = await getProfile();
@@ -20,6 +21,7 @@ export default async function Page() {
             experiences={profile.experience}
             educations={profile.education}
           />
+          <ResumeDownloadButton url={profile.resumeUrl} variant="secondary" />
         </div>
       </div>
     </Section>
