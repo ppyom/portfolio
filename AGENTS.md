@@ -148,7 +148,6 @@ ESLint(`simple-import-sort`)가 강제한다: 외부 라이브러리 → `@/app`
 ## 건드리지 않는 것
 
 - `database/migrations/` (생성물)
-- `components/ui-legacy/` (lint 제외 대상, 신규 사용 금지)
 - `.env*`
 - `package-lock.json` 수동 편집
 

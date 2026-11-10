@@ -44,7 +44,6 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    "components/ui-legacy/**", // shadcn/ui
     "stories/**",
   ]),
   ...storybook.configs["flat/recommended"],
