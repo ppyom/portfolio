@@ -3,6 +3,7 @@ import type { Profile } from '@/types/profile';
 export const profileMock: Profile = {
   id: '1',
   language: 'ko',
+  resumeUrl: 'https://example.com/resumes/mock/resume.pdf',
   introduce: [
     'Aliquam ultrices, ante non imperdiet lacinia, diam tortor eleifend erat, eu dapibus tortor nibh id risus. Vivamus eleifend mauris eu bibendum laoreet. Curabitur laoreet, diam ac feugiat vehicula, mi ex dapibus leo, eu lacinia neque felis id augue. Sed interdum nulla lobortis quam tincidunt blandit. Suspendisse eu est erat.',
     'Cras varius velit est. Mauris commodo vitae orci ac suscipit. Nulla a nulla suscipit, porta nisl ac, semper ante. Aenean eget diam vestibulum, accumsan lorem quis, bibendum turpis. Sed a pharetra tellus. Vivamus ut massa nulla. Phasellus bibendum sapien ac fermentum feugiat. Suspendisse vel leo molestie, iaculis velit a, molestie augue. ',
