@@ -24,7 +24,7 @@ description: 관리자(/manage)에서 관리할 새 도메인이나 기존 도�
 - 정책 기본값: `policies.allUser.read, ...policies.admin.all` (공개 쓰기가 필요한 경우만 `policies.allUser.insert`)
 - `database/types/<x>.d.ts`에 `export namespace <X>Table { type Select; type Insert }`
 - `npx drizzle-kit generate`로 마이그레이션 생성
-- **`npx drizzle-kit migrate`는 실행하지 말고, 사용자에게 실행하라고 안내만 한다.**
+- **`npm run db:migrate`는 실행하지 말고, 사용자에게 실행하라고 안내만 한다.**
 
 ## 2. 쿼리 — 기준: `database/queries/skill.ts`
 
