@@ -1,5 +1,6 @@
 import { getServerSession } from 'next-auth';
 
+import { getResumeUrl } from '@/services/profile';
 import authOptions from '@/lib/auth-options';
 import { Footer, Header, ScrollToTop } from '@/components/application/layout';
 
@@ -9,11 +10,14 @@ interface Props {
 }
 
 export default async function Layout({ children, modal }: Props) {
-  const session = await getServerSession(authOptions);
+  const [session, resumeUrl] = await Promise.all([
+    getServerSession(authOptions),
+    getResumeUrl(),
+  ]);
 
   return (
     <>
-      <Header session={session} />
+      <Header session={session} resumeUrl={resumeUrl} />
       {children}
       {modal}
       <Footer />

@@ -1,9 +1,13 @@
+import { getResumeUrl } from '@/services/profile';
 import { Section, SectionTitle } from '@/components/ui/section';
 import { ContactForm } from '@/components/application/contact/contact-form';
 import { ContactLinks } from '@/components/application/contact/contact-links';
 import { PageHeader } from '@/components/application/layout';
+import { ResumeDownloadButton } from '@/components/application/resume/resume-download-button';
 
-export default function Page() {
+export default async function Page() {
+  const resumeUrl = await getResumeUrl();
+
   return (
     <main className="max-w-4xl mx-auto space-y-8 p-4 pb-12 md:py-12">
       <PageHeader
@@ -23,6 +27,11 @@ export default function Page() {
             </p>
           </div>
           <ContactLinks />
+          <ResumeDownloadButton
+            url={resumeUrl}
+            variant="secondary"
+            className="w-full"
+          />
         </Section>
       </div>
     </main>
