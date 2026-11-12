@@ -1,9 +1,13 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
+
 import { headerNavItems } from '@/lib/constants/header-nav-items';
 import { Link } from '@/i18n/navigation';
 
 export function HeaderNavigation() {
+  const t = useTranslations('Nav');
+
   return (
     <>
       {headerNavItems.map((item) => (
@@ -13,7 +17,7 @@ export function HeaderNavigation() {
           scroll={item.type !== 'anchor' || undefined}
           className="text-text-muted hover:text-text-primary transition-colors"
         >
-          {item.label}
+          {t(item.labelKey)}
         </Link>
       ))}
     </>

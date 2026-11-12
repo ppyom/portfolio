@@ -1,3 +1,4 @@
+import { useTranslations } from 'next-intl';
 import { DownloadIcon } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -10,9 +11,11 @@ interface Props extends React.ComponentProps<typeof Button> {
 export function ResumeDownloadButton({
   url,
   className,
-  children = '이력서 다운로드',
+  children,
   ...props
 }: Props) {
+  const t = useTranslations('Common');
+
   if (!url) {
     return null;
   }
@@ -21,7 +24,7 @@ export function ResumeDownloadButton({
     <a href={url} download>
       <Button className={cn('gap-2', className)} {...props}>
         <DownloadIcon size={16} aria-hidden="true" />
-        {children}
+        {children ?? t('resumeDownload')}
       </Button>
     </a>
   );

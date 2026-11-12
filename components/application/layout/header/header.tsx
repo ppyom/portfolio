@@ -1,4 +1,5 @@
 import type { Session } from 'next-auth';
+import { useTranslations } from 'next-intl';
 
 import { ResumeDownloadButton } from '@/components/application/resume/resume-download-button';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
@@ -16,6 +17,8 @@ interface Props {
 }
 
 export function Header({ session, resumeUrl }: Props) {
+  const t = useTranslations('Header');
+
   return (
     <HeaderWrapper>
       <div className="max-w-4xl mx-auto p-4 flex items-center gap-2 justify-between">
@@ -25,7 +28,7 @@ export function Header({ session, resumeUrl }: Props) {
             <HeaderNavigation />
           </nav>
           <ResumeDownloadButton url={resumeUrl} variant="ghost" size="sm">
-            이력서
+            {t('resume')}
           </ResumeDownloadButton>
           <LocaleSwitcher />
           <ThemeToggle />
