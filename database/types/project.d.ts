@@ -1,5 +1,6 @@
 import { fileTable } from '@/database/schema/file.schema';
 import { projectTable } from '@/database/schema/project.schema';
+import { projectTranslationTable } from '@/database/schema/project-translation.schema';
 import { techStackTable } from '@/database/schema/tech-stack.schema';
 
 export namespace FileTable {
@@ -10,6 +11,11 @@ export namespace FileTable {
 export namespace ProjectTable {
   type Select = typeof projectTable.$inferSelect;
   type Insert = typeof projectTable.$inferInsert;
+}
+
+export namespace ProjectTranslationTable {
+  type Select = typeof projectTranslationTable.$inferSelect;
+  type Insert = typeof projectTranslationTable.$inferInsert;
 }
 
 export namespace TechStackTable {
