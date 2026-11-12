@@ -1,4 +1,4 @@
-import type { Project } from '@/types/project';
+import type { Project, ProjectTranslation } from '@/types/project';
 
 export const projectMock: Project[] = [
   {
@@ -60,6 +60,24 @@ export const projectMock: Project[] = [
     ],
     isPublic: false,
     order: 0,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+  },
+];
+
+export const projectTranslationMock: ProjectTranslation[] = [
+  {
+    id: '1',
+    projectId: '1',
+    language: 'en',
+    title: 'PROJECT 1 (EN)',
+    description: 'English description of PROJECT 1',
+    category: null,
+    overview: 'English overview of PROJECT 1',
+    features: ['English feature of PROJECT 1'],
+    goals: [],
+    results: null,
+    member: { role: 'English role', responsibilities: [] },
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
   },

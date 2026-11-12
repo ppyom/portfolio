@@ -1,3 +1,5 @@
+import { hasLocale } from 'next-intl';
+
 import { db } from '@/database';
 import { deleteFiles, insertFiles } from '@/database/queries/file';
 import {
@@ -13,20 +15,74 @@ import {
   updateProjectQuery,
 } from '@/database/queries/project';
 import {
+  deleteProjectTranslationQuery,
+  getProjectTranslationQuery,
+  getProjectTranslationsQuery,
+  upsertProjectTranslationQuery,
+} from '@/database/queries/project-translation';
+import {
   deleteTechStack,
   insertTechStack,
 } from '@/database/queries/tech-stack';
+import { projectErrorMessages } from '@/lib/constants/error-messages';
 import { remove } from '@/lib/upload/file';
 import { getDeletedImages, uploadImage } from '@/lib/upload/image';
-import { projectMock } from '@/mocks/project.mock';
+import { applyProjectTranslation } from '@/lib/utils/project-translation';
+import { type Locale, routing } from '@/i18n/routing';
+import { projectMock, projectTranslationMock } from '@/mocks/project.mock';
 import type { DbClient } from '@/types/db';
-import type { Project, ProjectFilter, ProjectFormData } from '@/types/project';
+import type {
+  Project,
+  ProjectFilter,
+  ProjectFormData,
+  ProjectTranslation,
+  ProjectTranslationData,
+} from '@/types/project';
 
 import { USE_MOCK } from './common';
 
 interface Options {
   isPublic?: boolean;
+  language?: Locale;
 }
+
+const getTranslationsByLanguage = async (
+  language: Locale,
+): Promise<ProjectTranslation[]> => {
+  if (USE_MOCK) {
+    return projectTranslationMock.filter((t) => t.language === language);
+  }
+  return getProjectTranslationsQuery.execute({ language });
+};
+
+// 기본 언어(한국어)는 project 테이블 값이 곧 원본이라 번역을 조회하지 않는다
+const translateProjects = async (
+  projects: Project[],
+  language: Locale = routing.defaultLocale,
+): Promise<Project[]> => {
+  if (language === routing.defaultLocale || projects.length === 0) {
+    return projects;
+  }
+
+  const translations = await getTranslationsByLanguage(language);
+  const translationMap = new Map(translations.map((t) => [t.projectId, t]));
+
+  return projects.map((project) =>
+    applyProjectTranslation(project, translationMap.get(project.id)),
+  );
+};
+
+// 번역은 기본 언어가 아닌 지원 언어로만 저장한다 (Server Action에서 받은 임의 문자열 방어)
+const assertTranslatableLanguage: (
+  language: string,
+) => asserts language is Locale = (language) => {
+  if (
+    !hasLocale(routing.locales, language) ||
+    language === routing.defaultLocale
+  ) {
+    throw new Error(projectErrorMessages.translation.invalidLanguage);
+  }
+};
 
 const uploadAndInsertImages = async (
   project: Pick<ProjectFormData, 'coverImageFile' | 'imageFiles'>,
@@ -51,33 +107,68 @@ const uploadAndInsertImages = async (
   };
 };
 
-export const getProjects = async ({ isPublic }: Options = {}): Promise<
-  Project[]
-> => {
-  if (USE_MOCK) return projectMock;
-  return (isPublic ? getPublicProjectsQuery : getProjectsQuery).execute();
+export const getProjects = async ({
+  isPublic,
+  language,
+}: Options = {}): Promise<Project[]> => {
+  if (USE_MOCK) return translateProjects(projectMock, language);
+  const projects = await (
+    isPublic ? getPublicProjectsQuery : getProjectsQuery
+  ).execute();
+  return translateProjects(projects, language);
 };
-export const getFilteredProjects = async ({ q }: ProjectFilter = {}): Promise<
-  Project[]
-> => {
-  if (USE_MOCK) return projectMock;
-  return (q ? getFilteredProjectsQuery(q) : getPublicProjectsQuery).execute();
+export const getFilteredProjects = async ({
+  q,
+  language,
+}: ProjectFilter & Pick<Options, 'language'> = {}): Promise<Project[]> => {
+  if (USE_MOCK) return translateProjects(projectMock, language);
+  const projects = await (
+    q ? getFilteredProjectsQuery(q) : getPublicProjectsQuery
+  ).execute();
+  return translateProjects(projects, language);
 };
 export const getProject = async (
   id: string,
-  { isPublic }: Options = {},
+  { isPublic, language }: Options = {},
 ): Promise<Project | null> => {
-  if (USE_MOCK) return projectMock[0];
+  if (USE_MOCK) {
+    const [project] = await translateProjects([projectMock[0]], language);
+    return project;
+  }
   try {
     const [project] = await (
       isPublic ? getPublicProjectQuery : getProjectQuery
     ).execute({
       projectId: id,
     });
-    return project;
+    if (!project) return null;
+
+    const [translated] = await translateProjects([project], language);
+    return translated;
   } catch {
     return null;
   }
+};
+/**
+ * 관리자 편집 폼은 덮어쓰기 결과가 아니라 입력한 번역 원본이 필요해서 따로 조회한다
+ */
+export const getProjectTranslation = async (
+  id: string,
+  language: string,
+): Promise<ProjectTranslation | null> => {
+  assertTranslatableLanguage(language);
+  if (USE_MOCK) {
+    return (
+      projectTranslationMock.find(
+        (t) => t.projectId === id && t.language === language,
+      ) ?? null
+    );
+  }
+  const [translation] = await getProjectTranslationQuery.execute({
+    projectId: id,
+    language,
+  });
+  return translation ?? null;
 };
 export const getTotalProjectCount = async (): Promise<number> => {
   if (USE_MOCK) return projectMock.length;
@@ -179,6 +270,26 @@ export const updateProjectOrder = async (projectIds: string[]) => {
       ),
     );
   });
+};
+
+export const saveProjectTranslation = async (
+  id: string,
+  language: string,
+  data: ProjectTranslationData,
+) => {
+  assertTranslatableLanguage(language);
+  await upsertProjectTranslationQuery({
+    ...data,
+    projectId: id,
+    language,
+  }).execute();
+};
+export const deleteProjectTranslation = async (
+  id: string,
+  language: string,
+) => {
+  assertTranslatableLanguage(language);
+  await deleteProjectTranslationQuery().execute({ projectId: id, language });
 };
 
 export const deleteProject = async (id: string) => {

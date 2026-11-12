@@ -1,6 +1,7 @@
 import {
   FileTable,
   ProjectTable,
+  ProjectTranslationTable,
   TechStackTable,
 } from '@/database/types/project';
 import type { ImageItem } from '@/types/image';
@@ -38,6 +39,21 @@ export interface ProjectFormData {
   member: Project['member'];
   techStacks: Project['techStacks'];
 }
+
+// 번역 저장 입력값. 비운 필드는 한국어 원본을 쓴다
+export type ProjectTranslationData = Pick<
+  ProjectTranslationTable.Insert,
+  | 'title'
+  | 'description'
+  | 'category'
+  | 'overview'
+  | 'features'
+  | 'goals'
+  | 'results'
+  | 'member'
+>;
+
+export type ProjectTranslation = ProjectTranslationTable.Select;
 
 export interface ProjectFilter {
   q?: string;
