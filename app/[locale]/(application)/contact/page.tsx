@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 import { getResumeUrl } from '@/services/profile';
 import { createAlternates } from '@/lib/i18n/alternates';
@@ -9,29 +10,32 @@ import { PageHeader } from '@/components/application/layout';
 import { ResumeDownloadButton } from '@/components/application/resume/resume-download-button';
 
 export async function generateMetadata(): Promise<Metadata> {
-  return { alternates: await createAlternates('/contact') };
+  const t = await getTranslations('Contact');
+
+  return {
+    title: t('title'),
+    alternates: await createAlternates('/contact'),
+  };
 }
 
 export default async function Page() {
-  const resumeUrl = await getResumeUrl();
+  const [resumeUrl, t] = await Promise.all([
+    getResumeUrl(),
+    getTranslations('Contact'),
+  ]);
 
   return (
     <main className="max-w-4xl mx-auto space-y-8 p-4 pb-12 md:py-12">
-      <PageHeader
-        title="Contact"
-        description="문의 사항이나 협업 제안이 있다면 편하게 연락해 주세요."
-      />
+      <PageHeader title={t('title')} description={t('description')} />
       <div className="grid gap-8 sm:grid-cols-[2fr_1fr]">
         <Section className="p-6 rounded-md bg-surface-secondary border">
-          <SectionTitle>문의하기</SectionTitle>
+          <SectionTitle>{t('formTitle')}</SectionTitle>
           <ContactForm />
         </Section>
         <Section>
           <div className="space-y-2">
-            <SectionTitle>연락처 정보</SectionTitle>
-            <p className="text-sm text-text-muted">
-              아래 정보를 통해 직접 연락하실 수 있습니다.
-            </p>
+            <SectionTitle>{t('infoTitle')}</SectionTitle>
+            <p className="text-sm text-text-muted">{t('infoDescription')}</p>
           </div>
           <ContactLinks />
           <ResumeDownloadButton

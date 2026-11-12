@@ -1,11 +1,16 @@
 'use client';
 
+import { useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import { useTranslations } from 'next-intl';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { sendContactAction } from '@/app/[locale]/(application)/contact/actions';
 import { notifyError } from '@/lib/utils/error';
-import { FormDataType, schema } from '@/lib/validation/contact.schema';
+import {
+  createSchema,
+  type FormDataType,
+} from '@/lib/validation/contact.schema';
 import { Button } from '@/components/ui/button';
 import { Field } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
@@ -16,6 +21,9 @@ import { toast } from '@/components/ui/toast';
 import { createContactDefaultValues } from './contact-form.utils';
 
 export function ContactForm() {
+  const t = useTranslations('ContactForm');
+  const tErrors = useTranslations('ContactForm.errors');
+  const schema = useMemo(() => createSchema(tErrors), [tErrors]);
   const form = useForm<FormDataType>({
     resolver: zodResolver(schema),
     defaultValues: createContactDefaultValues(),
@@ -29,7 +37,7 @@ export function ContactForm() {
           async (data: FormDataType) => {
             const result = await sendContactAction(data);
             if (result.success) {
-              toast.success('메시지 전달이 완료되었습니다.');
+              toast.success(t('success'));
               reset();
             } else {
               toast.error(result.message);
@@ -40,23 +48,23 @@ export function ContactForm() {
       >
         <div className="grid gap-6 md:grid-cols-2">
           <Field required>
-            <Label required>이름</Label>
+            <Label required>{t('name')}</Label>
             <Input {...register('name')} />
           </Field>
           <Field>
-            <Label>회사명</Label>
+            <Label>{t('company')}</Label>
             <Input {...register('company')} />
           </Field>
           <Field className="md:col-span-2" required>
-            <Label required>이메일 주소</Label>
+            <Label required>{t('email')}</Label>
             <Input {...register('email')} />
           </Field>
           <Field className="md:col-span-2" required>
-            <Label required>제목</Label>
+            <Label required>{t('subject')}</Label>
             <Input {...register('title')} />
           </Field>
           <Field className="md:col-span-2" required>
-            <Label required>내용</Label>
+            <Label required>{t('content')}</Label>
             <Textarea
               className="resize-none min-h-28"
               {...register('content')}
@@ -64,7 +72,7 @@ export function ContactForm() {
           </Field>
         </div>
         <Button type="submit" className="w-full mt-4" size="lg">
-          문의 남기기
+          {t('submit')}
         </Button>
       </form>
     </FormProvider>
