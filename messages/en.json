@@ -1,5 +1,130 @@
 {
+  "Metadata": {
+    "siteTitle": "Yejin Lee | Portfolio",
+    "titleTemplate": "%s | Yejin Lee Portfolio",
+    "description": "Portfolio of Yejin Lee, a frontend developer."
+  },
+  "Common": {
+    "name": "Yejin Lee",
+    "role": "Frontend Developer",
+    "resumeDownload": "Download Resume"
+  },
   "LocaleSwitcher": {
     "label": "Change language"
+  },
+  "Header": {
+    "resume": "Resume"
+  },
+  "UserMenu": {
+    "login": "Log in",
+    "manage": "Portfolio Admin",
+    "logout": "Log out"
+  },
+  "Nav": {
+    "intro": "Intro",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "history": "History",
+    "contact": "Contact"
+  },
+  "Footer": {
+    "copyright": "© {year} Yejin Lee. All rights reserved."
+  },
+  "Home": {
+    "tagline": "I build web applications that<br></br>both users and developers enjoy.",
+    "viewProjects": "View Projects",
+    "contactMe": "Get in Touch",
+    "about": {
+      "title": "About Me"
+    },
+    "skills": {
+      "title": "Skills & Tools",
+      "description": "Technologies and tools I work with most."
+    },
+    "projects": {
+      "title": "Projects",
+      "description": "Projects I have worked on."
+    },
+    "history": {
+      "title": "Learning & Growth",
+      "description": "My learning and activity history."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Feel free to reach out if you have any questions."
+    }
+  },
+  "About": {
+    "title": "About",
+    "heading": "Yejin Lee",
+    "achievements": "🏆 Achievements",
+    "techStack": "🛠 Tech Stack",
+    "experience": "Experience",
+    "education": "Education",
+    "employed": "Present",
+    "enrolled": "Present"
+  },
+  "Achievement": {
+    "type": {
+      "learning": "📖 Learning",
+      "certification": "🪪 Certification",
+      "activity": "🌱 Activity"
+    }
+  },
+  "Projects": {
+    "title": "Projects",
+    "description": "A collection of projects I have worked on.",
+    "empty": "No projects yet.",
+    "searchPlaceholder": "Search by project, tech stack, or category.",
+    "resetSearch": "Clear search"
+  },
+  "ProjectDetail": {
+    "overview": "Overview",
+    "features": "Key Features",
+    "techStack": "Tech Stack",
+    "member": "Team",
+    "goals": "Goals",
+    "results": "Results",
+    "images": "Screenshots",
+    "imageAlt": "Screenshot {index}",
+    "memberSize": "Team size",
+    "memberCount": "{count, plural, one {# person} other {# people}}",
+    "role": "Role",
+    "responsibilities": "Responsibilities",
+    "github": "GitHub",
+    "viewSite": "View Site",
+    "notFoundTitle": "Project not found.",
+    "notFoundDescription": "This project does not exist or has been deleted.",
+    "goBack": "Go back"
+  },
+  "Contact": {
+    "title": "Contact",
+    "description": "Feel free to reach out with any questions or collaboration ideas.",
+    "formTitle": "Send a Message",
+    "infoTitle": "Contact Info",
+    "infoDescription": "You can also reach me directly through the channels below."
+  },
+  "ContactForm": {
+    "name": "Name",
+    "company": "Company",
+    "email": "Email",
+    "subject": "Subject",
+    "content": "Message",
+    "submit": "Send Message",
+    "success": "Your message has been sent.",
+    "failure": "Failed to send your message. Please try again later.",
+    "errors": {
+      "nameRequired": "Name is required.",
+      "emailRequired": "Email is required.",
+      "emailInvalid": "Please enter a valid email address.",
+      "subjectRequired": "Subject is required.",
+      "contentRequired": "Message is required."
+    }
+  },
+  "NotFound": {
+    "title": "Page not found.",
+    "description": "The address may be incorrect, or the page may have been moved or deleted.",
+    "goHome": "Go to Home"
   }
 }

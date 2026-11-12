@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 import { getResumeUrl } from '@/services/profile';
 import { createAlternates } from '@/lib/i18n/alternates';
@@ -11,7 +12,11 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
-  const resumeUrl = await getResumeUrl();
+  const [resumeUrl, t, tCommon] = await Promise.all([
+    getResumeUrl(),
+    getTranslations('Home'),
+    getTranslations('Common'),
+  ]);
 
   return (
     <section
@@ -24,23 +29,22 @@ export default async function Page() {
             className="text-sm font-medium tracking-wider uppercase"
             variant="muted"
           >
-            Frontend Developer
+            {tCommon('role')}
           </Badge>
           <p className="text-5xl font-bold tracking-tight text-text-primary sm:text-6xl">
-            이예진
+            {tCommon('name')}
           </p>
           <p className="mx-auto max-w-2xl text-lg leading-relaxed text-text-secondary">
-            사용자와 개발자 모두가 만족할 수 있는
-            <br />웹 애플리케이션을 만듭니다.
+            {t.rich('tagline', { br: () => <br /> })}
           </p>
 
           <div className="flex flex-wrap justify-center gap-3 pt-4">
             <a href="#projects">
-              <Button size="lg">프로젝트 보기</Button>
+              <Button size="lg">{t('viewProjects')}</Button>
             </a>
             <a href="#contact">
               <Button size="lg" variant="secondary">
-                연락하기
+                {t('contactMe')}
               </Button>
             </a>
             <ResumeDownloadButton url={resumeUrl} size="lg" variant="ghost" />

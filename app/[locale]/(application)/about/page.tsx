@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 
 import { getProfile } from '@/services/profile';
 import { getSkills } from '@/services/skills';
@@ -11,16 +12,25 @@ import { PageHeader } from '@/components/application/layout';
 import { TechStack } from '@/components/application/skills/tech-stack';
 
 export async function generateMetadata(): Promise<Metadata> {
-  return { alternates: await createAlternates('/about') };
+  const t = await getTranslations('About');
+
+  return {
+    title: t('title'),
+    alternates: await createAlternates('/about'),
+  };
 }
 
 export default async function Page() {
-  const profile = await getProfile();
-  const skills = await getSkills();
+  const [profile, skills, t, tCommon] = await Promise.all([
+    getProfile(),
+    getSkills(),
+    getTranslations('About'),
+    getTranslations('Common'),
+  ]);
 
   return (
     <main className="max-w-4xl mx-auto p-4 mb-24 space-y-8">
-      <PageHeader title="이예진 (Yejin Lee)" description="Frontend Developer" />
+      <PageHeader title={t('heading')} description={tCommon('role')} />
       <Section>
         <Introduction contents={profile.introduce} />
         <CareerHistory
@@ -29,11 +39,11 @@ export default async function Page() {
         />
       </Section>
       <Section>
-        <SectionTitle>🏆 Achievements</SectionTitle>
+        <SectionTitle>{t('achievements')}</SectionTitle>
         <Achievement contents={profile.history} />
       </Section>
       <Section>
-        <SectionTitle>🛠 Tech Stack</SectionTitle>
+        <SectionTitle>{t('techStack')}</SectionTitle>
         <TechStack skills={skills} />
       </Section>
     </main>
