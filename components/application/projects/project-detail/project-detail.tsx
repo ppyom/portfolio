@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl';
+
 import { Section, SectionTitle } from '@/components/ui/section';
 import type { Project } from '@/types/project';
 
@@ -13,49 +15,51 @@ interface Props {
 }
 
 export function ProjectDetail({ project }: Props) {
+  const t = useTranslations('ProjectDetail');
+
   return (
     <ImagePreviewProvider>
       <Header {...project} />
       <main className="max-w-4xl mx-auto p-6 space-y-8">
         {project.overview && (
           <Section className="space-y-4">
-            <SectionTitle>프로젝트 개요</SectionTitle>
+            <SectionTitle>{t('overview')}</SectionTitle>
             <p className="whitespace-pre-wrap">{project.overview}</p>
           </Section>
         )}
         {project.features && project.features.length !== 0 && (
           <Section className="space-y-4">
-            <SectionTitle>주요 기능</SectionTitle>
+            <SectionTitle>{t('features')}</SectionTitle>
             <BulletList items={project.features} />
           </Section>
         )}
         {project.techStacks && project.techStacks.length !== 0 && (
           <Section className="space-y-4">
-            <SectionTitle>사용 기술</SectionTitle>
+            <SectionTitle>{t('techStack')}</SectionTitle>
             <TechStack techStacks={project.techStacks} />
           </Section>
         )}
         {project.member && (
           <Section className="space-y-4">
-            <SectionTitle>프로젝트 구성원</SectionTitle>
+            <SectionTitle>{t('member')}</SectionTitle>
             <Member member={project.member} />
           </Section>
         )}
         {project.goals && project.goals.length !== 0 && (
           <Section className="space-y-4">
-            <SectionTitle>목표</SectionTitle>
+            <SectionTitle>{t('goals')}</SectionTitle>
             <BulletList items={project.goals} />
           </Section>
         )}
         {project.results && project.results.length !== 0 && (
           <Section className="space-y-4">
-            <SectionTitle>성과</SectionTitle>
+            <SectionTitle>{t('results')}</SectionTitle>
             <BulletList items={project.results} />
           </Section>
         )}
         {project.images && project.images.length !== 0 && (
           <Section className="space-y-4">
-            <SectionTitle>시연 이미지</SectionTitle>
+            <SectionTitle>{t('images')}</SectionTitle>
             <Images images={project.images} />
           </Section>
         )}

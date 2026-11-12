@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 import { SearchIcon, Undo2Icon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -12,6 +13,7 @@ interface Props {
 }
 
 export function SearchForm({ defaultKeyword = '' }: Props) {
+  const t = useTranslations('Projects');
   const router = useRouter();
   const [keyword, setKeyword] = useState(defaultKeyword);
 
@@ -32,14 +34,14 @@ export function SearchForm({ defaultKeyword = '' }: Props) {
         className="flex-1"
         value={keyword}
         onChange={({ target }) => setKeyword(target.value)}
-        placeholder="프로젝트, 기술 스택, 카테고리를 검색해보세요."
+        placeholder={t('searchPlaceholder')}
       />
       {!!defaultKeyword && (
         <Button
           type="button"
           variant="secondary"
           onClick={handleReset}
-          title="입력 초기화"
+          title={t('resetSearch')}
         >
           <Undo2Icon size={14} />
         </Button>

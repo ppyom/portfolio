@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { getTranslations } from 'next-intl/server';
 import { BookIcon } from 'lucide-react';
 
 import { getFilteredProjects } from '@/services/project';
@@ -14,23 +15,26 @@ interface Props {
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  return { alternates: await createAlternates('/projects') };
+  const t = await getTranslations('Projects');
+
+  return {
+    title: t('title'),
+    alternates: await createAlternates('/projects'),
+  };
 }
 
 export default async function Page({ searchParams }: Props) {
   const { q } = await searchParams;
-  const projects = await getFilteredProjects({ q });
+  const [projects, t] = await Promise.all([
+    getFilteredProjects({ q }),
+    getTranslations('Projects'),
+  ]);
 
   return (
     <main className="max-w-4xl mx-auto p-4 space-y-6">
-      <PageHeader
-        title="프로젝트 목록"
-        description="진행했던 프로젝트들을 정리했습니다."
-      />
+      <PageHeader title={t('title')} description={t('description')} />
       <SearchForm defaultKeyword={q} />
-      {projects.length === 0 && (
-        <Empty icon={BookIcon} title="등록된 프로젝트가 없습니다." />
-      )}
+      {projects.length === 0 && <Empty icon={BookIcon} title={t('empty')} />}
       {projects.length > 0 && (
         <div className="flex flex-col gap-4 min-h-[66vh]">
           <ProjectList projects={projects} />

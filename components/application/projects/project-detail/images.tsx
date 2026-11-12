@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 import {
   Carousel,
@@ -18,6 +19,7 @@ interface Props {
 }
 
 export function Images({ images }: Props) {
+  const t = useTranslations('ProjectDetail');
   const { open } = useImagePreview();
 
   const imageUrls = images.map((image) => image.url);
@@ -32,7 +34,7 @@ export function Images({ images }: Props) {
               <Image
                 className="w-full aspect-square object-center object-cover cursor-pointer"
                 src={image.url}
-                alt={`시연 이미지 ${idx + 1}`}
+                alt={t('imageAlt', { index: idx + 1 })}
                 width={500}
                 height={500}
                 onClick={() => open(imageUrls, idx)}
