@@ -6,3 +6,4 @@ export * from './admin-sidebar';
 export * from './admin-sidebar-nav';
 export * from './admin-sidebar-trigger';
 export * from './admin-user-menu';
+export * from './language-tabs';

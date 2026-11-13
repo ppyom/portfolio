@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { BookIcon } from 'lucide-react';
 
 import { getFilteredProjects } from '@/services/project';
@@ -24,9 +24,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page({ searchParams }: Props) {
-  const { q } = await searchParams;
+  const [{ q }, locale] = await Promise.all([searchParams, getLocale()]);
   const [projects, t] = await Promise.all([
-    getFilteredProjects({ q }),
+    getFilteredProjects({ q, language: locale }),
     getTranslations('Projects'),
   ]);
 

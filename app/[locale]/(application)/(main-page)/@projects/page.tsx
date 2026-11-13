@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 import { BookIcon } from 'lucide-react';
 
 import { getProjects } from '@/services/project';
@@ -7,8 +7,9 @@ import { ProjectList } from '@/components/application/projects/project-list';
 import { Empty } from '@/components/feedback/empty';
 
 export default async function Page() {
+  const locale = await getLocale();
   const [projects, t, tProjects] = await Promise.all([
-    getProjects({ isPublic: true }),
+    getProjects({ isPublic: true, language: locale }),
     getTranslations('Home.projects'),
     getTranslations('Projects'),
   ]);
