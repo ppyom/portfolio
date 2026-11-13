@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+import { getLocale } from 'next-intl/server';
 
 import { getProject } from '@/services/project';
 import { createAlternates } from '@/lib/i18n/alternates';
@@ -10,8 +11,8 @@ interface Props {
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { id } = await params;
-  const project = await getProject(id, { isPublic: true });
+  const [{ id }, locale] = await Promise.all([params, getLocale()]);
+  const project = await getProject(id, { isPublic: true, language: locale });
 
   if (!project) {
     return {};
@@ -35,8 +36,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Props) {
-  const { id } = await params;
-  const project = await getProject(id, { isPublic: true });
+  const [{ id }, locale] = await Promise.all([params, getLocale()]);
+  const project = await getProject(id, { isPublic: true, language: locale });
 
   if (!project) {
     return notFound();
