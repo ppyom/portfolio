@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 import { getPublicProfile } from '@/services/profile';
 import { getSkills } from '@/services/skills';
 import { createAlternates } from '@/lib/i18n/alternates';
+import { resolveRequestLocale } from '@/lib/i18n/request-locale';
 import { Section, SectionTitle } from '@/components/ui/section';
 import { Achievement } from '@/components/application/about/achievement';
 import { CareerHistory } from '@/components/application/about/career-history';
@@ -11,7 +12,12 @@ import { Introduction } from '@/components/application/about/introduction';
 import { PageHeader } from '@/components/application/layout';
 import { TechStack } from '@/components/application/skills/tech-stack';
 
-export async function generateMetadata(): Promise<Metadata> {
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  await resolveRequestLocale(params);
   const t = await getTranslations('About');
 
   return {
@@ -20,8 +26,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Page() {
-  const locale = await getLocale();
+export default async function Page({ params }: Props) {
+  const locale = await resolveRequestLocale(params);
   const [profile, skills, t, tCommon] = await Promise.all([
     getPublicProfile(locale),
     getSkills(),

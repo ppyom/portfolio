@@ -1,7 +1,6 @@
 'use client';
 
-import { useTransition } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { CheckIcon, LanguagesIcon } from 'lucide-react';
 
@@ -14,7 +13,7 @@ import {
   DropdownMenu,
   DropdownTrigger,
 } from '@/components/ui/dropdown-menu';
-import { usePathname, useRouter } from '@/i18n/navigation';
+import { getPathname, usePathname } from '@/i18n/navigation';
 import { type Locale, routing } from '@/i18n/routing';
 
 // 언어 이름은 그 언어로 표기한다 (한국어, English). 언어를 추가해도 따로 적을 필요가 없다
@@ -26,21 +25,20 @@ export function LocaleSwitcher() {
   const locale = useLocale();
   // 언어 접두어를 뺀 실제 경로(/projects/123)라 동적 세그먼트도 그대로 유지된다
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const router = useRouter();
   const isMobile = useIsMobile();
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
 
   const handleChange = (nextLocale: Locale) => {
     if (nextLocale === locale) return;
 
-    // 검색어(?q=) 같은 쿼리도 유지한 채 언어만 바꾼다
-    const query = searchParams.toString();
-    const href = query ? `${pathname}?${query}` : pathname;
-
-    startTransition(() => {
-      router.replace(href, { locale: nextLocale, scroll: false });
-    });
+    setIsPending(true);
+    // 언어마다 루트 레이아웃이 달라 어차피 전체 새로고침되므로 처음부터 문서 이동을 한다.
+    // 클라이언트 이동(router.replace)을 쓰면 /projects/[id]에서 방문자 모달 intercepting 라우트에 가로채진다.
+    // 검색어(?q=) 같은 쿼리는 유지하고, useSearchParams는 정적 렌더링 시 Suspense가 필요해 클릭 시점에 직접 읽는다
+    window.location.replace(
+      getPathname({ href: pathname, locale: nextLocale }) +
+        window.location.search,
+    );
   };
 
   return (

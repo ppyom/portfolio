@@ -1,3 +1,4 @@
+import { resolveRequestLocale } from '@/lib/i18n/request-locale';
 import { SectionNavigation } from '@/components/application/layout';
 
 interface Props {
@@ -7,9 +8,11 @@ interface Props {
   projects: React.ReactNode;
   history: React.ReactNode;
   contact: React.ReactNode;
+  params: Promise<{ locale: string }>;
 }
 
-export default function Layout({
+export default async function Layout({
+  params,
   children,
   about,
   skills,
@@ -17,6 +20,8 @@ export default function Layout({
   contact,
   history,
 }: Props) {
+  await resolveRequestLocale(params);
+
   return (
     <>
       {children}

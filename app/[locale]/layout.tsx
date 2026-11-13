@@ -1,9 +1,11 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
-import { getLocale, getTranslations, setRequestLocale } from 'next-intl/server';
+import { getTranslations, setRequestLocale } from 'next-intl/server';
 
-import { HtmlLang } from '@/components/provider/html-lang';
+import { config } from '@/lib/config';
+import { resolveRequestLocale } from '@/lib/i18n/request-locale';
+import { RootDocument } from '@/components/provider/root-document';
 import { routing } from '@/i18n/routing';
 
 interface Props {
@@ -11,20 +13,20 @@ interface Props {
   params: Promise<{ locale: string }>;
 }
 
+// 빌드 시 미리 렌더링하면 워커들이 동시에 DB에 접속해 빌드가 실패하거나 멈춘다.
+// 빈 배열로 두면 빌드 때는 렌더링하지 않고 첫 요청 때 생성해 캐시한다 (갱신은 관리자 액션의 revalidatePath)
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return [];
 }
 
-// 루트 layout의 기본 메타데이터는 관리자용 한국어라, 방문자 페이지는 여기서 언어별로 덮어쓴다
-export async function generateMetadata(): Promise<Metadata> {
-  const [locale, t] = await Promise.all([
-    getLocale(),
-    getTranslations('Metadata'),
-  ]);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const locale = await resolveRequestLocale(params);
+  const t = await getTranslations('Metadata');
   const title = { default: t('siteTitle'), template: t('titleTemplate') };
   const description = t('description');
 
   return {
+    metadataBase: new URL(config.siteUrl),
     title,
     description,
     openGraph: {
@@ -36,6 +38,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
+// 방문자 페이지의 루트 레이아웃. <html lang>을 요청 헤더 없이 URL의 locale로 정해야 정적 렌더링이 가능하다
+// 언어를 바꾸면 루트 레이아웃이 달라져 전체 새로고침이 일어나므로 next-themes <script> 재렌더링 경고도 생기지 않는다
 export default async function Layout({ children, params }: Props) {
   const { locale } = await params;
 
@@ -45,11 +49,9 @@ export default async function Layout({ children, params }: Props) {
 
   setRequestLocale(locale);
 
-  // 언어가 바뀌면 이 레이아웃이 다시 렌더링되므로, 번역 Provider는 루트가 아니라 여기에 둔다
   return (
-    <NextIntlClientProvider>
-      <HtmlLang lang={locale} />
-      {children}
-    </NextIntlClientProvider>
+    <RootDocument lang={locale}>
+      <NextIntlClientProvider>{children}</NextIntlClientProvider>
+    </RootDocument>
   );
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import { FormProvider, useForm } from 'react-hook-form';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 
@@ -17,8 +17,6 @@ import { Label } from '@/components/ui/label';
 
 export function LoginForm() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') ?? '/';
 
   const form = useForm<FormDataType>({
     resolver: zodResolver(schema),
@@ -63,6 +61,9 @@ export function LoginForm() {
         });
         return;
       }
+      // useSearchParams는 정적 렌더링 시 Suspense 경계가 필요하므로 제출 시점에 직접 읽는다
+      const callbackUrl =
+        new URLSearchParams(window.location.search).get('callbackUrl') ?? '/';
       router.replace(callbackUrl);
       router.refresh();
     } catch (error) {

@@ -1,7 +1,6 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
-import { hasLocale } from 'next-intl';
 
 import {
   createProject,
@@ -13,8 +12,7 @@ import {
 } from '@/services/project';
 import { extractErrorMessage } from '@/lib/utils/error';
 import { parseProjectFormData } from '@/lib/utils/parse-project-form-data';
-import { getPathname } from '@/i18n/navigation';
-import { routing } from '@/i18n/routing';
+import { revalidateVisitorPages } from '@/lib/utils/revalidate';
 import type { ProjectTranslationData } from '@/types/project';
 
 export async function createProjectAction(formData: FormData) {
@@ -24,7 +22,7 @@ export async function createProjectAction(formData: FormData) {
     const result = await createProject(project);
 
     revalidatePath('/manage/projects');
-    revalidatePath('/projects');
+    revalidateVisitorPages();
 
     return { success: true, projectId: result.id };
   } catch (error) {
@@ -46,7 +44,7 @@ export async function updateProjectAction(formData: FormData, id: string) {
     await updateProject(id, project);
 
     revalidatePath('/manage/projects');
-    revalidatePath(`/projects/${id}`);
+    revalidateVisitorPages();
 
     return { success: true };
   } catch (error) {
@@ -67,15 +65,10 @@ export async function saveProjectTranslationAction(
   }
 
   try {
-    // 지원하지 않는 언어는 서비스에서 throw되므로 아래 hasLocale은 타입 좁히기 용도다
     await saveProjectTranslation(id, language, data);
 
     revalidatePath('/manage/projects');
-    if (hasLocale(routing.locales, language)) {
-      for (const href of ['/', '/projects', `/projects/${id}`]) {
-        revalidatePath(getPathname({ href, locale: language }));
-      }
-    }
+    revalidateVisitorPages();
 
     return { success: true };
   } catch (error) {
@@ -94,7 +87,7 @@ export async function updateProjectVisibilityAction(
     await updateProjectVisibility(id, isPublic);
 
     revalidatePath('/manage/projects');
-    revalidatePath(`/projects/${id}`);
+    revalidateVisitorPages();
 
     return { success: true, projectId: id };
   } catch (error) {
@@ -110,7 +103,7 @@ export async function updateProjectOrderAction(projectIds: string[]) {
     await updateProjectOrder(projectIds);
 
     revalidatePath('/manage/projects');
-    revalidatePath(`/projects`);
+    revalidateVisitorPages();
 
     return { success: true };
   } catch (error) {
@@ -130,7 +123,7 @@ export async function deleteProjectAction(id: string) {
     await deleteProject(id);
 
     revalidatePath('/manage/projects');
-    revalidatePath('/projects');
+    revalidateVisitorPages();
 
     return { success: true };
   } catch (error) {

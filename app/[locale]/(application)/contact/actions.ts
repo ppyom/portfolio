@@ -11,7 +11,7 @@ export const sendContactAction = async (data: FormDataType) => {
   try {
     await createContact(data);
 
-    revalidatePath('/manage/contact');
+    revalidatePath('/manage/inbox');
 
     return { success: true };
   } catch (error) {

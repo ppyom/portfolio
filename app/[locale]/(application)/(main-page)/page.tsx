@@ -1,18 +1,24 @@
 import type { Metadata } from 'next';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 import { getResumeUrl } from '@/services/profile';
 import { createAlternates } from '@/lib/i18n/alternates';
+import { resolveRequestLocale } from '@/lib/i18n/request-locale';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { ResumeDownloadButton } from '@/components/application/resume/resume-download-button';
 
-export async function generateMetadata(): Promise<Metadata> {
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  await resolveRequestLocale(params);
   return { alternates: await createAlternates('/') };
 }
 
-export default async function Page() {
-  const locale = await getLocale();
+export default async function Page({ params }: Props) {
+  const locale = await resolveRequestLocale(params);
   const [resumeUrl, t, tCommon] = await Promise.all([
     getResumeUrl(locale),
     getTranslations('Home'),

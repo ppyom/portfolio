@@ -1,13 +1,18 @@
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 import { getPublicProfile, getResumeUrl } from '@/services/profile';
+import { resolveRequestLocale } from '@/lib/i18n/request-locale';
 import { Section, SectionTitle } from '@/components/ui/section';
 import { CareerHistory } from '@/components/application/about/career-history';
 import { Introduction } from '@/components/application/about/introduction';
 import { ResumeDownloadButton } from '@/components/application/resume/resume-download-button';
 
-export default async function Page() {
-  const locale = await getLocale();
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export default async function Page({ params }: Props) {
+  const locale = await resolveRequestLocale(params);
   const [profile, resumeUrl, t] = await Promise.all([
     getPublicProfile(locale),
     getResumeUrl(locale),

@@ -1,7 +1,6 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import type { Session } from 'next-auth';
 import { MenuIcon, XIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -19,11 +18,10 @@ import { LocaleSwitcher } from './locale-switcher';
 import { UserMenu } from './user-menu';
 
 interface Props {
-  session: Session | null;
   resumeUrl?: string | null;
 }
 
-export function MobileHeaderMenu({ session, resumeUrl }: Props) {
+export function MobileHeaderMenu({ resumeUrl }: Props) {
   const pathname = usePathname();
 
   return (
@@ -40,7 +38,7 @@ export function MobileHeaderMenu({ session, resumeUrl }: Props) {
       >
         <div className="flex gap-2 items-center justify-between">
           <div className="flex-1 ml-2">
-            <UserMenu session={session} />
+            <UserMenu />
           </div>
           <LocaleSwitcher />
           <ThemeToggle />

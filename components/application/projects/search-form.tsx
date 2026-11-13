@@ -25,7 +25,7 @@ export function SearchForm({ defaultKeyword = '' }: Props) {
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    router.push(`/projects?q=${keyword}`);
+    router.push(`/projects?q=${encodeURIComponent(keyword)}`);
   };
 
   return (

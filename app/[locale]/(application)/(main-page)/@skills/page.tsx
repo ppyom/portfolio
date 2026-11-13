@@ -1,10 +1,16 @@
 import { getTranslations } from 'next-intl/server';
 
 import { getSkills } from '@/services/skills';
+import { resolveRequestLocale } from '@/lib/i18n/request-locale';
 import { Section, SectionTitle } from '@/components/ui/section';
 import { TechStack } from '@/components/application/skills/tech-stack';
 
-export default async function Page() {
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export default async function Page({ params }: Props) {
+  await resolveRequestLocale(params);
   const [skills, t] = await Promise.all([
     getSkills(),
     getTranslations('Home.skills'),

@@ -1,20 +1,20 @@
+import { Suspense } from 'react';
 import type { Metadata } from 'next';
-import { getLocale, getTranslations } from 'next-intl/server';
-import { BookIcon } from 'lucide-react';
+import { getTranslations } from 'next-intl/server';
 
-import { getFilteredProjects } from '@/services/project';
+import { getProjects } from '@/services/project';
 import { createAlternates } from '@/lib/i18n/alternates';
+import { resolveRequestLocale } from '@/lib/i18n/request-locale';
 import { PageHeader } from '@/components/application/layout';
 import { ProjectList } from '@/components/application/projects/project-list';
-import { SearchForm } from '@/components/application/projects/search-form';
-import { Empty } from '@/components/feedback/empty';
-import type { ProjectFilter } from '@/types/project';
+import { ProjectSearch } from '@/components/application/projects/project-search';
 
 interface Props {
-  searchParams: Promise<ProjectFilter>;
+  params: Promise<{ locale: string }>;
 }
 
-export async function generateMetadata(): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  await resolveRequestLocale(params);
   const t = await getTranslations('Projects');
 
   return {
@@ -23,23 +23,26 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Page({ searchParams }: Props) {
-  const [{ q }, locale] = await Promise.all([searchParams, getLocale()]);
+export default async function Page({ params }: Props) {
+  const locale = await resolveRequestLocale(params);
   const [projects, t] = await Promise.all([
-    getFilteredProjects({ q, language: locale }),
+    getProjects({ isPublic: true, language: locale }),
     getTranslations('Projects'),
   ]);
 
   return (
     <main className="max-w-4xl mx-auto p-4 space-y-6">
       <PageHeader title={t('title')} description={t('description')} />
-      <SearchForm defaultKeyword={q} />
-      {projects.length === 0 && <Empty icon={BookIcon} title={t('empty')} />}
-      {projects.length > 0 && (
-        <div className="flex flex-col gap-4 min-h-[66vh]">
-          <ProjectList projects={projects} />
-        </div>
-      )}
+      {/* useSearchParams는 정적 렌더링 시 Suspense 경계가 필요하다. 그 전까지는 전체 목록을 보여준다 */}
+      <Suspense
+        fallback={
+          <div className="flex flex-col gap-4 min-h-[66vh]">
+            <ProjectList projects={projects} />
+          </div>
+        }
+      >
+        <ProjectSearch projects={projects} />
+      </Suspense>
     </main>
   );
 }

@@ -55,6 +55,3 @@ export type ProjectTranslationData = Pick<
 
 export type ProjectTranslation = ProjectTranslationTable.Select;
 
-export interface ProjectFilter {
-  q?: string;
-}
