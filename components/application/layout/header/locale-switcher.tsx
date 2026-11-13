@@ -1,7 +1,6 @@
 'use client';
 
 import { useTransition } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { CheckIcon, LanguagesIcon } from 'lucide-react';
 
@@ -26,7 +25,6 @@ export function LocaleSwitcher() {
   const locale = useLocale();
   // 언어 접두어를 뺀 실제 경로(/projects/123)라 동적 세그먼트도 그대로 유지된다
   const pathname = usePathname();
-  const searchParams = useSearchParams();
   const router = useRouter();
   const isMobile = useIsMobile();
   const [isPending, startTransition] = useTransition();
@@ -35,7 +33,8 @@ export function LocaleSwitcher() {
     if (nextLocale === locale) return;
 
     // 검색어(?q=) 같은 쿼리도 유지한 채 언어만 바꾼다
-    const query = searchParams.toString();
+    // useSearchParams는 정적 렌더링 시 Suspense 경계가 필요해 헤더 전체가 영향을 받으므로, 클릭 시점에 직접 읽는다
+    const query = window.location.search.slice(1);
     const href = query ? `${pathname}?${query}` : pathname;
 
     startTransition(() => {
