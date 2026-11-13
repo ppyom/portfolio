@@ -1,16 +1,21 @@
 'use server';
 
 import { revalidatePath } from 'next/cache';
+import { hasLocale } from 'next-intl';
 
 import {
   createProject,
   deleteProject,
+  saveProjectTranslation,
   updateProject,
   updateProjectOrder,
   updateProjectVisibility,
 } from '@/services/project';
 import { extractErrorMessage } from '@/lib/utils/error';
 import { parseProjectFormData } from '@/lib/utils/parse-project-form-data';
+import { getPathname } from '@/i18n/navigation';
+import { routing } from '@/i18n/routing';
+import type { ProjectTranslationData } from '@/types/project';
 
 export async function createProjectAction(formData: FormData) {
   const project = parseProjectFormData(formData);
@@ -42,6 +47,35 @@ export async function updateProjectAction(formData: FormData, id: string) {
 
     revalidatePath('/manage/projects');
     revalidatePath(`/projects/${id}`);
+
+    return { success: true };
+  } catch (error) {
+    return {
+      success: false,
+      message: extractErrorMessage(error),
+    };
+  }
+}
+
+export async function saveProjectTranslationAction(
+  id: string,
+  language: string,
+  data: ProjectTranslationData,
+) {
+  if (!id) {
+    return { success: false, message: '존재하지 않는 프로젝트입니다.' };
+  }
+
+  try {
+    // 지원하지 않는 언어는 서비스에서 throw되므로 아래 hasLocale은 타입 좁히기 용도다
+    await saveProjectTranslation(id, language, data);
+
+    revalidatePath('/manage/projects');
+    if (hasLocale(routing.locales, language)) {
+      for (const href of ['/', '/projects', `/projects/${id}`]) {
+        revalidatePath(getPathname({ href, locale: language }));
+      }
+    }
 
     return { success: true };
   } catch (error) {
