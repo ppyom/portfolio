@@ -1,18 +1,26 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getLocale } from 'next-intl/server';
 
 import { getProject } from '@/services/project';
 import { createAlternates } from '@/lib/i18n/alternates';
+import { resolveRequestLocale } from '@/lib/i18n/request-locale';
 import { ProjectDetail } from '@/components/application/projects/project-detail';
 import { routing } from '@/i18n/routing';
 
 interface Props {
-  params: Promise<{ id: string }>;
+  params: Promise<{ locale: string; id: string }>;
+}
+
+// 빌드 시 DB 조회를 피하고 첫 요청 때 생성해 캐시한다 ([locale]/layout.tsx 참고)
+export function generateStaticParams() {
+  return [];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const [{ id }, locale] = await Promise.all([params, getLocale()]);
+  const [{ id }, locale] = await Promise.all([
+    params,
+    resolveRequestLocale(params),
+  ]);
   const project = await getProject(id, { isPublic: true, language: locale });
 
   if (!project) {
@@ -39,7 +47,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function Page({ params }: Props) {
-  const [{ id }, locale] = await Promise.all([params, getLocale()]);
+  const [{ id }, locale] = await Promise.all([
+    params,
+    resolveRequestLocale(params),
+  ]);
   const project = await getProject(id, { isPublic: true, language: locale });
 
   if (!project) {

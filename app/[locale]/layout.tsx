@@ -4,6 +4,7 @@ import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { config } from '@/lib/config';
+import { resolveRequestLocale } from '@/lib/i18n/request-locale';
 import { RootDocument } from '@/components/provider/root-document';
 import { routing } from '@/i18n/routing';
 
@@ -12,16 +13,15 @@ interface Props {
   params: Promise<{ locale: string }>;
 }
 
+// 빌드 시 미리 렌더링하면 워커들이 동시에 DB에 접속해 빌드가 실패하거나 멈춘다.
+// 빈 배열로 두면 빌드 때는 렌더링하지 않고 첫 요청 때 생성해 캐시한다 (갱신은 관리자 액션의 revalidatePath)
 export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
+  return [];
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { locale: requested } = await params;
-  const locale = hasLocale(routing.locales, requested)
-    ? requested
-    : routing.defaultLocale;
-  const t = await getTranslations({ locale, namespace: 'Metadata' });
+  const locale = await resolveRequestLocale(params);
+  const t = await getTranslations('Metadata');
   const title = { default: t('siteTitle'), template: t('titleTemplate') };
   const description = t('description');
 

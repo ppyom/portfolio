@@ -1,13 +1,18 @@
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 import { BookIcon } from 'lucide-react';
 
 import { getProjects } from '@/services/project';
+import { resolveRequestLocale } from '@/lib/i18n/request-locale';
 import { Section, SectionTitle } from '@/components/ui/section';
 import { ProjectList } from '@/components/application/projects/project-list';
 import { Empty } from '@/components/feedback/empty';
 
-export default async function Page() {
-  const locale = await getLocale();
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export default async function Page({ params }: Props) {
+  const locale = await resolveRequestLocale(params);
   const [projects, t, tProjects] = await Promise.all([
     getProjects({ isPublic: true, language: locale }),
     getTranslations('Home.projects'),

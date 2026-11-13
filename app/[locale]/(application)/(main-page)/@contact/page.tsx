@@ -1,10 +1,16 @@
-import { useTranslations } from 'next-intl';
+import { getTranslations } from 'next-intl/server';
 
+import { resolveRequestLocale } from '@/lib/i18n/request-locale';
 import { Section, SectionTitle } from '@/components/ui/section';
 import { ContactForm } from '@/components/application/contact/contact-form';
 
-export default function Page() {
-  const t = useTranslations('Home.contact');
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export default async function Page({ params }: Props) {
+  await resolveRequestLocale(params);
+  const t = await getTranslations('Home.contact');
 
   return (
     <Section id="contact" className="py-20 px-6 max-w-xl mx-auto space-y-12">

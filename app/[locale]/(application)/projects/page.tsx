@@ -1,14 +1,20 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 import { getProjects } from '@/services/project';
 import { createAlternates } from '@/lib/i18n/alternates';
+import { resolveRequestLocale } from '@/lib/i18n/request-locale';
 import { PageHeader } from '@/components/application/layout';
 import { ProjectList } from '@/components/application/projects/project-list';
 import { ProjectSearch } from '@/components/application/projects/project-search';
 
-export async function generateMetadata(): Promise<Metadata> {
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  await resolveRequestLocale(params);
   const t = await getTranslations('Projects');
 
   return {
@@ -17,8 +23,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Page() {
-  const locale = await getLocale();
+export default async function Page({ params }: Props) {
+  const locale = await resolveRequestLocale(params);
   const [projects, t] = await Promise.all([
     getProjects({ isPublic: true, language: locale }),
     getTranslations('Projects'),

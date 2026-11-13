@@ -1,15 +1,21 @@
 import type { Metadata } from 'next';
-import { getLocale, getTranslations } from 'next-intl/server';
+import { getTranslations } from 'next-intl/server';
 
 import { getResumeUrl } from '@/services/profile';
 import { createAlternates } from '@/lib/i18n/alternates';
+import { resolveRequestLocale } from '@/lib/i18n/request-locale';
 import { Section, SectionTitle } from '@/components/ui/section';
 import { ContactForm } from '@/components/application/contact/contact-form';
 import { ContactLinks } from '@/components/application/contact/contact-links';
 import { PageHeader } from '@/components/application/layout';
 import { ResumeDownloadButton } from '@/components/application/resume/resume-download-button';
 
-export async function generateMetadata(): Promise<Metadata> {
+interface Props {
+  params: Promise<{ locale: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  await resolveRequestLocale(params);
   const t = await getTranslations('Contact');
 
   return {
@@ -18,8 +24,8 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function Page() {
-  const locale = await getLocale();
+export default async function Page({ params }: Props) {
+  const locale = await resolveRequestLocale(params);
   const [resumeUrl, t] = await Promise.all([
     getResumeUrl(locale),
     getTranslations('Contact'),
