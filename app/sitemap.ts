@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 
 import { getProjects } from '@/services/project';
 import { config } from '@/lib/config';
+import { toIsoDateString } from '@/lib/utils/date';
 import { getPathname } from '@/i18n/navigation';
 import { type Locale, routing } from '@/i18n/routing';
 
@@ -42,7 +43,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ...projects.flatMap((project) =>
       createEntries(
         `/projects/${project.id}`,
-        project.updatedAt ?? project.createdAt,
+        toIsoDateString(project.updatedAt ?? project.createdAt),
       ),
     ),
   ];
