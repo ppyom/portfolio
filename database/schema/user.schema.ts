@@ -14,10 +14,6 @@ export const userTable = pgTable(
     name: text('name'),
     admin: boolean().default(false),
   },
-  () => [
-    policies.allUser.read,
-    policies.allUser.insert,
-    policies.self.update('id'),
-    ...policies.admin.all,
-  ],
+  // password가 있고 API로 admin 계정을 만들 수 있으므로 공개 읽기·쓰기 정책을 두지 않는다
+  () => [...policies.admin.all],
 ).enableRLS();

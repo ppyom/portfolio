@@ -36,28 +36,5 @@ export const policies = {
       for: 'select',
       using: sql`true`,
     }),
-    insert: pgPolicy('insert_all', {
-      as: 'permissive',
-      to: 'public',
-      for: 'insert',
-      withCheck: sql`true`,
-    }),
-  },
-  self: {
-    insert: (col: string = 'id') =>
-      pgPolicy('insert_self', {
-        as: 'permissive',
-        to: 'public',
-        for: 'insert',
-        withCheck: sql`${col} = auth.uid()`,
-      }),
-    update: (col: string = 'id') =>
-      pgPolicy('update_self', {
-        as: 'permissive',
-        to: 'public',
-        for: 'update',
-        using: sql`${col} = auth.uid()`,
-        withCheck: sql`${col} = auth.uid()`,
-      }),
   },
 };

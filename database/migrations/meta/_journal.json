@@ -148,6 +148,20 @@
       "when": 1794469289846,
       "tag": "0020_fix_rls_policies",
       "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1794532661429,
+      "tag": "0021_remove_public_policies",
+      "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1794532733996,
+      "tag": "0022_fix_read_all_policies",
+      "breakpoints": true
     }
   ]
 }
