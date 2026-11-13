@@ -13,14 +13,16 @@ import { Button } from '@/components/ui/button';
 import { FormSection } from '@/components/ui/form-section';
 import { toast } from '@/components/ui/toast';
 import { DeleteButton, DeleteDialog } from '@/components/delete';
+import type { Locale } from '@/i18n/routing';
 
 import { getResumeFileName } from './resume-upload.utils';
 
 interface Props {
+  language: Locale;
   resumeUrl?: string | null;
 }
 
-export function ResumeUpload({ resumeUrl }: Props) {
+export function ResumeUpload({ language, resumeUrl }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isPending, startTransition] = useTransition();
 
@@ -39,7 +41,7 @@ export function ResumeUpload({ resumeUrl }: Props) {
     formData.append('file', parsed.data.file);
 
     startTransition(async () => {
-      const result = await uploadResumeAction(formData);
+      const result = await uploadResumeAction(formData, language);
 
       if (result.success) {
         toast.success('이력서가 업로드되었습니다.');
@@ -50,7 +52,7 @@ export function ResumeUpload({ resumeUrl }: Props) {
   };
 
   const handleDelete = async () => {
-    const result = await deleteResumeAction();
+    const result = await deleteResumeAction(language);
 
     if (result.success) {
       toast.success('이력서가 삭제되었습니다.');

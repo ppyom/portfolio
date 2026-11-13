@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
 import { getResumeUrl } from '@/services/profile';
 import { createAlternates } from '@/lib/i18n/alternates';
@@ -19,8 +19,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Page() {
+  const locale = await getLocale();
   const [resumeUrl, t] = await Promise.all([
-    getResumeUrl(),
+    getResumeUrl(locale),
     getTranslations('Contact'),
   ]);
 

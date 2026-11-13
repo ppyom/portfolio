@@ -1,4 +1,5 @@
 import { getServerSession } from 'next-auth';
+import { getLocale } from 'next-intl/server';
 
 import { getResumeUrl } from '@/services/profile';
 import authOptions from '@/lib/auth-options';
@@ -10,9 +11,10 @@ interface Props {
 }
 
 export default async function Layout({ children, modal }: Props) {
+  const locale = await getLocale();
   const [session, resumeUrl] = await Promise.all([
     getServerSession(authOptions),
-    getResumeUrl(),
+    getResumeUrl(locale),
   ]);
 
   return (

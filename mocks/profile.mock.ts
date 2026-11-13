@@ -73,3 +73,23 @@ export const profileMock: Profile = {
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
 };
+
+export const profileEnMock: Profile = {
+  ...profileMock,
+  id: '2',
+  language: 'en',
+  resumeUrl: 'https://example.com/resumes/mock/resume-en.pdf',
+  introduce: [
+    'Hello! I am a frontend developer who enjoys building clear and accessible interfaces.',
+    'I care about readable code, consistent design systems, and small details that make products pleasant to use.',
+  ],
+  experience: profileMock.experience.map((e) => ({
+    ...e,
+    profileId: '2',
+    description: 'Experience 1 (EN)',
+  })),
+  education: profileMock.education.map((e) => ({ ...e, profileId: '2' })),
+  history: profileMock.history.map((h) => ({ ...h, profileId: '2' })),
+};
+
+export const profileMocks: Profile[] = [profileMock, profileEnMock];
