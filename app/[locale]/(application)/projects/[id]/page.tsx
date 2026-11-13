@@ -5,6 +5,7 @@ import { getLocale } from 'next-intl/server';
 import { getProject } from '@/services/project';
 import { createAlternates } from '@/lib/i18n/alternates';
 import { ProjectDetail } from '@/components/application/projects/project-detail';
+import { routing } from '@/i18n/routing';
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -20,8 +21,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const title = project.title;
   const description = project.description ?? undefined;
+  // 기본 언어는 기존 OG 주소를 유지한다
+  const ogQuery = locale === routing.defaultLocale ? '' : `?lang=${locale}`;
   const ogImage: string =
-    project.coverImage?.url ?? `/api/og/project/${project.id}`;
+    project.coverImage?.url ?? `/api/og/project/${project.id}${ogQuery}`;
 
   return {
     title,
