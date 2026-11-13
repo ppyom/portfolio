@@ -33,7 +33,13 @@ export default async function proxy(request: NextRequest) {
     if (!token.user.admin) {
       return NextResponse.redirect(new URL('/', request.url));
     }
-    return NextResponse.next();
+
+    // 방문자 모달의 intercepting 라우트(/[locale]/(.)projects/[id])는 next-url 헤더가 있으면
+    // /manage/projects/[id]도 locale=manage로 가로채 not-found가 된다. 관리자에는 intercepting 라우트가 없으므로 헤더를 지운다
+    // dev 서버는 모든 응답을 가로챌 수 있는 것으로 취급해 이동 시 "CLOSED writable stream" 로그가 찍히지만 동작과 프로덕션에는 영향 없다
+    const headers = new Headers(request.headers);
+    headers.delete('next-url');
+    return NextResponse.next({ request: { headers } });
   }
 
   if (stripLocale(pathname) === '/login') {
