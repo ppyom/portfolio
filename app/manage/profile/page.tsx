@@ -29,6 +29,11 @@ export default async function Page({ searchParams }: Props) {
 
   const profile = await getProfile(language);
   const isFallback = !profile && language !== routing.defaultLocale;
+  // 날짜 등 언어와 무관한 값을 다시 입력하지 않도록, 새 언어 프로필은 한국어 프로필로 미리 채운다
+  // 폼 기본값에는 행 id가 들어가지 않아 저장 시 한국어 행과 충돌하지 않는다
+  const formProfile = isFallback
+    ? await getProfile(routing.defaultLocale)
+    : profile;
 
   return (
     <div className="mx-auto w-full max-w-5xl px-6 py-8 md:px-8 space-y-8">
@@ -43,7 +48,8 @@ export default async function Page({ searchParams }: Props) {
       {isFallback && (
         <p className="rounded-md bg-surface-secondary px-4 py-3 text-sm text-text-secondary">
           아직 {languageNames.of(language)} 프로필이 없어 방문자에게는 한국어
-          프로필이 표시됩니다.
+          프로필이 표시됩니다. 아래 내용은 한국어 프로필에서 가져왔으니 번역해서
+          저장하세요.
         </p>
       )}
       <ResumeUpload
@@ -54,7 +60,7 @@ export default async function Page({ searchParams }: Props) {
       <ProfileEditForm
         key={`profile-${language}`}
         language={language}
-        defaultProfile={profile}
+        defaultProfile={formProfile}
       />
     </div>
   );
