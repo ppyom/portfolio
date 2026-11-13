@@ -4,7 +4,6 @@ import { db } from '@/database';
 import { deleteFiles, insertFiles } from '@/database/queries/file';
 import {
   deleteProjectQuery,
-  getFilteredProjectsQuery,
   getProjectImageIds,
   getProjectQuery,
   getProjectsQuery,
@@ -33,7 +32,6 @@ import { projectMock, projectTranslationMock } from '@/mocks/project.mock';
 import type { DbClient } from '@/types/db';
 import type {
   Project,
-  ProjectFilter,
   ProjectFormData,
   ProjectTranslation,
   ProjectTranslationData,
@@ -114,16 +112,6 @@ export const getProjects = async ({
   if (USE_MOCK) return translateProjects(projectMock, language);
   const projects = await (
     isPublic ? getPublicProjectsQuery : getProjectsQuery
-  ).execute();
-  return translateProjects(projects, language);
-};
-export const getFilteredProjects = async ({
-  q,
-  language,
-}: ProjectFilter & Pick<Options, 'language'> = {}): Promise<Project[]> => {
-  if (USE_MOCK) return translateProjects(projectMock, language);
-  const projects = await (
-    q ? getFilteredProjectsQuery(q) : getPublicProjectsQuery
   ).execute();
   return translateProjects(projects, language);
 };
