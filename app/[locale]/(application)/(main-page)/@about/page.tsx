@@ -1,14 +1,16 @@
-import { getTranslations } from 'next-intl/server';
+import { getLocale, getTranslations } from 'next-intl/server';
 
-import { getProfile } from '@/services/profile';
+import { getPublicProfile, getResumeUrl } from '@/services/profile';
 import { Section, SectionTitle } from '@/components/ui/section';
 import { CareerHistory } from '@/components/application/about/career-history';
 import { Introduction } from '@/components/application/about/introduction';
 import { ResumeDownloadButton } from '@/components/application/resume/resume-download-button';
 
 export default async function Page() {
-  const [profile, t] = await Promise.all([
-    getProfile(),
+  const locale = await getLocale();
+  const [profile, resumeUrl, t] = await Promise.all([
+    getPublicProfile(locale),
+    getResumeUrl(locale),
     getTranslations('Home.about'),
   ]);
 
@@ -26,7 +28,7 @@ export default async function Page() {
             experiences={profile.experience}
             educations={profile.education}
           />
-          <ResumeDownloadButton url={profile.resumeUrl} variant="secondary" />
+          <ResumeDownloadButton url={resumeUrl} variant="secondary" />
         </div>
       </div>
     </Section>
