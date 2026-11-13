@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { FormSection } from '@/components/ui/form-section';
 import { toast } from '@/components/ui/toast';
 import { ObjectArrayField, StringArrayField } from '@/components/form';
+import type { Locale } from '@/i18n/routing';
 import type { Profile } from '@/types/profile';
 
 import {
@@ -23,10 +24,11 @@ import {
 } from './profile-edit-form.utils';
 
 interface Props {
+  language: Locale;
   defaultProfile?: Profile;
 }
 
-export function ProfileEditForm({ defaultProfile }: Props) {
+export function ProfileEditForm({ language, defaultProfile }: Props) {
   const form = useForm<FormDataType>({
     resolver: zodResolver(schema),
     defaultValues: createProfileDefaultValues(defaultProfile),
@@ -40,7 +42,7 @@ export function ProfileEditForm({ defaultProfile }: Props) {
         onSubmit={handleSubmit(
           async (data: FormDataType) => {
             const payload = createProfilePayload(data);
-            const result = await updateProfileAction(payload);
+            const result = await updateProfileAction(payload, language);
 
             if (result.success) {
               toast.success('저장되었습니다.');
