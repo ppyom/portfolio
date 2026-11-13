@@ -1,4 +1,3 @@
-import type { Session } from 'next-auth';
 import { useTranslations } from 'next-intl';
 
 import { ResumeDownloadButton } from '@/components/application/resume/resume-download-button';
@@ -12,11 +11,10 @@ import { MobileHeaderMenu } from './mobile-header-menu';
 import { UserMenu } from './user-menu';
 
 interface Props {
-  session: Session | null;
   resumeUrl?: string | null;
 }
 
-export function Header({ session, resumeUrl }: Props) {
+export function Header({ resumeUrl }: Props) {
   const t = useTranslations('Header');
 
   return (
@@ -32,10 +30,10 @@ export function Header({ session, resumeUrl }: Props) {
           </ResumeDownloadButton>
           <LocaleSwitcher />
           <ThemeToggle />
-          <UserMenu session={session} />
+          <UserMenu />
         </div>
         <div className="block sm:hidden">
-          <MobileHeaderMenu session={session} resumeUrl={resumeUrl} />
+          <MobileHeaderMenu resumeUrl={resumeUrl} />
         </div>
       </div>
     </HeaderWrapper>

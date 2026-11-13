@@ -1,8 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import type { Session } from 'next-auth';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import { LayoutDashboardIcon, LogOutIcon } from 'lucide-react';
 
@@ -17,17 +16,17 @@ import {
   DropdownTrigger,
 } from '@/components/ui/dropdown-menu';
 
-interface Props {
-  session: Session | null;
-}
-
-export function UserMenu({ session }: Props) {
+export function UserMenu() {
   const t = useTranslations('UserMenu');
+  const { data: session, status } = useSession();
   const isMobile = useIsMobile();
 
   const handleLogout = () => {
     signOut();
   };
+
+  // 조회 중에는 로그인 버튼이 잠깐 보였다가 바뀌지 않도록 그리지 않는다
+  if (status === 'loading') return null;
 
   if (!session?.user) {
     return (
