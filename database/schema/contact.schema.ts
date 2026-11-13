@@ -29,5 +29,6 @@ export const contactTable = pgTable(
     updatedAt: text('updated_at').$onUpdate(() => sql`NOW()`),
     deletedAt: text('deleted_at'),
   },
-  () => [policies.allUser.read, policies.allUser.insert, ...policies.admin.all],
+  // 방문자 개인정보가 있고 문의 저장은 Server Action이 처리하므로 공개 정책을 두지 않는다
+  () => [...policies.admin.all],
 ).enableRLS();
