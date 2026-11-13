@@ -27,8 +27,8 @@ export function createProjectPayload(data: FormDataType) {
     ...data,
 
     features: toStringArray(data.features),
-    goals: toStringArray(data.features),
-    results: toStringArray(data.features),
+    goals: toStringArray(data.goals),
+    results: toStringArray(data.results),
 
     member: {
       ...data.member,
