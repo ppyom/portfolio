@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
-import { getHistoriesQuery } from '@/database/queries/history';
+import { getPublicProfile } from '@/services/profile';
 import { resolveRequestLocale } from '@/lib/i18n/request-locale';
 import { Section, SectionTitle } from '@/components/ui/section';
 import { Achievement } from '@/components/application/about/achievement';
@@ -10,9 +10,9 @@ interface Props {
 }
 
 export default async function Page({ params }: Props) {
-  await resolveRequestLocale(params);
-  const [histories, t] = await Promise.all([
-    getHistoriesQuery(),
+  const locale = await resolveRequestLocale(params);
+  const [profile, t] = await Promise.all([
+    getPublicProfile(locale),
     getTranslations('Home.history'),
   ]);
 
@@ -22,7 +22,7 @@ export default async function Page({ params }: Props) {
         <SectionTitle className="text-3xl">{t('title')}</SectionTitle>
         <p className="text-text-muted">{t('description')}</p>
       </div>
-      <Achievement contents={histories} />
+      <Achievement contents={profile?.history ?? []} />
     </Section>
   );
 }
