@@ -36,7 +36,9 @@ export const getRecentMessages = async (limit: number = 5) => {
   return getRecentMessagesQuery.limit(limit).execute();
 };
 
-export const createContact = async (values: FormDataType) => {
+export const createContact = async ({ website, ...values }: FormDataType) => {
+  // 허니팟이 채워진 제출은 봇으로 보고 저장하지 않는다. 호출부는 성공으로 응답해 차단 사실을 숨긴다
+  if (website) return;
   await insertContactQuery(values);
 };
 
