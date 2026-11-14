@@ -20,6 +20,8 @@ export const createSchema = (t: (key: ContactErrorKey) => string) =>
     email: z.email(t('emailInvalid')).nonempty(t('emailRequired')),
     title: z.string().nonempty(t('subjectRequired')),
     content: z.string().nonempty(t('contentRequired')),
+    // 허니팟: 사람에게는 보이지 않는 칸이라 값이 있으면 봇으로 본다. 봇이 막힌 걸 모르도록 검증 에러는 내지 않는다
+    website: z.string().optional(),
   });
 
 export type FormDataType = z.infer<ReturnType<typeof createSchema>>;
