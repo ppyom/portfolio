@@ -1,7 +1,6 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import type { Session } from 'next-auth';
 import { MenuIcon, XIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
@@ -11,16 +10,18 @@ import {
   SheetContent,
   SheetTrigger,
 } from '@/components/ui/sheet';
+import { ResumeDownloadButton } from '@/components/application/resume/resume-download-button';
 import { ThemeToggle } from '@/components/theme/theme-toggle';
 
 import { HeaderNavigation } from './header-navigation';
+import { LocaleSwitcher } from './locale-switcher';
 import { UserMenu } from './user-menu';
 
 interface Props {
-  session: Session | null;
+  resumeUrl?: string | null;
 }
 
-export function MobileHeaderMenu({ session }: Props) {
+export function MobileHeaderMenu({ resumeUrl }: Props) {
   const pathname = usePathname();
 
   return (
@@ -37,8 +38,9 @@ export function MobileHeaderMenu({ session }: Props) {
       >
         <div className="flex gap-2 items-center justify-between">
           <div className="flex-1 ml-2">
-            <UserMenu session={session} />
+            <UserMenu />
           </div>
+          <LocaleSwitcher />
           <ThemeToggle />
           <SheetClose>
             <Button className="text-text-muted" variant="ghost" size="sm">
@@ -49,6 +51,12 @@ export function MobileHeaderMenu({ session }: Props) {
         <nav className="flex flex-col items-center gap-6 text-sm font-medium">
           <HeaderNavigation />
         </nav>
+        <ResumeDownloadButton
+          url={resumeUrl}
+          variant="secondary"
+          size="sm"
+          className="w-full"
+        />
       </SheetContent>
     </Sheet>
   );

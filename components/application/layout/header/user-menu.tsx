@@ -1,8 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import type { Session } from 'next-auth';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 import { LayoutDashboardIcon, LogOutIcon } from 'lucide-react';
 
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -16,21 +16,22 @@ import {
   DropdownTrigger,
 } from '@/components/ui/dropdown-menu';
 
-interface Props {
-  session: Session | null;
-}
-
-export function UserMenu({ session }: Props) {
+export function UserMenu() {
+  const t = useTranslations('UserMenu');
+  const { data: session, status } = useSession();
   const isMobile = useIsMobile();
 
   const handleLogout = () => {
     signOut();
   };
 
+  // 조회 중에는 로그인 버튼이 잠깐 보였다가 바뀌지 않도록 그리지 않는다
+  if (status === 'loading') return null;
+
   if (!session?.user) {
     return (
       <Link href="/login">
-        <Button size="sm">로그인</Button>
+        <Button size="sm">{t('login')}</Button>
       </Link>
     );
   }
@@ -46,13 +47,13 @@ export function UserMenu({ session }: Props) {
         <DropdownItem>
           <Link className="flex items-center gap-2" href="/manage">
             <LayoutDashboardIcon size={14} />
-            포트폴리오 관리자
+            {t('manage')}
           </Link>
         </DropdownItem>
         <DropdownSeparator />
         <DropdownItem onClick={handleLogout}>
           <LogOutIcon size={14} />
-          로그아웃
+          {t('logout')}
         </DropdownItem>
       </DropdownContent>
     </DropdownMenu>

@@ -1,9 +1,11 @@
 import type { CSSProperties } from 'react';
 import { ImageResponse } from 'next/og';
+import { hasLocale } from 'next-intl';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
 
 import { getProject } from '@/services/project';
+import { routing } from '@/i18n/routing';
 
 const containerStyle: CSSProperties = {
   width: '100%',
@@ -22,11 +24,16 @@ const containerStyle: CSSProperties = {
 const imageSize = { width: 1200, height: 630 };
 
 export async function GET(
-  _: Request,
+  request: Request,
   { params }: { params: Promise<{ id: string }> },
 ) {
   const { id } = await params;
-  const project = await getProject(id, { isPublic: true });
+  // /api는 언어 라우팅 밖이라 ?lang=으로 언어를 받고, 지원하지 않는 값이면 기본 언어로 그린다
+  const lang = new URL(request.url).searchParams.get('lang');
+  const language = hasLocale(routing.locales, lang)
+    ? lang
+    : routing.defaultLocale;
+  const project = await getProject(id, { isPublic: true, language });
 
   const font = await readFile(
     path.join(process.cwd(), 'public/fonts/og/SUITE-Bold.otf'),

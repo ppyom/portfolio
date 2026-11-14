@@ -1,5 +1,6 @@
 'use client';
 
+import { useTranslations } from 'next-intl';
 import { ArrowUpRight } from 'lucide-react';
 
 import { cn } from '@/lib/utils';
@@ -22,6 +23,8 @@ export function Header({
   applicationUrl,
   coverImage,
 }: Props) {
+  const t = useTranslations('ProjectDetail');
+
   return (
     <header
       className={cn(
@@ -49,7 +52,7 @@ export function Header({
               {githubUrl && (
                 <a href={githubUrl} target="_blank">
                   <Button className="gap-2" variant="secondary">
-                    GitHub
+                    {t('github')}
                     <ArrowUpRight size={14} />
                   </Button>
                 </a>
@@ -57,7 +60,7 @@ export function Header({
               {applicationUrl && (
                 <a href={applicationUrl} target="_blank">
                   <Button className="gap-2" variant="secondary">
-                    View Site
+                    {t('viewSite')}
                     <ArrowUpRight size={14} />
                   </Button>
                 </a>

@@ -4,7 +4,7 @@
 
 ## 스택
 
-Next.js 16 (App Router, Server Actions) · React 19 · TypeScript (strict) · Tailwind CSS 4 · Drizzle ORM + Supabase(Postgres) · NextAuth · Cloudflare R2 · react-hook-form + zod · Storybook 10 · dayjs · lucide-react
+Next.js 16 (App Router, Server Actions) · next-intl · React 19 · TypeScript (strict) · Tailwind CSS 4 · Drizzle ORM + Supabase(Postgres) · NextAuth · Cloudflare R2 · react-hook-form + zod · Storybook 10 · dayjs · lucide-react
 
 ## 명령어
 
@@ -15,6 +15,7 @@ npx tsc --noEmit          # 타입체크
 npm run build             # 빌드
 npm run storybook         # Storybook (6006)
 npx drizzle-kit generate  # 스키마 변경 → 마이그레이션 파일 생성
+npm run db:migrate        # 마이그레이션 DB 반영 (실패 시 실제 에러 출력)
 ```
 
 `NEXT_PUBLIC_USE_MOCK=true`면 services가 DB 대신 `mocks/` 데이터를 반환한다.
@@ -23,10 +24,10 @@ npx drizzle-kit generate  # 스키마 변경 → 마이그레이션 파일 생�
 
 ```
 app/
-  (application)/        # 방문자 페이지 (route group)
-    (main-page)/@about … # 메인 페이지 parallel routes
-    @modal/(.)projects/  # 프로젝트 상세 intercepting modal
-  manage/<domain>/      # 관리자 페이지 + actions.ts
+  [locale]/(application)/  # 방문자 페이지 (언어별 라우팅)
+    (main-page)/@about …   # 메인 페이지 parallel routes
+    @modal/(.)projects/    # 프로젝트 상세 intercepting modal
+  manage/<domain>/      # 관리자 페이지 + actions.ts (한국어 전용, [locale] 밖)
   api/                  # auth, og 이미지
 components/
   ui/<name>/            # 디자인 시스템 primitive (stories + docs 필수)
@@ -47,7 +48,17 @@ hooks/use-<x>.ts
 types/<x>.d.ts          # 도메인 타입
 mocks/<x>.mock.ts
 theme/*.css             # 디자인 토큰
+i18n/                   # routing(지원 언어), request(메시지 로드), navigation(언어 유지 Link/router)
+messages/<locale>.json  # UI 번역 문구 (ko.json이 키 타입 기준)
 ```
+
+## 다국어 (next-intl)
+
+- 지원 언어는 `i18n/routing.ts`의 `locales`에서만 정의한다. 언어 목록이 필요한 UI(언어 전환, 관리자 언어 탭)는 여기서 생성하고 하드코딩하지 않는다.
+- URL: 한국어는 접두어 없음(`/about`), 그 외 언어는 `/en/about` (`localePrefix: 'as-needed'`). `/ko/...`는 접두어 없는 URL로 리다이렉트된다.
+- 방문자 페이지에서 내부 이동은 `next/link`, `next/navigation` 대신 `@/i18n/navigation`의 `Link`, `useRouter`, `usePathname`, `redirect`를 쓴다. (관리자로 가는 링크와 `notFound`, `useSearchParams`는 Next 기본 API 사용)
+- 방문자 페이지는 `generateMetadata`에서 `createAlternates('<경로>')`(`@/lib/i18n/alternates`)로 hreflang을 지정한다.
+- 관리자(`/manage`), `/api`는 언어 라우팅 밖이며 한국어 전용이다.
 
 ## 데이터 흐름 (레이어 규칙)
 
@@ -130,7 +141,8 @@ ESLint(`simple-import-sort`)가 강제한다: 외부 라이브러리 → `@/app`
 - 테이블 변수명 `<x>Table`, 컬럼은 camelCase ↔ DB snake_case.
 - `id`는 uuid + `gen_random_uuid()`, `createdAt` / `updatedAt` 포함.
 - RLS: `.enableRLS()`와 `database/policies.ts`의 정책을 붙인다 (기본: `policies.allUser.read, ...policies.admin.all`).
-- 스키마 변경 후 `npx drizzle-kit generate`로 마이그레이션 생성. **`drizzle-kit migrate`(실제 DB 반영)는 사용자 확인 후에만.**
+- 스키마 변경 후 `npx drizzle-kit generate`로 마이그레이션 생성. **`npm run db:migrate`(실제 DB 반영)는 사용자 확인 후에만.**
+- `npx drizzle-kit migrate`는 실패해도 에러를 출력하지 않으므로 쓰지 않는다.
 - `database/types/<x>.d.ts`에 `namespace XTable { type Select; type Insert }`를 추가한다.
 
 ### 훅·유틸

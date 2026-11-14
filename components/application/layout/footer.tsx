@@ -1,13 +1,16 @@
+import { useTranslations } from 'next-intl';
+
 import { socialLinks } from '@/lib/constants/social-links';
 import { Button } from '@/components/ui/button';
 
 export function Footer() {
+  const t = useTranslations('Footer');
   const currentYear = new Date().getFullYear();
 
   return (
     <footer className="bg-surface-primary border-t py-12 pb-20">
       <div className="mx-auto flex max-w-4xl flex-col items-center justify-between gap-4 px-6 text-sm text-text-muted md:flex-row">
-        <p>&copy; {currentYear} Yejin Lee. All rights reserved.</p>
+        <p>{t('copyright', { year: currentYear })}</p>
         <div className="flex items-center gap-2">
           {socialLinks.map((link) => (
             <a

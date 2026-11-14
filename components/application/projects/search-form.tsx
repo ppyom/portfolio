@@ -1,17 +1,19 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 import { SearchIcon, Undo2Icon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useRouter } from '@/i18n/navigation';
 
 interface Props {
   defaultKeyword?: string;
 }
 
 export function SearchForm({ defaultKeyword = '' }: Props) {
+  const t = useTranslations('Projects');
   const router = useRouter();
   const [keyword, setKeyword] = useState(defaultKeyword);
 
@@ -23,7 +25,7 @@ export function SearchForm({ defaultKeyword = '' }: Props) {
   const handleSearch = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    router.push(`/projects?q=${keyword}`);
+    router.push(`/projects?q=${encodeURIComponent(keyword)}`);
   };
 
   return (
@@ -32,14 +34,14 @@ export function SearchForm({ defaultKeyword = '' }: Props) {
         className="flex-1"
         value={keyword}
         onChange={({ target }) => setKeyword(target.value)}
-        placeholder="프로젝트, 기술 스택, 카테고리를 검색해보세요."
+        placeholder={t('searchPlaceholder')}
       />
       {!!defaultKeyword && (
         <Button
           type="button"
           variant="secondary"
           onClick={handleReset}
-          title="입력 초기화"
+          title={t('resetSearch')}
         >
           <Undo2Icon size={14} />
         </Button>

@@ -1,0 +1,130 @@
+{
+  "Metadata": {
+    "siteTitle": "이예진 | Portfolio",
+    "titleTemplate": "%s | 이예진 포트폴리오",
+    "description": "이예진의 포트폴리오입니다."
+  },
+  "Common": {
+    "name": "이예진",
+    "role": "Frontend Developer",
+    "resumeDownload": "이력서 다운로드"
+  },
+  "LocaleSwitcher": {
+    "label": "언어 변경"
+  },
+  "Header": {
+    "resume": "이력서"
+  },
+  "UserMenu": {
+    "login": "로그인",
+    "manage": "포트폴리오 관리자",
+    "logout": "로그아웃"
+  },
+  "Nav": {
+    "intro": "Intro",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "history": "History",
+    "contact": "Contact"
+  },
+  "Footer": {
+    "copyright": "© {year} Yejin Lee. All rights reserved."
+  },
+  "Home": {
+    "tagline": "사용자와 개발자 모두가 만족할 수 있는<br></br>웹 애플리케이션을 만듭니다.",
+    "viewProjects": "프로젝트 보기",
+    "contactMe": "연락하기",
+    "about": {
+      "title": "About Me"
+    },
+    "skills": {
+      "title": "Skills & Tools",
+      "description": "주로 사용하는 기술과 도구입니다."
+    },
+    "projects": {
+      "title": "Projects",
+      "description": "진행한 프로젝트입니다."
+    },
+    "history": {
+      "title": "Learning & Growth",
+      "description": "학습 및 활동 이력입니다."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "문의 사항이 있다면 연락해 주세요."
+    }
+  },
+  "About": {
+    "title": "About",
+    "heading": "이예진 (Yejin Lee)",
+    "achievements": "🏆 Achievements",
+    "techStack": "🛠 Tech Stack",
+    "experience": "Experience",
+    "education": "Education",
+    "employed": "재직중",
+    "enrolled": "재학중"
+  },
+  "Achievement": {
+    "type": {
+      "learning": "📖 학습",
+      "certification": "🪪 자격증",
+      "activity": "🌱 활동"
+    }
+  },
+  "Projects": {
+    "title": "프로젝트 목록",
+    "description": "진행했던 프로젝트들을 정리했습니다.",
+    "empty": "등록된 프로젝트가 없습니다.",
+    "searchPlaceholder": "프로젝트, 기술 스택, 카테고리를 검색해보세요.",
+    "resetSearch": "입력 초기화"
+  },
+  "ProjectDetail": {
+    "overview": "프로젝트 개요",
+    "features": "주요 기능",
+    "techStack": "사용 기술",
+    "member": "프로젝트 구성원",
+    "goals": "목표",
+    "results": "성과",
+    "images": "시연 이미지",
+    "imageAlt": "시연 이미지 {index}",
+    "memberSize": "인원",
+    "memberCount": "{count}명",
+    "role": "역할",
+    "responsibilities": "담당 업무",
+    "github": "GitHub",
+    "viewSite": "View Site",
+    "notFoundTitle": "프로젝트를 찾을 수 없습니다.",
+    "notFoundDescription": "존재하지 않거나 삭제된 프로젝트입니다.",
+    "goBack": "이전 페이지로 이동하기"
+  },
+  "Contact": {
+    "title": "Contact",
+    "description": "문의 사항이나 협업 제안이 있다면 편하게 연락해 주세요.",
+    "formTitle": "문의하기",
+    "infoTitle": "연락처 정보",
+    "infoDescription": "아래 정보를 통해 직접 연락하실 수 있습니다."
+  },
+  "ContactForm": {
+    "name": "이름",
+    "company": "회사명",
+    "email": "이메일 주소",
+    "subject": "제목",
+    "content": "내용",
+    "submit": "문의 남기기",
+    "success": "메시지 전달이 완료되었습니다.",
+    "failure": "메시지 전송에 실패했습니다. 잠시 후 다시 시도해주세요.",
+    "errors": {
+      "nameRequired": "이름은 필수 입력 항목입니다.",
+      "emailRequired": "이메일은 필수 입력 항목입니다.",
+      "emailInvalid": "이메일 주소 형식이 올바르지 않습니다.",
+      "subjectRequired": "제목은 필수 입력 항목입니다.",
+      "contentRequired": "내용은 필수 입력 항목입니다."
+    }
+  },
+  "NotFound": {
+    "title": "요청하신 페이지를 찾을 수 없습니다.",
+    "description": "주소가 잘못되었거나 페이지가 이동/삭제되었을 수 있습니다.",
+    "goHome": "메인 페이지로 이동하기"
+  }
+}

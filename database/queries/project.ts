@@ -1,4 +1,4 @@
-import { and, asc, count, desc, eq, ilike, or, sql } from 'drizzle-orm';
+import { and, asc, count, desc, eq, sql } from 'drizzle-orm';
 
 import { db } from '@/database';
 import { fileTable } from '@/database/schema/file.schema';
@@ -6,7 +6,7 @@ import { projectTable } from '@/database/schema/project.schema';
 import { techStackTable } from '@/database/schema/tech-stack.schema';
 import { ProjectTable, type TechStackTable } from '@/database/types/project';
 import type { DbClient } from '@/types/db';
-import type { ImageFile, ProjectFilter } from '@/types/project';
+import type { ImageFile } from '@/types/project';
 
 const baseQuery = () =>
   db
@@ -87,22 +87,6 @@ export const getTotalProjectCountQuery = db
   .select({ count: count() })
   .from(projectTable)
   .prepare('get_total_project_count');
-export const getFilteredProjectsQuery = (q: ProjectFilter['q']) => {
-  const keyword = `%${q}%`;
-
-  return baseQuery().where(
-    and(
-      eq(projectTable.isPublic, true),
-      or(
-        ilike(projectTable.title, keyword),
-        ilike(projectTable.description, keyword),
-        ilike(projectTable.category, keyword),
-        ilike(sql`array_to_string(${techStackTable.stacks}, ',')`, keyword),
-      ),
-    ),
-  );
-};
-
 export const insertProjectQuery = (
   values: ProjectTable.Insert,
   client: DbClient = db,

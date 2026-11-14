@@ -1,14 +1,16 @@
 'use client';
 
-import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 import { sections } from '@/lib/constants/sections';
 import { cn } from '@/lib/utils';
 import { useScrollSpy } from '@/hooks/use-scroll-spy';
 import { useScrollVisibility } from '@/hooks/use-scroll-visibility';
 import { Button } from '@/components/ui/button';
+import { Link } from '@/i18n/navigation';
 
 export function SectionNavigation() {
+  const t = useTranslations('Nav');
   const activeId = useScrollSpy(sections.map((s) => s.id));
   const { visible } = useScrollVisibility();
 
@@ -24,14 +26,14 @@ export function SectionNavigation() {
     >
       {sections.map((section) => (
         <Link
-          key={`nav__${section.name}`}
+          key={`nav__${section.id}`}
           className="group/item relative flex items-center"
           href={section.link}
         >
           <Button
             variant="ghost"
             size="sm"
-            title={section.name}
+            title={t(section.labelKey)}
             className={cn(
               'rounded-full',
               activeId === section.id &&
@@ -50,7 +52,7 @@ export function SectionNavigation() {
                 activeId === section.id && 'text-brand-primary!',
               )}
             >
-              {section.name}
+              {t(section.labelKey)}
             </span>
           </Button>
         </Link>

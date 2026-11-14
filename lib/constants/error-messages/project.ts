@@ -10,4 +10,7 @@ export const projectErrorMessages = {
       size: '전체 인원은 최소 1명 이상 입력해야 합니다.',
     },
   },
+  translation: {
+    invalidLanguage: '번역을 지원하지 않는 언어입니다.',
+  },
 } as const;

@@ -15,4 +15,5 @@ export const profileErrorMessages = {
       date: '날짜는 필수 입력 항목입니다.',
     },
   },
+  invalidLanguage: '지원하지 않는 언어입니다.',
 } as const;

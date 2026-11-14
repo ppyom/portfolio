@@ -1,8 +1,8 @@
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { Badge } from '@/components/ui/badge';
 import { SkillTag } from '@/components/application/skills/skill-tag';
+import { Link } from '@/i18n/navigation';
 import type { Project } from '@/types/project';
 
 type Props = Project;
