@@ -71,6 +71,18 @@ export function ContactForm() {
             />
           </Field>
         </div>
+        {/* 허니팟: display:none이면 봇이 건너뛰므로 화면 밖으로 옮겨 숨긴다 */}
+        <div
+          aria-hidden
+          className="absolute -left-[9999px] size-px overflow-hidden"
+        >
+          <input
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            {...register('website')}
+          />
+        </div>
         <Button type="submit" className="w-full mt-4" size="lg">
           {t('submit')}
         </Button>
